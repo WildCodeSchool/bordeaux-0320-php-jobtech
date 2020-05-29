@@ -1,9 +1,15 @@
+// Library
+@import "~bootstrap/scss/bootstrap";
+
+// Override Bootstrap
+@import "override/bootstrap";
+
+// JobTech
 @import "vars";
 
-body {
-    background-color: $secondary-color;
-}
-
-a {
-    color: $warm-color;
+.main-container {
+    @media (min-width: 992px) {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
 }
