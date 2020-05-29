@@ -1,3 +1,4 @@
+/* eslint-disable */
 var Encore = require('@symfony/webpack-encore');
 
 Encore
