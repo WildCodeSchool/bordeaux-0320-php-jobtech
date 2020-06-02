@@ -2,12 +2,25 @@
 @import "~bootstrap/scss/bootstrap";
 
 // Override Bootstrap
-@import "override/bootstrap";
+@import "bootstrap-override";
 
 // JobTech
-@import "vars";
+@import "_vars";
+
+// Components
+@import "components/_navbar";
+
+body {
+    background-image: url("/build/images/background.jpg");
+    font-family: $montserra;
+    h1 {
+        font-family: $baloo2;
+    }
+}
 
 .main-container {
+    height: 100vh;
+    background-color: white;
     @media (min-width: 992px) {
         margin-left: 10%;
         margin-right: 10%;
