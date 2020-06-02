@@ -82,7 +82,7 @@ class UserInformation
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $cv;
+    private $curriculumVitae;
 
     /**
      * @ORM\ManyToMany(targetEntity=License::class)
@@ -265,14 +265,14 @@ class UserInformation
         return $this;
     }
 
-    public function getCv(): ?string
+    public function getCurriculumVitae(): ?string
     {
-        return $this->cv;
+        return $this->curriculumVitae;
     }
 
-    public function setCv(?string $cv): self
+    public function setCurriculumVitae(?string $curriculumVitae): self
     {
-        $this->cv = $cv;
+        $this->curriculumVitae = $curriculumVitae;
 
         return $this;
     }
