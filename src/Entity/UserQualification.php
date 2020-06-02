@@ -23,7 +23,7 @@ class UserQualification
     private $title;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="userQualifications")
+     * @ORM\ManyToOne(targetEntity=UserInformation::class, inversedBy="userQualifications")
      * @ORM\JoinColumn(nullable=false)
      */
     private $userInformation;

@@ -18,12 +18,12 @@ class Mobility
     private $id;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", options={"default":0})
      */
     private $isInternational;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", options={"default":0})
      */
     private $isNational;
 

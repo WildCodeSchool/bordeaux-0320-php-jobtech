@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ProfessionRepository;
+use App\Repository\JobRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ProfessionRepository::class)
+ * @ORM\Entity(repositoryClass=JobRepository::class)
  */
-class Profession
+class Job
 {
     /**
      * @ORM\Id()
@@ -28,9 +28,10 @@ class Profession
     private $identifier;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Expertise::class)
+     * @ORM\ManyToOne(targetEntity=JobCategory::class)
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $expertise;
+    private $jobCategory;
 
     public function getId(): ?int
     {
@@ -61,14 +62,14 @@ class Profession
         return $this;
     }
 
-    public function getExpertise(): ?Expertise
+    public function getJobCategory(): ?JobCategory
     {
-        return $this->expertise;
+        return $this->jobCategory;
     }
 
-    public function setExpertise(?Expertise $expertise): self
+    public function setJobCategory(?JobCategory $jobCategory): self
     {
-        $this->expertise = $expertise;
+        $this->jobCategory = $jobCategory;
 
         return $this;
     }

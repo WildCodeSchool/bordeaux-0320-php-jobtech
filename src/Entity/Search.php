@@ -31,14 +31,14 @@ class Search
     private $contract;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Profession::class)
+     * @ORM\ManyToMany(targetEntity=Job::class)
      */
-    private $profession;
+    private $job;
 
     public function __construct()
     {
         $this->contract = new ArrayCollection();
-        $this->profession = new ArrayCollection();
+        $this->job = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,26 +85,26 @@ class Search
     }
 
     /**
-     * @return Collection|Profession[]
+     * @return Collection|Job[]
      */
-    public function getProfession(): Collection
+    public function getJob(): Collection
     {
-        return $this->profession;
+        return $this->job;
     }
 
-    public function addProfession(Profession $profession): self
+    public function addJob(Job $job): self
     {
-        if (!$this->profession->contains($profession)) {
-            $this->profession[] = $profession;
+        if (!$this->job->contains($job)) {
+            $this->job[] = $job;
         }
 
         return $this;
     }
 
-    public function removeProfession(Profession $profession): self
+    public function removeJob(Job $job): self
     {
-        if ($this->profession->contains($profession)) {
-            $this->profession->removeElement($profession);
+        if ($this->job->contains($job)) {
+            $this->job->removeElement($job);
         }
 
         return $this;

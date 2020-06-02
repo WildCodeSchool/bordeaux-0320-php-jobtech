@@ -18,17 +18,17 @@ class CurrentSituation
     private $id;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default":0})
      */
     private $isPoleEmploi;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default":0})
      */
     private $isInterim;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default":0})
      */
     private $isUnemployed;
 
@@ -38,9 +38,9 @@ class CurrentSituation
     private $contract;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Profession::class)
+     * @ORM\ManyToOne(targetEntity=Job::class)
      */
-    private $profession;
+    private $job;
 
     public function getId(): ?int
     {
@@ -95,14 +95,14 @@ class CurrentSituation
         return $this;
     }
 
-    public function getProfession(): ?Profession
+    public function getJob(): ?Job
     {
-        return $this->profession;
+        return $this->job;
     }
 
-    public function setProfession(?Profession $profession): self
+    public function setJob(?Job $job): self
     {
-        $this->profession = $profession;
+        $this->job = $job;
 
         return $this;
     }

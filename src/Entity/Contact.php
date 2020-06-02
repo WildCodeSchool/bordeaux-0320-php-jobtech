@@ -28,7 +28,7 @@ class Contact
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=60)
+     * @ORM\Column(type="string", length=80)
      */
     private $email;
 

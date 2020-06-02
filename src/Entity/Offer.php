@@ -67,14 +67,15 @@ class Offer
 
     /**
      * @ORM\ManyToOne(targetEntity=Contract::class)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $contract;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Profession::class)
+     * @ORM\ManyToOne(targetEntity=Job::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $profession;
+    private $job;
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, mappedBy="offer")
@@ -217,14 +218,14 @@ class Offer
         return $this;
     }
 
-    public function getProfession(): ?Profession
+    public function getJob(): ?Job
     {
-        return $this->profession;
+        return $this->job;
     }
 
-    public function setProfession(?Profession $profession): self
+    public function setJob(?Job $job): self
     {
-        $this->profession = $profession;
+        $this->job = $job;
 
         return $this;
     }

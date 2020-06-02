@@ -45,37 +45,37 @@ class UserInformation
     private $homeNumber;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $postalCode;
 
     /**
-     * @ORM\Column(type="string", length=60, nullable=true)
+     * @ORM\Column(type="string", length=60)
      */
     private $city;
 
     /**
-     * @ORM\Column(type="string", length=60, nullable=true)
+     * @ORM\Column(type="string", length=60)
      */
     private $country;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", options={"default":0})
      */
     private $isHandicaped;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", options={"default":0})
      */
     private $isContactableTel;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", options={"default":0})
      */
     private $isContactableEmail;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", options={"default":0})
      */
     private $haveVehicle;
 
@@ -95,7 +95,7 @@ class UserInformation
     private $mobility;
 
     /**
-     * @ORM\OneToMany(targetEntity=UserQualification::class, mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=UserQualification::class, mappedBy="userInformation", orphanRemoval=true)
      */
     private $userQualifications;
 

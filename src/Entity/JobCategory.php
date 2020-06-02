@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ExpertiseRepository;
+use App\Repository\JobCategoryRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ExpertiseRepository::class)
+ * @ORM\Entity(repositoryClass=JobCategoryRepository::class)
  */
-class Expertise
+class JobCategory
 {
     /**
      * @ORM\Id()
