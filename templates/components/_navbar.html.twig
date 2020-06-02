@@ -1,3 +1,24 @@
-<nav>
+<nav class="navbar navbar-expand-lg bg-jade d-flex p-0">
+    <a class="navbar-brand" href="{{ path('index') }}">
+        <img src="{{ asset('/build/images/logo.svg') }}" alt="Logo JobTech">
+    </a>
 
+    <button class="navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end bg-jade pl-3 pl-lg-0" id="navbarNav">
+        <ul class="navbar-nav d-flex w-100">
+            <li class="nav-item">
+                <a class="nav-link" href="">News</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">Nos Offres</a>
+            </li>
+            <li class="ml-lg-auto mr-3 nav-item">
+                <a class="nav-link" href="">Mon Espace <i class="far fa-user"></i></a>
+            </li>
+        </ul>
+    </div>
 </nav>
