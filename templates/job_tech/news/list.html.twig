@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}News{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Toutes les News : </h1>
+    {% for new in news %}
+        <div>
+            <h2>{{ new.createdOn | date('Y/m/d h:i') }} - {{ new.title }} - {{ new.description }}</h2>
+            <p>{{ new.article }}</p>
+            <div class="figure-caption">{{ new.image }}</div>
+        </div>
+    {% else %}
+        Aucune news trouvée.
+    {% endfor %}
+    <a href="{{ path('index') }}">
+        Retour à l'accueil
+    </a>
+{% endblock %}
