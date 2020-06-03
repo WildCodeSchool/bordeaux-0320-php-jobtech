@@ -3,14 +3,24 @@ nav {
     width: 100%;
     background-color: $jade;
 
-    img {
-        height: 60px;
-        width: auto;
-        margin-left: 30px;
+    .navbar-brand {
+        img {
+            height: 60px;
+            width: auto;
+            margin-left: 30px;
+        }
+
+        span {
+            padding-left: 10px;
+            font-size: 1.3rem;
+            color: white;
+        }
     }
+
 
     .nav-link {
         color: white;
+        font-size: 1.2rem;
 
         &:hover {
             color: $brown;

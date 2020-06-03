@@ -13,6 +13,7 @@
 // Main
 body {
     background-image: url("/build/images/background.jpg");
+    background-size: cover;
     font-family: $montserra;
 
     h1 {
@@ -23,6 +24,7 @@ body {
 .main-container {
     height: calc(100vh - 70px);
     background-color: white;
+    box-shadow: 0 0 10px 10px $jade;
     @media (min-width: 992px) {
         margin-left: 10%;
         margin-right: 10%;
