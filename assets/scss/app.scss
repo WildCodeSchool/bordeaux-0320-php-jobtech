@@ -7,13 +7,16 @@
 // JobTech
 @import "_vars";
 
+// Offer
+@import "offer/offerlist";
+
 // Components
 @import "components/_navbar";
 
 // Main
 body {
     background-image: url("/build/images/background.jpg");
-    font-family: $montserra;
+    font-family: $montserrat;
 
     h1 {
         font-family: $baloo2;
