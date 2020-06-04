@@ -14,11 +14,9 @@ class NewsController extends AbstractController
      * @Route("/news", name="news_list")
      * @return Response A response instance
      */
-    public function list(): Response
+    public function list(NewsRepository $newsRepository): Response
     {
-        $news = $this->getDoctrine()
-            ->getRepository(News::class)
-            ->findBy([], ['createdOn' => 'DESC'], 5, 0);
+        $news = $newsRepository->findBy([], ['createdOn' => 'DESC'], 5, 0);
 
         if (!$news) {
             throw $this->createNotFoundException(
