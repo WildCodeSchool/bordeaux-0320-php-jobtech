@@ -7,6 +7,9 @@
 // JobTech
 @import "_vars";
 
+// Offer
+@import "offer/offerlist";
+
 // Components
 @import "components/_navbar";
 
@@ -16,8 +19,8 @@
 // Main
 body {
     background-image: url("/build/images/background.jpg");
+    font-family: $montserrat;
     background-size: cover;
-    font-family: $montserra;
 
     h1 {
         font-family: $baloo2;
@@ -25,7 +28,7 @@ body {
 }
 
 .main-container {
-    height: calc(100vh - 70px);
+    height: calc(100% - 70px);
     background-color: white;
     box-shadow: 0 0 10px 10px $jade;
     @media (min-width: 992px) {

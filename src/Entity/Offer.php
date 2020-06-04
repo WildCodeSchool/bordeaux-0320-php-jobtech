@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\OfferRepository;
+use App\Service\Date;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -53,6 +54,8 @@ class Offer
      * @ORM\Column(type="datetime")
      */
     private $createdOn;
+
+    private $interval;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -170,7 +173,7 @@ class Offer
         return $this;
     }
 
-    public function getCreatedOn(): ?\DateTimeInterface
+    public function getCreatedOn(): \DateTimeInterface
     {
         return $this->createdOn;
     }
@@ -178,6 +181,18 @@ class Offer
     public function setCreatedOn(\DateTimeInterface $createdOn): self
     {
         $this->createdOn = $createdOn;
+
+        return $this;
+    }
+
+    public function getInterval(): \DateInterval
+    {
+        return $this->interval;
+    }
+
+    public function setInterval(): self
+    {
+        $this->interval = Date::dateIntervalBetweenNowAnd($this->getCreatedOn());
 
         return $this;
     }

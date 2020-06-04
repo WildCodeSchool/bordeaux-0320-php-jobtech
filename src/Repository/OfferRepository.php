@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Offer;
+use App\Service\Date;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,6 +18,15 @@ class OfferRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Offer::class);
+    }
+
+    public function findByAndAddInterval(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+    {
+        $offers = $this->findBy($criteria, $orderBy, $limit, $offset);
+        foreach ($offers as $offer) {
+            $offer->setInterval();
+        }
+        return $offers;
     }
 
     // /**
