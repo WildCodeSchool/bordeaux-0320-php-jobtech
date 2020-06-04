@@ -9,10 +9,10 @@
 <div class="card mb-3 offer-card">
     <div class="card-body">
         <h5 class="card-title">{{ offer.title }}</h5>
-        <div class="card-text"><i class="fas fa-map-marker-alt"></i> {{ offer.city }}</div>
-        <div><i class="far fa-calendar-alt"></i> Durée du poste : {{ offer.duration }}</div>
-        <div>Description du poste : {{ offer.description }}</div>
-        <div class="date">L'offre date de {{ offer.interval | date('%a') }} jours</div>
+        <p class="card-text"><i class="fas fa-map-marker-alt"></i> {{ offer.city }}</p>
+        <p><i class="far fa-calendar-alt"></i> Durée du poste : {{ offer.duration }}</p>
+        <p><i class="fas fa-arrow-right"></i> Description du poste : {{ offer.description }}</p>
+        <p class="date">L'offre date de {{ offer.interval | date('%a') }} jours</p>
     </div>
 </div>
 

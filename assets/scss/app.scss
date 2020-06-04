@@ -1,42 +1,21 @@
 // Library
-@import "~bootstrap/scss/bootstrap";
+@import '~bootstrap/scss/bootstrap';
 
 // Override Bootstrap
-@import "bootstrap-override";
+@import 'bootstrap-override';
 
 // JobTech
-@import "_vars";
+@import '_vars';
+@import 'main';
+
+// Components
+@import 'components/_navbar';
+@import 'components/_carousel';
+@import 'components/_login';
 
 // Offer
-@import "offer/offerlist";
+@import 'offer/offerlist';
 
-// Components
-@import "components/_navbar";
+// News
 
-// Components
-@import "components/_login";
-
-// Main
-body {
-    background-image: url("/build/images/background.jpg");
-    font-family: $montserrat;
-    background-size: cover;
-
-    h1 {
-        font-family: $baloo2;
-    }
-}
-
-.main-container {
-    height: calc(100% - 70px);
-    background-color: white;
-    box-shadow: 0 0 10px 10px $jade;
-    @media (min-width: 992px) {
-        margin-left: 10%;
-        margin-right: 10%;
-    }
-}
-
-.bg-jade {
-    background-color: $jade;
-}
+@import 'news/newslist';

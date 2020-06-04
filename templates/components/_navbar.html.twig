@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-jade d-flex p-0">
+<nav class="navbar navbar-expand-lg bg-jade d-flex p-0 fixed-top">
     <a class="navbar-brand" href="{{ path('index') }}">
         <img src="{{ asset('/build/images/logo-mini.svg') }}" alt="Logo JobTech">
         <span>Job-Tech</span>
@@ -18,7 +18,7 @@
                 <a class="nav-link" href="{{ path('offer_list') }}">Nos Offres</a>
             </li>
             <li class="ml-lg-auto mr-3 nav-item">
-                {{ include('/components/_login.html.twig') }}
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"> Mon espace <i class="far fa-user"></i></button>
             </li>
         </ul>
     </div>

@@ -18,10 +18,11 @@
 {% block header %}
     <header>
         {% include 'components/_navbar.html.twig' %}
+        {{ include('/components/_login.html.twig') }}
     </header>
 {% endblock %}
-
 <main class="main-container">
+    {% include 'components/_carousel.html.twig' %}
     {% block body %}
 
     {% endblock %}
