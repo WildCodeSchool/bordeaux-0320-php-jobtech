@@ -15,4 +15,12 @@ class JobTechController extends AbstractController
     {
         return $this->render('job_tech/index.html.twig');
     }
+
+    /**
+     * @Route("/registration", name="registration")
+     */
+    public function registration(): Response
+    {
+        return $this->render('job_tech/registration.html.twig');
+    }
 }
