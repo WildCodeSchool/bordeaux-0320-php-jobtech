@@ -37,6 +37,11 @@ class News
      */
     private $description;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdOn;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +91,18 @@ class News
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getCreatedOn(): ?\DateTimeInterface
+    {
+        return $this->createdOn;
+    }
+
+    public function setCreatedOn(\DateTimeInterface $createdOn): self
+    {
+        $this->createdOn = $createdOn;
 
         return $this;
     }
