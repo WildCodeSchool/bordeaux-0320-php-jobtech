@@ -13,10 +13,14 @@
 // Components
 @import "components/_navbar";
 
+// Components
+@import "components/_login";
+
 // Main
 body {
     background-image: url("/build/images/background.jpg");
     font-family: $montserrat;
+    background-size: cover;
 
     h1 {
         font-family: $baloo2;
@@ -26,6 +30,7 @@ body {
 .main-container {
     height: calc(100% - 70px);
     background-color: white;
+    box-shadow: 0 0 10px 10px $jade;
     @media (min-width: 992px) {
         margin-left: 10%;
         margin-right: 10%;

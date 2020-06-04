@@ -62,7 +62,7 @@ class UserInformation
     /**
      * @ORM\Column(type="boolean", options={"default":0})
      */
-    private $isHandicaped;
+    private $isHandicapped;
 
     /**
      * @ORM\Column(type="boolean", options={"default":0})
@@ -217,14 +217,14 @@ class UserInformation
         return $this;
     }
 
-    public function getIsHandicaped(): ?bool
+    public function getIsHandicapped(): ?bool
     {
-        return $this->isHandicaped;
+        return $this->isHandicapped;
     }
 
-    public function setIsHandicaped(?bool $isHandicaped): self
+    public function setIsHandicapped(?bool $isHandicapped): self
     {
-        $this->isHandicaped = $isHandicaped;
+        $this->isHandicapped = $isHandicapped;
 
         return $this;
     }

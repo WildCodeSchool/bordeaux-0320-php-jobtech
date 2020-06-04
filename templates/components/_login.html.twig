@@ -1,0 +1,25 @@
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"> Mon espace <i class="far fa-user"></i>
+</button>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content d-flex flex-row">
+            <div class="modal-login left">
+                <h2>Connectez-vous</h2>
+                <h3>en tant que </h3>
+                <p class="login">
+                    LOGIN ICI
+                </p>
+                <button type="button" class="btn btn-success button-login">Se connecter</button>
+
+            </div>
+            <div class="modal-login right">
+                <h2 class="modal-title-right">Vous n'avez pas encore de compte ?</h2>
+                <a type="button" href="{{ path('registration') }}" class="btn btn-light button-registration">S'inscrire</a>
+            </div>
+        </div>
+    </div>
+</div>
