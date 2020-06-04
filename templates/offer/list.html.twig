@@ -6,15 +6,14 @@
 {% block body %}
     <div class="offer-title">Les dernières offres</div>
 {% for offer in offers %}
-<div class="card mb-3 offer-card" style="width: 70rem;">
-    <div class="col-md-8"></div>
-        <div class="card-body">
+<div class="card mb-3 offer-card">
+    <div class="card-body">
         <h5 class="card-title">{{ offer.title }}</h5>
-            <div class="card-text">{{ offer.city }}</div>
-            <div>Durée du poste : {{ offer.duration }}</div>
-            <div>Description du poste : {{ offer.description }}</div>
-            <div class="date">L'offre date de {{ offer.interval | date('%a') }} jours</div>
-        </div>
+        <div class="card-text"><i class="fas fa-map-marker-alt"></i> {{ offer.city }}</div>
+        <div><i class="far fa-calendar-alt"></i> Durée du poste : {{ offer.duration }}</div>
+        <div>Description du poste : {{ offer.description }}</div>
+        <div class="date">L'offre date de {{ offer.interval | date('%a') }} jours</div>
+    </div>
 </div>
 
 

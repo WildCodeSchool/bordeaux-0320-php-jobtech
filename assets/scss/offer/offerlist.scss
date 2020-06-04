@@ -6,9 +6,17 @@
 
 .offer-card {
   margin-left:5vh;
+  width: 90%;
 }
 
 .date {
   font-size: 0.7em;
   margin-top: 5px;
+}
+
+@media (max-width: 768px){
+  .offer-card {
+    width: 95%;
+    margin:1vh;
+  }
 }

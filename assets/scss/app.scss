@@ -24,7 +24,7 @@ body {
 }
 
 .main-container {
-    height: calc(100vh - 70px);
+    height: calc(100% - 70px);
     background-color: white;
     @media (min-width: 992px) {
         margin-left: 10%;

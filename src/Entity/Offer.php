@@ -173,7 +173,7 @@ class Offer
         return $this;
     }
 
-    public function getCreatedOn(): ?\DateTimeInterface
+    public function getCreatedOn(): \DateTimeInterface
     {
         return $this->createdOn;
     }
