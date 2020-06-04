@@ -8,11 +8,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/news", name="news_")
+ */
 class NewsController extends AbstractController
 {
     /**
-     * @Route("/news", name="news_list")
-     * @return Response A response instance
+     * @Route("/", name="list")
+     * @param NewsRepository $newsRepository
+     * @return Response
      */
     public function list(NewsRepository $newsRepository): Response
     {
