@@ -3,7 +3,7 @@
 
 namespace App\Controller;
 
-use App\Entity\News;
+use App\Repository\NewsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
