@@ -28,7 +28,7 @@ class OfferController extends AbstractController
             );
         }
 
-        return $this->render('offer/list.html.twig', [
+        return $this->render('job_tech/offer/list.html.twig', [
             'offers' => $offers,
         ]);
     }

@@ -86,6 +86,7 @@ class UserInformation
 
     /**
      * @ORM\ManyToMany(targetEntity=License::class)
+     * @ORM\JoinTable(name="user_have_license")
      */
     private $license;
 
@@ -101,6 +102,7 @@ class UserInformation
 
     /**
      * @ORM\ManyToMany(targetEntity=Skill::class)
+     * @ORM\JoinTable(name="user_have_skill")
      */
     private $skill;
 

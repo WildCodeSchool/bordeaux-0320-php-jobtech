@@ -13,6 +13,16 @@ body {
     h1 {
         font-family: $baloo2;
     }
+
+    h2 {
+        color: $turquoise;
+        font-family: $montserrat;
+        text-transform: uppercase;
+    }
+
+    p {
+        margin-bottom: unset;
+    }
 }
 
 .main-container {
@@ -30,4 +40,20 @@ body {
 
 .bg-jade {
     background-color: $jade;
+}
+
+.text-jade {
+    color: $jade;
+}
+
+.text-turquoise {
+    color: $turquoise;
+}
+
+.text-black {
+    color: black;
+}
+
+.text-red {
+    color: red;
 }
