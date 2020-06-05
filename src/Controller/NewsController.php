@@ -13,6 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class NewsController extends AbstractController
 {
+    const MAX_NEWS_PER_PAGE = 5;
+
     /**
      * @Route("/", name="list")
      * @param NewsRepository $newsRepository
@@ -20,7 +22,7 @@ class NewsController extends AbstractController
      */
     public function list(NewsRepository $newsRepository): Response
     {
-        $news = $newsRepository->findBy([], ['createdOn' => 'DESC'], 5, 0);
+        $news = $newsRepository->findBy([], ['createdOn' => 'DESC'], self::MAX_NEWS_PER_PAGE);
 
         if (!$news) {
             throw $this->createNotFoundException(

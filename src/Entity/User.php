@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,6 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class User implements UserInterface
 {
@@ -39,12 +41,12 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="datetime")
      */
-    private $createdOn;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $updatedOn;
+    private $updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity=Document::class, mappedBy="user", orphanRemoval=true)
@@ -163,26 +165,34 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function getCreatedOn(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTime
     {
-        return $this->createdOn;
+        return $this->createdAt;
     }
 
-    public function setCreatedOn(\DateTimeInterface $createdOn): self
+    /**
+     * @ORM\PrePersist()
+     * @return $this
+     */
+    public function setCreatedAt(): self
     {
-        $this->createdOn = $createdOn;
+        $this->createdAt = new DateTime();
 
         return $this;
     }
 
-    public function getUpdatedOn(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?DateTime
     {
-        return $this->updatedOn;
+        return $this->updatedAt;
     }
 
-    public function setUpdatedOn(\DateTimeInterface $updatedOn): self
+    /**
+     * @ORM\PreUpdate()
+     * @return $this
+     */
+    public function setUpdatedAt(): self
     {
-        $this->updatedOn = $updatedOn;
+        $this->updatedAt = new DateTime();
 
         return $this;
     }

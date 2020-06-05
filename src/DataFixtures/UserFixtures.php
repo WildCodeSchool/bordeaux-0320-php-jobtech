@@ -56,14 +56,12 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager)
     {
-        $date = new DateTime();
         foreach (self::ADMIN as $email => $data) {
             $admin = new User();
             $adminInfo = $manager->find('App:UserInformation', $this->getReference($data['user_information']));
             $admin->setEmail($email)
                 ->setRoles($data['roles'])
                 ->setPassword($data['password'])
-                ->setCreatedOn($date)
                 ->setUserInformation($adminInfo);
             $manager->persist($admin);
         }
@@ -77,7 +75,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $candidat->setEmail(self::CANDIDAT_TEST['start_email'] . $i . self::CANDIDAT_TEST['end_email'])
                 ->setRoles(self::CANDIDAT_TEST['roles'])
                 ->setPassword(self::CANDIDAT_TEST['password'])
-                ->setCreatedOn($date)
                 ->setUserInformation($candidatInfo);
             $manager->persist($candidat);
         }
@@ -88,7 +85,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $company->setEmail(self::COMPANY_TEST['start_email'] . $i . self::COMPANY_TEST['end_email'])
                 ->setRoles(self::COMPANY_TEST['roles'])
                 ->setPassword(self::COMPANY_TEST['password'])
-                ->setCreatedOn($date)
                 ->setCompany($companyInfo);
             $manager->persist($company);
         }

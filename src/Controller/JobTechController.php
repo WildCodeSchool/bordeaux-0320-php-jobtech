@@ -10,6 +10,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class JobTechController extends AbstractController
 {
+    const MAX_OFFER = 6;
+
     /**
      * @Route("/", name="index")
      * @param JobCategoryRepository $jobCategoryRepo
@@ -20,7 +22,7 @@ class JobTechController extends AbstractController
     {
         return $this->render('job_tech/index.html.twig', [
             'job_categories' => $jobCategoryRepo->findAll(),
-            'offers' => $offerRepository->findBy([], ['createdOn' => 'DESC'], 6)
+            'offers' => $offerRepository->findBy([], ['createdOn' => 'DESC'], self::MAX_OFFER)
         ]);
     }
 

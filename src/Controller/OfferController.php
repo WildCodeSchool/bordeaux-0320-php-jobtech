@@ -13,6 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class OfferController extends AbstractController
 {
+    const MAX_OFFER_PER_PAGE = 9;
+
     /**
      * @Route("/", name="list")
      * @param OfferRepository $offerRepository
@@ -20,7 +22,7 @@ class OfferController extends AbstractController
      */
     public function list(OfferRepository $offerRepository): Response
     {
-        $offers = $offerRepository->findByAndAddInterval([], ['createdOn'=>'DESC'], 9);
+        $offers = $offerRepository->findByAndAddInterval([], ['createdOn'=>'DESC'], self::MAX_OFFER_PER_PAGE);
 
         if (!$offers) {
             throw $this->createNotFoundException(
