@@ -1,6 +1,7 @@
 .index {
     .index-job {
         margin: 15px;
+
         img {
             height: 250px;
             margin-right: 15px;
@@ -23,13 +24,16 @@
             width: 200px;
             margin: 20px auto;
             background-color: transparentize(white, 0.5);
+
             &:hover {
                 color: $jade;
             }
         }
+
         .card-icon {
             font-size: 60px;
         }
+
         .card-text {
             font-size: 15px;
         }
