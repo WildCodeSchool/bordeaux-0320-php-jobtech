@@ -1,0 +1,45 @@
+.news {
+    margin: 10px;
+
+    .date {
+        color: $orange;
+    }
+
+    .news-img {
+        max-height: 100%;
+        max-width: 100%;
+        min-width: 100%;
+        min-height: 100%;
+        border: 1px solid $turquoise;
+        box-shadow: 3px 7px 9px -4px rgba(0, 0, 0, 0.75);;
+    }
+
+    .btn-news {
+        color: black;
+        border-color: $jade;
+    }
+
+    .news-article {
+        justify-content: space-around;
+    }
+
+    .article-title {
+        color: $jade;
+        vertical-align: middle;
+    }
+
+    .btn-acceuil {
+        width: 20px;
+    }
+}
+
+.line {
+    border-bottom: 1px solid $jade;
+    width: 30%;
+    margin-left: 5%;
+}
+
+hr {
+    border-bottom: 1px solid $jade;
+    width: 90%;
+}

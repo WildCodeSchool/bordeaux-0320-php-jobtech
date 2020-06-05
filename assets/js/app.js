@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -5,8 +6,14 @@
  * (and its CSS file) in your base layout (base.html.twig).
  */
 
+// Font Awesome
+import '@fortawesome/fontawesome-free/js/all';
+
 // any CSS you require will output into a single css file (app.css in this case)
 require('../scss/app.scss');
 
-// Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
-// const $ = require('jquery');
+// Bootstrap
+const $ = require('jquery');
+// this "modifies" the jquery module: adding behavior to it
+// the bootstrap module doesn't export/return anything
+require('bootstrap');

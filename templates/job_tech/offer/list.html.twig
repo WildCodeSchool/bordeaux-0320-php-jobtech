@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des offres{% endblock %}
+
+
+{% block body %}
+    <h2 class="mt-3 ml-4 mb-3">Les dernières offres</h2>
+{% for offer in offers %}
+<div class="card mb-3 offer-card">
+    <div class="card-body">
+        <h5 class="card-title">{{ offer.title }}</h5>
+        <p class="card-text"><i class="fas fa-map-marker-alt"></i> {{ offer.city }}</p>
+        <p><i class="far fa-calendar-alt"></i> Durée du poste : {{ offer.duration }}</p>
+        <p><i class="fas fa-arrow-right"></i> Description du poste : {{ offer.description }}</p>
+        <p class="date">L'offre date de {{ offer.interval | date('%a') }} jours</p>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

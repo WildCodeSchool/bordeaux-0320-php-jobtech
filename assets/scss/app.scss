@@ -1,9 +1,22 @@
-@import "vars";
+// Library
+@import '~bootstrap/scss/bootstrap';
 
-body {
-    background-color: $secondary-color;
-}
+// Override Bootstrap
+@import 'bootstrap-override';
 
-a {
-    color: $warm-color;
-}
+// JobTech
+@import '_vars';
+@import 'main';
+@import 'jobtech/index';
+
+// Components
+@import 'components/_navbar';
+@import 'components/_carousel';
+@import 'components/_login';
+
+// Offer
+@import 'offer/offerlist';
+
+// News
+
+@import 'news/newslist';

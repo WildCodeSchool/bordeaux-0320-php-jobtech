@@ -1,0 +1,59 @@
+// Main
+html {
+    height: 100%;
+}
+
+body {
+    background-image: url("/build/images/background.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    height: calc(100% - 70px);
+    font-family: $montserrat;
+
+    h1 {
+        font-family: $baloo2;
+    }
+
+    h2 {
+        color: $turquoise;
+        font-family: $montserrat;
+        text-transform: uppercase;
+    }
+
+    p {
+        margin-bottom: unset;
+    }
+}
+
+.main-container {
+    margin-top: 70px;
+    background-color: white;
+    border-left: 2px solid $jade;
+    border-right: 2px solid $jade;
+    min-height: 100%;
+
+    @media (min-width: 992px) {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}
+
+.bg-jade {
+    background-color: $jade;
+}
+
+.text-jade {
+    color: $jade;
+}
+
+.text-turquoise {
+    color: $turquoise;
+}
+
+.text-black {
+    color: black;
+}
+
+.text-red {
+    color: red;
+}
