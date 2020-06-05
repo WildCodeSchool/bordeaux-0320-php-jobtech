@@ -68,6 +68,7 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToMany(targetEntity=Offer::class, inversedBy="users")
+     * @ORM\JoinTable(name="bookmark")
      */
     private $offer;
 

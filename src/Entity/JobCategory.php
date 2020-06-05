@@ -27,6 +27,11 @@ class JobCategory
      */
     private $identifier;
 
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $icon;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +57,18 @@ class JobCategory
     public function setIdentifier(?string $identifier): self
     {
         $this->identifier = $identifier;
+
+        return $this;
+    }
+
+    public function getIcon(): ?string
+    {
+        return $this->icon;
+    }
+
+    public function setIcon(string $icon): self
+    {
+        $this->icon = $icon;
 
         return $this;
     }
