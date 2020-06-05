@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Offer;
-use App\Service\Date;
+use App\Service\DateProcessing;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

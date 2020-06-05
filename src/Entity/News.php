@@ -3,10 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\NewsRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=NewsRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class News
 {
@@ -40,7 +42,7 @@ class News
     /**
      * @ORM\Column(type="datetime")
      */
-    private $createdOn;
+    private $createdAt;
 
     public function getId(): ?int
     {
@@ -95,14 +97,18 @@ class News
         return $this;
     }
 
-    public function getCreatedOn(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTime
     {
-        return $this->createdOn;
+        return $this->createdAt;
     }
 
-    public function setCreatedOn(\DateTimeInterface $createdOn): self
+    /**
+     * @ORM\PrePersist()
+     * @return $this
+     */
+    public function setCreatedAt(): self
     {
-        $this->createdOn = $createdOn;
+        $this->createdAt = new DateTime();
 
         return $this;
     }

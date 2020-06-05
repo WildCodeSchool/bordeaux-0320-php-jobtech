@@ -3,13 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\OfferRepository;
-use App\Service\Date;
+use App\Service\DateProcessing;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=OfferRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Offer
 {
@@ -53,14 +55,14 @@ class Offer
     /**
      * @ORM\Column(type="datetime")
      */
-    private $createdOn;
+    private $createdAt;
 
     private $interval;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $updatedOn;
+    private $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="offers")
@@ -173,14 +175,18 @@ class Offer
         return $this;
     }
 
-    public function getCreatedOn(): \DateTimeInterface
+    public function getCreatedAt(): DateTime
     {
-        return $this->createdOn;
+        return $this->createdAt;
     }
 
-    public function setCreatedOn(\DateTimeInterface $createdOn): self
+    /**
+     * @ORM\PrePersist()
+     * @return $this
+     */
+    public function setCreatedAt(): self
     {
-        $this->createdOn = $createdOn;
+        $this->createdAt = new DateTime();
 
         return $this;
     }
@@ -192,19 +198,23 @@ class Offer
 
     public function setInterval(): self
     {
-        $this->interval = Date::dateIntervalBetweenNowAnd($this->getCreatedOn());
+        $this->interval = DateProcessing::dateIntervalBetweenNowAnd($this->getCreatedAt());
 
         return $this;
     }
 
-    public function getUpdatedOn(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?DateTime
     {
-        return $this->updatedOn;
+        return $this->updatedAt;
     }
 
-    public function setUpdatedOn(?\DateTimeInterface $updatedOn): self
+    /**
+     * @ORM\PreUpdate()
+     * @return $this
+     */
+    public function setUpdatedAt(): self
     {
-        $this->updatedOn = $updatedOn;
+        $this->updatedAt = new DateTime();
 
         return $this;
     }
