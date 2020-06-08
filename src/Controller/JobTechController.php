@@ -22,7 +22,7 @@ class JobTechController extends AbstractController
     {
         return $this->render('job_tech/index.html.twig', [
             'job_categories' => $jobCategoryRepo->findAll(),
-            'offers' => $offerRepository->findBy([], ['createdOn' => 'DESC'], self::MAX_OFFER)
+            'offers' => $offerRepository->findBy([], ['createdAt' => 'DESC'], self::MAX_OFFER)
         ]);
     }
 
