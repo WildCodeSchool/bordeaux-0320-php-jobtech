@@ -39,4 +39,5 @@
         <exclude name="UnusedFormalParameter" />
     </rule>
     <exclude-pattern>src/Migrations</exclude-pattern>
+    <exclude-pattern>src/Entity</exclude-pattern>
 </ruleset>

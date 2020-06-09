@@ -7,4 +7,3 @@ parameters:
         - %rootDir%/../../../src/Migrations
     excludes_analyse:
         - src/DataFixtures
-        - src/Entity
