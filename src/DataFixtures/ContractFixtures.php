@@ -22,8 +22,8 @@ class ContractFixtures extends Fixture
         $num = 1;
         foreach (self::CONTRACTS as $identifier => $contractName) {
             $contract = new Contract();
-            $contract->setTitle($contractName);
-            $contract->setIdentifier($identifier);
+            $contract->setTitle($contractName)
+                ->setIdentifier($identifier);
             $manager->persist($contract);
             $this->addReference('contract_' . $num, $contract);
             $num++;
