@@ -22,7 +22,7 @@ class OfferController extends AbstractController
      */
     public function list(OfferRepository $offerRepository): Response
     {
-        $offers = $offerRepository->findByAndAddInterval([], ['createdOn'=>'DESC'], self::MAX_OFFER_PER_PAGE);
+        $offers = $offerRepository->findByAndAddInterval([], ['createdAt'=>'DESC'], self::MAX_OFFER_PER_PAGE);
 
         if (!$offers) {
             throw $this->createNotFoundException(
