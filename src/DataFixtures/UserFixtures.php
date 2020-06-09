@@ -82,7 +82,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $manager->persist($candidat);
         }
 
-        for ($i = 1; $i < 21; $i++) {
+        for ($i = 1; $i < 51; $i++) {
             $company = new User();
             $companyInfo = $manager->find('App:Company', $this->getReference(self::COMPANY_TEST['company'] . $i));
             $company->setEmail(self::COMPANY_TEST['start_email'] . $i . self::COMPANY_TEST['end_email'])

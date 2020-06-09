@@ -87,6 +87,11 @@ class User implements UserInterface
         $this->applies = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->getUsername();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
