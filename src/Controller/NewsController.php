@@ -22,7 +22,7 @@ class NewsController extends AbstractController
      */
     public function list(NewsRepository $newsRepository): Response
     {
-        $news = $newsRepository->findBy([], ['createdOn' => 'DESC'], self::MAX_NEWS_PER_PAGE);
+        $news = $newsRepository->findBy([], ['createdAt' => 'DESC'], self::MAX_NEWS_PER_PAGE);
 
         if (!$news) {
             throw $this->createNotFoundException(
