@@ -118,6 +118,11 @@ class UserInformation
         $this->skill = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->getLastname() . ' ' . $this->getFirstname();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
