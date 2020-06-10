@@ -11,14 +11,15 @@ class CompanyType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('name')
-            ->add('siret')
-            ->add('postalCode')
-            ->add('city')
-            ->add('country')
-            ->add('address')
-        ;
+        if ($options['action'] === 'create_company') {
+            $builder
+                ->add('name')
+                ->add('siret')
+                ->add('postalCode')
+                ->add('city')
+                ->add('country')
+                ->add('address');
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)

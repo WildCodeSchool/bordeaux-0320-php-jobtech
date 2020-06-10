@@ -2,31 +2,38 @@
 
 {% block title %}Register{% endblock %}
 {% block body %}
-{% form_theme register 'bootstrap_4_layout.html.twig' %}
+    {% form_theme register 'bootstrap_4_layout.html.twig' %}
     <h1>Register</h1>
 
     {{ form_start(register) }}
-        {{ form_row(register.email) }}
-        {{ form_row(register.plainPassword) }}
-    {{ form_row(register.userInformation.lastname) }}
-    {{ form_row(register.userInformation.firstname) }}
-    {{ form_row(register.userInformation.birthday) }}
-    {{ form_row(register.userInformation.city) }}
-    {{ form_row(register.userInformation.country) }}
-    {{ form_row(register.userInformation.phoneNumber) }}
-    {{ form_row(register.userInformation.homeNumber) }}
-    {{ form_row(register.userInformation.postalCode) }}
-    <div class="d-flex justify-content-between">
-    {{ form_row(register.userInformation.isContactableTel) }}
-    {{ form_row(register.userInformation.isContactableEmail) }}
-    {{ form_row(register.userInformation.isHandicapped) }}
-    </div>
-    {{ form_row(register.userInformation.haveVehicle) }}
-    {{ form_row(register.userInformation.license) }}
-    {{ form_row(register.userInformation.mobility) }}
-    {{ form_row(register.userInformation.skill) }}
-    {{ form_row(register.userInformation.currentSituation) }}
+
+    {{ form_row(register.email) }}
+    {{ form_row(register.plainPassword) }}
+    {% if action == 'create_candidat' %}
+        {{ form_row(register.userInformation.lastname) }}
+        {{ form_row(register.userInformation.firstname) }}
+        {{ form_row(register.userInformation.birthday) }}
+        {{ form_row(register.userInformation.city) }}
+        {{ form_row(register.userInformation.country) }}
+        {{ form_row(register.userInformation.phoneNumber) }}
+        {{ form_row(register.userInformation.homeNumber) }}
+        {{ form_row(register.userInformation.postalCode) }}
+        <div class="d-flex justify-content-between">
+            {{ form_row(register.userInformation.isContactableTel) }}
+            {{ form_row(register.userInformation.isContactableEmail) }}
+            {{ form_row(register.userInformation.isHandicapped) }}
+        </div>
+    {% elseif action == 'create_company' %}
+        {{ form_row(register.company.name) }}
+        {{ form_row(register.company.siret) }}
+        {{ form_row(register.company.postalCode) }}
+        {{ form_row(register.company.city) }}
+        {{ form_row(register.company.country) }}
+        {{ form_row(register.company.address) }}
+
+
+    {% endif %}
     {{ form_row(register.agreeTerms) }}
-        <button type="submit" class="btn">Register</button>
+    <button type="submit" class="btn">Register</button>
     {{ form_end(register) }}
 {% endblock %}

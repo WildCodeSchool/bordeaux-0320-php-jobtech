@@ -21,11 +21,11 @@ class RegisterType extends AbstractType
             ->add('email', EmailType::class);
         if ($options['action'] === 'create_candidat') {
             $builder
-                ->add('userInformation', UserInformationType::class, ['data'=>$options]);
+                ->add('userInformation', UserInformationType::class, ['action' => $options['action']]);
         }
         if ($options['action'] === 'create_company') {
             $builder
-                ->add('company', CompanyType::class);
+                ->add('company', CompanyType::class, ['action' => $options['action']]);
         }
         $builder
             ->add('agreeTerms', CheckboxType::class, [
@@ -53,6 +53,7 @@ class RegisterType extends AbstractType
                 ],
             ]);
     }
+
 
     public function configureOptions(OptionsResolver $resolver)
     {

@@ -11,14 +11,16 @@ class UserInformationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('haveVehicle')
-            ->add('curriculumVitae')
-            ->add('license')
-            ->add('mobility')
-            ->add('skill')
-            ->add('currentSituation');
-        if ($options['action'] === 'create candidat') {
+
+            /*$builder
+                ->add('haveVehicle')
+                ->add('curriculumVitae')
+                ->add('license')
+                ->add('mobility')
+                ->add('skill')
+                ->add('currentSituation');*/
+
+        if ($options['action'] === 'create_candidat') {
             $builder
                 ->add('lastname')
                 ->add('firstname')
@@ -37,7 +39,7 @@ class UserInformationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class'  => UserInformation::class,
+            'data_class' => UserInformation::class,
             'action' => '',
         ]);
     }
