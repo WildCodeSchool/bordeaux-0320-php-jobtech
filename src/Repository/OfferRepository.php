@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Offer;
+use App\Form\SearchForm;
 use App\Service\DateProcessing;
+use App\Service\OfferSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -26,6 +28,45 @@ class OfferRepository extends ServiceEntityRepository
         foreach ($offers as $offer) {
             $offer->setInterval();
         }
+        return $offers;
+    }
+
+    /**
+     * Récupère les offres en lien avec une recherche
+     * @param OfferSearch $search
+     * @return Offer[]
+     */
+    public function findSearch(OfferSearch $search): array
+    {
+        $query = $this
+            ->createQueryBuilder('o')
+            ->select('j', 'o')
+            ->join('o.job', 'j');
+
+        if (!empty($search->q)) {
+            $query = $query
+                ->andWhere('j.title LIKE :q')
+                ->orWhere('o.city LIKE :q')
+                ->setParameter('q', "%{$search->q}%");
+        }
+
+        if (!empty($search->job)) {
+            $query = $query
+                ->andWhere('j.id IN (:job)')
+                ->setParameter('job', $search->job);
+        }
+
+        if (!empty($search->jobsCategories)) {
+            $query = $query
+                ->andWhere('j.jobCategory IN (:jobCategories')
+                ->setParameter('jobCategories', $search->jobsCategories);
+        }
+
+        $offers = $query->getQuery()->getResult();
+        foreach ($offers as $offer) {
+            $offer->setInterval();
+        }
+
         return $offers;
     }
 
