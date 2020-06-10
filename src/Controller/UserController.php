@@ -17,21 +17,23 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/register", name="app_register")
+     * @Route("/register/{action}", name="app_register")
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param GuardAuthenticatorHandler $guardHandler
      * @param UserAuthenticator $authenticator
+     * @param string $action
      * @return Response
      */
     public function register(
         Request $request,
         UserPasswordEncoderInterface $passwordEncoder,
         GuardAuthenticatorHandler $guardHandler,
-        UserAuthenticator $authenticator
+        UserAuthenticator $authenticator,
+        string $action
     ): ?Response {
         $user = new User();
-        $form = $this->createForm(RegisterType::class, $user);
+        $form = $this->createForm(RegisterType::class, $user, ['action' => $action]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

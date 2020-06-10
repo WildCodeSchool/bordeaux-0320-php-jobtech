@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\User;
-use App\Entity\UserInformation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -19,9 +18,16 @@ class RegisterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class)
-            ->add('userInformation', UserInformationType::class)
-
+            ->add('email', EmailType::class);
+        if ($options['action'] === 'create_candidat') {
+            $builder
+                ->add('userInformation', UserInformationType::class, ['data'=>$options]);
+        }
+        if ($options['action'] === 'create_company') {
+            $builder
+                ->add('company', CompanyType::class);
+        }
+        $builder
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -45,14 +51,14 @@ class RegisterType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'action' => '',
         ]);
     }
 }

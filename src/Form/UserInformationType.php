@@ -12,30 +12,33 @@ class UserInformationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('lastname')
-            ->add('firstname')
-            ->add('birthday')
-            ->add('phoneNumber')
-            ->add('homeNumber')
-            ->add('postalCode')
-            ->add('city')
-            ->add('country')
-            ->add('isHandicapped')
-            ->add('isContactableTel')
-            ->add('isContactableEmail')
             ->add('haveVehicle')
             ->add('curriculumVitae')
             ->add('license')
             ->add('mobility')
             ->add('skill')
-            ->add('currentSituation')
-        ;
+            ->add('currentSituation');
+        if ($options['action'] === 'create candidat') {
+            $builder
+                ->add('lastname')
+                ->add('firstname')
+                ->add('birthday')
+                ->add('phoneNumber')
+                ->add('homeNumber')
+                ->add('postalCode')
+                ->add('city')
+                ->add('country')
+                ->add('isHandicapped')
+                ->add('isContactableTel')
+                ->add('isContactableEmail');
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => UserInformation::class,
+            'data_class'  => UserInformation::class,
+            'action' => '',
         ]);
     }
 }
