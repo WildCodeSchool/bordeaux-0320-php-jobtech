@@ -31,19 +31,17 @@ class UserController extends AbstractController
         GuardAuthenticatorHandler $guardHandler,
         UserAuthenticator $authenticator,
         string $action
-    ): ?Response {
+    ): ?Response
+    {
         $user = new User();
         $form = $this->createForm(RegisterType::class, $user, ['action' => $action]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
-            $user->setPassword(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
+            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
+
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);

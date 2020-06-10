@@ -8,7 +8,8 @@
     {{ form_start(register) }}
 
     {{ form_row(register.email) }}
-    {{ form_row(register.plainPassword) }}
+    {{ form_row(register.plainPassword.first) }}
+    {{ form_row(register.plainPassword.second) }}
     {% if action == 'create_candidat' %}
         {{ form_row(register.userInformation.lastname) }}
         {{ form_row(register.userInformation.firstname) }}
