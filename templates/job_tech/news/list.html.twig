@@ -15,9 +15,9 @@
                         <img class="news-img" src="{{ new.image }}" alt="image article">
                     </div>
                     <div class="news-article col-6">
-                        <h3 class="article-title mb-1 "><span class="date"><small>{{ new.createdOn | date('Y/m/d h:i') }}</small></span>
-                            - {{ new.title }} <small> {{ new.description }}</small></h3>
-                        <p class="mb-1">{{ new.article }}</p>
+                        <h3 class="article-title mb-1 "><span class="date"><small>{{ new.createdAt | date('Y/m/d h:i') }}</small></span>
+                            - {{ new.title }} </h3>
+                        <p class="mb-1">{{ new.description }}</p>
                         <div>
                             <button type="button" class="btn-news btn btn-light mt-3"> Plus de détails...</button>
                         </div>
