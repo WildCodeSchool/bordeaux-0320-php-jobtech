@@ -75,7 +75,7 @@ class UserInformation
     private $isContactableEmail;
 
     /**
-     * @ORM\Column(type="boolean", options={"default":0})
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $haveVehicle;
 
