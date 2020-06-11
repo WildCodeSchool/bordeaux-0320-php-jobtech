@@ -1,0 +1,23 @@
+easy_admin:
+
+    entities:
+        Candidat:
+            class: App\Entity\User
+            list:
+                sort: ['createdAt', 'DESC']
+                dql_filter: 'entity.userInformation IS NOT NULL'
+                actions:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-primary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+                fields:
+                    - 'email'
+                    - {property: 'userInformation', label: 'Nom'}
+                    - {property: 'userInformation.phoneNumber', label: 'N° de téléphone'}
+                    - {property: 'userInformation.homeNumber', label: 'Autre N°'}
+                    - {property: 'userInformation.postalCode', label: 'Code postale'}
+                    - {property: 'userInformation.city', label: 'Ville'}
+                    - {property: 'userInformation.country', label: 'Pays'}
+                    # - {property: 'userInformation.isHandicapped', label: 'Handicap'}
+                    # - {property: 'userInformation.isContactableTel', label: 'Contact téléphone'}
+                    # - {property: 'userInformation.isContactableEmail', label: 'Contact email'}
+                    - {property: 'createdAt', label: 'Date de la création'}

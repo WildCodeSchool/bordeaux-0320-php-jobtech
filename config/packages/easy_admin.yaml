@@ -1,7 +1,2 @@
-easy_admin:
-    site_name: 'JobTech'
-    entities:
-        News:
-            class: App\Entity\News
-        User:
-            class: App\Entity\User
+imports:
+  {resource: admin/}
