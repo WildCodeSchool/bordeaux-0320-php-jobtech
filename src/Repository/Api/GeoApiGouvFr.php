@@ -18,10 +18,12 @@ use Symfony\Component\HttpClient\HttpClient;
  */
 class GeoApiGouvFr
 {
+    const REQUEST_METHOD = 'GET';
+
     private function makeRequest(string $request)
     {
         $client = HttpClient::create();
-        return $client->request('GET', $request);
+        return $client->request(self::REQUEST_METHOD, $request);
     }
 
     public function getCityByPostalCode(int $postalCode)

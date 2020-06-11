@@ -32,6 +32,10 @@ class UserController extends AbstractController
         UserAuthenticator $authenticator,
         string $action
     ): ?Response {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('index');
+        }
+
         $user = new User();
         $form = $this->createForm(RegisterType::class, $user, ['action' => $action]);
         $form->handleRequest($request);
@@ -69,9 +73,9 @@ class UserController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+        if ($this->getUser()) {
+            return $this->redirectToRoute('index');
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();

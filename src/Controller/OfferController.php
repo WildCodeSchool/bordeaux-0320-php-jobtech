@@ -34,12 +34,12 @@ class OfferController extends AbstractController
             );
         }
 
-        $data = new OfferSearch();
-        $form = $this->createForm(SearchForm::class, $data);
+        $criteria = new OfferSearch();
+        $form = $this->createForm(SearchForm::class, $criteria);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $offers = $offerRepository->findSearch($data);
+            $offers = $offerRepository->findSearch($criteria);
         }
 
         return $this->render('job_tech/offer/list.html.twig', [

@@ -14,6 +14,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class NewsController extends AbstractController
 {
+    const LIMIT_NEWS_PER_PAGE = 5;
+
     /**
      * @Route("/", name="list")
      * @param NewsRepository $newsRepository
@@ -22,16 +24,16 @@ class NewsController extends AbstractController
      */
     public function list(NewsRepository $newsRepository, Paginator $paginator): Response
     {
-        $news = $newsRepository->findBy([], ['createdAt' => 'DESC']);
-        $appointments = $paginator->paging($news, 5);
+        $actualities = $newsRepository->findBy([], ['createdAt' => 'DESC']);
+        $actualities = $paginator->paging($actualities, self::LIMIT_NEWS_PER_PAGE);
 
-        if (!$news) {
+        if (!$actualities) {
             throw $this->createNotFoundException(
                 'No news found in news table.'
             );
         }
         return $this->render('job_tech/news/list.html.twig', [
-             'appointments' => $appointments,
+             'actualities' => $actualities,
         ]);
     }
 }

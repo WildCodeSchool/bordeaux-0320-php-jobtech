@@ -3,8 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Offer;
-use App\Form\SearchForm;
-use App\Service\DateProcessing;
 use App\Service\OfferSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -32,7 +30,7 @@ class OfferRepository extends ServiceEntityRepository
     }
 
     /**
-     * Récupère les offres en lien avec une recherche
+     * Retrieves offers related to a search
      * @param OfferSearch $search
      * @return Offer[]
      */
@@ -71,33 +69,4 @@ class OfferRepository extends ServiceEntityRepository
 
         return $offers;
     }
-
-    // /**
-    //  * @return Offer[] Returns an array of Offer objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('o.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Offer
-    {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
