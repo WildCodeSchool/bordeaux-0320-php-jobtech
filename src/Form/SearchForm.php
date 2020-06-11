@@ -3,7 +3,7 @@
 
 namespace App\Form;
 
-
+use App\Entity\Contract;
 use App\Entity\Job;
 use App\Entity\Offer;
 use App\Service\OfferSearch;
@@ -19,7 +19,7 @@ class SearchForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('q', TextType::class, [
+            ->add('que', TextType::class, [
                 'label' => false,
                 'required' => false,
                 'attr' => [
@@ -31,7 +31,16 @@ class SearchForm extends AbstractType
                 'required' => false,
                 'class' => Job::class,
                 'choice_label' => 'title',
+                'placeholder' => 'Choisissez un métier dans la liste déroulante'
             ])
+            ->add('contract', EntityType::class, [
+                'label' => false,
+                'required' => false,
+                'class' => Contract::class,
+                'choice_label' => 'title',
+                'placeholder' => 'Choisissez un type de contrat dans la liste déroulante'
+            ])
+
             ->add('min', NumberType::class, [
                 'label' => false,
                 'required' => false,
@@ -62,5 +71,4 @@ class SearchForm extends AbstractType
     {
         return '';
     }
-
 }

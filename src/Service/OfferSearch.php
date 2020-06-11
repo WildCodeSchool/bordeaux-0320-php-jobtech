@@ -8,12 +8,17 @@ class OfferSearch
     /**
      * @var string
      */
-    public $q = '';
+    public $que = '';
 
     /**
      * @var string
      */
     public $job = '';
+
+    /**
+     * @var string
+     */
+    public $contract = '';
 
     /**
      * @var null|integer
@@ -24,7 +29,4 @@ class OfferSearch
      * @var null|integer
      */
     public $min;
-
-
-
 }
