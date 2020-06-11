@@ -14,7 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class NewsController extends AbstractController
 {
-
     /**
      * @Route("/", name="list")
      * @param NewsRepository $newsRepository
@@ -31,8 +30,7 @@ class NewsController extends AbstractController
                 'No news found in news table.'
             );
         }
-        return $this->render(
-            'job_tech/news/list.html.twig', [
+        return $this->render('job_tech/news/list.html.twig', [
              'appointments' => $appointments,
         ]);
     }
