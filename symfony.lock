@@ -142,6 +142,12 @@
     "justinrainbow/json-schema": {
         "version": "5.2.8"
     },
+    "knplabs/knp-components": {
+        "version": "v2.3.5"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.2.0"
+    },
     "monolog/monolog": {
         "version": "1.24.0"
     },
@@ -371,6 +377,12 @@
             "src/Controller/.gitignore",
             "src/Kernel.php"
         ]
+    },
+    "symfony/http-client": {
+        "version": "v4.4.9"
+    },
+    "symfony/http-client-contracts": {
+        "version": "v2.1.2"
     },
     "symfony/http-foundation": {
         "version": "v4.2.8"
