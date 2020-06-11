@@ -8,16 +8,16 @@
         <hr class="line">
     </div>
     <div class="list-group">
-        {% for new in news %}
+        {% for appointment in appointments %}
             <div class="news container-fluid p-4">
                 <div class="row news-article {% if loop.index %2 == 0 %}flex-row-reverse justify-content-around{% endif %}">
                     <div class="col-4">
-                        <img class="news-img" src="{{ new.image }}" alt="image article">
+                        <img class="news-img" src="{{ appointment.image }}" alt="image article">
                     </div>
                     <div class="news-article col-6">
-                        <h3 class="article-title mb-1 "><span class="date"><small>{{ new.createdAt | date('Y/m/d h:i') }}</small></span>
-                            - {{ new.title }} </h3>
-                        <p class="mb-1">{{ new.description }}</p>
+                        <h3 class="article-title mb-1 "><span class="date"><small></small></span>
+                            - {{ appointment.title }} </h3>
+                        <p class="mb-1">{{ appointment.description }}</p>
                         <div>
                             <button type="button" class="btn-news btn btn-light mt-3"> Plus de détails...</button>
                         </div>
@@ -30,6 +30,9 @@
         {% else %}
             Aucune news trouvée.
         {% endfor %}
+        <div class="navigation">
+            {{ knp_pagination_render(appointments) }}
+        </div>
     <button type="button" class="btn-acceuil btn btn-light"><a href="{{ path('index') }}">Retour à l'accueil</a>
     </button>
     </div>
