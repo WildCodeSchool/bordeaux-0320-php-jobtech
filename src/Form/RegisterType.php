@@ -14,19 +14,13 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 
 class RegisterType extends AbstractType
 {
+    const ACTION_CREATE_CANDIDAT = 'create_candidat';
+    const ACTION_CREATE_COMPANY = 'create_company';
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class);
-        if ($options['action'] === 'create_candidat') {
-            $builder
-                ->add('userInformation', UserInformationType::class, ['action' => $options['action']]);
-        }
-        if ($options['action'] === 'create_company') {
-            $builder
-                ->add('company', CompanyType::class, ['action' => $options['action']]);
-        }
-        $builder
+            ->add('email', EmailType::class)
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -40,6 +34,16 @@ class RegisterType extends AbstractType
                 'first_options' => ['label' => 'Password'],
                 'second_options' => ['label' => 'Repeat Password']
             ]);
+
+        if ($options['action'] === self::ACTION_CREATE_CANDIDAT) {
+            $builder
+                ->add('userInformation', UserInformationType::class, ['action' => $options['action']]);
+        }
+
+        if ($options['action'] === self::ACTION_CREATE_COMPANY) {
+            $builder
+                ->add('company', CompanyType::class, ['action' => $options['action']]);
+        }
     }
 
 

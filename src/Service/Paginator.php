@@ -7,7 +7,12 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class Paginator
 {
-    private $paginator;
+    const KEY = 'page';
+
+    const DEFAULT = 1;
+
+    private PaginatorInterface $paginator;
+
     private $request;
 
     public function __construct(RequestStack $request, PaginatorInterface $paginator)
@@ -19,7 +24,7 @@ class Paginator
     {
         return $this->paginator->paginate(
             $queryEntity,
-            $this->request->getCurrentRequest()->query->getInt('page', 1),
+            $this->request->getCurrentRequest()->query->getInt(self::KEY, self::DEFAULT),
             $limit
         );
     }
