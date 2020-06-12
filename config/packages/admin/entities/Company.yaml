@@ -1,0 +1,22 @@
+easy_admin:
+
+    entities:
+        Company:
+            class: App\Entity\User
+            list:
+                title: 'Liste des entreprises'
+                sort: ['createdAt', 'DESC']
+                dql_filter: 'entity.company IS NOT NULL'
+                actions:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-primary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+                fields:
+                    - {property: 'email', type: 'email'}
+                    - {property: 'company.name', label: 'Nom'}
+                    - {property: 'company.siret', label: 'Siret'}
+                    - {property: 'company.address', label: 'Adresse'}
+                    - {property: 'company.country', label: 'Pays', type: 'country'}
+                    - {property: 'company.city', label: 'Ville'}
+                    - {property: 'company.postalCode', label: 'Code Postal'}
+                    # - {property: 'company.contacts', label: 'Contact'}
+                    - {property: 'createdAt', label: 'Date de la création'}

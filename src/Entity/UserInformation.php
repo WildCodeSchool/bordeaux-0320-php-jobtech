@@ -120,7 +120,7 @@ class UserInformation
 
     public function __toString(): string
     {
-        return $this->getLastname() . ' ' . $this->getFirstname();
+        return $this->getFullname();
     }
 
     public function getId(): ?int
@@ -150,6 +150,14 @@ class UserInformation
         $this->firstname = $firstname;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullname(): string
+    {
+        return $this->getLastname() . ' ' . $this->getFirstname();
     }
 
     public function getBirthday(): ?\DateTimeInterface

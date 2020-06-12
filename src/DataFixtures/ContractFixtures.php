@@ -12,7 +12,6 @@ class ContractFixtures extends Fixture
         'cdi' => 'CDI',
         'cdd' => 'CDD',
         'free' => 'Freelance',
-        'interim' => 'Intérim',
         'stage' => 'Stage',
         'alternance' => 'Alternance',
     ];

@@ -8,25 +8,25 @@ class OfferSearch
     /**
      * @var string
      */
-    public string $que = '';
+    public $que = '';
 
     /**
      * @var string
      */
-    public string $job = '';
+    public $job = '';
 
     /**
      * @var string
      */
-    public string $contract = '';
+    public $contract = '';
 
     /**
      * @var null|integer
      */
-    public ?int $max;
+    public $max;
 
     /**
      * @var null|integer
      */
-    public ?int $min;
+    public $min;
 }

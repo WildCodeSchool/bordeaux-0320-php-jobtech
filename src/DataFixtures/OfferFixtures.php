@@ -6,88 +6,90 @@ use App\Entity\Offer;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
 
 class OfferFixtures extends Fixture implements DependentFixtureInterface
 {
     const OFFERS = [
-        'Maçon' => [
-            'description' => 'Faire de la maçonnerie',
+        'job_33' => [
             'postal_code' => '33200',
             'city' => 'Mérignac',
             'country' => 'France',
-            'duration' => '1 semaine',
+            'duration' => 'Temps plein',
+            'contract' => 'contract_1',
         ],
-        'Ingénieur' => [
-            'description' => 'Faire des trucs d\'ingénieur',
+        'job_3' => [
             'postal_code' => '33000',
             'city' => 'Pessac',
             'country' => 'Luxembourg',
-            'duration' => '3 mois',
+            'duration' => 'Mi-temps',
+            'contract' => 'contract_2',
         ],
-        'Tailleur de pierres' => [
-            'description' => 'Faire de la taille de pierre',
+        'job_4' => [
             'postal_code' => '33400',
             'city' => 'Bacalan',
             'country' => 'France',
-            'duration' => '6 mois',
+            'duration' => 'Temps plein',
+            'contract' => 'contract_1',
         ],
-        'Grutier' => [
-            'description' => 'Manier une grue',
+        'job_5' => [
             'postal_code' => '1000',
             'city' => 'Tours',
             'country' => 'France',
-            'duration' => '1 an',
+            'duration' => 'Temps plein',
+            'contract' => 'contract_1',
         ],
-        'Couvreur' => [
-            'description' => 'Couvrir des toits avec des tuiles',
+        'job_17' => [
             'postal_code' => '4000',
             'city' => 'Madrid',
             'country' => 'Espagne',
-            'duration' => 'CDI',
+            'duration' => 'Mi-temps',
+            'contract' => 'contract_3',
         ],
-        'Plâtrier' => [
-            'description' => 'Faire du plâtre et du placo',
+        'job_18' => [
             'postal_code' => '3000',
             'city' => 'Brest',
             'country' => 'France',
-            'duration' => 'CDI',
+            'duration' => 'Temps plein',
+            'contract' => 'contract_1',
         ],
-        'Forgeron' => [
-            'description' => 'Forger du métal',
+        'job_19' => [
             'postal_code' => '22300',
             'city' => 'Nice',
             'country' => 'France',
-            'duration' => '2 ans',
+            'duration' => 'Temps plein',
+            'contract' => 'contract_4',
         ],
-        'Développeur web' => [
-            'description' => 'Développer sites internet et applications mobiles',
+        'job_2' => [
             'postal_code' => '20400',
             'city' => 'Limoges',
             'country' => 'France',
-            'duration' => 'CDI',
+            'duration' => 'Mi-temps',
+            'contract' => 'contract_1',
         ],
-        'Chef de chantier' => [
-            'description' => 'Veiller au bon déroulement des chantiers',
+        'job_6' => [
             'postal_code' => '12750',
             'city' => 'Nancy',
             'country' => 'France',
-            'duration' => 'CDI',
+            'duration' => 'Temps Plein',
+            'contract' => 'contract_5',
         ],
     ];
 
     public function load(ObjectManager $manager)
     {
-        foreach (self::OFFERS as $offerName => $data) {
+        $faker = Factory::create('fr_FR');
+        foreach (self::OFFERS as $job => $data) {
             $offer = new Offer();
-            $offer->setTitle($offerName)
-                ->setDescription($data['description'])
+            $offer->setTitle($faker->sentence(3))
+                ->setDescription($faker->sentence())
                 ->setPostalCode($data['postal_code'])
                 ->setCity($data['city'])
                 ->setCountry($data['country'])
                 ->setDuration($data['duration'])
                 ->setCompany($this->getReference('company_' . rand(1, 50)))
-                ->setContract($this->getReference('contract_' . rand(1, 6)))
-                ->setJob($this->getReference('job_' . rand(0, 34)));
+                ->setContract($this->getReference($data['contract']))
+                ->setJob($this->getReference($job));
             $manager->persist($offer);
         }
         $manager->flush();

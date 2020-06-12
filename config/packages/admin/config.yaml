@@ -1,0 +1,18 @@
+easy_admin:
+    site_name: '<img src="/build/images/logo.png" style="height: 75px; width: auto;"/>'
+
+    user:
+        display_avatar: false
+        name_property_path: 'userInformation'
+
+    formats:
+        date:     'd/m/Y'
+        time:     'H:i'
+        datetime: 'd/m/Y H:i:s'
+
+    design:
+        assets:
+            favicon: '/build/images/favicon.png'
+        form_theme:
+            - '@EasyAdmin/form/bootstrap_4.html.twig'
+            - '@FOSCKEditor/Form/ckeditor_widget.html.twig'

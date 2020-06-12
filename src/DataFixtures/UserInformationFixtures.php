@@ -53,7 +53,7 @@ class UserInformationFixtures extends Fixture
     const PREFIX_PHONE_HOME = 05;
     const POSTAL_CODE = 33100;
     const CITY = 'Bordeaux';
-    const COUNTRY = 'France';
+    const COUNTRY = 'FR';
 
     public function load(ObjectManager $manager)
     {
