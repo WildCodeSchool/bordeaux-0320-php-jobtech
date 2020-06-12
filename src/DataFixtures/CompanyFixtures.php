@@ -13,7 +13,7 @@ class CompanyFixtures extends Fixture
 
     const CITY = 'Bordeaux';
 
-    const COUNTRY = 'France';
+    const COUNTRY = 'FR';
 
     public function load(ObjectManager $manager)
     {
