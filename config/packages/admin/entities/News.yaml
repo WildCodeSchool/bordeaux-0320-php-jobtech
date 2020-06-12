@@ -4,6 +4,7 @@ easy_admin:
         News:
             class: App\Entity\News
             list:
+                title: 'Liste des actualités'
                 sort: ['createdAt', 'DESC']
                 actions:
                     - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-primary'}
@@ -12,3 +13,6 @@ easy_admin:
                     - {property: 'title', label: 'Titre'}
                     - 'description'
                     - {property: 'createdAt', label: 'Créer le'}
+            form:
+                fields:
+                    - {property: 'description', type: 'text_editor'}

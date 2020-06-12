@@ -13,3 +13,6 @@ easy_admin:
     design:
         assets:
             favicon: '/build/images/favicon.png'
+        form_theme:
+            - '@EasyAdmin/form/bootstrap_4.html.twig'
+            - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
