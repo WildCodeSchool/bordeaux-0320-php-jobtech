@@ -7,10 +7,10 @@ use DateInterval;
 use DateTime;
 use DateTimeInterface;
 
-class Date
+class DateProcessing
 {
 
-    public static function dateIntervalBetweenNowAnd(DateTimeInterface $date): DateInterval
+    public static function dateIntervalBetweenNowAnd(DateTime $date): DateInterval
     {
         $now = new DateTime();
 

@@ -13,12 +13,12 @@ class CompanyFixtures extends Fixture
 
     const CITY = 'Bordeaux';
 
-    const COUNTRY = 'France';
+    const COUNTRY = 'FR';
 
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr_FR');
-        for ($i = 1; $i < 21; $i++) {
+        for ($i = 1; $i < 51; $i++) {
             $address = $faker->biasedNumberBetween(1, 100, 'sqrt');
             $address .= ' rue ';
             $roadName = $faker->words(rand(1, 2), true);

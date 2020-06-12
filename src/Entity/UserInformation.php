@@ -75,7 +75,7 @@ class UserInformation
     private $isContactableEmail;
 
     /**
-     * @ORM\Column(type="boolean", options={"default":0})
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $haveVehicle;
 
@@ -118,6 +118,11 @@ class UserInformation
         $this->skill = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->getFullname();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -145,6 +150,14 @@ class UserInformation
         $this->firstname = $firstname;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullname(): string
+    {
+        return $this->getLastname() . ' ' . $this->getFirstname();
     }
 
     public function getBirthday(): ?\DateTimeInterface

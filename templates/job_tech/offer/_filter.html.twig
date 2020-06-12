@@ -1,0 +1,22 @@
+{{ form_start(form, {attr: {class: 'filter'}}) }}
+    {{ form_row(form.que) }}
+
+    <h4>Métiers</h4>
+    {{ form_row(form.job) }}
+
+    <h4>Type de contrat</h4>
+    {{ form_row(form.contract) }}
+
+    <h4>Temps</h4>
+<div class="row">
+    <div class="col-md-6">
+        {{ form_row(form.min) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_row(form.max) }}
+    </div>
+    </div>
+
+<button type="submit" class="btn btn-primary w-100">Filtrer</button>
+
+{{ form_end(form) }}

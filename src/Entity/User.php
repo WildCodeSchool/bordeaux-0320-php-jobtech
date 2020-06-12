@@ -3,13 +3,18 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class User implements UserInterface
 {
@@ -31,6 +36,13 @@ class User implements UserInterface
     private $roles = [];
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max=4096)
+     */
+    private $plainPassword;
+
+
+    /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
@@ -39,12 +51,12 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="datetime")
      */
-    private $createdOn;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $updatedOn;
+    private $updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity=Document::class, mappedBy="user", orphanRemoval=true)
@@ -83,6 +95,11 @@ class User implements UserInterface
         $this->searches = new ArrayCollection();
         $this->offer = new ArrayCollection();
         $this->applies = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->getUsername();
     }
 
     public function getId(): ?int
@@ -147,6 +164,21 @@ class User implements UserInterface
     }
 
     /**
+     * @return mixed
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param mixed $plainPassword
+     */
+    public function setPlainPassword($plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
+    }
+    /**
      * @see UserInterface
      */
     public function getSalt()
@@ -163,26 +195,34 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function getCreatedOn(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTime
     {
-        return $this->createdOn;
+        return $this->createdAt;
     }
 
-    public function setCreatedOn(\DateTimeInterface $createdOn): self
+    /**
+     * @ORM\PrePersist()
+     * @return $this
+     */
+    public function setCreatedAt(): self
     {
-        $this->createdOn = $createdOn;
+        $this->createdAt = new DateTime();
 
         return $this;
     }
 
-    public function getUpdatedOn(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?DateTime
     {
-        return $this->updatedOn;
+        return $this->updatedAt;
     }
 
-    public function setUpdatedOn(\DateTimeInterface $updatedOn): self
+    /**
+     * @ORM\PreUpdate()
+     * @return $this
+     */
+    public function setUpdatedAt(): self
     {
-        $this->updatedOn = $updatedOn;
+        $this->updatedAt = new DateTime();
 
         return $this;
     }

@@ -65,12 +65,17 @@ class Company
         $this->offers = new ArrayCollection();
     }
 
+    public function __toString(): ?string
+    {
+        return $this->getName();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }

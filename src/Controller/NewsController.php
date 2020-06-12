@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 use App\Repository\NewsRepository;
+use App\Service\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,23 +14,26 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class NewsController extends AbstractController
 {
+    const LIMIT_NEWS_PER_PAGE = 5;
+
     /**
      * @Route("/", name="list")
      * @param NewsRepository $newsRepository
+     * @param Paginator $paginator
      * @return Response
      */
-    public function list(NewsRepository $newsRepository): Response
+    public function list(NewsRepository $newsRepository, Paginator $paginator): Response
     {
-        $news = $newsRepository->findBy([], ['createdOn' => 'DESC'], 5, 0);
+        $actualities = $newsRepository->findBy([], ['createdAt' => 'DESC']);
+        $actualities = $paginator->paging($actualities, self::LIMIT_NEWS_PER_PAGE);
 
-        if (!$news) {
+        if (!$actualities) {
             throw $this->createNotFoundException(
                 'No news found in news table.'
             );
         }
-        return $this->render(
-            'job_tech/news/list.html.twig',
-            ['news' => $news]
-        );
+        return $this->render('job_tech/news/list.html.twig', [
+             'actualities' => $actualities,
+        ]);
     }
 }

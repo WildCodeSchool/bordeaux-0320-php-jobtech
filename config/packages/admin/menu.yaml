@@ -1,0 +1,14 @@
+easy_admin:
+
+    design:
+        menu:
+
+            - entity: 'News'
+              label: 'Actualités'
+              icon: 'newspaper'
+
+            - label: 'Utilisateur'
+              icon: 'users'
+              children:
+                  - {entity: 'Candidat', label: 'Candidats', icon: 'user'}
+                  - {entity: 'Company', label: 'Entreprises', icon: 'user-tie'}
