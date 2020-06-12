@@ -23,6 +23,7 @@ class UserController extends AbstractController
      * @param GuardAuthenticatorHandler $guardHandler
      * @param UserAuthenticator $authenticator
      * @param string $action
+     * Action is a parameter to select the type of user to be created.
      * @return Response
      */
     public function register(

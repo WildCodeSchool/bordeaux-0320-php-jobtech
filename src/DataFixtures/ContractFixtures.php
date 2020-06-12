@@ -9,11 +9,11 @@ use Doctrine\Persistence\ObjectManager;
 class ContractFixtures extends Fixture
 {
     const CONTRACTS = [
-        'cdi' => 'CDI',
-        'cdd' => 'CDD',
-        'free' => 'Freelance',
-        'stage' => 'Stage',
-        'alternance' => 'Alternance',
+        Contract::CDI['identifier'] => Contract::CDI['title'],
+        Contract::CDD['identifier'] => Contract::CDD['title'],
+        Contract::FREELANCE['identifier'] => Contract::FREELANCE['title'],
+        Contract::STAGE['identifier'] => Contract::STAGE['title'],
+        Contract::ALTERNANCE['identifier'] => Contract::ALTERNANCE['title'],
     ];
 
     public function load(ObjectManager $manager)

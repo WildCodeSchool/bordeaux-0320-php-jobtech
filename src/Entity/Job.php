@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\JobRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,17 +30,28 @@ class Job
     private $identifier;
 
     /**
-     * @ORM\ManyToOne(targetEntity=JobCategory::class)
+     * @ORM\ManyToMany(targetEntity=JobCategory::class, inversedBy="jobs")
      * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinTable(name="job_have_category")
      */
     private $jobCategory;
+
+    public function __construct()
+    {
+        $this->jobCategory = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->getTitle();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -70,6 +83,24 @@ class Job
     public function setJobCategory(?JobCategory $jobCategory): self
     {
         $this->jobCategory = $jobCategory;
+
+        return $this;
+    }
+
+    public function addJobCategory(JobCategory $jobCategory): self
+    {
+        if (!$this->jobCategory->contains($jobCategory)) {
+            $this->jobCategory[] = $jobCategory;
+        }
+
+        return $this;
+    }
+
+    public function removeJobCategory(JobCategory $jobCategory): self
+    {
+        if ($this->jobCategory->contains($jobCategory)) {
+            $this->jobCategory->removeElement($jobCategory);
+        }
 
         return $this;
     }

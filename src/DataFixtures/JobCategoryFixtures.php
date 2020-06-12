@@ -9,19 +9,58 @@ use Doctrine\Persistence\ObjectManager;
 class JobCategoryFixtures extends Fixture
 {
     const JOB_CATEGORY = [
-        'Aéronautique' => ['icon' => 'fas fa-plane', 'identifier' => 'aero'],
-        'Mécanique' => ['icon' => 'fas fa-wrench', 'identifier' => 'meca'],
-        'Structure béton' => ['icon' => 'fas fa-archway', 'identifier' => 'concrete'],
-        'Structure bois' => ['icon' => 'fas fa-tree', 'identifier' => 'wood'],
-        'Charpente métallique' => ['icon' => 'fas fa-building', 'identifier' => 'metal'],
-        'Génie climatique (CVC)' => ['icon' => 'fas fa-temperature-low', 'identifier' => 'clima'],
-        'Génie électrique' => ['icon' => 'fas fa-charging-station', 'identifier' => 'elec'],
-        'Tôlerie' => ['icon' => 'fab fa-accusoft', 'identifier' => 'sheet-metal'],
-        'Environnement Écologie' => ['icon' => 'fab fa-envira', 'identifier' => 'ecolo'],
-        'Système' => ['icon' => 'fas fa-lightbulb', 'identifier' => 'system'],
-        'Bâtiment' => ['icon' => 'fas fa-hard-hat', 'identifier' => 'construct'],
-        'VRD' => ['icon' => 'fas fa-route', 'identifier' => 'road'],
-        'Optique' => ['icon' => 'fas fa-eye', 'identifier' => 'optic'],
+        JobCategory::AERONAUTICS['title'] => [
+            'icon' => JobCategory::AERONAUTICS['icon'],
+            'identifier' => JobCategory::AERONAUTICS['identifier']
+        ],
+        JobCategory::MECHANIC['title'] => [
+            'icon' => JobCategory::MECHANIC['icon'],
+            'identifier' => JobCategory::MECHANIC['identifier']
+        ],
+        JobCategory::CONCRETE_STRUCTURE['title'] => [
+            'icon' => JobCategory::CONCRETE_STRUCTURE['icon'],
+            'identifier' => JobCategory::CONCRETE_STRUCTURE['identifier']
+        ],
+        JobCategory::WOOD_STRUCTURE['title'] => [
+            'icon' => JobCategory::WOOD_STRUCTURE['icon'],
+            'identifier' => JobCategory::WOOD_STRUCTURE['identifier']
+        ],
+        JobCategory::STEEL_FRAME['title'] => [
+            'icon' => JobCategory::STEEL_FRAME['icon'],
+            'identifier' => JobCategory::STEEL_FRAME['identifier']
+        ],
+        JobCategory::CLIMATE_ENGINEER['title'] => [
+            'icon' => JobCategory::CLIMATE_ENGINEER['icon'],
+            'identifier' => JobCategory::CLIMATE_ENGINEER['identifier']
+        ],
+        JobCategory::ELECTRICAL_ENGINEER['title'] => [
+            'icon' => JobCategory::ELECTRICAL_ENGINEER['icon'],
+            'identifier' => JobCategory::ELECTRICAL_ENGINEER['identifier']
+        ],
+        JobCategory::SHEET_METAL['title'] => [
+            'icon' => JobCategory::SHEET_METAL['icon'],
+            'identifier' => JobCategory::SHEET_METAL['identifier']
+        ],
+        JobCategory::ECOLOGICAL_ENVIRONMENT['title'] => [
+            'icon' => JobCategory::ECOLOGICAL_ENVIRONMENT['icon'],
+            'identifier' => JobCategory::ECOLOGICAL_ENVIRONMENT['identifier']
+        ],
+        JobCategory::SYSTEM['title'] => [
+            'icon' => JobCategory::SYSTEM['icon'],
+            'identifier' => JobCategory::SYSTEM['identifier']
+        ],
+        JobCategory::CONSTRUCTION['title'] => [
+            'icon' => JobCategory::CONSTRUCTION['icon'],
+            'identifier' => JobCategory::CONSTRUCTION['identifier']
+        ],
+        JobCategory::RMN['title'] => [
+            'icon' => JobCategory::RMN['icon'],
+            'identifier' => JobCategory::RMN['identifier']
+        ],
+        JobCategory::OPTIC['title'] => [
+            'icon' => JobCategory::OPTIC['icon'],
+            'identifier' => JobCategory::OPTIC['identifier']
+        ],
     ];
 
     public function load(ObjectManager $manager)
