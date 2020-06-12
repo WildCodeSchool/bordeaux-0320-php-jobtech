@@ -2,7 +2,7 @@
     <div class="card-body">
         <h5 class="card-title">{{ offer.job.title }}</h5>
         <p class="card-text"><i class="fas fa-map-marker-alt"></i> {{ offer.city }}</p>
-        <p><i class="far fa-calendar-alt"></i> Type du poste : {{ offer.duration }}</p>
+        <p><i class="far fa-calendar-alt"></i> Type de poste : {{ offer.contract.title }} - {{ offer.duration }}</p>
         <p><i class="fas fa-arrow-right"></i> Description du poste : {{ offer.description }}</p>
         <p class="date">L'offre date de {{ offer.interval | date('%a') }} jours</p>
     </div>
