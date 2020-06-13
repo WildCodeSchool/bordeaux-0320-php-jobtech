@@ -48,11 +48,6 @@ class Offer
     private $country;
 
     /**
-     * @ORM\Column(type="string", length=45)
-     */
-    private $duration;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -91,6 +86,12 @@ class Offer
      * @ORM\OneToMany(targetEntity=Apply::class, mappedBy="offer")
      */
     private $applies;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=DurationWorkTime::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $duration;
 
     public function __construct()
     {
@@ -164,18 +165,6 @@ class Offer
     public function setCountry(string $country): self
     {
         $this->country = $country;
-
-        return $this;
-    }
-
-    public function getDuration(): ?string
-    {
-        return $this->duration;
-    }
-
-    public function setDuration(string $duration): self
-    {
-        $this->duration = $duration;
 
         return $this;
     }
@@ -315,6 +304,18 @@ class Offer
                 $apply->setOffer(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDuration(): ?DurationWorkTime
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(?DurationWorkTime $duration): self
+    {
+        $this->duration = $duration;
 
         return $this;
     }
