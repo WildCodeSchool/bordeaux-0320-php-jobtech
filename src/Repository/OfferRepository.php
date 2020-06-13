@@ -40,14 +40,16 @@ class OfferRepository extends ServiceEntityRepository
             ->createQueryBuilder('o')
             ->select('j', 'o')
             ->join('o.job', 'j')
-            ->join('o.contract', 'c');
+            ->join('o.contract', 'c')
+            ->join('o.duration', 'd');
 
-        if (!empty($search->que)) {
+        if (!empty($search->query)) {
             $query = $query
-                ->andWhere('j.title LIKE :que')
-                ->orWhere('o.city LIKE :que')
-                ->orWhere('c.title LIKE :que')
-                ->setParameter('que', "%{$search->que}%");
+                ->andWhere('j.title LIKE :query')
+                ->orWhere('o.city LIKE :query')
+                ->orWhere('c.title LIKE :query')
+                ->orWhere('d.title LIKE :query')
+                ->setParameter('query', "%{$search->query}%");
         }
 
         if (!empty($search->job)) {
@@ -60,6 +62,12 @@ class OfferRepository extends ServiceEntityRepository
             $query = $query
                 ->andWhere('c.id IN (:contract)')
                 ->setParameter('contract', $search->contract);
+        }
+
+        if (!empty($search->duration)) {
+            $query = $query
+                ->andWhere('d.id IN (:duration)')
+                ->setParameter('duration', $search->duration);
         }
 
         $offers = $query->getQuery()->getResult();

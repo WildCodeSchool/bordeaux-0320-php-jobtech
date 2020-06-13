@@ -4,6 +4,7 @@
 namespace App\Form;
 
 use App\Entity\Contract;
+use App\Entity\DurationWorkTime;
 use App\Entity\Job;
 use App\Entity\Offer;
 use App\Service\OfferSearch;
@@ -19,7 +20,7 @@ class SearchForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('que', TextType::class, [
+            ->add('query', TextType::class, [
                 'label' => false,
                 'required' => false,
                 'attr' => [
@@ -40,20 +41,12 @@ class SearchForm extends AbstractType
                 'choice_label' => 'title',
                 'placeholder' => 'Choisissez un type de contrat dans la liste déroulante'
             ])
-
-            ->add('min', NumberType::class, [
+            ->add('duration', EntityType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => [
-                    'placeholder' => 'Temps min'
-                ]
-            ])
-            ->add('max', NumberType::class, [
-                'label' => false,
-                'required' => false,
-                'attr' => [
-                    'placeholder' => 'Temps max'
-                ]
+                'class' => DurationWorkTime::class,
+                'choice_label' => 'title',
+                'placeholder' => 'Choisissez un temps de travail dans la liste déroulante'
             ])
         ;
     }

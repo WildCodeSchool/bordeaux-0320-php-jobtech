@@ -15,63 +15,63 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             'postal_code' => '33200',
             'city' => 'Mérignac',
             'country' => 'France',
-            'duration' => 'Temps plein',
+            'duration' => 'duration_1',
             'contract' => 'contract_1',
         ],
         'job_3' => [
             'postal_code' => '33000',
             'city' => 'Pessac',
             'country' => 'Luxembourg',
-            'duration' => 'Mi-temps',
+            'duration' => 'duration_2',
             'contract' => 'contract_2',
         ],
         'job_4' => [
             'postal_code' => '33400',
             'city' => 'Bacalan',
             'country' => 'France',
-            'duration' => 'Temps plein',
+            'duration' => 'duration_1',
             'contract' => 'contract_1',
         ],
         'job_5' => [
             'postal_code' => '1000',
             'city' => 'Tours',
             'country' => 'France',
-            'duration' => 'Temps plein',
+            'duration' => 'duration_1',
             'contract' => 'contract_1',
         ],
         'job_17' => [
             'postal_code' => '4000',
             'city' => 'Madrid',
             'country' => 'Espagne',
-            'duration' => 'Mi-temps',
+            'duration' => 'duration_2',
             'contract' => 'contract_3',
         ],
         'job_18' => [
             'postal_code' => '3000',
             'city' => 'Brest',
             'country' => 'France',
-            'duration' => 'Temps plein',
+            'duration' => 'duration_1',
             'contract' => 'contract_1',
         ],
         'job_19' => [
             'postal_code' => '22300',
             'city' => 'Nice',
             'country' => 'France',
-            'duration' => 'Temps plein',
+            'duration' => 'duration_1',
             'contract' => 'contract_4',
         ],
         'job_2' => [
             'postal_code' => '20400',
             'city' => 'Limoges',
             'country' => 'France',
-            'duration' => 'Mi-temps',
+            'duration' => 'duration_2',
             'contract' => 'contract_1',
         ],
         'job_6' => [
             'postal_code' => '12750',
             'city' => 'Nancy',
             'country' => 'France',
-            'duration' => 'Temps Plein',
+            'duration' => 'duration_1',
             'contract' => 'contract_5',
         ],
     ];
@@ -81,12 +81,12 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
         $faker = Factory::create('fr_FR');
         foreach (self::OFFERS as $job => $data) {
             $offer = new Offer();
-            $offer->setTitle($faker->sentence(3))
+            $offer->setTitle($faker->sentence(2))
                 ->setDescription($faker->sentence())
                 ->setPostalCode($data['postal_code'])
                 ->setCity($data['city'])
                 ->setCountry($data['country'])
-                ->setDuration($data['duration'])
+                ->setDuration($this->getReference($data['duration']))
                 ->setCompany($this->getReference('company_' . rand(1, 50)))
                 ->setContract($this->getReference($data['contract']))
                 ->setJob($this->getReference($job));
