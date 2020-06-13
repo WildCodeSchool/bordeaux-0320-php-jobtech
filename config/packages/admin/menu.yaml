@@ -6,9 +6,19 @@ easy_admin:
             - entity: 'News'
               label: 'Actualités'
               icon: 'newspaper'
+              children:
+                  - {entity: 'News', label: 'Nouvelle actualité', icon: 'plus', params: {action: 'new'}}
+                  - {entity: 'News', label: 'Liste des actualités', icon: 'list'}
 
             - label: 'Utilisateur'
               icon: 'users'
               children:
+                  - {entity: 'Admin', label: 'Administrateur', icon: 'user-secret'}
                   - {entity: 'Candidat', label: 'Candidats', icon: 'user'}
                   - {entity: 'Company', label: 'Entreprises', icon: 'user-tie'}
+
+            - label: 'Métiers'
+              icon: 'th-list'
+              children:
+                  - {entity: 'JobCategory', label: "Secteurs d'activités", icon: 'th-large'}
+                  - {entity: 'Job', label: 'Métiers', icon: 'stream'}

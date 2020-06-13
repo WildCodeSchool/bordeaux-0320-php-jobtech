@@ -1,0 +1,11 @@
+easy_admin:
+
+    entities:
+        Job:
+            class: App\Entity\Job
+            list:
+                title: 'Liste des métiers'
+                sort: ['title', 'ASC']
+                actions:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-primary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}

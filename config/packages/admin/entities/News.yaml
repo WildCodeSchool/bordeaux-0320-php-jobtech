@@ -15,4 +15,4 @@ easy_admin:
                     - {property: 'createdAt', label: 'Créer le'}
             form:
                 fields:
-                    - {property: 'description', type: 'text_editor'}
+                    - {property: 'description', type: 'fos_ckeditor'}
