@@ -93,6 +93,12 @@ class Offer
      */
     private $duration;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=JobCategory::class, inversedBy="offers")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $jobCategory;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -316,6 +322,18 @@ class Offer
     public function setDuration(?DurationWorkTime $duration): self
     {
         $this->duration = $duration;
+
+        return $this;
+    }
+
+    public function getJobCategory(): ?JobCategory
+    {
+        return $this->jobCategory;
+    }
+
+    public function setJobCategory(?JobCategory $jobCategory): self
+    {
+        $this->jobCategory = $jobCategory;
 
         return $this;
     }

@@ -10,6 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Contract
 {
+    const CDI = ['identifier' => 'cdi', 'title' => 'CDI'];
+    const CDD = ['identifier' => 'cdd', 'title' => 'CDD'];
+    const FREELANCE = ['identifier' => 'freelance', 'title' => 'Freelance'];
+    const STAGE = ['identifier' => 'stage', 'title' => 'Stage'];
+    const ALTERNANCE = ['identifier' => 'alternance', 'title' => 'Alternance'];
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

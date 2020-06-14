@@ -29,22 +29,34 @@ class OfferRepository extends ServiceEntityRepository
         return $offers;
     }
 
+    public function getTotalOfOffers()
+    {
+        return $this->createQueryBuilder('o')
+            ->select('COUNT(o.title) AS offers')
+            ->getQuery()
+            ->getResult()[0]['offers'];
+    }
+
     /**
      * Retrieves offers related to a search
      * @param OfferSearch $search
+     * @param array $offers
      * @return Offer[]
      */
-    public function findSearch(OfferSearch $search): array
+    public function findSearch(OfferSearch $search, array $offers): array
     {
-        $query = $this
-            ->createQueryBuilder('o')
+        if ($search->checkIfFormIsEmpty()) {
+            return $offers;
+        }
+
+        $query = $this->createQueryBuilder('o')
             ->select('j', 'o')
             ->join('o.job', 'j')
             ->join('o.contract', 'c')
             ->join('o.duration', 'd');
 
         if (!empty($search->query)) {
-            $query = $query
+            $query
                 ->andWhere('j.title LIKE :query')
                 ->orWhere('o.city LIKE :query')
                 ->orWhere('c.title LIKE :query')
@@ -53,28 +65,29 @@ class OfferRepository extends ServiceEntityRepository
         }
 
         if (!empty($search->job)) {
-            $query = $query
+            $query
                 ->andWhere('j.id IN (:job)')
                 ->setParameter('job', $search->job);
         }
 
         if (!empty($search->contract)) {
-            $query = $query
+            $query
                 ->andWhere('c.id IN (:contract)')
                 ->setParameter('contract', $search->contract);
         }
 
         if (!empty($search->duration)) {
-            $query = $query
+            $query
                 ->andWhere('d.id IN (:duration)')
                 ->setParameter('duration', $search->duration);
         }
 
-        $offers = $query->getQuery()->getResult();
+        $offers = $query->getQuery()
+            ->getResult();
+
         foreach ($offers as $offer) {
             $offer->setInterval();
         }
-
         return $offers;
     }
 }

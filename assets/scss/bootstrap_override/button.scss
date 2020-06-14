@@ -1,0 +1,57 @@
+.btn-primary {
+    color: $darkGrey;
+    @include gradient-bg($primary);
+    border-color: $darkGrey;
+    @include box-shadow($btn-box-shadow);
+
+    @include hover() {
+        color: $primary;
+        @include gradient-bg($gold);
+        border-color: $gold;
+    }
+
+    &:focus,
+    &.focus {
+        color: $primary;
+        @include gradient-bg($gold);
+        border-color: $gold;
+        @if $enable-shadows {
+            @include box-shadow($btn-box-shadow, 0 0 0 $btn-focus-width rgba(mix($darkGrey, $darkGrey, 15%), .5));
+        } @else {
+            // Avoid using mixin so we can pass custom focus shadow properly
+            box-shadow: 0 0 0 $btn-focus-width rgba(mix($darkGrey, $darkGrey, 15%), .5);
+        }
+    }
+
+    // Disabled comes first so active can properly restyle
+    &.disabled,
+    &:disabled {
+        color: $darkGrey;
+        background-color: $primary;
+        border-color: $darkGrey;
+        // Remove CSS gradients if they're enabled
+        @if $enable-gradients {
+            background-image: none;
+        }
+    }
+
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active,
+    .show > &.dropdown-toggle {
+        color: $primary;
+        background-color: $gold;
+        @if $enable-gradients {
+            background-image: none; // Remove the gradient for the pressed/active state
+        }
+        border-color: $gold;
+
+        &:focus {
+            @if $enable-shadows and $btn-active-box-shadow != none {
+                @include box-shadow($btn-active-box-shadow, 0 0 0 $btn-focus-width rgba(mix($darkGrey, $darkGrey, 15%), .5));
+            } @else {
+                // Avoid using mixin so we can pass custom focus shadow properly
+                box-shadow: 0 0 0 $btn-focus-width rgba(mix($darkGrey, $primary, 15%), .5);
+            }
+        }
+    }
+}

@@ -1,47 +1,23 @@
 .index {
-    .index-job {
-        margin: 15px;
+    .img-top-index {
+        width: 100%;
+        height: auto;
+        border-bottom: 1px solid $darkGrey;
+    }
 
-        img {
-            height: 250px;
-            margin-right: 15px;
-            border: 1px solid $turquoise;
+    .img-index {
+        height: 30vh;
+        width: auto;
+    }
+
+    .job-category {
+        &:hover {
+            color: $secondary;
         }
 
         p {
-            font-size: 1.2rem;
-            font-weight: 500;
-        }
-    }
-
-    .sector {
-        background-color: $grey;
-        border-top: 2px solid $jade;
-        border-bottom: 2px solid $jade;
-
-        .card {
-            height: 150px;
-            width: 200px;
-            margin: 20px auto;
-            background-color: transparentize(white, 0.5);
-
-            &:hover {
-                color: $jade;
-            }
-        }
-
-        .card-icon {
-            font-size: 60px;
-        }
-
-        .card-text {
-            font-size: 15px;
-        }
-    }
-
-    .last-offers {
-        .card-footer {
-            border-bottom: 3px solid $turquoise;
+            word-spacing: 9999px;
         }
     }
 }
+

@@ -8,20 +8,34 @@ class OfferSearch
     /**
      * @var string
      */
-    public $query = '';
+    public $query;
 
     /**
      * @var string
      */
-    public $job = '';
+    public $job;
 
     /**
      * @var string
      */
-    public $contract = '';
+    public $contract;
 
     /**
      * @var string
      */
-    public $duration = '';
+    public $duration;
+
+    public function checkIfFormIsEmpty()
+    {
+        $result = false;
+
+        if ($this->query === null
+            && $this->job === null
+            && $this->duration === null
+            && $this->contract === null
+        ) {
+            $result = true;
+        }
+        return $result;
+    }
 }

@@ -1,21 +1,20 @@
 easy_admin:
 
     entities:
-        Company:
+        Admin:
             class: App\Entity\User
             list:
                 title: 'Liste des entreprises'
                 sort: ['createdAt', 'DESC']
-                dql_filter: "entity.roles LIKE '%%COMPANY%%'"
+                dql_filter: "entity.roles LIKE '%%ADMIN%%'"
                 actions:
                     - {name: 'show', icon: 'eye', label: false, css_class: 'btn btn-primary'}
                     - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-primary'}
                     - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
                 fields:
-                    - {property: 'company.name', label: 'Nom'}
+                    - {property: 'userInformation', label: 'Nom'}
                     - {property: 'email', type: 'email'}
-                    # - {property: 'company.siret', label: 'Siret'}
-                    - {property: 'company.city', label: 'Ville'}
-                    # - {property: 'company.contacts', label: 'Contact'}
+                    - {property: 'userInformation.phoneNumber', label: 'N° de téléphone', type: 'tel'}
+                    - {property: 'userInformation.city', label: 'Ville'}
                     - {property: 'createdAt', label: 'Date de la création'}
                     - {property: 'updatedAt', label: 'Dernière maj'}

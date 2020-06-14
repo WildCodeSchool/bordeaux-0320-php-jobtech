@@ -6,15 +6,16 @@ easy_admin:
             list:
                 title: 'Liste des candidats'
                 sort: ['createdAt', 'DESC']
-                dql_filter: 'entity.userInformation IS NOT NULL'
+                dql_filter: "entity.roles LIKE '%%CANDIDAT%%'"
                 actions:
                     - {name: 'show', icon: 'eye', label: false, css_class: 'btn btn-primary'}
                     - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-primary'}
                     - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
                 fields:
-                    - {property: 'email', type: 'email'}
                     - {property: 'userInformation', label: 'Nom'}
+                    - {property: 'email', type: 'email'}
                     - {property: 'userInformation.phoneNumber', label: 'N° de téléphone', type: 'tel'}
+                    - {property: 'userInformation.city', label: 'Ville'}
                     - {property: 'createdAt', label: 'Date de la création'}
                     - {property: 'updatedAt', label: 'Dernière maj'}
             show:
