@@ -1,0 +1,16 @@
+.carousel {
+    height: 210px;
+
+    .icon-carousel {
+        font-size: 25px;
+        color: $darkGrey;
+    }
+
+    .carousel-indicators li {
+        background-color: $darkGrey;
+    }
+
+    p {
+        font-size: 20px;
+    }
+}

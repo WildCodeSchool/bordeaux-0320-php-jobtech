@@ -18,20 +18,27 @@
                 </p>
                 <img src="{{ asset('build/images/unDraw/index_1.svg') }}" alt="" class="img-index ml-5">
             </div>
-
         </section>
+
         <section class="container">
-            <h1 class="ml-5 pt-3">Nos secteurs qui recrutent</h1>
+            {% include 'components/_carousel.html.twig' %}
+        </section>
+
+        <section class="container">
             <div class="d-flex align-items-center">
                 <img src="{{ asset('build/images/unDraw/index_2.svg') }}" alt="" class="img-index">
-                <div class="row row-cols-5">
-                    {% for job_category in job_categories %}
-                        <div class="mt-4 mb-4 job-category">
-                            <h5 class="card-icon text-center"><i class="{{ job_category.icon }}"></i></h5>
-                            <p class="card-text text-center">{{ job_category.title }}</p>
-                        </div>
-                    {% endfor %}
+                <div class="text-center">
+                    <h1 class="ml-5 pt-3">Nos secteurs qui recrutent</h1>
+                    <div class="row row-cols-5">
+                        {% for job_category in job_categories %}
+                            <div class="mt-4 mb-4 job-category">
+                                <h5 class="card-icon"><i class="{{ job_category.icon }}"></i></h5>
+                                <p class="card-text">{{ job_category.title }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
+
             </div>
 
         </section>
