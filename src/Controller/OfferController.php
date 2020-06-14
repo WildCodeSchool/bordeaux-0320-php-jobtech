@@ -25,9 +25,9 @@ class OfferController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function list(OfferRepository $offerRepository, Request $request, GeoApiFrGov $apiFrGov): Response
+    public function list(OfferRepository $offerRepository, Request $request): Response
     {
-        $offers = $offerRepository->findByAndAddInterval([], ['createdAt'=>'DESC'], self::MAX_OFFER_PER_PAGE);
+        $offers = $offerRepository->findAllOffersAndAddInterval(['createdAt'=>'DESC'], self::MAX_OFFER_PER_PAGE);
 
         if (!$offers) {
             throw $this->createNotFoundException(
