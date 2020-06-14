@@ -1,23 +1,23 @@
 .index {
-  .img-top-index {
-    width: 100%;
-    height: auto;
-    border-bottom: 1px solid $darkGrey;
-  }
-
-  .img-index {
-    height: 30vh;
-    width: auto;
-  }
-
-  .job-category {
-    &:hover {
-      color: $secondary;
+    .img-top-index {
+        width: 100%;
+        height: auto;
+        border-bottom: 1px solid $darkGrey;
     }
 
-    p {
-      word-spacing: 9999px;
+    .img-index {
+        height: 30vh;
+        width: auto;
     }
-  }
+
+    .job-category {
+        &:hover {
+            color: $secondary;
+        }
+
+        p {
+            word-spacing: 9999px;
+        }
+    }
 }
 
