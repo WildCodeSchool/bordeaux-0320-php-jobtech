@@ -1,3 +1,4 @@
+/* eslint-disable */
 class TextScramble {
     constructor(el) {
         this.el = el;
