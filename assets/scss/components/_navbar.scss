@@ -1,7 +1,8 @@
 nav {
     height: 70px;
     width: 100%;
-    background-color: $jade;
+    background-color: $primary;
+    border-bottom: 1px solid $darkGrey;
 
     .navbar-brand {
         img {
@@ -13,17 +14,17 @@ nav {
         span {
             padding-left: 10px;
             font-size: 1.3rem;
-            color: white;
+            color: $secondary;
         }
     }
 
 
     .nav-link {
-        color: white;
+        color: $darkGrey;
         font-size: 1.2rem;
 
         &:hover {
-            color: $brown;
+            color: $gold;
             text-decoration: underline;
         }
     }

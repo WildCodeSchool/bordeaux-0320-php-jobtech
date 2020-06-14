@@ -32,21 +32,21 @@ class SearchForm extends AbstractType
                 'required' => false,
                 'class' => Job::class,
                 'choice_label' => 'title',
-                'placeholder' => 'Choisissez un métier dans la liste déroulante'
+                'placeholder' => 'Métier'
             ])
             ->add('contract', EntityType::class, [
                 'label' => false,
                 'required' => false,
                 'class' => Contract::class,
                 'choice_label' => 'title',
-                'placeholder' => 'Choisissez un type de contrat dans la liste déroulante'
+                'placeholder' => 'Type de contrat'
             ])
             ->add('duration', EntityType::class, [
                 'label' => false,
                 'required' => false,
                 'class' => DurationWorkTime::class,
                 'choice_label' => 'title',
-                'placeholder' => 'Choisissez un temps de travail dans la liste déroulante'
+                'placeholder' => 'Temps de travail'
             ])
         ;
     }

@@ -14,7 +14,7 @@ class Contract
     const CDD = ['identifier' => 'cdd', 'title' => 'CDD'];
     const FREELANCE = ['identifier' => 'freelance', 'title' => 'Freelance'];
     const STAGE = ['identifier' => 'stage', 'title' => 'Stage'];
-    const ALTERNANCE = ['identifier' => 'alternance', 'title' => 'alternance'];
+    const ALTERNANCE = ['identifier' => 'alternance', 'title' => 'Alternance'];
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

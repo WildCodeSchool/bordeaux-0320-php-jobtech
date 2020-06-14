@@ -14,16 +14,14 @@
 </head>
 
 <body>
-{% block header %}
-    <header>
-        {% include 'components/_navbar.html.twig' %}
-    </header>
-{% endblock %}
+<header>
+    {% block header %}
+    {% include 'components/_navbar.html.twig' %}
+    {% endblock %}
+</header>
 
-<main class="main-container">
-    {% include 'components/_carousel.html.twig' %}
+<main>
     {% block body %}
-
     {% endblock %}
 </main>
 

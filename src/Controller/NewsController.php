@@ -32,7 +32,7 @@ class NewsController extends AbstractController
                 'No news found in news table.'
             );
         }
-        return $this->render('job_tech/news/list.html.twig', [
+        return $this->render('news/list.html.twig', [
              'actualities' => $actualities,
         ]);
     }

@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class JobTechController extends AbstractController
 {
+    const MAX_JOB_CATEGORY_IN_INDEX = 10;
     const MAX_OFFER_IN_INDEX = 6;
 
     /**
@@ -20,17 +21,9 @@ class JobTechController extends AbstractController
      */
     public function index(JobCategoryRepository $jobCategoryRepo, OfferRepository $offerRepository): Response
     {
-        return $this->render('job_tech/index.html.twig', [
-            'job_categories' => $jobCategoryRepo->findAll(),
-            'offers' => $offerRepository->findBy([], ['createdAt' => 'DESC'], self::MAX_OFFER_IN_INDEX)
+        return $this->render('index.html.twig', [
+            'job_categories' => $jobCategoryRepo->getJobCategoryWithOffersNb(self::MAX_JOB_CATEGORY_IN_INDEX),
+            'offers' => $offerRepository->findByAndAddInterval([], ['createdAt' => 'DESC'], self::MAX_OFFER_IN_INDEX)
         ]);
-    }
-
-    /**
-     * @Route("/registration", name="registration")
-     */
-    public function registration(): Response
-    {
-        return $this->render('job_tech/registration.html.twig');
     }
 }

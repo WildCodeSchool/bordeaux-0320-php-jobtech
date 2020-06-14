@@ -61,6 +61,14 @@ class JobCategoryFixtures extends Fixture
             'icon' => JobCategory::OPTIC['icon'],
             'identifier' => JobCategory::OPTIC['identifier']
         ],
+        JobCategory::DIGITAL['title'] => [
+            'icon' => JobCategory::DIGITAL['icon'],
+            'identifier' => JobCategory::DIGITAL['identifier']
+        ],
+        JobCategory::MARKETING['title'] => [
+            'icon' => JobCategory::MARKETING['icon'],
+            'identifier' => JobCategory::MARKETING['identifier']
+        ],
     ];
 
     public function load(ObjectManager $manager)

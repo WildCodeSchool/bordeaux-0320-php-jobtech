@@ -29,6 +29,7 @@ class GeoApiFrGov
     // Constant Geo Api
     const URL_GEO_API = 'https://geo.api.gouv.fr/';
     const GET_BY_POSTAL_CODE = 'communes?codePostal=';
+    const GET_BY_CODE = 'communes?code=';
 
     // Constant Address Api
     const URL_ADDRESS_API = 'https://api-adresse.data.gouv.fr/';
@@ -59,5 +60,21 @@ class GeoApiFrGov
         $result = $this->makeRequest($request);
         $result = $result->toArray();
         return GeoApiDataProcessing::cityProcessing($result);
+    }
+
+    /**
+     * @param int $code
+     * @return array|string
+     * @throws ClientExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    public function getCityByCode(int $code)
+    {
+        $request = self::URL_GEO_API . self::GET_BY_CODE . $code;
+        $result = $this->makeRequest($request);
+        return $result->toArray();
     }
 }

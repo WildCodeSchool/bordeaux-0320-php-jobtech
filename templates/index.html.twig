@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="index">
+        <img src="{{ asset('build/images/pictures/index.jpg') }}" class="img-top-index" alt="Image de new york">
+        <section class="w-100 pt-5 pb-5 bg-grey">
+            <div class="d-flex align-items-center justify-content-center container">
+                <p class="w-50 font-weight-bolder">
+                    JobTech est une plateforme de recherche d’emploi sur les
+                    métiers techniques. Tout type d’offres correspondant aux
+                    divers domaines d’activités.<br><br>
+                    Grâce à nos services, nous vous aidons à trouver le job
+                    adéquat en fonction de vos compétences ainsi que votre
+                    personnalité ; car aujourd’hui évoluer dans une environnement
+                    serein et respectueux de vos valeurs est important.<br><br>
+                    Nos services vous informent et conseillent également sur les
+                    conditions de travail.
+                </p>
+                <img src="{{ asset('build/images/unDraw/index_1.svg') }}" alt="" class="img-index ml-5">
+            </div>
+
+        </section>
+        <section class="container">
+            <h1 class="ml-5 pt-3">Nos secteurs qui recrutent</h1>
+            <div class="d-flex align-items-center">
+                <img src="{{ asset('build/images/unDraw/index_2.svg') }}" alt="" class="img-index">
+                <div class="row row-cols-5">
+                    {% for job_category in job_categories %}
+                        <div class="mt-4 mb-4 job-category">
+                            <h5 class="card-icon text-center"><i class="{{ job_category.icon }}"></i></h5>
+                            <p class="card-text text-center">{{ job_category.title }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </section>
+        <section class="container">
+            <h1 class="ml-5 pt-3">Nos dernières offres</h1>
+            <div class="row row-cols-1 row-cols-md-3 ml-3 mr-3 mt-3">
+                {% for offer in offers %}
+                    {% include 'offer/components/_card.html.twig' %}
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+{% endblock %}

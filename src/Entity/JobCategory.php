@@ -38,7 +38,7 @@ class JobCategory
         'identifier' => 'steel_frame'
     ];
     const CLIMATE_ENGINEER = [
-        'title' => 'Génie climatique (CVC)',
+        'title' => 'Génie climatique',
         'icon' => 'fas fa-temperature-low',
         'identifier' => 'climate_engineer'
     ];
@@ -77,6 +77,16 @@ class JobCategory
         'icon' => 'fas fa-eye',
         'identifier' => 'optic'
     ];
+    const DIGITAL = [
+        'title' => 'Digital',
+        'icon' => 'fas fa-atlas',
+        'identifier' => 'digital'
+    ];
+    const MARKETING = [
+        'title' => 'Marketing',
+        'icon' => 'fas fa-comments-dollar',
+        'identifier' => 'marketing'
+    ];
 
     /**
      * @ORM\Id()
@@ -105,9 +115,15 @@ class JobCategory
      */
     private $jobs;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Offer::class, mappedBy="jobCategory")
+     */
+    private $offers;
+
     public function __construct()
     {
         $this->jobs = new ArrayCollection();
+        $this->offers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -174,6 +190,37 @@ class JobCategory
         if ($this->jobs->contains($job)) {
             $this->jobs->removeElement($job);
             $job->removeJobCategory($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Offer[]
+     */
+    public function getOffers(): Collection
+    {
+        return $this->offers;
+    }
+
+    public function addOffer(Offer $offer): self
+    {
+        if (!$this->offers->contains($offer)) {
+            $this->offers[] = $offer;
+            $offer->setJobCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffer(Offer $offer): self
+    {
+        if ($this->offers->contains($offer)) {
+            $this->offers->removeElement($offer);
+            // set the owning side to null (unless already changed)
+            if ($offer->getJobCategory() === $this) {
+                $offer->setJobCategory(null);
+            }
         }
 
         return $this;

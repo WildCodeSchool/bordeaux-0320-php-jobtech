@@ -1,22 +1,23 @@
 // Library
 @import '~bootstrap/scss/bootstrap';
 
-// Override Bootstrap
-@import 'bootstrap-override';
+// Variables
+@import '_variables';
 
-// JobTech
-@import '_vars';
+// Override Bootstrap
+@import 'bootstrap_override/button';
+@import 'bootstrap_override/dropdown';
+
+// JobTech Pages
 @import 'main';
 @import 'jobtech/index';
 
 // Components
 @import 'components/_navbar';
-@import 'components/_carousel';
-@import 'components/_login';
+@import 'components/_footer';
 
 // Offer
-@import 'offer/offerlist';
+@import 'offer/list';
 
 // News
-
-@import 'news/newslist';
+@import 'news/list';
