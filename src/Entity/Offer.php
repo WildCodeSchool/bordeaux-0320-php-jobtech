@@ -72,7 +72,7 @@ class Offer
     private $contract;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Job::class)
+     * @ORM\ManyToOne(targetEntity=Job::class, inversedBy="offers")
      * @ORM\JoinColumn(nullable=false)
      */
     private $job;
@@ -196,9 +196,9 @@ class Offer
         return $this->interval;
     }
 
-    public function setInterval(): self
+    public function setInterval(DateTime $createdAt): self
     {
-        $this->interval = DateProcessing::dateIntervalBetweenNowAnd($this->getCreatedAt());
+        $this->interval = DateProcessing::dateIntervalBetweenNowAnd($createdAt);
 
         return $this;
     }

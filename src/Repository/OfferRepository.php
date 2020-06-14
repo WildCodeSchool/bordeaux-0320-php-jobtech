@@ -20,16 +20,55 @@ class OfferRepository extends ServiceEntityRepository
         parent::__construct($registry, Offer::class);
     }
 
-    public function findByAndAddInterval(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+    /**
+     * Find all offers and add the interval between the creation and now.
+     * @param array|null $orderBy
+     * @param int $limit
+     * @param int $offset
+     * @return Offer[]
+     */
+    public function findAllOffersAndAddInterval(array $orderBy = null, int $limit = null, int $offset = null): array
     {
-        $offers = $this->findBy($criteria, $orderBy, $limit, $offset);
-        foreach ($offers as $offer) {
-            $offer->setInterval();
+        $request = $this->createQueryBuilder('offer')
+            ->select('offer', 'job', 'jobCategory', 'company', 'contract', 'duration')
+            ->join('offer.job', 'job')
+            ->join('offer.jobCategory', 'jobCategory')
+            ->join('offer.company', 'company')
+            ->join('offer.contract', 'contract')
+            ->join('offer.duration', 'duration');
+
+        if ($orderBy) {
+            $first = true;
+            foreach ($orderBy as $key => $order) {
+                if ($first) {
+                    $request->orderBy('offer.' . $key, $order);
+                    $first = false;
+                } else {
+                    $request->addOrderBy('offer.' . $key, $order);
+                }
+            }
         }
+        if ($limit) {
+            $request->setMaxResults($limit);
+        }
+        if ($offset) {
+            $request->setFirstResult($offset);
+        }
+
+        $offers = $request->getQuery()->getResult();
+
+        foreach ($offers as $offer) {
+            $offer->setInterval($offer->getCreatedAt());
+        }
+
         return $offers;
     }
 
-    public function getTotalOfOffers()
+    /**
+     * Get the total number of offers posted on JobTech.
+     * @return integer
+     */
+    public function getTotalOfOffers(): int
     {
         return $this->createQueryBuilder('o')
             ->select('COUNT(o.title) AS offers')
@@ -86,7 +125,7 @@ class OfferRepository extends ServiceEntityRepository
             ->getResult();
 
         foreach ($offers as $offer) {
-            $offer->setInterval();
+            $offer->setInterval($offer->getCreatedAt());
         }
         return $offers;
     }

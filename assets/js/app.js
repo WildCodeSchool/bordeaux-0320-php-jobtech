@@ -15,6 +15,3 @@ require('../scss/app.scss');
 // Bootstrap
 const $ = require('jquery');
 require('bootstrap');
-
-// JobTech JS
-require('./TextScramble');
