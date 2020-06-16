@@ -2,38 +2,41 @@
 
 {% block title 'S\'enregistrer' %}
 {% block body %}
-    <h1>Register</h1>
+    <div class="container">
+        <h1>Register</h1>
 
-    {{ form_start(register) }}
+        {{ form_start(register) }}
 
-    {{ form_row(register.email) }}
-    {{ form_row(register.plainPassword.first) }}
-    {{ form_row(register.plainPassword.second) }}
-    {% if action == 'create_candidat' %}
-        {{ form_row(register.userInformation.lastname) }}
-        {{ form_row(register.userInformation.firstname) }}
-        {{ form_row(register.userInformation.birthday) }}
-        {{ form_row(register.userInformation.city) }}
-        {{ form_row(register.userInformation.country) }}
-        {{ form_row(register.userInformation.phoneNumber) }}
-        {{ form_row(register.userInformation.homeNumber) }}
-        {{ form_row(register.userInformation.postalCode) }}
-        <div class="d-flex justify-content-between">
-            {{ form_row(register.userInformation.isContactableTel) }}
-            {{ form_row(register.userInformation.isContactableEmail) }}
-            {{ form_row(register.userInformation.isHandicapped) }}
-        </div>
-    {% elseif action == 'create_company' %}
-        {{ form_row(register.company.name) }}
-        {{ form_row(register.company.siret) }}
-        {{ form_row(register.company.postalCode) }}
-        {{ form_row(register.company.city) }}
-        {{ form_row(register.company.country) }}
-        {{ form_row(register.company.address) }}
+        {{ form_row(register.email) }}
+        {{ form_row(register.plainPassword.first) }}
+        {{ form_row(register.plainPassword.second) }}
+        {% if action == 'create_candidat' %}
+            {{ form_row(register.userInformation.lastname) }}
+            {{ form_row(register.userInformation.firstname) }}
+            {{ form_row(register.userInformation.birthday) }}
+            {{ form_row(register.userInformation.city) }}
+            {{ form_row(register.userInformation.country) }}
+            {{ form_row(register.userInformation.phoneNumber) }}
+            {{ form_row(register.userInformation.homeNumber) }}
+            {{ form_row(register.userInformation.postalCode) }}
+            <div class="d-flex justify-content-between">
+                {{ form_row(register.userInformation.isContactableTel) }}
+                {{ form_row(register.userInformation.isContactableEmail) }}
+                {{ form_row(register.userInformation.isHandicapped) }}
+            </div>
+        {% elseif action == 'create_company' %}
+            {{ form_row(register.company.name) }}
+            {{ form_row(register.company.siret) }}
+            {{ form_row(register.company.postalCode) }}
+            {{ form_row(register.company.city) }}
+            {{ form_row(register.company.country) }}
+            {{ form_row(register.company.address) }}
 
 
-    {% endif %}
-    {{ form_row(register.agreeTerms) }}
-    <button type="submit" class="btn">Register</button>
-    {{ form_end(register) }}
+        {% endif %}
+        {{ form_row(register.agreeTerms) }}
+        <button type="submit" class="btn">Register</button>
+        {{ form_end(register) }}
+    </div>
+
 {% endblock %}

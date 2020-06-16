@@ -20,6 +20,8 @@ require('bootstrap');
 
 // Other Library
 require('select2/dist/js/select2.min')
+require('bootstrap-datepicker/js/bootstrap-datepicker')
+require('bootstrap-datepicker/dist/locales/bootstrap-datepicker.fr.min')
 
 // JS JobTech
-require('./select2');
+require('./form');
