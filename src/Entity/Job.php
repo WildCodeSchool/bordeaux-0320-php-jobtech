@@ -591,6 +591,7 @@ class Job
     public function __construct()
     {
         $this->jobCategory = new ArrayCollection();
+        $this->offers = new ArrayCollection();
     }
 
     public function __toString(): string

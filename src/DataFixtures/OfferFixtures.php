@@ -93,7 +93,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
                 ->setCountry($data['country'])
                 ->setDuration($this->getReference($data['duration']))
                 ->setCompany($this->getReference('company_' . rand(1, 50)))
-                ->setContract($this->getReference($data['contract']))
+                ->addContract($this->getReference($data['contract']))
                 ->setJob($job)
                 ->setJobCategory($this->getReference('job_category_' . rand(1, $nbJobCategory)));
             $manager->persist($offer);
@@ -113,7 +113,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
                 ->setCountry('France')
                 ->setDuration($this->getReference('duration_' . rand(1, 3)))
                 ->setCompany($this->getReference('company_' . $i))
-                ->setContract($this->getReference('contract_' . rand(1, 5)))
+                ->addContract($this->getReference('contract_' . rand(1, 5)))
                 ->setJob($job)
                 ->setJobCategory($this->getReference('job_category_' . rand(1, $nbJobCategory)));
             $manager->persist($offer);

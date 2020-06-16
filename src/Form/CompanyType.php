@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Company;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,7 +14,7 @@ class CompanyType extends AbstractType
     {
         if ($options['action'] === 'create_company') {
             $builder
-                ->add('name')
+                ->add('name', CKEditorType::class)
                 ->add('siret')
                 ->add('postalCode')
                 ->add('city')

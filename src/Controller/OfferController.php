@@ -3,10 +3,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Offer;
+use App\Form\OfferType;
 use App\Form\SearchForm;
 use App\Repository\Api\GeoApiFrGov;
 use App\Repository\OfferRepository;
 use App\Service\OfferSearch;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,6 +22,28 @@ class OfferController extends AbstractController
 {
     const MAX_OFFER_PER_PAGE = 9;
 
+    /**
+     * @Route("/add", name="add")
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function newOffer(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $form =$this->createForm(OfferType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $offer = new Offer();
+            $entityManager->persist($offer);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->render('offer/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
     /**
      * @Route("/", name="list")
      * @param OfferRepository $offerRepository

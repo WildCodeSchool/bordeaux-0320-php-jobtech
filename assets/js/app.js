@@ -15,3 +15,4 @@ require('../scss/app.scss');
 // Bootstrap
 const $ = require('jquery');
 require('bootstrap');
+require('./select2');

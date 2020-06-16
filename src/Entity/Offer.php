@@ -66,7 +66,7 @@ class Offer
     private $company;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Contract::class)
+     * @ORM\ManyToMany(targetEntity=Contract::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $contract;
@@ -103,6 +103,7 @@ class Offer
     {
         $this->users = new ArrayCollection();
         $this->applies = new ArrayCollection();
+        $this->contract = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -211,6 +212,7 @@ class Offer
     /**
      * @ORM\PreUpdate()
      * @return $this
+     * @throws \Exception
      */
     public function setUpdatedAt(): self
     {
@@ -236,12 +238,6 @@ class Offer
         return $this->contract;
     }
 
-    public function setContract(?Contract $contract): self
-    {
-        $this->contract = $contract;
-
-        return $this;
-    }
 
     public function getJob(): ?Job
     {
@@ -334,6 +330,24 @@ class Offer
     public function setJobCategory(?JobCategory $jobCategory): self
     {
         $this->jobCategory = $jobCategory;
+
+        return $this;
+    }
+
+    public function addContract(Contract $contract): self
+    {
+        if (!$this->contract->contains($contract)) {
+            $this->contract[] = $contract;
+        }
+
+        return $this;
+    }
+
+    public function removeContract(Contract $contract): self
+    {
+        if ($this->contract->contains($contract)) {
+            $this->contract->removeElement($contract);
+        }
 
         return $this;
     }
