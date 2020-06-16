@@ -23,21 +23,21 @@ class OfferType extends AbstractType
             ->add('title', TextType::class)
             ->add('description', CKEditorType::class)
             ->add('postalCode', IntegerType::class)
-            ->add('city',TextType::class )
-            ->add('country',TextType::class)
+            ->add('city', TextType::class)
+            ->add('country', TextType::class)
             ->add('contract', EntityType::class, [
                 'class' => Contract::class,
                 'choice_label' => 'title',
                 'multiple' => true,
-            ])
-            ->add('job',EntityType::class, [
-                'class'=>Job::class, 'choice_label'=>'title'
             ])
             ->add('duration', EntityType::class, [
                 'class'=>DurationWorkTime::class, 'choice_label'=>'title'
             ])
             ->add('jobCategory', EntityType::class, [
                 'class'=>JobCategory::class, 'choice_label'=>'title'
+            ])
+            ->add('job', EntityType::class, [
+                'class'=>Job::class, 'choice_label'=>'title'
             ])
         ;
     }

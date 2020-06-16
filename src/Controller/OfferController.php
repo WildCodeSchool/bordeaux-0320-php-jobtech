@@ -23,12 +23,12 @@ class OfferController extends AbstractController
     const MAX_OFFER_PER_PAGE = 9;
 
     /**
-     * @Route("/add", name="add")
+     * @Route("/new", name="new")
      * @param Request $request
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    public function newOffer(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $form =$this->createForm(OfferType::class);
         $form->handleRequest($request);

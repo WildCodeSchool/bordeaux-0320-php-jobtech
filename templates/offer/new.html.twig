@@ -1,8 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block title 'Créer une offre' %}
 {% block body %}
-    {{ form_start(form) }}
-    {{ form_rest(form)}}
-    <button class="btn">{{ button_label|default('Ajouter') }}</button>
-    {{ form_end(form) }}
+    <div class="container">
+        {{ form_start(form) }}
+        {{ form_rest(form)}}
+        <button class="btn">{{ button_label|default('Ajouter') }}</button>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}

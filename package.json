@@ -27,6 +27,7 @@
         "@ttskch/select2-bootstrap4-theme": "^1.4.0",
         "node-sass": "^4.13.0",
         "sass-loader": "^7.1.0",
+        "select2": "^4.0.13",
         "serialize-javascript": "^3.0.0"
     }
 }
