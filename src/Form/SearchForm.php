@@ -4,13 +4,11 @@
 namespace App\Form;
 
 use App\Entity\Contract;
-use App\Entity\DurationWorkTime;
+use App\Entity\WorkTime;
 use App\Entity\Job;
-use App\Entity\Offer;
-use App\Service\OfferSearch;
+use App\Entity\Search\OfferSearch;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -44,7 +42,7 @@ class SearchForm extends AbstractType
             ->add('duration', EntityType::class, [
                 'label' => false,
                 'required' => false,
-                'class' => DurationWorkTime::class,
+                'class' => WorkTime::class,
                 'choice_label' => 'title',
                 'placeholder' => 'Temps de travail'
             ])

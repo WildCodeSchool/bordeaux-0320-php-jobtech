@@ -4,11 +4,10 @@
 namespace App\Controller;
 
 use App\Entity\Offer;
+use App\Entity\Search\OfferSearch;
 use App\Form\OfferType;
 use App\Form\SearchForm;
-use App\Repository\Api\GeoApiFrGov;
 use App\Repository\OfferRepository;
-use App\Service\OfferSearch;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

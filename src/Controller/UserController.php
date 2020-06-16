@@ -17,7 +17,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/register/{action}", name="app_register")
+     * @Route("/register/{action}", name="register")
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param GuardAuthenticatorHandler $guardHandler
@@ -68,7 +68,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/login", name="app_login")
+     * @Route("/login", name="login")
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
@@ -84,13 +84,5 @@ class UserController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('user/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
-    }
-
-    /**
-     * @Route("/logout", name="app_logout")
-     */
-    public function logout()
-    {
-        throw new LogicException('This method can be blank it will be intercepted by the logout key on your firewall.');
     }
 }

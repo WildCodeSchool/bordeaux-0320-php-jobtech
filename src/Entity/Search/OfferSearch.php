@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Service;
+namespace App\Entity\Search;
 
 class OfferSearch
 {
