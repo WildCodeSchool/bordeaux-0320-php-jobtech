@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UserInformationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,12 +21,16 @@ class UserInformation
     private $id;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max=45, maxMessage="Le prénom ne doit pas dépasser 45 caractères")
      * @ORM\Column(type="string", length=45)
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=45)
+     * @Assert\NotBlank()
+     * @Assert\Length(max=45, maxMessage="Le Nom ne doit pas dépasser 45 caractères")
      */
     private $firstname;
 

@@ -37,7 +37,7 @@ class User implements UserInterface
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Length(max=4096)
+     * @Assert\Length(min="8",max=4096, minMessage="Attention le mot de passe doit faire minimum 8 caractères !")
      */
     private $plainPassword;
 
