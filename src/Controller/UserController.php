@@ -32,6 +32,9 @@ class UserController extends AbstractController
         UserAuthenticator $authenticator,
         string $action
     ): ?Response {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('index');
+        }
         $user = new User();
         $form = $this->createForm(RegisterType::class, $user, ['action' => $action]);
         $form->handleRequest($request);
@@ -40,7 +43,8 @@ class UserController extends AbstractController
             // encode the plain password
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
-
+         //   if ($action === RegisterType::ACTION_CREATE_COMPANY) {
+         //   }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
