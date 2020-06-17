@@ -31,7 +31,7 @@
                 {% else %}
                     L'offre date de {{ offer.interval | date('%S') }} {% if offer.interval | date('%S') > 1 %}secondes{% else %}seconde{% endif %}
                 {% endif %}
-                <a href="" data-toggle="modal" data-target="#exampleModal" class="float-right">Voir <i class="fas fa-long-arrow-alt-right ml-2"></i></a>
+                <a href="" data-toggle="modal" data-target="#offerModal" class="float-right">Voir <i class="fas fa-long-arrow-alt-right ml-2"></i></a>
             </p>
 
             {% include 'offer/components/_modal.html.twig' %}
