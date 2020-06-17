@@ -78,6 +78,8 @@ class OfferRepository extends ServiceEntityRepository
      */
     public function findSearch(OfferSearch $search, array $offers): array
     {
+
+
         if ($search->checkIfFormIsEmpty()) {
             return $offers;
         }

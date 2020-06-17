@@ -19,19 +19,13 @@ class CompanyFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR');
         for ($i = 1; $i < 51; $i++) {
-            $address = $faker->biasedNumberBetween(1, 100, 'sqrt');
-            $address .= ' rue ';
-            $roadName = $faker->words(rand(1, 2), true);
-            if (is_string($roadName)) {
-                $address .= $roadName;
-            }
             $company = new Company();
             $company->setName($faker->company)
                 ->setSiret($faker->creditCardNumber)
                 ->setPostalCode(self::POSTAL_CODE)
                 ->setCity(self::CITY)
                 ->setCountry(self::COUNTRY)
-                ->setAddress($address);
+                ->setAddress($faker->streetAddress);
             $this->addReference('company_' . $i, $company);
             $manager->persist($company);
         }

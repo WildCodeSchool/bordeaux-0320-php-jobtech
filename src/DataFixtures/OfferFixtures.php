@@ -4,7 +4,6 @@ namespace App\DataFixtures;
 
 use App\Entity\Job;
 use App\Entity\Offer;
-use App\Repository\Api\GeoApiFrGov;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -81,7 +80,6 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr_FR');
-        $apiFrGov = new GeoApiFrGov();
         foreach (self::OFFERS as $jobReference => $data) {
             $job = $manager->find(Job::class, $this->getReference($jobReference));
             $nbJobCategory = count($job->getJobCategory());
@@ -89,7 +87,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer->setTitle($faker->sentence(2))
                 ->setDescription($faker->sentence())
                 ->setAvailablePlace(1)
-                ->setAddress($faker->address)
+                ->setAddress($faker->streetAddress)
                 ->setPostalCode($data['postal_code'])
                 ->setCity($data['city'])
                 ->setCountry($data['country'])
@@ -102,18 +100,18 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
         }
 
         for ($i = 1; $i <= 50; $i++) {
-            do {
-                $city = $apiFrGov->getCityByCode(rand(10, 95) . '0' . rand(10, 99));
-            } while (!$city);
             $job = $manager->find(Job::class, $this->getReference('job_' . rand(1, 34)));
             $nbJobCategory = count($job->getJobCategory());
+            do {
+                $postCode = (int)$faker->postcode;
+            } while (strlen($postCode) != 5);
             $offer = new Offer();
             $offer->setTitle($faker->sentence(2))
                 ->setDescription($faker->sentence())
                 ->setAvailablePlace(rand(1, 3))
-                ->setAddress($faker->address)
-                ->setPostalCode($city[0]['codesPostaux'][0])
-                ->setCity($city[0]['nom'])
+                ->setAddress($faker->streetAddress)
+                ->setPostalCode($postCode)
+                ->setCity($faker->city)
                 ->setCountry('France')
                 ->setWorkTime($this->getReference('workTime_' . rand(1, 3)))
                 ->setCompany($this->getReference('company_' . $i))
