@@ -1,9 +1,9 @@
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="offerModal" aria-hidden="true">
+<div class="modal fade" id="offerModal" tabindex="-1" role="dialog" aria-labelledby="offerModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title text-gold" id="offerModal">{{ offer.job.title }}</h3>
+                <h3 class="modal-title text-gold" id="offerModalLabel">{{ offer.job.title }}</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -16,11 +16,11 @@
                 <br>
                 <p>Description de l'offre: {{ offer.description }}</p>
                 <br>
-                <p>Nombre de {% if offer.availablePlace > 1 %}postes{% else %}poste{% endif %}: {{ offer.availablePlace }} </p>
+                <p>Nombre de {% if offer.availablePlace > 1 %}postes{% else %}poste{% endif %} : {{ offer.availablePlace }} </p>
                 <br>
                 <p><span class="text-red"><i class="fas fa-calendar-alt"></i></span> Type de contrat :
                     {% for contract in offer.contracts %}
-                        {{ contract.title }}
+                        {{ contract.title }} 
                     {% endfor %}
                     à {{ offer.workTime.title }}</p>
                 <br>
