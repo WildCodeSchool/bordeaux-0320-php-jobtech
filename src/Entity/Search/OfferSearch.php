@@ -35,7 +35,7 @@ class OfferSearch
 
         if ($this->getQuery() === null
             && $this->getJob() === null
-            && $this->getWorkTime() === null
+            && $this->getContract() === null
             && $this->getWorkTime() === null
         ) {
             $result = true;

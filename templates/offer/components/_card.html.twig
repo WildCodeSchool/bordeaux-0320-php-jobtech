@@ -23,16 +23,18 @@
         <div class="card-footer">
             <p class="card-text text-turquoise">
                 {% if offer.interval | date('%a') >= 1 %}
-                L'offre date de {{ offer.interval | date('%a') }} {% if offer.interval | date('%a') > 1 %}jours{% else %}jour{% endif %}.
+                    L'offre date de {{ offer.interval | date('%a') }} {% if offer.interval | date('%a') > 1 %}jours{% else %}jour{% endif %}.
                 {% elseif offer.interval | date('%H') >= 1 %}
-                L'offre date de {{ offer.interval | date('%H') }} {% if offer.interval | date('%H') > 1 %}heures{% else %}heure{% endif %}
+                    L'offre date de {{ offer.interval | date('%H') }} {% if offer.interval | date('%H') > 1 %}heures{% else %}heure{% endif %}
                 {% elseif offer.interval | date('%I') >= 1 %}
-                L'offre date de {{ offer.interval | date('%I') }} {% if offer.interval | date('%I') > 1 %}minutes{% else %}minute{% endif %}
+                    L'offre date de {{ offer.interval | date('%I') }} {% if offer.interval | date('%I') > 1 %}minutes{% else %}minute{% endif %}
                 {% else %}
-                L'offre date de {{ offer.interval | date('%S') }} {% if offer.interval | date('%S') > 1 %}secondes{% else %}seconde{% endif %}
+                    L'offre date de {{ offer.interval | date('%S') }} {% if offer.interval | date('%S') > 1 %}secondes{% else %}seconde{% endif %}
                 {% endif %}
-                <span class="float-right">Voir <i class="fas fa-long-arrow-alt-right ml-2"></i></span>
+                <a href="" data-toggle="modal" data-target="#offerModal" class="float-right">Voir <i class="fas fa-long-arrow-alt-right ml-2"></i></a>
             </p>
+
+            {% include 'offer/components/_modal.html.twig' %}
         </div>
     </div>
 </div>
