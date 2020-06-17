@@ -559,6 +559,7 @@ class Job
         ],
     ];
 
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -579,35 +580,52 @@ class Job
     /**
      * @ORM\ManyToMany(targetEntity=JobCategory::class, inversedBy="jobs")
      * @ORM\JoinColumn(nullable=false)
-     * @ORM\JoinTable(name="job_have_category")
+     * @ORM\JoinTable(name="job_has_categories")
      */
     private $jobCategory;
 
     /**
-     * @ORM\OneToMany(targetEntity=Offer::class, mappedBy="job")
+     * @ORM\OneToMany(targetEntity=Offer::class, mappedBy="job", orphanRemoval=true)
      */
     private $offers;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Search::class, mappedBy="job", orphanRemoval=true)
+     */
+    private $searches;
 
     public function __construct()
     {
         $this->jobCategory = new ArrayCollection();
+        $this->offers = new ArrayCollection();
+        $this->searches = new ArrayCollection();
     }
 
-    public function __toString(): string
+    public function __toString()
     {
         return $this->getTitle();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getTitle(): string
     {
         return $this->title;
     }
 
+    /**
+     * @param string $title
+     * @return $this
+     */
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -615,11 +633,18 @@ class Job
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getIdentifier(): ?string
     {
         return $this->identifier;
     }
 
+    /**
+     * @param string|null $identifier
+     * @return $this
+     */
     public function setIdentifier(?string $identifier): self
     {
         $this->identifier = $identifier;
@@ -627,18 +652,18 @@ class Job
         return $this;
     }
 
+    /**
+     * @return Collection|JobCategory[]
+     */
     public function getJobCategory(): Collection
     {
         return $this->jobCategory;
     }
 
-    public function setJobCategory(?JobCategory $jobCategory): self
-    {
-        $this->jobCategory = $jobCategory;
-
-        return $this;
-    }
-
+    /**
+     * @param JobCategory $jobCategory
+     * @return $this
+     */
     public function addJobCategory(JobCategory $jobCategory): self
     {
         if (!$this->jobCategory->contains($jobCategory)) {
@@ -648,6 +673,10 @@ class Job
         return $this;
     }
 
+    /**
+     * @param JobCategory $jobCategory
+     * @return $this
+     */
     public function removeJobCategory(JobCategory $jobCategory): self
     {
         if ($this->jobCategory->contains($jobCategory)) {
@@ -665,6 +694,10 @@ class Job
         return $this->offers;
     }
 
+    /**
+     * @param Offer $offer
+     * @return $this
+     */
     public function addOffer(Offer $offer): self
     {
         if (!$this->offers->contains($offer)) {
@@ -675,6 +708,10 @@ class Job
         return $this;
     }
 
+    /**
+     * @param Offer $offer
+     * @return $this
+     */
     public function removeOffer(Offer $offer): self
     {
         if ($this->offers->contains($offer)) {
@@ -682,6 +719,45 @@ class Job
             // set the owning side to null (unless already changed)
             if ($offer->getJob() === $this) {
                 $offer->setJob(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Search[]
+     */
+    public function getSearches(): Collection
+    {
+        return $this->searches;
+    }
+
+    /**
+     * @param Search $search
+     * @return $this
+     */
+    public function addSearch(Search $search): self
+    {
+        if (!$this->searches->contains($search)) {
+            $this->searches[] = $search;
+            $search->setJob($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Search $search
+     * @return $this
+     */
+    public function removeSearch(Search $search): self
+    {
+        if ($this->searches->contains($search)) {
+            $this->searches->removeElement($search);
+            // set the owning side to null (unless already changed)
+            if ($search->getJob() === $this) {
+                $search->setJob(null);
             }
         }
 

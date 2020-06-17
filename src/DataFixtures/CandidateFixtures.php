@@ -2,46 +2,51 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\UserInformation;
+use App\Entity\Candidate;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-class UserInformationFixtures extends Fixture
+class CandidateFixtures extends Fixture implements DependentFixtureInterface
 {
     const ADMIN = [
         [
-            'lastname' => 'Erpeldinger',
+            'surname' => 'Erpeldinger',
             'firstname' => 'Guillaume',
             'birthday' => '1992-07-10',
+            'gender' => 'gender_0',
             'isHandicapped' => false,
             'isContactableTel' => true,
             'isContactableEmail' => true,
             'haveVehicle' => true,
         ],
         [
-            'lastname' => 'Dureau',
+            'surname' => 'Dureau',
             'firstname' => 'Ludovic',
             'birthday' => '1992-07-10',
+            'gender' => 'gender_0',
             'isHandicapped' => false,
             'isContactableTel' => true,
             'isContactableEmail' => true,
             'haveVehicle' => true,
         ],
         [
-            'lastname' => 'Adadain',
+            'surname' => 'Adadain',
             'firstname' => 'Quentin',
             'birthday' => '1992-07-10',
+            'gender' => 'gender_0',
             'isHandicapped' => false,
             'isContactableTel' => true,
             'isContactableEmail' => true,
             'haveVehicle' => true,
         ],
         [
-            'lastname' => 'Ardilouze',
+            'surname' => 'Ardilouze',
             'firstname' => 'Timothée',
             'birthday' => '1992-07-10',
+            'gender' => 'gender_0',
             'isHandicapped' => false,
             'isContactableTel' => true,
             'isContactableEmail' => true,
@@ -55,6 +60,11 @@ class UserInformationFixtures extends Fixture
     const CITY = 'Bordeaux';
     const COUNTRY = 'FR';
 
+    public function getDependencies()
+    {
+        return [GenderFixtures::class];
+    }
+
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr_FR');
@@ -62,13 +72,14 @@ class UserInformationFixtures extends Fixture
         foreach (self::ADMIN as $i => $data) {
             $birthday = new DateTime($data['birthday']);
             $phoneNumber = self::PREFIX_PHONE . $faker->randomNumber(8, true);
-            $homeNumber = self::PREFIX_PHONE_HOME . $faker->randomNumber(8, true);
-            $admin = new UserInformation();
-            $admin->setLastname($data['lastname'])
+            $otherNumber = self::PREFIX_PHONE_HOME . $faker->randomNumber(8, true);
+            $admin = new Candidate();
+            $admin->setSurname($data['surname'])
                 ->setFirstname($data['firstname'])
                 ->setBirthday($birthday)
+                ->setGender($this->getReference($data['gender']))
                 ->setPhoneNumber((int)$phoneNumber)
-                ->setHomeNumber((int)$homeNumber)
+                ->setOtherNumber((int)$otherNumber)
                 ->setPostalCode(self::POSTAL_CODE)
                 ->setCity(self::CITY)
                 ->setCountry(self::COUNTRY)
@@ -82,19 +93,20 @@ class UserInformationFixtures extends Fixture
         }
 
         for ($i = 1; $i < 21; $i++) {
-            $lastname = $faker->lastName;
+            $surname = $faker->lastName;
             $firstname = $faker->firstName;
             $birthday = $faker->dateTimeInInterval('-60 years', '+ 42 years', 'Europe/Paris');
             $phoneNumber = self::PREFIX_PHONE . $faker->randomNumber(8, true);
-            $homeNumber = self::PREFIX_PHONE_HOME . $faker->randomNumber(8, true);
+            $otherNumber = self::PREFIX_PHONE_HOME . $faker->randomNumber(8, true);
             $randomHandicapped = rand(1, 10000);
             $randomHandicapped = $randomHandicapped >= 9000; // Probability 90% - 10%
-            $candidat = new UserInformation();
-            $candidat->setLastname($lastname)
+            $candidat = new Candidate();
+            $candidat->setSurname($surname)
                 ->setFirstname($firstname)
                 ->setBirthday($birthday)
+                ->setGender($this->getReference('gender_' . rand(0, 1)))
                 ->setPhoneNumber((int)$phoneNumber)
-                ->setHomeNumber((int)$homeNumber)
+                ->setOtherNumber((int)$otherNumber)
                 ->setPostalCode(self::POSTAL_CODE)
                 ->setCity(self::CITY)
                 ->setCountry(self::COUNTRY)

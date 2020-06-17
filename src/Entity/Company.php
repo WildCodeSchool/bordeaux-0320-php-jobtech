@@ -25,14 +25,19 @@ class Company
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $siret;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $address;
+
+    /**
      * @ORM\Column(type="integer")
      */
-    private $postalCode;
+    private $postal_code;
 
     /**
      * @ORM\Column(type="string", length=60)
@@ -45,14 +50,9 @@ class Company
     private $country;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\OneToOne(targetEntity=User::class, mappedBy="company", cascade={"persist", "remove"})
      */
-    private $address;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Contact::class, mappedBy="company", orphanRemoval=true)
-     */
-    private $contacts;
+    private $user;
 
     /**
      * @ORM\OneToMany(targetEntity=Offer::class, mappedBy="company", orphanRemoval=true)
@@ -61,25 +61,34 @@ class Company
 
     public function __construct()
     {
-        $this->contacts = new ArrayCollection();
         $this->offers = new ArrayCollection();
     }
 
-    public function __toString(): ?string
+    public function __toString(): string
     {
         return $this->getName();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     * @return $this
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -87,59 +96,37 @@ class Company
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getSiret(): ?string
     {
         return $this->siret;
     }
 
-    public function setSiret(string $siret): self
+    /**
+     * @param string|null $siret
+     * @return $this
+     */
+    public function setSiret(?string $siret): self
     {
         $this->siret = $siret;
 
         return $this;
     }
 
-    public function getPostalCode(): ?int
-    {
-        return $this->postalCode;
-    }
-
-    public function setPostalCode(int $postalCode): self
-    {
-        $this->postalCode = $postalCode;
-
-        return $this;
-    }
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(string $city): self
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    public function getCountry(): ?string
-    {
-        return $this->country;
-    }
-
-    public function setCountry(string $country): self
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
+    /**
+     * @return string|null
+     */
     public function getAddress(): ?string
     {
         return $this->address;
     }
 
+    /**
+     * @param string $address
+     * @return $this
+     */
     public function setAddress(string $address): self
     {
         $this->address = $address;
@@ -148,31 +135,82 @@ class Company
     }
 
     /**
-     * @return Collection|Contact[]
+     * @return int|null
      */
-    public function getContacts(): Collection
+    public function getPostalCode(): ?int
     {
-        return $this->contacts;
+        return $this->postal_code;
     }
 
-    public function addContact(Contact $contact): self
+    /**
+     * @param int $postal_code
+     * @return $this
+     */
+    public function setPostalCode(int $postal_code): self
     {
-        if (!$this->contacts->contains($contact)) {
-            $this->contacts[] = $contact;
-            $contact->setCompany($this);
-        }
+        $this->postal_code = $postal_code;
 
         return $this;
     }
 
-    public function removeContact(Contact $contact): self
+    /**
+     * @return string|null
+     */
+    public function getCity(): ?string
     {
-        if ($this->contacts->contains($contact)) {
-            $this->contacts->removeElement($contact);
-            // set the owning side to null (unless already changed)
-            if ($contact->getCompany() === $this) {
-                $contact->setCompany(null);
-            }
+        return $this->city;
+    }
+
+    /**
+     * @param string $city
+     * @return $this
+     */
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param string $country
+     * @return $this
+     */
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     * @return $this
+     */
+    public function setUser(User $user): self
+    {
+        $this->user = $user;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newCompany = null === $user ? null : $this;
+        if ($user->getCompany() !== $newCompany) {
+            $user->setCompany($newCompany);
         }
 
         return $this;
@@ -186,6 +224,10 @@ class Company
         return $this->offers;
     }
 
+    /**
+     * @param Offer $offer
+     * @return $this
+     */
     public function addOffer(Offer $offer): self
     {
         if (!$this->offers->contains($offer)) {
@@ -196,6 +238,10 @@ class Company
         return $this;
     }
 
+    /**
+     * @param Offer $offer
+     * @return $this
+     */
     public function removeOffer(Offer $offer): self
     {
         if ($this->offers->contains($offer)) {

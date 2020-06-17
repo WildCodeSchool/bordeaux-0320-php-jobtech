@@ -7,7 +7,7 @@
     <div class="carousel-inner w-75 ml-auto mr-auto" role="listbox">
         {% for actuality in actualities %}
             <div class="carousel-item {% if loop.index == 1 %}active{% endif %} p-4">
-                <h3 class="ml-3"><span class="text-gold">{{ actuality.createdAt | date('Y-m-d h:i:s') }}</span> - <span class="text-secondary">{{ actuality.title }}</span></h3>
+                <h3 class="ml-3"><span class="text-gold">{{ actuality.postedAt | date('Y-m-d h:i:s') }}</span> - <span class="text-secondary">{{ actuality.title }}</span></h3>
                 <p class="text-center">{{ actuality.description }}</p>
                 <a class="text-gold float-right">Lire l'article</a>
             </div>

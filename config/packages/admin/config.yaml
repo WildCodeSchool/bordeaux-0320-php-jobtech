@@ -3,7 +3,7 @@ easy_admin:
 
     user:
         display_avatar: false
-        name_property_path: 'userInformation'
+        name_property_path: 'candidate'
 
     formats:
         date:     'd/m/Y'

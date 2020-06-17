@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Offer;
-use App\Service\OfferSearch;
+use App\Entity\Search\OfferSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -30,22 +30,16 @@ class OfferRepository extends ServiceEntityRepository
     public function findAllOffersAndAddInterval(array $orderBy = null, int $limit = null, int $offset = null): array
     {
         $request = $this->createQueryBuilder('offer')
-            ->select('offer', 'job', 'jobCategory', 'company', 'contract', 'duration')
+            ->select('offer', 'job', 'jobCategory', 'company', 'contracts', 'workTime')
             ->join('offer.job', 'job')
             ->join('offer.jobCategory', 'jobCategory')
             ->join('offer.company', 'company')
-            ->join('offer.contract', 'contract')
-            ->join('offer.duration', 'duration');
+            ->join('offer.contracts', 'contracts')
+            ->join('offer.workTime', 'workTime');
 
         if ($orderBy) {
-            $first = true;
             foreach ($orderBy as $key => $order) {
-                if ($first) {
-                    $request->orderBy('offer.' . $key, $order);
-                    $first = false;
-                } else {
-                    $request->addOrderBy('offer.' . $key, $order);
-                }
+                $request->addOrderBy('offer.' . $key, $order);
             }
         }
         if ($limit) {
@@ -58,7 +52,7 @@ class OfferRepository extends ServiceEntityRepository
         $offers = $request->getQuery()->getResult();
 
         foreach ($offers as $offer) {
-            $offer->setInterval($offer->getCreatedAt());
+            $offer->setInterval();
         }
 
         return $offers;
@@ -91,41 +85,41 @@ class OfferRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('o')
             ->select('j', 'o')
             ->join('o.job', 'j')
-            ->join('o.contract', 'c')
-            ->join('o.duration', 'd');
+            ->join('o.contracts', 'c')
+            ->join('o.workTime', 'wt');
 
-        if (!empty($search->query)) {
+        if (!empty($search->getQuery())) {
             $query
                 ->andWhere('j.title LIKE :query')
                 ->orWhere('o.city LIKE :query')
                 ->orWhere('c.title LIKE :query')
-                ->orWhere('d.title LIKE :query')
-                ->setParameter('query', "%{$search->query}%");
+                ->orWhere('wt.title LIKE :query')
+                ->setParameter('query', "%{$search->getQuery()}%");
         }
 
-        if (!empty($search->job)) {
+        if (!empty($search->getJob())) {
             $query
                 ->andWhere('j.id IN (:job)')
-                ->setParameter('job', $search->job);
+                ->setParameter('job', $search->getJob());
         }
 
-        if (!empty($search->contract)) {
+        if (!empty($search->getContract())) {
             $query
                 ->andWhere('c.id IN (:contract)')
-                ->setParameter('contract', $search->contract);
+                ->setParameter('contract', $search->getContract());
         }
 
-        if (!empty($search->duration)) {
+        if (!empty($search->getWorkTime())) {
             $query
-                ->andWhere('d.id IN (:duration)')
-                ->setParameter('duration', $search->duration);
+                ->andWhere('wt.id IN (:workTime)')
+                ->setParameter('workTime', $search->getWorkTime());
         }
 
         $offers = $query->getQuery()
             ->getResult();
 
         foreach ($offers as $offer) {
-            $offer->setInterval($offer->getCreatedAt());
+            $offer->setInterval();
         }
         return $offers;
     }

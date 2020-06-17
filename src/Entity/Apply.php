@@ -3,10 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\ApplyRepository;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ApplyRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Apply
 {
@@ -18,12 +21,7 @@ class Apply
     private $id;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $applyOn;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="applies")
+     * @ORM\ManyToOne(targetEntity=Candidate::class, inversedBy="applies")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
@@ -34,43 +32,72 @@ class Apply
      */
     private $offer;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $applyAt;
+
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getApplyOn(): ?\DateTimeInterface
-    {
-        return $this->applyOn;
-    }
-
-    public function setApplyOn(\DateTimeInterface $applyOn): self
-    {
-        $this->applyOn = $applyOn;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
+    /**
+     * @return Candidate|null
+     */
+    public function getUser(): ?Candidate
     {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    /**
+     * @param Candidate|null $user
+     * @return $this
+     */
+    public function setUser(?Candidate $user): self
     {
         $this->user = $user;
 
         return $this;
     }
 
+    /**
+     * @return Offer|null
+     */
     public function getOffer(): ?Offer
     {
         return $this->offer;
     }
 
+    /**
+     * @param Offer|null $offer
+     * @return $this
+     */
     public function setOffer(?Offer $offer): self
     {
         $this->offer = $offer;
+
+        return $this;
+    }
+
+    /**
+     * @return DateTimeInterface|null
+     */
+    public function getApplyAt(): ?DateTimeInterface
+    {
+        return $this->applyAt;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @return $this
+     */
+    public function setApplyAt(): self
+    {
+        $this->applyAt = new DateTime();
 
         return $this;
     }
