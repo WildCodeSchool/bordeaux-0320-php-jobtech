@@ -3,8 +3,7 @@
 
 namespace App\Controller;
 
-
-
+use App\Entity\Offer;
 use App\Entity\Search\OfferSearch;
 use App\Form\OfferType;
 use App\Form\SearchForm;
@@ -87,7 +86,7 @@ class OfferController extends AbstractController
      */
     public function show(Offer $offer): Response
     {
-        $offer->setInterval($offer->getCreatedAt());
+        $offer->setInterval();
 
         return $this->render('offer/show.html.twig', [
             'offer' => $offer,

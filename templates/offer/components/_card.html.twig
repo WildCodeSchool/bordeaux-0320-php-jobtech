@@ -53,7 +53,12 @@
                             <p>Domaine d'activité: {{ offer.jobCategory.title }}</p>
                             <p>Entreprise publiant l'offre: {{ offer.company.name }}</p>
                             <p>Description de l'offre: {{ offer.description }}</p>
-                            <p><span class="text-red"><i class="fas fa-calendar-alt"></i></span>Type de contrat : {{ offer.contract.title }} à {{ offer.duration.title }}</p>
+                            <p>Nombre de {% if offer.availablePlace > 1 %}postes{% else %}poste{% endif %}: {{ offer.availablePlace }} </p>
+                            <p><span class="text-red"><i class="fas fa-calendar-alt"></i></span>Type de contrat :
+                                {% for contract in offer.contracts %}
+                                    {{ contract.title }}
+                                {% endfor %}
+                                à {{ offer.workTime.title }}</p>
                             <button>Je postule</button>
 
                             <div class="card-footer">
