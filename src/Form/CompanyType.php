@@ -14,29 +14,27 @@ class CompanyType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if ($options['action'] === 'create_company') {
-            $builder
-                ->add('name', TextType::class, [
-                    'label' => 'Nom de l\'entreprise :'
-                ])
-                //   ->add('siret')
-                ->add('postalCode', IntegerType::class, [
-                    'label' => 'Code Postal :'
-                ])
-                ->add('city', TextType::class, [
-                    'label' => 'Ville :'
-                ])
-                ->add('country', TextType::class, [
-                    'label' => 'Pays :'
-                ])
-                ->add('address', TextType::class, [
-                    'label' => 'Adresse :'
-                ])
-                ->add('contacts', CollectionType::class, [
-                    'entry_type' => ContactType::class,
-                    'entry_options' => ['label' => false],
-                ]);
-        }
+        $builder
+            ->add('name', TextType::class, [
+                'label' => 'Nom de l\'entreprise :'
+            ])
+            ->add('postalCode', IntegerType::class, [
+                'label' => 'Code Postal :'
+            ])
+            ->add('city', TextType::class, [
+                'label' => 'Ville :'
+            ])
+            ->add('country', TextType::class, [
+                'label' => 'Pays :'
+            ])
+            ->add('address', TextType::class, [
+                'label' => 'Adresse :'
+            ])
+            ->add('contacts', CollectionType::class, [
+                'entry_type' => ContactType::class,
+                'entry_options' => ['label' => false],
+            ]);
+            //->add('siret')
     }
 
     public function configureOptions(OptionsResolver $resolver)

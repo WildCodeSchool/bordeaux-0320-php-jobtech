@@ -13,7 +13,7 @@
                 {{ form_row(register.plainPassword.first) }}
                 {{ form_row(register.plainPassword.second) }}
             </div>
-            {% if action == 'create_candidat' %}
+            {% if action == 'create_candidate' %}
                 <div class="d-flex justify-content-between">
                     <p>J'autorise à me contacter</p>
                     {{ form_row(register.candidate.isContactableEmail) }}
