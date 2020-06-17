@@ -29,8 +29,8 @@ class JobTechController extends AbstractController
     ): Response {
         return $this->render('index.html.twig', [
             'job_categories' => $jobCategoryRepo->getJobCategoryWithOffersNb(self::MAX_JOB_CATEGORY_IN_INDEX),
-            'actualities' => $newsRepository->findBy([], ['createdAt' => 'DESC'], self::MAX_NEWS_IN_CAROUSEL),
-            'offers' => $offerRepository->findAllOffersAndAddInterval(['createdAt' => 'DESC'], self::MAX_OFFER_IN_INDEX)
+            'actualities' => $newsRepository->findBy([], ['postedAt' => 'DESC'], self::MAX_NEWS_IN_CAROUSEL),
+            'offers' => $offerRepository->findAllOffersAndAddInterval(['postedAt' => 'DESC'], self::MAX_OFFER_IN_INDEX)
         ]);
     }
 }

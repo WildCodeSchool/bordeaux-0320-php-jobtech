@@ -12,40 +12,41 @@ easy_admin:
                     - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-primary'}
                     - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
                 fields:
-                    - {property: 'userInformation', label: 'Nom'}
+                    - {property: 'candidate', label: 'Nom'}
                     - {property: 'email', type: 'email'}
-                    - {property: 'userInformation.phoneNumber', label: 'N° de téléphone', type: 'tel'}
-                    - {property: 'userInformation.city', label: 'Ville'}
+                    - {property: 'candidate.phoneNumber', label: 'N° de téléphone', type: 'tel'}
+                    - {property: 'candidate.city', label: 'Ville'}
                     - {property: 'createdAt', label: 'Date de la création'}
                     - {property: 'updatedAt', label: 'Dernière maj'}
             show:
                 fields:
                     - {property: 'email', type: 'email'}
-                    - {property: 'userInformation', label: 'Nom'}
-                    - {property: 'userInformation.isHandicapped', label: 'En situation de handicap', type: 'boolean'}
-                    - {property: 'userInformation.country', label: 'Pays', type: 'country'}
-                    - {property: 'userInformation.city', label: 'Ville'}
-                    - {property: 'userInformation.postalCode', label: 'Code postale'}
-                    - {property: 'userInformation.phoneNumber', label: 'N° de téléphone', type: 'tel'}
-                    - {property: 'userInformation.phoneNumber', label: 'Autre N° de téléphone', type: 'tel'}
-                    - {property: 'userInformation.isContactableTel', label: 'Contactable par téléphone', type: 'boolean'}
-                    - {property: 'userInformation.isContactableEmail', label: 'Contactable par email', type: 'boolean'}
+                    - {property: 'candidate.gender.title', label: 'Civilité'}
+                    - {property: 'candidate', label: 'Nom'}
+                    - {property: 'candidate.isHandicapped', label: 'En situation de handicap', type: 'boolean'}
+                    - {property: 'candidate.country', label: 'Pays', type: 'country'}
+                    - {property: 'candidate.city', label: 'Ville'}
+                    - {property: 'candidate.postalCode', label: 'Code postale'}
+                    - {property: 'candidate.phoneNumber', label: 'N° de téléphone', type: 'tel'}
+                    - {property: 'candidate.phoneNumber', label: 'Autre N° de téléphone', type: 'tel'}
+                    - {property: 'candidate.isContactableTel', label: 'Contactable par téléphone', type: 'boolean'}
+                    - {property: 'candidate.isContactableEmail', label: 'Contactable par email', type: 'boolean'}
                     - {property: 'createdAt', label: 'Date de la création'}
             form:
                 fields:
                     - {type: 'tab', label: 'Compte'}
                     - {property: 'email', type: 'email'}
-                    - {property: 'userInformation.lastname', label: 'Nom', type: 'text'}
-                    - {property: 'userInformation.firstname', label: 'Prénom', type: 'text'}
-                    - {property: 'userInformation.isHandicapped', label: 'En situation de handicap', type: 'checkbox'}
-                    - {property: 'userInformation.isContactableTel', label: 'Contactable par téléphone', type: 'checkbox'}
-                    - {property: 'userInformation.isContactableEmail', label: 'Contactable par email', type: 'checkbox'}
+                    - {property: 'candidate.lastname', label: 'Nom', type: 'text'}
+                    - {property: 'candidate.firstname', label: 'Prénom', type: 'text'}
+                    - {property: 'candidate.isHandicapped', label: 'En situation de handicap', type: 'checkbox'}
+                    - {property: 'candidate.isContactableTel', label: 'Contactable par téléphone', type: 'checkbox'}
+                    - {property: 'candidate.isContactableEmail', label: 'Contactable par email', type: 'checkbox'}
                     - {type: 'tab', label: 'Informations personnelles'}
                     - {type: 'group', label: 'Adresse', columns: 6}
-                    - {property: 'userInformation.country', label: 'Pays', type: 'country'}
-                    - {property: 'userInformation.city', label: 'Ville', type: 'text'}
-                    - {property: 'userInformation.postalCode', label: 'Code postale', type: 'number'}
+                    - {property: 'candidate.country', label: 'Pays', type: 'country'}
+                    - {property: 'candidate.city', label: 'Ville', type: 'text'}
+                    - {property: 'candidate.postalCode', label: 'Code postale', type: 'number'}
                     - {type: 'group', label: 'Contact', columns: 6}
-                    - {property: 'userInformation.phoneNumber', label: 'N° de téléphone', type: 'tel'}
-                    - {property: 'userInformation.homeNumber', label: 'Autre N° de téléphone', type: 'tel'}
+                    - {property: 'candidate.phoneNumber', label: 'N° de téléphone', type: 'tel'}
+                    - {property: 'candidate.homeNumber', label: 'Autre N° de téléphone', type: 'tel'}
 

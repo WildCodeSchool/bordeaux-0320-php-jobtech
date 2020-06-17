@@ -18,12 +18,12 @@ class Mobility
     private $id;
 
     /**
-     * @ORM\Column(type="boolean", options={"default":0})
+     * @ORM\Column(type="boolean", options={"default":false})
      */
     private $isInternational;
 
     /**
-     * @ORM\Column(type="boolean", options={"default":0})
+     * @ORM\Column(type="boolean", options={"default":false})
      */
     private $isNational;
 
@@ -32,40 +32,64 @@ class Mobility
      */
     private $radius;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return bool|null
+     */
     public function getIsInternational(): ?bool
     {
         return $this->isInternational;
     }
 
-    public function setIsInternational(?bool $isInternational): self
+    /**
+     * @param bool $isInternational
+     * @return $this
+     */
+    public function setIsInternational(bool $isInternational): self
     {
         $this->isInternational = $isInternational;
 
         return $this;
     }
 
+    /**
+     * @return bool|null
+     */
     public function getIsNational(): ?bool
     {
         return $this->isNational;
     }
 
-    public function setIsNational(?bool $isNational): self
+    /**
+     * @param bool $isNational
+     * @return $this
+     */
+    public function setIsNational(bool $isNational): self
     {
         $this->isNational = $isNational;
 
         return $this;
     }
 
+    /**
+     * @return Radius|null
+     */
     public function getRadius(): ?Radius
     {
         return $this->radius;
     }
 
+    /**
+     * @param Radius|null $radius
+     * @return $this
+     */
     public function setRadius(?Radius $radius): self
     {
         $this->radius = $radius;

@@ -14,7 +14,10 @@
             </p>
             <p class="card-text">
                 <span class="text-red"><i class="fas fa-calendar-alt"></i></span>
-                {{ offer.contract.title }} - {{ offer.duration.title }}
+                {% for contract in offer.contracts %}
+                {{ contract.title }}
+                {% endfor %}
+                - {{ offer.workTime.title }}
             </p>
         </div>
         <div class="card-footer">

@@ -2,14 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\QualificationRepository;
+use App\Repository\GenderRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=QualificationRepository::class)
+ * @ORM\Entity(repositoryClass=GenderRepository::class)
  */
-class Qualification
+class Gender
 {
+    const MALE = ['title' => 'Monsieur', 'acronym' => 'M.', 'identifier' => 'mister'];
+    const FEMALE = ['title' => 'Madame', 'acronym' => 'Mme.', 'identifier' => 'madam'];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -21,6 +24,11 @@ class Qualification
      * @ORM\Column(type="string", length=45)
      */
     private $title;
+
+    /**
+     * @ORM\Column(type="string", length=45)
+     */
+    private $acronym;
 
     /**
      * @ORM\Column(type="string", length=45, nullable=true)
@@ -50,6 +58,25 @@ class Qualification
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAcronym(): ?string
+    {
+        return $this->acronym;
+    }
+
+    /**
+     * @param string $acronym
+     * @return $this
+     */
+    public function setAcronym(string $acronym): self
+    {
+        $this->acronym = $acronym;
 
         return $this;
     }

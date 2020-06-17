@@ -2,21 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\ContractRepository;
+use App\Repository\WorkTimeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ContractRepository::class)
+ * @ORM\Entity(repositoryClass=WorkTimeRepository::class)
  */
-class Contract
+class WorkTime
 {
-    const CDI = ['identifier' => 'cdi', 'title' => 'CDI'];
-    const CDD = ['identifier' => 'cdd', 'title' => 'CDD'];
-    const FREELANCE = ['identifier' => 'freelance', 'title' => 'Freelance'];
-    const STAGE = ['identifier' => 'stage', 'title' => 'Stage'];
-    const ALTERNANCE = ['identifier' => 'alternance', 'title' => 'Alternance'];
+    const FULL_TIME = ['identifier' => 'temps_plein', 'title' => 'Temps plein'];
+    const HALF_TIME = ['identifier' => 'mi_temps', 'title' => 'Mi-temps'];
+    const PARTIAL_TIME = ['identifier' =>'temps_partiel', 'title' => 'Temps partiel'];
 
     /**
      * @ORM\Id()
@@ -36,7 +34,7 @@ class Contract
     private $identifier;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Offer::class, mappedBy="contracts")
+     * @ORM\OneToMany(targetEntity=Offer::class, mappedBy="workTime", orphanRemoval=true)
      */
     private $offers;
 
@@ -81,10 +79,10 @@ class Contract
     }
 
     /**
-     * @param string|null $identifier
+     * @param string $identifier
      * @return $this
      */
-    public function setIdentifier(?string $identifier): self
+    public function setIdentifier(string $identifier): self
     {
         $this->identifier = $identifier;
 
@@ -107,7 +105,7 @@ class Contract
     {
         if (!$this->offers->contains($offer)) {
             $this->offers[] = $offer;
-            $offer->addContract($this);
+            $offer->setWorkTime($this);
         }
 
         return $this;
@@ -121,7 +119,10 @@ class Contract
     {
         if ($this->offers->contains($offer)) {
             $this->offers->removeElement($offer);
-            $offer->removeContract($this);
+            // set the owning side to null (unless already changed)
+            if ($offer->getWorkTime() === $this) {
+                $offer->setWorkTime(null);
+            }
         }
 
         return $this;

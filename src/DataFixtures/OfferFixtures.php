@@ -17,63 +17,63 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             'postal_code' => '33700',
             'city' => 'Mérignac',
             'country' => 'France',
-            'duration' => 'duration_1',
+            'workTime' => 'workTime_1',
             'contract' => 'contract_1',
         ],
         'job_3' => [
             'postal_code' => '33600',
             'city' => 'Pessac',
             'country' => 'Luxembourg',
-            'duration' => 'duration_2',
+            'workTime' => 'workTime_2',
             'contract' => 'contract_2',
         ],
         'job_4' => [
             'postal_code' => '33000',
             'city' => 'Bacalan',
             'country' => 'France',
-            'duration' => 'duration_1',
+            'workTime' => 'workTime_1',
             'contract' => 'contract_1',
         ],
         'job_5' => [
             'postal_code' => '37200',
             'city' => 'Tours',
             'country' => 'France',
-            'duration' => 'duration_1',
+            'workTime' => 'workTime_1',
             'contract' => 'contract_1',
         ],
         'job_17' => [
             'postal_code' => '28029',
             'city' => 'Madrid',
             'country' => 'Espagne',
-            'duration' => 'duration_2',
+            'workTime' => 'workTime_2',
             'contract' => 'contract_3',
         ],
         'job_18' => [
             'postal_code' => '29200',
             'city' => 'Brest',
             'country' => 'France',
-            'duration' => 'duration_1',
+            'workTime' => 'workTime_1',
             'contract' => 'contract_1',
         ],
         'job_19' => [
             'postal_code' => '06206',
             'city' => 'Nice',
             'country' => 'France',
-            'duration' => 'duration_1',
+            'workTime' => 'workTime_1',
             'contract' => 'contract_4',
         ],
         'job_2' => [
             'postal_code' => '87069',
             'city' => 'Limoges',
             'country' => 'France',
-            'duration' => 'duration_2',
+            'workTime' => 'workTime_2',
             'contract' => 'contract_1',
         ],
         'job_6' => [
             'postal_code' => '54100',
             'city' => 'Nancy',
             'country' => 'France',
-            'duration' => 'duration_1',
+            'workTime' => 'workTime_1',
             'contract' => 'contract_5',
         ],
     ];
@@ -88,12 +88,14 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer = new Offer();
             $offer->setTitle($faker->sentence(2))
                 ->setDescription($faker->sentence())
+                ->setAvailablePlace(1)
+                ->setAddress($faker->address)
                 ->setPostalCode($data['postal_code'])
                 ->setCity($data['city'])
                 ->setCountry($data['country'])
-                ->setDuration($this->getReference($data['duration']))
+                ->setWorkTime($this->getReference($data['workTime']))
                 ->setCompany($this->getReference('company_' . rand(1, 50)))
-                ->setContract($this->getReference($data['contract']))
+                ->addContract($this->getReference($data['contract']))
                 ->setJob($job)
                 ->setJobCategory($this->getReference('job_category_' . rand(1, $nbJobCategory)));
             $manager->persist($offer);
@@ -108,12 +110,14 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer = new Offer();
             $offer->setTitle($faker->sentence(2))
                 ->setDescription($faker->sentence())
+                ->setAvailablePlace(rand(1, 3))
+                ->setAddress($faker->address)
                 ->setPostalCode($city[0]['codesPostaux'][0])
                 ->setCity($city[0]['nom'])
                 ->setCountry('France')
-                ->setDuration($this->getReference('duration_' . rand(1, 3)))
+                ->setWorkTime($this->getReference('workTime_' . rand(1, 3)))
                 ->setCompany($this->getReference('company_' . $i))
-                ->setContract($this->getReference('contract_' . rand(1, 5)))
+                ->addContract($this->getReference('contract_' . rand(1, 5)))
                 ->setJob($job)
                 ->setJobCategory($this->getReference('job_category_' . rand(1, $nbJobCategory)));
             $manager->persist($offer);

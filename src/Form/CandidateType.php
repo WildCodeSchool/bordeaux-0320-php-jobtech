@@ -2,39 +2,42 @@
 
 namespace App\Form;
 
-use App\Entity\UserInformation;
+use App\Entity\Candidate;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserInformationType extends AbstractType
+class CandidateType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-            /*$builder
-                ->add('haveVehicle')
-                ->add('curriculumVitae')
-                ->add('license')
-                ->add('mobility')
-                ->add('skill')
-                ->add('currentSituation');*/
+        /*
+        * $builder
+        *  ->add('haveVehicle')
+        *  ->add('curriculumVitae')
+        *  ->add('license')
+        *  ->add('mobility')
+        *  ->add('skill')
+        *  ->add('currentSituation');
+        */
 
         if ($options['action'] === 'create_candidat') {
             $builder
-                ->add('lastname', TextType::class, [
+                ->add('surname', TextType::class, [
                     'label' => 'Nom :'])
 
-                ->add('firstname', TextType::class, [
+                ->add('firstName', TextType::class, [
                     'label' => 'Prénom :'
                 ])
                 ->add('birthday', DateType::class, [
-                    'label' => 'date de naissance :',
-                    'widget' => 'single_text'
+                    'widget' => 'single_text',
+                    'html5' => false,
+                    'attr' => ['class' => 'js-datepicker']
                 ])
                 ->add('phoneNumber', IntegerType::class, [
                     'label' => 'Numéro portable :'
@@ -66,7 +69,7 @@ class UserInformationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => UserInformation::class,
+            'data_class' => Candidate::class,
             'action' => '',
         ]);
     }

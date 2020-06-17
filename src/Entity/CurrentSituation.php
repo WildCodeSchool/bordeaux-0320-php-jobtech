@@ -18,19 +18,9 @@ class CurrentSituation
     private $id;
 
     /**
-     * @ORM\Column(type="boolean", options={"default":0})
+     * @ORM\ManyToOne(targetEntity=Job::class)
      */
-    private $isPoleEmploi;
-
-    /**
-     * @ORM\Column(type="boolean", options={"default":0})
-     */
-    private $isInterim;
-
-    /**
-     * @ORM\Column(type="boolean", options={"default":0})
-     */
-    private $isUnemployed;
+    private $job;
 
     /**
      * @ORM\ManyToOne(targetEntity=Contract::class)
@@ -38,56 +28,59 @@ class CurrentSituation
     private $contract;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Job::class)
+     * @ORM\Column(type="boolean", options={"default":false})
      */
-    private $job;
+    private $isPoleEmploi;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default":false})
+     */
+    private $isInterim;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default":false})
+     */
+    private $isUnemployed;
+
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIsPoleEmploi(): ?bool
+    /**
+     * @return Job|null
+     */
+    public function getJob(): ?Job
     {
-        return $this->isPoleEmploi;
+        return $this->job;
     }
 
-    public function setIsPoleEmploi(bool $isPoleEmploi): self
+    /**
+     * @param Job|null $job
+     * @return $this
+     */
+    public function setJob(?Job $job): self
     {
-        $this->isPoleEmploi = $isPoleEmploi;
+        $this->job = $job;
 
         return $this;
     }
 
-    public function getIsInterim(): ?bool
-    {
-        return $this->isInterim;
-    }
-
-    public function setIsInterim(bool $isInterim): self
-    {
-        $this->isInterim = $isInterim;
-
-        return $this;
-    }
-
-    public function getIsUnemployed(): ?bool
-    {
-        return $this->isUnemployed;
-    }
-
-    public function setIsUnemployed(bool $isUnemployed): self
-    {
-        $this->isUnemployed = $isUnemployed;
-
-        return $this;
-    }
-
+    /**
+     * @return Contract|null
+     */
     public function getContract(): ?Contract
     {
         return $this->contract;
     }
 
+    /**
+     * @param Contract|null $contract
+     * @return $this
+     */
     public function setContract(?Contract $contract): self
     {
         $this->contract = $contract;
@@ -95,14 +88,59 @@ class CurrentSituation
         return $this;
     }
 
-    public function getJob(): ?Job
+    /**
+     * @return bool|null
+     */
+    public function getIsPoleEmploi(): ?bool
     {
-        return $this->job;
+        return $this->isPoleEmploi;
     }
 
-    public function setJob(?Job $job): self
+    /**
+     * @param bool $isPoleEmploi
+     * @return $this
+     */
+    public function setIsPoleEmploi(bool $isPoleEmploi): self
     {
-        $this->job = $job;
+        $this->isPoleEmploi = $isPoleEmploi;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getIsInterim(): ?bool
+    {
+        return $this->isInterim;
+    }
+
+    /**
+     * @param bool $isInterim
+     * @return $this
+     */
+    public function setIsInterim(bool $isInterim): self
+    {
+        $this->isInterim = $isInterim;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getIsUnemployed(): ?bool
+    {
+        return $this->isUnemployed;
+    }
+
+    /**
+     * @param bool $isUnemployed
+     * @return $this
+     */
+    public function setIsUnemployed(bool $isUnemployed): self
+    {
+        $this->isUnemployed = $isUnemployed;
 
         return $this;
     }
