@@ -58,6 +58,10 @@ class UserController extends AbstractController
             if ($action === RegisterType::ACTION_CREATE_COMPANY && isset($contact) && isset($company)) {
                 $contact->setCompany($company);
                 $entityManager->persist($contact);
+                $user->setRoles(['ROLE_COMPANY']);
+            }
+            if ($action === RegisterType::ACTION_CREATE_CANDIDATE) {
+                $user->setRoles(['ROLE_CANDIDATE']);
             }
             $entityManager->persist($user);
             $entityManager->flush();

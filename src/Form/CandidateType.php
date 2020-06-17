@@ -53,7 +53,8 @@ class CandidateType extends AbstractType
                     'label' => 'Numéro portable :'
                 ])
                 ->add('otherNumber', IntegerType::class, [
-                    'label' => 'Autre numéro :'
+                    'label' => 'Autre numéro :',
+                    'required' => false,
                 ])
                 ->add('postalCode', IntegerType::class, [
                     'label' => 'Code postale :'

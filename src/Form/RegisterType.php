@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 
 class RegisterType extends AbstractType
 {
-    const ACTION_CREATE_CANDIDAT = 'create_candidat';
+    const ACTION_CREATE_CANDIDATE = 'create_candidat';
     const ACTION_CREATE_COMPANY = 'create_company';
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -40,7 +40,7 @@ class RegisterType extends AbstractType
                 'second_options' => ['label' => 'Confirmer :']
             ]);
 
-        if ($options['action'] === self::ACTION_CREATE_CANDIDAT) {
+        if ($options['action'] === self::ACTION_CREATE_CANDIDATE) {
             $builder
                 ->add('candidate', CandidateType::class, ['action' => $options['action']]);
         }
