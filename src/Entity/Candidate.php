@@ -651,7 +651,7 @@ class Candidate
     {
         if ($this->qualifications->contains($qualification)) {
             $this->qualifications->removeElement($qualification);
-            // set the owning side to null (unless already changed)
+            // set the owning side to null (unless already changedok)
             if ($qualification->getCandidate() === $this) {
                 $qualification->setCandidate(null);
             }
