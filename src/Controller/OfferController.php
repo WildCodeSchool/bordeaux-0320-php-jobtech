@@ -78,18 +78,4 @@ class OfferController extends AbstractController
             'form'   => $form->createView(),
         ]);
     }
-
-    /**
-     * @Route("/{id}", name="show")
-     * @param Offer $offer
-     * @return Response
-     */
-    public function show(Offer $offer): Response
-    {
-        $offer->setInterval();
-
-        return $this->render('offer/show.html.twig', [
-            'offer' => $offer,
-        ]);
-    }
 }
