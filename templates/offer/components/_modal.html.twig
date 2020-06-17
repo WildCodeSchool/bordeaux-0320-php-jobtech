@@ -1,0 +1,46 @@
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="offerModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-gold" id="offerModal">{{ offer.job.title }}</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5><span class="text-secondary"><i class="fas fa-map-marker-alt"></i> {{ offer.city }} - {{ offer.postalCode }} - {{ offer.country }}</span></h5>
+                <p>Domaine d'activité: {{ offer.jobCategory.title }}</p>
+                <br>
+                <p>Entreprise publiant l'offre: {{ offer.company.name }}</p>
+                <br>
+                <p>Description de l'offre: {{ offer.description }}</p>
+                <br>
+                <p>Nombre de {% if offer.availablePlace > 1 %}postes{% else %}poste{% endif %}: {{ offer.availablePlace }} </p>
+                <br>
+                <p><span class="text-red"><i class="fas fa-calendar-alt"></i></span> Type de contrat :
+                    {% for contract in offer.contracts %}
+                        {{ contract.title }}
+                    {% endfor %}
+                    à {{ offer.workTime.title }}</p>
+                <br>
+                <button>Je postule</button>
+                <br>
+
+                <div class="card-footer">
+                    <p class="card-text text-turquoise">
+                        {% if offer.interval | date('%a') >= 1 %}
+                            L'offre date de {{ offer.interval | date('%a') }} {% if offer.interval | date('%a') > 1 %}jours{% else %}jour{% endif %}.
+                        {% elseif offer.interval | date('%H') >= 1 %}
+                            L'offre date de {{ offer.interval | date('%H') }} {% if offer.interval | date('%H') > 1 %}heures{% else %}heure{% endif %}
+                        {% elseif offer.interval | date('%I') >= 1 %}
+                            L'offre date de {{ offer.interval | date('%I') }} {% if offer.interval | date('%I') > 1 %}minutes{% else %}minute{% endif %}
+                        {% else %}
+                            L'offre date de {{ offer.interval | date('%S') }} {% if offer.interval | date('%S') > 1 %}secondes{% else %}seconde{% endif %}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

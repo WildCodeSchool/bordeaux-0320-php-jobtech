@@ -34,50 +34,7 @@
                 <a href="" data-toggle="modal" data-target="#exampleModal" class="float-right">Voir <i class="fas fa-long-arrow-alt-right ml-2"></i></a>
             </p>
 
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-
-
-                            <h3 class="text-gold">{{ offer.job.title }}</h3>
-                            <h4><span class="text-secondary"><i class="fas fa-map-marker-alt"></i>{{ offer.city }} - {{ offer.postalCode }} - {{ offer.country }}</span></h4>
-                            <p>Domaine d'activité: {{ offer.jobCategory.title }}</p>
-                            <p>Entreprise publiant l'offre: {{ offer.company.name }}</p>
-                            <p>Description de l'offre: {{ offer.description }}</p>
-                            <p>Nombre de {% if offer.availablePlace > 1 %}postes{% else %}poste{% endif %}: {{ offer.availablePlace }} </p>
-                            <p><span class="text-red"><i class="fas fa-calendar-alt"></i></span>Type de contrat :
-                                {% for contract in offer.contracts %}
-                                    {{ contract.title }}
-                                {% endfor %}
-                                à {{ offer.workTime.title }}</p>
-                            <button>Je postule</button>
-
-                            <div class="card-footer">
-                                <p class="card-text text-turquoise">
-                                    {% if offer.interval | date('%a') >= 1 %}
-                                        L'offre date de {{ offer.interval | date('%a') }} {% if offer.interval | date('%a') > 1 %}jours{% else %}jour{% endif %}.
-                                    {% elseif offer.interval | date('%H') >= 1 %}
-                                        L'offre date de {{ offer.interval | date('%H') }} {% if offer.interval | date('%H') > 1 %}heures{% else %}heure{% endif %}
-                                    {% elseif offer.interval | date('%I') >= 1 %}
-                                        L'offre date de {{ offer.interval | date('%I') }} {% if offer.interval | date('%I') > 1 %}minutes{% else %}minute{% endif %}
-                                    {% else %}
-                                        L'offre date de {{ offer.interval | date('%S') }} {% if offer.interval | date('%S') > 1 %}secondes{% else %}seconde{% endif %}
-                                    {% endif %}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% include 'offer/components/_modal.html.twig' %}
         </div>
     </div>
 </div>
