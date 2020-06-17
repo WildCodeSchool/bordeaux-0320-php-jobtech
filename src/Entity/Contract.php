@@ -33,7 +33,7 @@ class Contract
     /**
      * @ORM\Column(type="string", length=45, nullable=true)
      */
-    private $Identifier;
+    private $identifier;
 
     /**
      * @ORM\ManyToMany(targetEntity=Offer::class, mappedBy="contracts")
@@ -77,16 +77,16 @@ class Contract
      */
     public function getIdentifier(): ?string
     {
-        return $this->Identifier;
+        return $this->identifier;
     }
 
     /**
-     * @param string|null $Identifier
+     * @param string|null $identifier
      * @return $this
      */
-    public function setIdentifier(?string $Identifier): self
+    public function setIdentifier(?string $identifier): self
     {
-        $this->Identifier = $Identifier;
+        $this->identifier = $identifier;
 
         return $this;
     }
