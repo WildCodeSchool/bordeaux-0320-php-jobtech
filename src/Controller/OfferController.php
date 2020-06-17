@@ -3,8 +3,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Offer;
 use App\Form\SearchForm;
-use App\Repository\Api\GeoApiFrGov;
 use App\Repository\OfferRepository;
 use App\Service\OfferSearch;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -47,6 +47,20 @@ class OfferController extends AbstractController
             'offers' => $offers,
             'nb_offers' => $offerRepository->getTotalOfOffers(),
             'form'   => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="show")
+     * @param Offer $offer
+     * @return Response
+     */
+    public function show(Offer $offer): Response
+    {
+        $offer->setInterval($offer->getCreatedAt());
+
+        return $this->render('offer/show.html.twig', [
+            'offer' => $offer,
         ]);
     }
 }
