@@ -2,13 +2,13 @@
 
 namespace App\Form;
 
-use App\Entity\UserInformation;
+use App\Entity\Candidate;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserInformationType extends AbstractType
+class CandidateType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -44,7 +44,7 @@ class UserInformationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => UserInformation::class,
+            'data_class' => Candidate::class,
             'action' => '',
         ]);
     }

@@ -37,7 +37,7 @@ class RegisterType extends AbstractType
 
         if ($options['action'] === self::ACTION_CREATE_CANDIDAT) {
             $builder
-                ->add('userInformation', UserInformationType::class, ['action' => $options['action']]);
+                ->add('candidate', CandidateType::class, ['action' => $options['action']]);
         }
 
         if ($options['action'] === self::ACTION_CREATE_COMPANY) {

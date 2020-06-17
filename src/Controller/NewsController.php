@@ -24,7 +24,7 @@ class NewsController extends AbstractController
      */
     public function list(NewsRepository $newsRepository, Paginator $paginator): Response
     {
-        $actualities = $newsRepository->findBy([], ['createdAt' => 'DESC']);
+        $actualities = $newsRepository->findBy([], ['postedAt' => 'DESC']);
         $actualities = $paginator->paging($actualities, self::LIMIT_NEWS_PER_PAGE);
 
         if (!$actualities) {

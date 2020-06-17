@@ -8,6 +8,7 @@ use App\Entity\Search\OfferSearch;
 use App\Form\OfferType;
 use App\Form\SearchForm;
 use App\Repository\OfferRepository;
+use App\Service\Paginator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,15 +44,17 @@ class OfferController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
     /**
      * @Route("/", name="list")
      * @param OfferRepository $offerRepository
      * @param Request $request
+     * @param Paginator $paginator
      * @return Response
      */
-    public function list(OfferRepository $offerRepository, Request $request): Response
+    public function list(OfferRepository $offerRepository, Request $request, Paginator $paginator): Response
     {
-        $offers = $offerRepository->findAllOffersAndAddInterval(['createdAt'=>'DESC'], self::MAX_OFFER_PER_PAGE);
+        $offers = $offerRepository->findAllOffersAndAddInterval(['postedAt'=>'DESC']);
 
         if (!$offers) {
             throw $this->createNotFoundException(
@@ -66,6 +69,8 @@ class OfferController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $offers = $offerRepository->findSearch($criteria, $offers);
         }
+
+        $offers = $paginator->paging($offers, self::MAX_OFFER_PER_PAGE);
 
         return $this->render('offer/list.html.twig', [
             'offers' => $offers,

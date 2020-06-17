@@ -11,18 +11,18 @@
         {{ form_row(register.plainPassword.first) }}
         {{ form_row(register.plainPassword.second) }}
         {% if action == 'create_candidat' %}
-            {{ form_row(register.userInformation.lastname) }}
-            {{ form_row(register.userInformation.firstname) }}
-            {{ form_row(register.userInformation.birthday) }}
-            {{ form_row(register.userInformation.city) }}
-            {{ form_row(register.userInformation.country) }}
-            {{ form_row(register.userInformation.phoneNumber) }}
-            {{ form_row(register.userInformation.homeNumber) }}
-            {{ form_row(register.userInformation.postalCode) }}
+            {{ form_row(register.candidate.lastname) }}
+            {{ form_row(register.candidate.firstname) }}
+            {{ form_row(register.candidate.birthday) }}
+            {{ form_row(register.candidate.city) }}
+            {{ form_row(register.candidate.country) }}
+            {{ form_row(register.candidate.phoneNumber) }}
+            {{ form_row(register.candidate.homeNumber) }}
+            {{ form_row(register.candidate.postalCode) }}
             <div class="d-flex justify-content-between">
-                {{ form_row(register.userInformation.isContactableTel) }}
-                {{ form_row(register.userInformation.isContactableEmail) }}
-                {{ form_row(register.userInformation.isHandicapped) }}
+                {{ form_row(register.candidate.isContactableTel) }}
+                {{ form_row(register.candidate.isContactableEmail) }}
+                {{ form_row(register.candidate.isHandicapped) }}
             </div>
         {% elseif action == 'create_company' %}
             {{ form_row(register.company.name) }}

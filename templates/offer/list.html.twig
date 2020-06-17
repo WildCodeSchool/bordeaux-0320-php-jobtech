@@ -28,6 +28,9 @@
                         {% include'offer/components/_card.html.twig' %}
                     {% endfor %}
                 </div>
+                <div class="navigation">
+                    {{ knp_pagination_render(offers) }}
+                </div>
             </div>
         </section>
     </div>

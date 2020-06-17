@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\JobCategory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Validator\Constraints\Count;
 
 /**
  * @method JobCategory|null find($id, $lockMode = null, $lockVersion = null)

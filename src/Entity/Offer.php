@@ -4,7 +4,9 @@ namespace App\Entity;
 
 use App\Repository\OfferRepository;
 use App\Service\DateProcessing;
+use DateInterval;
 use DateTime;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -23,14 +25,24 @@ class Offer
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=45)
+     * @ORM\Column(type="string", length=80)
      */
     private $title;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=255)
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $availablePlace;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $address;
 
     /**
      * @ORM\Column(type="integer")
@@ -50,9 +62,12 @@ class Offer
     /**
      * @ORM\Column(type="datetime")
      */
-    private $createdAt;
+    private $postedAt;
 
-    private $interval;
+    /**
+     * Interval between posted date and now.
+     */
+    private DateInterval $interval;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -66,32 +81,10 @@ class Offer
     private $company;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Contract::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $contract;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Job::class, inversedBy="offers")
      * @ORM\JoinColumn(nullable=false)
      */
     private $job;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="offer")
-     */
-    private $users;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Apply::class, mappedBy="offer")
-     */
-    private $applies;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=DurationWorkTime::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $duration;
 
     /**
      * @ORM\ManyToOne(targetEntity=JobCategory::class, inversedBy="offers")
@@ -99,11 +92,27 @@ class Offer
      */
     private $jobCategory;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=WorkTime::class, inversedBy="offers")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $workTime;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Contract::class, inversedBy="offers")
+     * @ORM\JoinTable(name="offer_has_contracts")
+     */
+    private $contracts;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Apply::class, mappedBy="offer", orphanRemoval=true)
+     */
+    private $applies;
+
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        $this->contracts = new ArrayCollection();
         $this->applies = new ArrayCollection();
-        $this->contract = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -111,16 +120,26 @@ class Offer
         return $this->getTitle();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getTitle(): string
     {
         return $this->title;
     }
 
+    /**
+     * @param string $title
+     * @return $this
+     */
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -128,11 +147,18 @@ class Offer
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
+    /**
+     * @param string $description
+     * @return $this
+     */
     public function setDescription(string $description): self
     {
         $this->description = $description;
@@ -140,11 +166,56 @@ class Offer
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
+    public function getAvailablePlace(): ?int
+    {
+        return $this->availablePlace;
+    }
+
+    /**
+     * @param int $availablePlace
+     * @return $this
+     */
+    public function setAvailablePlace(int $availablePlace): self
+    {
+        $this->availablePlace = $availablePlace;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param string $address
+     * @return $this
+     */
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
     public function getPostalCode(): ?int
     {
         return $this->postalCode;
     }
 
+    /**
+     * @param int $postalCode
+     * @return $this
+     */
     public function setPostalCode(int $postalCode): self
     {
         $this->postalCode = $postalCode;
@@ -152,11 +223,18 @@ class Offer
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getCity(): ?string
     {
         return $this->city;
     }
 
+    /**
+     * @param string $city
+     * @return $this
+     */
     public function setCity(string $city): self
     {
         $this->city = $city;
@@ -164,11 +242,18 @@ class Offer
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getCountry(): ?string
     {
         return $this->country;
     }
 
+    /**
+     * @param string $country
+     * @return $this
+     */
     public function setCountry(string $country): self
     {
         $this->country = $country;
@@ -176,35 +261,47 @@ class Offer
         return $this;
     }
 
-    public function getCreatedAt(): DateTime
+    /**
+     * @return DateTime
+     */
+    public function getPostedAt(): DateTime
     {
-        return $this->createdAt;
+        return $this->postedAt;
     }
 
     /**
      * @ORM\PrePersist()
      * @return $this
      */
-    public function setCreatedAt(): self
+    public function setPostedAt(): self
     {
-        $this->createdAt = new DateTime();
+        $this->postedAt = new DateTime();
 
         return $this;
     }
 
-    public function getInterval(): \DateInterval
+    /**
+     * @return DateInterval
+     */
+    public function getInterval(): DateInterval
     {
         return $this->interval;
     }
 
-    public function setInterval(DateTime $createdAt): self
+    /**
+     * @return Offer
+     */
+    public function setInterval(): self
     {
-        $this->interval = DateProcessing::dateIntervalBetweenNowAnd($createdAt);
+        $this->interval = DateProcessing::dateIntervalBetweenNowAnd($this->getPostedAt());
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?DateTime
+    /**
+     * @return DateTimeInterface|null
+     */
+    public function getUpdatedAt(): ?DateTimeInterface
     {
         return $this->updatedAt;
     }
@@ -212,7 +309,6 @@ class Offer
     /**
      * @ORM\PreUpdate()
      * @return $this
-     * @throws \Exception
      */
     public function setUpdatedAt(): self
     {
@@ -221,11 +317,18 @@ class Offer
         return $this;
     }
 
+    /**
+     * @return Company|null
+     */
     public function getCompany(): ?Company
     {
         return $this->company;
     }
 
+    /**
+     * @param Company|null $company
+     * @return $this
+     */
     public function setCompany(?Company $company): self
     {
         $this->company = $company;
@@ -233,17 +336,18 @@ class Offer
         return $this;
     }
 
-    public function getContract(): ?Contract
-    {
-        return $this->contract;
-    }
-
-
+    /**
+     * @return Job|null
+     */
     public function getJob(): ?Job
     {
         return $this->job;
     }
 
+    /**
+     * @param Job|null $job
+     * @return $this
+     */
     public function setJob(?Job $job): self
     {
         $this->job = $job;
@@ -252,28 +356,72 @@ class Offer
     }
 
     /**
-     * @return Collection|User[]
+     * @return JobCategory|null
      */
-    public function getUsers(): Collection
+    public function getJobCategory(): ?JobCategory
     {
-        return $this->users;
+        return $this->jobCategory;
     }
 
-    public function addUser(User $user): self
+    /**
+     * @param JobCategory|null $jobCategory
+     * @return $this
+     */
+    public function setJobCategory(?JobCategory $jobCategory): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->addOffer($this);
+        $this->jobCategory = $jobCategory;
+
+        return $this;
+    }
+
+    /**
+     * @return WorkTime|null
+     */
+    public function getWorkTime(): ?WorkTime
+    {
+        return $this->workTime;
+    }
+
+    /**
+     * @param WorkTime|null $workTime
+     * @return $this
+     */
+    public function setWorkTime(?WorkTime $workTime): self
+    {
+        $this->workTime = $workTime;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contract[]
+     */
+    public function getContracts(): Collection
+    {
+        return $this->contracts;
+    }
+
+    /**
+     * @param Contract $contract
+     * @return $this
+     */
+    public function addContract(Contract $contract): self
+    {
+        if (!$this->contracts->contains($contract)) {
+            $this->contracts[] = $contract;
         }
 
         return $this;
     }
 
-    public function removeUser(User $user): self
+    /**
+     * @param Contract $contract
+     * @return $this
+     */
+    public function removeContract(Contract $contract): self
     {
-        if ($this->users->contains($user)) {
-            $this->users->removeElement($user);
-            $user->removeOffer($this);
+        if ($this->contracts->contains($contract)) {
+            $this->contracts->removeElement($contract);
         }
 
         return $this;
@@ -287,6 +435,10 @@ class Offer
         return $this->applies;
     }
 
+    /**
+     * @param Apply $apply
+     * @return $this
+     */
     public function addApply(Apply $apply): self
     {
         if (!$this->applies->contains($apply)) {
@@ -297,6 +449,10 @@ class Offer
         return $this;
     }
 
+    /**
+     * @param Apply $apply
+     * @return $this
+     */
     public function removeApply(Apply $apply): self
     {
         if ($this->applies->contains($apply)) {
@@ -305,48 +461,6 @@ class Offer
             if ($apply->getOffer() === $this) {
                 $apply->setOffer(null);
             }
-        }
-
-        return $this;
-    }
-
-    public function getDuration(): ?DurationWorkTime
-    {
-        return $this->duration;
-    }
-
-    public function setDuration(?DurationWorkTime $duration): self
-    {
-        $this->duration = $duration;
-
-        return $this;
-    }
-
-    public function getJobCategory(): ?JobCategory
-    {
-        return $this->jobCategory;
-    }
-
-    public function setJobCategory(?JobCategory $jobCategory): self
-    {
-        $this->jobCategory = $jobCategory;
-
-        return $this;
-    }
-
-    public function addContract(Contract $contract): self
-    {
-        if (!$this->contract->contains($contract)) {
-            $this->contract[] = $contract;
-        }
-
-        return $this;
-    }
-
-    public function removeContract(Contract $contract): self
-    {
-        if ($this->contract->contains($contract)) {
-            $this->contract->removeElement($contract);
         }
 
         return $this;

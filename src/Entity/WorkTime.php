@@ -2,16 +2,20 @@
 
 namespace App\Entity;
 
-use App\Repository\SkillCategoryRepository;
+use App\Repository\WorkTimeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=SkillCategoryRepository::class)
+ * @ORM\Entity(repositoryClass=WorkTimeRepository::class)
  */
-class SkillCategory
+class WorkTime
 {
+    const FULL_TIME = ['identifier' => 'temps_plein', 'title' => 'Temps plein'];
+    const HALF_TIME = ['identifier' => 'mi_temps', 'title' => 'Mi-temps'];
+    const PARTIAL_TIME = ['identifier' =>'temps_partiel', 'title' => 'Temps partiel'];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -30,13 +34,13 @@ class SkillCategory
     private $identifier;
 
     /**
-     * @ORM\OneToMany(targetEntity=Skill::class, mappedBy="skillCategory", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Offer::class, mappedBy="workTime", orphanRemoval=true)
      */
-    private $skills;
+    private $offers;
 
     public function __construct()
     {
-        $this->skills = new ArrayCollection();
+        $this->offers = new ArrayCollection();
     }
 
     /**
@@ -75,10 +79,10 @@ class SkillCategory
     }
 
     /**
-     * @param string|null $identifier
+     * @param string $identifier
      * @return $this
      */
-    public function setIdentifier(?string $identifier): self
+    public function setIdentifier(string $identifier): self
     {
         $this->identifier = $identifier;
 
@@ -86,38 +90,38 @@ class SkillCategory
     }
 
     /**
-     * @return Collection|Skill[]
+     * @return Collection|Offer[]
      */
-    public function getSkills(): Collection
+    public function getOffers(): Collection
     {
-        return $this->skills;
+        return $this->offers;
     }
 
     /**
-     * @param Skill $skill
+     * @param Offer $offer
      * @return $this
      */
-    public function addSkill(Skill $skill): self
+    public function addOffer(Offer $offer): self
     {
-        if (!$this->skills->contains($skill)) {
-            $this->skills[] = $skill;
-            $skill->setSkillCategory($this);
+        if (!$this->offers->contains($offer)) {
+            $this->offers[] = $offer;
+            $offer->setWorkTime($this);
         }
 
         return $this;
     }
 
     /**
-     * @param Skill $skill
+     * @param Offer $offer
      * @return $this
      */
-    public function removeSkill(Skill $skill): self
+    public function removeOffer(Offer $offer): self
     {
-        if ($this->skills->contains($skill)) {
-            $this->skills->removeElement($skill);
+        if ($this->offers->contains($offer)) {
+            $this->offers->removeElement($offer);
             // set the owning side to null (unless already changed)
-            if ($skill->getSkillCategory() === $this) {
-                $skill->setSkillCategory(null);
+            if ($offer->getWorkTime() === $this) {
+                $offer->setWorkTime(null);
             }
         }
 

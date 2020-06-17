@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Contract;
-use App\Entity\DurationWorkTime;
+use App\Entity\WorkTime;
 use App\Entity\Job;
 use App\Entity\JobCategory;
 use App\Entity\Offer;
@@ -31,7 +31,7 @@ class OfferType extends AbstractType
                 'multiple' => true,
             ])
             ->add('duration', EntityType::class, [
-                'class'=>DurationWorkTime::class, 'choice_label'=>'title'
+                'class'=>WorkTime::class, 'choice_label'=>'title'
             ])
             ->add('jobCategory', EntityType::class, [
                 'class'=>JobCategory::class, 'choice_label'=>'title'

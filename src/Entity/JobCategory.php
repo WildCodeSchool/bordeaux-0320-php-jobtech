@@ -101,14 +101,14 @@ class JobCategory
     private $title;
 
     /**
+     * @ORM\Column(type="string", length=45)
+     */
+    private $icon;
+
+    /**
      * @ORM\Column(type="string", length=45, nullable=true)
      */
     private $identifier;
-
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $icon;
 
     /**
      * @ORM\ManyToMany(targetEntity=Job::class, mappedBy="jobCategory")
@@ -116,26 +116,47 @@ class JobCategory
     private $jobs;
 
     /**
-     * @ORM\OneToMany(targetEntity=Offer::class, mappedBy="jobCategory")
+     * @ORM\OneToMany(targetEntity=Offer::class, mappedBy="jobCategory", orphanRemoval=true)
      */
     private $offers;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Search::class, mappedBy="jobCategory", orphanRemoval=true)
+     */
+    private $searches;
 
     public function __construct()
     {
         $this->jobs = new ArrayCollection();
         $this->offers = new ArrayCollection();
+        $this->searches = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    /**
+     * @return string
+     */
+    public function getTitle(): string
     {
         return $this->title;
     }
 
+    /**
+     * @param string $title
+     * @return $this
+     */
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -143,26 +164,40 @@ class JobCategory
         return $this;
     }
 
-    public function getIdentifier(): ?string
-    {
-        return $this->identifier;
-    }
-
-    public function setIdentifier(?string $identifier): self
-    {
-        $this->identifier = $identifier;
-
-        return $this;
-    }
-
+    /**
+     * @return string|null
+     */
     public function getIcon(): ?string
     {
         return $this->icon;
     }
 
+    /**
+     * @param string $icon
+     * @return $this
+     */
     public function setIcon(string $icon): self
     {
         $this->icon = $icon;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getIdentifier(): ?string
+    {
+        return $this->identifier;
+    }
+
+    /**
+     * @param string|null $identifier
+     * @return $this
+     */
+    public function setIdentifier(?string $identifier): self
+    {
+        $this->identifier = $identifier;
 
         return $this;
     }
@@ -175,6 +210,10 @@ class JobCategory
         return $this->jobs;
     }
 
+    /**
+     * @param Job $job
+     * @return $this
+     */
     public function addJob(Job $job): self
     {
         if (!$this->jobs->contains($job)) {
@@ -185,6 +224,10 @@ class JobCategory
         return $this;
     }
 
+    /**
+     * @param Job $job
+     * @return $this
+     */
     public function removeJob(Job $job): self
     {
         if ($this->jobs->contains($job)) {
@@ -203,6 +246,10 @@ class JobCategory
         return $this->offers;
     }
 
+    /**
+     * @param Offer $offer
+     * @return $this
+     */
     public function addOffer(Offer $offer): self
     {
         if (!$this->offers->contains($offer)) {
@@ -213,6 +260,10 @@ class JobCategory
         return $this;
     }
 
+    /**
+     * @param Offer $offer
+     * @return $this
+     */
     public function removeOffer(Offer $offer): self
     {
         if ($this->offers->contains($offer)) {
@@ -220,6 +271,45 @@ class JobCategory
             // set the owning side to null (unless already changed)
             if ($offer->getJobCategory() === $this) {
                 $offer->setJobCategory(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Search[]
+     */
+    public function getSearches(): Collection
+    {
+        return $this->searches;
+    }
+
+    /**
+     * @param Search $search
+     * @return $this
+     */
+    public function addSearch(Search $search): self
+    {
+        if (!$this->searches->contains($search)) {
+            $this->searches[] = $search;
+            $search->setJobCategory($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Search $search
+     * @return $this
+     */
+    public function removeSearch(Search $search): self
+    {
+        if ($this->searches->contains($search)) {
+            $this->searches->removeElement($search);
+            // set the owning side to null (unless already changed)
+            if ($search->getJobCategory() === $this) {
+                $search->setJobCategory(null);
             }
         }
 

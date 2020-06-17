@@ -14,7 +14,7 @@ class CompanyType extends AbstractType
     {
         if ($options['action'] === 'create_company') {
             $builder
-                ->add('name', CKEditorType::class)
+                ->add('name')
                 ->add('siret')
                 ->add('postalCode')
                 ->add('city')

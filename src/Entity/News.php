@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\NewsRepository;
 use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,40 +21,60 @@ class News
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=80)
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $article;
+    private $description;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default":false})
+     */
+    private $isExternal = false;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $image;
+    private $url;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private $article;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $createdAt;
+    private $postedAt;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
+    /**
+     * @param string $title
+     * @return $this
+     */
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -61,35 +82,18 @@ class News
         return $this;
     }
 
-    public function getArticle(): ?string
-    {
-        return $this->article;
-    }
-
-    public function setArticle(string $article): self
-    {
-        $this->article = $article;
-
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(?string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
+    /**
+     * @return string|null
+     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
+    /**
+     * @param string $description
+     * @return $this
+     */
     public function setDescription(string $description): self
     {
         $this->description = $description;
@@ -97,18 +101,97 @@ class News
         return $this;
     }
 
-    public function getCreatedAt(): ?DateTime
+    /**
+     * @return bool|null
+     */
+    public function getIsExternal(): ?bool
     {
-        return $this->createdAt;
+        return $this->isExternal;
+    }
+
+    /**
+     * @param bool $isExternal
+     * @return $this
+     */
+    public function setIsExternal(bool $isExternal): self
+    {
+        $this->isExternal = $isExternal;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string|null $url
+     * @return $this
+     */
+    public function setUrl(?string $url): self
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getArticle(): ?string
+    {
+        return $this->article;
+    }
+
+    /**
+     * @param string|null $article
+     * @return $this
+     */
+    public function setArticle(?string $article): self
+    {
+        $this->article = $article;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string|null $image
+     * @return $this
+     */
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return DateTimeInterface|null
+     */
+    public function getPostedAt(): ?DateTimeInterface
+    {
+        return $this->postedAt;
     }
 
     /**
      * @ORM\PrePersist()
      * @return $this
      */
-    public function setCreatedAt(): self
+    public function setPostedAt(): self
     {
-        $this->createdAt = new DateTime();
+        $this->postedAt = new DateTime();
 
         return $this;
     }

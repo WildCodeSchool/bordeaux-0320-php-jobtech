@@ -39,7 +39,7 @@ class SearchForm extends AbstractType
                 'choice_label' => 'title',
                 'placeholder' => 'Type de contrat'
             ])
-            ->add('duration', EntityType::class, [
+            ->add('workTime', EntityType::class, [
                 'label' => false,
                 'required' => false,
                 'class' => WorkTime::class,

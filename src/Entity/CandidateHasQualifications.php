@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\UserQualificationRepository;
+use App\Repository\CandidateHasQualificationsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=UserQualificationRepository::class)
+ * @ORM\Entity(repositoryClass=CandidateHasQualificationsRepository::class)
  */
-class UserQualification
+class CandidateHasQualifications
 {
     /**
      * @ORM\Id()
@@ -18,15 +18,15 @@ class UserQualification
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=80)
      */
     private $title;
 
     /**
-     * @ORM\ManyToOne(targetEntity=UserInformation::class, inversedBy="userQualifications")
+     * @ORM\ManyToOne(targetEntity=Candidate::class, inversedBy="qualifications")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $userInformation;
+    private $candidate;
 
     /**
      * @ORM\ManyToOne(targetEntity=Qualification::class)
@@ -34,16 +34,26 @@ class UserQualification
      */
     private $qualification;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
+    /**
+     * @param string $title
+     * @return $this
+     */
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -51,23 +61,37 @@ class UserQualification
         return $this;
     }
 
-    public function getUserInformation(): ?UserInformation
+    /**
+     * @return Candidate|null
+     */
+    public function getCandidate(): ?Candidate
     {
-        return $this->userInformation;
+        return $this->candidate;
     }
 
-    public function setUserInformation(?UserInformation $userInformation): self
+    /**
+     * @param Candidate|null $candidate
+     * @return $this
+     */
+    public function setCandidate(?Candidate $candidate): self
     {
-        $this->userInformation = $userInformation;
+        $this->candidate = $candidate;
 
         return $this;
     }
 
+    /**
+     * @return Qualification|null
+     */
     public function getQualification(): ?Qualification
     {
         return $this->qualification;
     }
 
+    /**
+     * @param Qualification|null $qualification
+     * @return $this
+     */
     public function setQualification(?Qualification $qualification): self
     {
         $this->qualification = $qualification;

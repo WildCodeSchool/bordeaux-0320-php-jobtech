@@ -12,9 +12,9 @@ easy_admin:
                     - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-primary'}
                     - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
                 fields:
-                    - {property: 'userInformation', label: 'Nom'}
+                    - {property: 'candidate', label: 'Nom'}
                     - {property: 'email', type: 'email'}
-                    - {property: 'userInformation.phoneNumber', label: 'N° de téléphone', type: 'tel'}
-                    - {property: 'userInformation.city', label: 'Ville'}
+                    - {property: 'candidate.phoneNumber', label: 'N° de téléphone', type: 'tel'}
+                    - {property: 'candidate.city', label: 'Ville'}
                     - {property: 'createdAt', label: 'Date de la création'}
                     - {property: 'updatedAt', label: 'Dernière maj'}
