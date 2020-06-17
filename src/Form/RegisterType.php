@@ -20,19 +20,22 @@ class RegisterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class)
+            ->add('email', EmailType::class, [
+                'label' => 'Email :'
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
+                'label' => 'J\'accepte les conditions',
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Vous devez accepter les conditions',
                     ]),
                 ],
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options' => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password']
+                'first_options' => ['label' => 'Mot de passe :'],
+                'second_options' => ['label' => 'Confirmer :']
             ]);
 
         if ($options['action'] === self::ACTION_CREATE_CANDIDAT) {

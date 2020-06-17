@@ -7,6 +7,8 @@ use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class CompanyType extends AbstractType
 {
@@ -14,12 +16,25 @@ class CompanyType extends AbstractType
     {
         if ($options['action'] === 'create_company') {
             $builder
-                ->add('name')
-                ->add('siret')
-                ->add('postalCode')
-                ->add('city')
-                ->add('country')
-                ->add('address');
+                ->add('name', TextType::class, [
+                    'label' => 'Nom de l\'entreprise :'
+                ])
+                //   ->add('siret')
+                ->add('postalCode', IntegerType::class, [
+                    'label' => 'Code Postal :'
+                ])
+                ->add('city', TextType::class, [
+                    'label' => 'Ville :'
+                ])
+                ->add('country', TextType::class, [
+                    'label' => 'Pays :'
+                ])
+                ->add('address', TextType::class, [
+                    'label' => 'Adresse'
+                ])
+                ->add('contacts', ContactType::class, [
+                    'action' => $options['action']
+                ]);
         }
     }
 
