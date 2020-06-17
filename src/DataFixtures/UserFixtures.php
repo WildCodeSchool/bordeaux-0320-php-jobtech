@@ -32,7 +32,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     const CANDIDAT_TEST = [
         'start_email' => 'candidat',
         'end_email' => '@test.com',
-        'roles' => ['ROLE_CANDIDAT'],
+        'roles' => ['ROLE_CANDIDATE'],
         'user_information' => 'candidatInformation_'
     ];
 

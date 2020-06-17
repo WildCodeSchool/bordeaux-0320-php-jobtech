@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 
 class RegisterType extends AbstractType
 {
-    const ACTION_CREATE_CANDIDAT = 'create_candidat';
+    const ACTION_CREATE_CANDIDATE = 'create_candidate';
     const ACTION_CREATE_COMPANY = 'create_company';
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -25,7 +25,9 @@ class RegisterType extends AbstractType
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
-                'label' => 'J\'accepte les conditions',
+                'attr' => ['class' => 'agree'],
+                'label' => 'En cochant cette case, je reconnais avoir pris 
+                connaissance et accepte la politique de confidentialité relative aux données des candidats.',
                 'constraints' => [
                     new IsTrue([
                         'message' => 'Vous devez accepter les conditions',
@@ -38,7 +40,7 @@ class RegisterType extends AbstractType
                 'second_options' => ['label' => 'Confirmer :']
             ]);
 
-        if ($options['action'] === self::ACTION_CREATE_CANDIDAT) {
+        if ($options['action'] === self::ACTION_CREATE_CANDIDATE) {
             $builder
                 ->add('candidate', CandidateType::class, ['action' => $options['action']]);
         }

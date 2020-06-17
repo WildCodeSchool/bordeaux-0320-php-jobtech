@@ -3,9 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Candidate;
+use App\Entity\Gender;
+use PHPStan\Type\Traits\FalseyBooleanTypeTrait;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,14 +31,21 @@ class CandidateType extends AbstractType
 
         if ($options['action'] === 'create_candidat') {
             $builder
+                ->add('gender', EntityType::class, [
+                    'label' => false,
+                    'class' => Gender::class,
+                    'attr' => ['class' => 'gender'],
+                    'choice_label' => 'acronym',
+                    'expanded' => true
+                ])
                 ->add('surname', TextType::class, [
                     'label' => 'Nom :'])
-
                 ->add('firstName', TextType::class, [
                     'label' => 'Prénom :'
                 ])
                 ->add('birthday', DateType::class, [
                     'widget' => 'single_text',
+                    'format' => 'dd/MM/yyyy',
                     'html5' => false,
                     'attr' => ['class' => 'js-datepicker']
                 ])
@@ -43,7 +53,8 @@ class CandidateType extends AbstractType
                     'label' => 'Numéro portable :'
                 ])
                 ->add('otherNumber', IntegerType::class, [
-                    'label' => 'Autre numéro :'
+                    'label' => 'Autre numéro :',
+                    'required' => false,
                 ])
                 ->add('postalCode', IntegerType::class, [
                     'label' => 'Code postale :'
@@ -55,13 +66,18 @@ class CandidateType extends AbstractType
                     'label' => 'Pays :'
                 ])
                 ->add('isHandicapped', CheckboxType::class, [
-                    'label' => 'Je souhaite faire part d\'une situation d\'handicap.'
+                    'label' => 'Je souhaite faire part d\'une situation d\'handicap.',
+                    'required' => false,
                 ])
                 ->add('isContactableTel', CheckboxType::class, [
-                    'label' => 'par téléphone.'
+                    'label' => 'par téléphone.',
+                    'required' => false,
                 ])
                 ->add('isContactableEmail', CheckboxType::class, [
-                    'label' => 'par Email.'
+                    'label' => 'par Email.',
+                    'required' => false,
+                    'attr' => ['checked' => true]
+
                 ]);
         }
     }

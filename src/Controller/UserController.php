@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Company;
+use App\Entity\Contact;
 use App\Entity\User;
 use App\Form\RegisterType;
 use App\Security\UserAuthenticator;
-use LogicException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,6 +39,14 @@ class UserController extends AbstractController
         }
 
         $user = new User();
+        if ($action === RegisterType::ACTION_CREATE_COMPANY) {
+            $company = new Company();
+            $contact = new Contact();
+            $user->setCompany($company);
+            $user->getCompany()->getContacts()->add($contact);
+        }
+
+
         $form = $this->createForm(RegisterType::class, $user, ['action' => $action]);
         $form->handleRequest($request);
 
@@ -45,9 +54,15 @@ class UserController extends AbstractController
             // encode the plain password
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
-
-
             $entityManager = $this->getDoctrine()->getManager();
+            if ($action === RegisterType::ACTION_CREATE_COMPANY && isset($contact) && isset($company)) {
+                $contact->setCompany($company);
+                $entityManager->persist($contact);
+                $user->setRoles(['ROLE_COMPANY']);
+            }
+            if ($action === RegisterType::ACTION_CREATE_CANDIDATE) {
+                $user->setRoles(['ROLE_CANDIDATE']);
+            }
             $entityManager->persist($user);
             $entityManager->flush();
 

@@ -1,6 +1,29 @@
-.inscription{
+.inscription {
     display: flex;
     flex-direction: column;
-    width: 45%;
+    width: 55%;
     margin-left: 25%;
+}
+
+.gender {
+    margin-top: 24px;
+}
+
+p.rgdp {
+    font-size: 0.7rem;
+    width: 600px;
+}
+
+.btn {
+    border-color: black;
+}
+
+.btn-register {
+    display: flex;
+    justify-content: flex-end;
+}
+
+h2 {
+    font-family: "Baloo 2", cursive;
+    color: $secondary;
 }
