@@ -28,10 +28,10 @@ class CandidateType extends AbstractType
 
         if ($options['action'] === 'create_candidat') {
             $builder
-                ->add('lastname', TextType::class, [
+                ->add('surname', TextType::class, [
                     'label' => 'Nom :'])
 
-                ->add('firstname', TextType::class, [
+                ->add('firstName', TextType::class, [
                     'label' => 'Prénom :'
                 ])
                 ->add('birthday', DateType::class, [
