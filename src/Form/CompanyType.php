@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Company;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -35,8 +34,7 @@ class CompanyType extends AbstractType
                 ])
                 ->add('contacts', CollectionType::class, [
                     'entry_type' => ContactType::class,
-                     'entry_options' => ['label' => false],
-                    'allow_add' => true,
+                    'entry_options' => ['label' => false],
                 ]);
         }
     }

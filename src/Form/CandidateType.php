@@ -45,6 +45,7 @@ class CandidateType extends AbstractType
                 ])
                 ->add('birthday', DateType::class, [
                     'widget' => 'single_text',
+                    'format' => 'dd/MM/yyyy',
                     'html5' => false,
                     'attr' => ['class' => 'js-datepicker']
                 ])
@@ -64,13 +65,18 @@ class CandidateType extends AbstractType
                     'label' => 'Pays :'
                 ])
                 ->add('isHandicapped', CheckboxType::class, [
-                    'label' => 'Je souhaite faire part d\'une situation d\'handicap.'
+                    'label' => 'Je souhaite faire part d\'une situation d\'handicap.',
+                    'required' => false,
                 ])
                 ->add('isContactableTel', CheckboxType::class, [
-                    'label' => 'par téléphone.'
+                    'label' => 'par téléphone.',
+                    'required' => false,
                 ])
                 ->add('isContactableEmail', CheckboxType::class, [
-                    'label' => 'par Email.'
+                    'label' => 'par Email.',
+                    'required' => false,
+                    'attr' => ['checked' => true]
+
                 ]);
         }
     }

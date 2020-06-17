@@ -83,12 +83,12 @@ class Candidate
     /**
      * @ORM\Column(type="boolean", options={"default":false})
      */
-    private $haveVehicle;
+    private $haveVehicle = 0;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $curriculumVitae;
+    private $curriculumVitae = 'test';
 
     /**
      * @ORM\OneToOne(targetEntity=User::class, mappedBy="candidate", cascade={"persist", "remove"})

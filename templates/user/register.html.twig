@@ -9,7 +9,6 @@
 
             {{ form_start(register) }}
             <div class="d-flex justify-content-between">
-
                 {{ form_row(register.email) }}
                 {{ form_row(register.plainPassword.first) }}
                 {{ form_row(register.plainPassword.second) }}
@@ -48,26 +47,18 @@
                     {{ form_row(register.company.city) }}
                 </div>
                 <h2>Contact</h2>
-                {{ dump(register.company.contacts) }}
-                {% for contact in register.company %}
-
+                {% for contact in register.company.contacts %}
                 <div class="d-flex justify-content-between">
                     {{ form_row(contact.gender) }}
                     {{ form_row(contact.surname) }}
                     {{ form_row(contact.firstName) }}
+                </div>
+                <div class="d-flex justify-content-between">
                     {{ form_row(contact.email) }}
                     {{ form_row(contact.job) }}
                     {{ form_row(contact.phoneNumber) }}
-                    {#{{ form_row(register.company.contacts.gender) }}
-                    {{ form_row(register.company.contacts.surname) }}
-                    {{ form_row(register.company.contacts.firstName) }}#}
                 </div>
-                    {% endfor %}
-                <div class="d-flex justify-content-between">
-                    {#{{ form_row(register.company.contacts.email) }}
-                    {{ form_row(register.company.contacts.job) }}
-                    {{ form_row(register.company.contacts.phoneNumber) }}#}
-                </div>
+                {% endfor %}
 
             {% endif %}
             {{ form_row(register.agreeTerms) }}
