@@ -25,7 +25,9 @@ class RegisterType extends AbstractType
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
-                'label' => 'J\'accepte les conditions',
+                'attr' => ['class' => 'agree'],
+                'label' => 'En cochant cette case, je reconnais avoir pris 
+                connaissance et accepte la politique de confidentialité relative au données des candidats.',
                 'constraints' => [
                     new IsTrue([
                         'message' => 'Vous devez accepter les conditions',

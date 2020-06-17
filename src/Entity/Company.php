@@ -59,9 +59,15 @@ class Company
      */
     private $offers;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Contact::class, mappedBy="company", orphanRemoval=true)
+     */
+    private $contacts;
+
     public function __construct()
     {
         $this->offers = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -249,6 +255,37 @@ class Company
             // set the owning side to null (unless already changed)
             if ($offer->getCompany() === $this) {
                 $offer->setCompany(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contact[]
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contact $contact): self
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts[] = $contact;
+            $contact->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): self
+    {
+        if ($this->contacts->contains($contact)) {
+            $this->contacts->removeElement($contact);
+            // set the owning side to null (unless already changed)
+            if ($contact->getCompany() === $this) {
+                $contact->setCompany(null);
             }
         }
 

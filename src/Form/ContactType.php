@@ -1,8 +1,10 @@
 <?php
+
 namespace App\Form;
 
 use App\Entity\Contact;
-
+use App\Entity\Gender;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -14,22 +16,28 @@ class ContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('lastname', TextType::class, [
+            ->add('gender', EntityType::class, [
+                'label' => false,
+                'attr' => ['class' => 'gender'],
+                'class' => Gender::class,
+                'choice_label' => 'acronym',
+                'expanded' => true
+            ])
+            ->add('surname', TextType::class, [
                 'label' => 'Nom :'
             ])
-            ->add('firstname', TextType::class, [
+            ->add('firstName', TextType::class, [
                 'label' => 'Prénom :'
             ])
             ->add('email', TextType::class, [
                 'label' => 'Email :'
             ])
-            ->add('poste', TextType::class, [
+            ->add('job', TextType::class, [
                 'label' => 'Poste :'
             ])
             ->add('phoneNumber', IntegerType::class, [
                 'label' => 'Numéro de téléphone :'
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

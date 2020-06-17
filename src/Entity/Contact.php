@@ -48,6 +48,12 @@ class Contact
      */
     private $gender;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="contacts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $company;
+
     public function __toString()
     {
         return $this->getSurname() . ' ' . $this->getFirstName();
@@ -171,6 +177,18 @@ class Contact
     public function setGender(?Gender $gender): self
     {
         $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?Company $company): self
+    {
+        $this->company = $company;
 
         return $this;
     }

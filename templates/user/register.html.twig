@@ -22,6 +22,7 @@
                 </div>
                 <h2>Mes informations personnelles</h2>
                 <div class="d-flex justify-content-around">
+                    {{ form_row(register.candidate.gender) }}
                     {{ form_row(register.candidate.surname) }}
                     {{ form_row(register.candidate.firstName) }}
                 </div>
@@ -33,7 +34,7 @@
                 <div class="d-flex justify-content-between">
                     {{ form_row(register.candidate.birthday) }}
                     {{ form_row(register.candidate.phoneNumber) }}
-                    {{ form_row(register.candidate.homeNumber) }}
+                    {{ form_row(register.candidate.otherNumber) }}
                 </div>
                 {{ form_row(register.candidate.isHandicapped) }}
             {% elseif action == 'create_company' %}
@@ -46,21 +47,42 @@
                     {{ form_row(register.company.postalCode) }}
                     {{ form_row(register.company.city) }}
                 </div>
+                <h2>Contact</h2>
+                {{ dump(register.company.contacts) }}
+                {% for contact in register.company %}
+
                 <div class="d-flex justify-content-between">
-                    {{ form_row(register.company.contacts.lastname) }}
-                    {{ form_row(register.company.contacts.firstname) }}
+                    {{ form_row(contact.gender) }}
+                    {{ form_row(contact.surname) }}
+                    {{ form_row(contact.firstName) }}
+                    {{ form_row(contact.email) }}
+                    {{ form_row(contact.job) }}
+                    {{ form_row(contact.phoneNumber) }}
+                    {#{{ form_row(register.company.contacts.gender) }}
+                    {{ form_row(register.company.contacts.surname) }}
+                    {{ form_row(register.company.contacts.firstName) }}#}
                 </div>
+                    {% endfor %}
                 <div class="d-flex justify-content-between">
-                    {{ form_row(register.company.contacts.email) }}
-                    {{ form_row(register.company.contacts.poste) }}
-                    {{ form_row(register.company.contacts.phoneNumber) }}
+                    {#{{ form_row(register.company.contacts.email) }}
+                    {{ form_row(register.company.contacts.job) }}
+                    {{ form_row(register.company.contacts.phoneNumber) }}#}
                 </div>
 
             {% endif %}
             {{ form_row(register.agreeTerms) }}
-            <button type="submit" class="btn">Register</button>
-            {{ form_end(register) }}
+            <p class="rgdp">Conformément à la loi "informatique & libertés" de 1978 modifiée, Vous bénéficiez notamment d'un droit d'accès,
+                de rectification et de suppression des données vous concernant que vous pouvez exercer via la rubrique Droits d'accès.</p>
+            <div class="btn-register">
+            {% if action == 'create_candidat' %}
+            <button type="submit" class="btn">Créer mon compte Candidat</button>
+            {% elseif action == 'create_company' %}
+            <button type="submit" class="btn">Créer mon compte Entreprise</button>
+            {% endif %}
+            </div>
+
         </div>
+            {{ form_end(register) }}
     </div>
 
 {% endblock %}

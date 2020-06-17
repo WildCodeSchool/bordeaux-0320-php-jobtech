@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Company;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -30,10 +31,12 @@ class CompanyType extends AbstractType
                     'label' => 'Pays :'
                 ])
                 ->add('address', TextType::class, [
-                    'label' => 'Adresse'
+                    'label' => 'Adresse :'
                 ])
-                ->add('contacts', ContactType::class, [
-                    'action' => $options['action']
+                ->add('contacts', CollectionType::class, [
+                    'entry_type' => ContactType::class,
+                     'entry_options' => ['label' => false],
+                    'allow_add' => true,
                 ]);
         }
     }

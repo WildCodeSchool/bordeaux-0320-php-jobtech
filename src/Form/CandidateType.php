@@ -3,9 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Candidate;
+use App\Entity\Gender;
+use PHPStan\Type\Traits\FalseyBooleanTypeTrait;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,9 +31,15 @@ class CandidateType extends AbstractType
 
         if ($options['action'] === 'create_candidat') {
             $builder
+                ->add('gender', EntityType::class, [
+                    'label' => false,
+                    'class' => Gender::class,
+                    'attr' => ['class' => 'gender'],
+                    'choice_label' => 'acronym',
+                    'expanded' => true
+                ])
                 ->add('surname', TextType::class, [
                     'label' => 'Nom :'])
-
                 ->add('firstName', TextType::class, [
                     'label' => 'Prénom :'
                 ])
@@ -42,7 +51,7 @@ class CandidateType extends AbstractType
                 ->add('phoneNumber', IntegerType::class, [
                     'label' => 'Numéro portable :'
                 ])
-                ->add('homeNumber', IntegerType::class, [
+                ->add('otherNumber', IntegerType::class, [
                     'label' => 'Autre numéro :'
                 ])
                 ->add('postalCode', IntegerType::class, [
