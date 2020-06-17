@@ -21,7 +21,7 @@ easy_admin:
             show:
                 fields:
                     - {property: 'email', type: 'email'}
-                    - {property: 'gender', label: 'Civilité'}
+                    - {property: 'candidate.gender.title', label: 'Civilité'}
                     - {property: 'candidate', label: 'Nom'}
                     - {property: 'candidate.isHandicapped', label: 'En situation de handicap', type: 'boolean'}
                     - {property: 'candidate.country', label: 'Pays', type: 'country'}
