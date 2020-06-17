@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title 'S\'enregistrer' %}
+
 {% block body %}
 
     <div class="inscription">
-        <h1>Register</h1>
+        <h1>Créer mon compte</h1>
 
         {{ form_start(register) }}
         <div class="d-flex justify-content-between">
@@ -14,17 +15,16 @@
             {{ form_row(register.plainPassword.second) }}
         </div>
         {% if action == 'create_candidat' %}
-        <div class="d-flex justify-content-between">
-            <p>J'autorise à me contacter</p>
-            {{ form_row(register.userInformation.isContactableTel) }}
-            {{ form_row(register.userInformation.isContactableEmail) }}
-        </div>
-            <h1>Mes informations personnelles</h1>
+            <div class="d-flex justify-content-between">
+                <p>J'autorise à me contacter</p>
+                {{ form_row(register.userInformation.isContactableTel) }}
+                {{ form_row(register.userInformation.isContactableEmail) }}
+            </div>
+            <h2>Mes informations personnelles</h2>
             <div class="d-flex justify-content-around">
                 {{ form_row(register.userInformation.lastname) }}
                 {{ form_row(register.userInformation.firstname) }}
             </div>
-            {{ form_row(register.userInformation.homeNumber) }}
             <div class="d-flex justify-content-between">
                 {{ form_row(register.userInformation.city) }}
                 {{ form_row(register.userInformation.country) }}
@@ -33,16 +33,28 @@
             <div class="d-flex justify-content-between">
                 {{ form_row(register.userInformation.birthday) }}
                 {{ form_row(register.userInformation.phoneNumber) }}
+                {{ form_row(register.userInformation.homeNumber) }}
             </div>
             {{ form_row(register.userInformation.isHandicapped) }}
         {% elseif action == 'create_company' %}
             {{ form_row(register.company.name) }}
-            {{ form_row(register.company.siret) }}
-            {{ form_row(register.company.postalCode) }}
-            {{ form_row(register.company.city) }}
-            {{ form_row(register.company.country) }}
+            {# {{ form_row(register.company.siret) }}#}
             {{ form_row(register.company.address) }}
-
+            <h2>Information de l'entreprise</h2>
+            <div class="d-flex justify-content-between">
+                {{ form_row(register.company.country) }}
+                {{ form_row(register.company.postalCode) }}
+                {{ form_row(register.company.city) }}
+            </div>
+            <div class="d-flex justify-content-between">
+                {{ form_row(register.company.contacts.lastname) }}
+                {{ form_row(register.company.contacts.firstname) }}
+            </div>
+            <div class="d-flex justify-content-between">
+                {{ form_row(register.company.contacts.email) }}
+                {{ form_row(register.company.contacts.poste) }}
+                {{ form_row(register.company.contacts.phoneNumber) }}
+            </div>
 
         {% endif %}
         {{ form_row(register.agreeTerms) }}

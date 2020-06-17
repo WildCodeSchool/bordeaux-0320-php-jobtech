@@ -4,8 +4,8 @@ namespace App\Form;
 
 use App\Entity\UserInformation;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,19 +27,20 @@ class UserInformationType extends AbstractType
         if ($options['action'] === 'create_candidat') {
             $builder
                 ->add('lastname', TextType::class, [
-                    'label' => 'Prénom :'])
+                    'label' => 'Nom :'])
 
                 ->add('firstname', TextType::class, [
-                    'label' => 'Nom :'
+                    'label' => 'Prénom :'
                 ])
-                ->add('birthday', BirthdayType::class, [
-                    'label' => 'date de naissance :'
+                ->add('birthday', DateType::class, [
+                    'label' => 'date de naissance :',
+                    'widget' => 'single_text'
                 ])
                 ->add('phoneNumber', IntegerType::class, [
                     'label' => 'Numéro portable :'
                 ])
                 ->add('homeNumber', IntegerType::class, [
-                    'label' => 'Numéro de rue :'
+                    'label' => 'Autre numéro :'
                 ])
                 ->add('postalCode', IntegerType::class, [
                     'label' => 'Code postale :'
@@ -54,10 +55,10 @@ class UserInformationType extends AbstractType
                     'label' => 'Je souhaite faire part d\'une situation d\'handicap.'
                 ])
                 ->add('isContactableTel', CheckboxType::class, [
-                    'label' => 'Je suis contactable par téléphone.'
+                    'label' => 'par téléphone.'
                 ])
                 ->add('isContactableEmail', CheckboxType::class, [
-                    'label' => 'Je suis contactable par Email.'
+                    'label' => 'par Email.'
                 ]);
         }
     }
