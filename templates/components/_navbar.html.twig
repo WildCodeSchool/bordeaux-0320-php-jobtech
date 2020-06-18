@@ -24,7 +24,10 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                        <a class="dropdown-item text-center" href="">Mon compte</a>
+                        <a class="dropdown-item text-center" href="{{ path('profile') }}">Mon compte</a>
+                        {% if is_granted('ROLE_COMPANY') %}
+                            <a class="dropdown-item text-center" href="{{ path('offer_new') }}">Ajouter une offre</a>
+                        {% endif %}
                         {% if is_granted('ROLE_ADMIN') %}
                             <a class="dropdown-item text-center" href="{{ path('easyadmin') }}">Administration</a>
                         {% endif %}
