@@ -20,24 +20,47 @@ class OfferType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class)
-            ->add('description', CKEditorType::class)
-            ->add('postalCode', IntegerType::class)
-            ->add('city', TextType::class)
-            ->add('country', TextType::class)
-            ->add('contract', EntityType::class, [
+            ->add('title', TextType::class, [
+                'label'=>'Nom de l\'annonce'
+            ])
+            ->add('description', CKEditorType::class, [
+                'label' => 'Description de l\'offre'
+            ])
+            ->add('availablePlace', IntegerType::class, [
+                'label' => 'Nombre de postes'
+            ])
+            ->add('address', TextType::class, [
+                'label' => 'Adresse'
+            ])
+            ->add('postalCode', IntegerType::class, [
+                'label' => 'Code postal'
+            ])
+            ->add('city', TextType::class, [
+                'label' => 'Ville'
+            ])
+            ->add('country', TextType::class, [
+                'label' => 'Pays'
+            ])
+            ->add('contracts', EntityType::class, [
                 'class' => Contract::class,
+                'label' => 'Contrat',
                 'choice_label' => 'title',
                 'multiple' => true,
             ])
-            ->add('duration', EntityType::class, [
-                'class'=>WorkTime::class, 'choice_label'=>'title'
+            ->add('workTime', EntityType::class, [
+                'class'=>WorkTime::class,
+                'choice_label'=>'title',
+                'label' => 'Temps de travail'
             ])
             ->add('jobCategory', EntityType::class, [
-                'class'=>JobCategory::class, 'choice_label'=>'title'
+                'class'=>JobCategory::class,
+                'choice_label'=>'title',
+                'label'=> 'Catégorie'
             ])
             ->add('job', EntityType::class, [
-                'class'=>Job::class, 'choice_label'=>'title'
+                'class'=>Job::class,
+                'choice_label'=>'title',
+                'label' => 'Métier',
             ])
         ;
     }
