@@ -30,10 +30,13 @@ class OfferController extends AbstractController
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $form =$this->createForm(OfferType::class);
+        $offer = new Offer();
+        $form =$this->createForm(OfferType::class, $offer);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $offer = new Offer();
+            $user = $this->getUser();
+            $offer->setCompany($user->getCompany());
             $entityManager->persist($offer);
             $entityManager->flush();
 
@@ -41,7 +44,7 @@ class OfferController extends AbstractController
         }
 
         return $this->render('offer/new.html.twig', [
-            'form' => $form->createView(),
+            'offer' => $form->createView(),
         ]);
     }
 
