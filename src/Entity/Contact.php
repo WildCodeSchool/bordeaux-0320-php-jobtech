@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ContactRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ContactRepository::class)
@@ -18,27 +19,37 @@ class Contact
     private $id;
 
     /**
+     * @Assert\NotBlank(message="le champ prénom ne doit pas être vide !")
      * @ORM\Column(type="string", length=45)
+     * @Assert\Length(max=45, maxMessage="Le prénom ne doit pas dépasser 45 caractères")
      */
     private $surname;
 
     /**
+     * @Assert\NotBlank((message="le champ prénom ne doit pas être vide !"))
      * @ORM\Column(type="string", length=45)
+     * @Assert\Length(max=45, maxMessage="Le Nom ne doit pas dépasser 45 caractères")
      */
     private $firstName;
 
     /**
+     * @Assert\NotBlank((message="le champ Email ne doit pas être vide !"))
      * @ORM\Column(type="string", length=80)
+     * @Assert\Length(max=80, maxMessage="Le Nom ne doit pas dépasser 80 caractères")
      */
     private $email;
 
     /**
+     * @Assert\NotBlank((message="le champ Poste ne doit pas être vide !"))
      * @ORM\Column(type="string", length=100)
+     * @Assert\Length(max=100, maxMessage="Le Nom ne doit pas dépasser 100 caractères")
      */
     private $job;
 
     /**
-     * @ORM\Column(type="string", length=20, nullable=true)
+     * @Assert\NotBlank((message="le champ Numéro de téléphone ne doit pas être vide !"))
+     * @ORM\Column(type="string", length=20)
+     * @Assert\Length(max=20, maxMessage="Le Numéro de téléphone ne doit pas dépasser 20 caractères")
      */
     private $phone_number;
 

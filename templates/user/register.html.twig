@@ -3,77 +3,82 @@
 {% block title 'S\'enregistrer' %}
 
 {% block body %}
-    <div class="container">
-        <div class="inscription">
-            <h1>Créer mon compte</h1>
+    <div class="container pt-5">
+        {{ form_start(register) }}
+        <div class="d-flex">
+            <div class="col-md-9">
+                <h1>Créer mon compte</h1>
 
-            {{ form_start(register) }}
-            <div class="d-flex justify-content-between">
-                {{ form_row(register.email) }}
-                {{ form_row(register.plainPassword.first) }}
-                {{ form_row(register.plainPassword.second) }}
+                <div class="row justify-content-between">
+                    {{ form_row(register.email) }}
+                    {{ form_row(register.plainPassword.first) }}
+                    {{ form_row(register.plainPassword.second) }}
+                </div>
+                {% if action == 'create_candidate' %}
+                    <div class="row justify-content-between">
+                        <p>J'autorise à me contacter</p>
+                        {{ form_row(register.candidate.isContactableEmail) }}
+                        {{ form_row(register.candidate.isContactableTel) }}
+                    </div>
+                    <h2 class="text-secondary">Mes informations personnelles</h2>
+                    <div class="row justify-content-between">
+                        {{ form_row(register.candidate.gender) }}
+                        {{ form_row(register.candidate.surname) }}
+                        {{ form_row(register.candidate.firstName) }}
+                    </div>
+                    <div class="row justify-content-between">
+                        {{ form_row(register.candidate.city) }}
+                        {{ form_row(register.candidate.country) }}
+                        {{ form_row(register.candidate.postalCode) }}
+                    </div>
+                    <div class="row justify-content-between">
+                        {{ form_row(register.candidate.birthday) }}
+                        {{ form_row(register.candidate.phoneNumber) }}
+                        {{ form_row(register.candidate.otherNumber) }}
+                    </div>
+        {{ form_row(register.candidate.isHandicapped) }}
+                {% elseif action == 'create_company' %}
+                    {{ form_row(register.company.name) }}
+                    {# {{ form_row(register.company.siret) }}#}
+                    {{ form_row(register.company.address) }}
+                    <h2>Information de l'entreprise</h2>
+                    <div class="d-flex justify-content-between">
+                        {{ form_row(register.company.country) }}
+                        {{ form_row(register.company.postalCode) }}
+                        {{ form_row(register.company.city) }}
+                    </div>
+                    <h2>Contact</h2>
+                    {% for contact in register.company.contacts %}
+                        <div class="d-flex justify-content-between">
+                            {{ form_row(contact.gender) }}
+                            {{ form_row(contact.surname) }}
+                            {{ form_row(contact.firstName) }}
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            {{ form_row(contact.email) }}
+                            {{ form_row(contact.job) }}
+                            {{ form_row(contact.phoneNumber) }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
-            {% if action == 'create_candidate' %}
-                <div class="d-flex justify-content-between">
-                    <p>J'autorise à me contacter</p>
-                    {{ form_row(register.candidate.isContactableEmail) }}
-                    {{ form_row(register.candidate.isContactableTel) }}
-                </div>
-                <h2>Mes informations personnelles</h2>
-                <div class="d-flex justify-content-around">
-                    {{ form_row(register.candidate.gender) }}
-                    {{ form_row(register.candidate.surname) }}
-                    {{ form_row(register.candidate.firstName) }}
-                </div>
-                <div class="d-flex justify-content-between">
-                    {{ form_row(register.candidate.city) }}
-                    {{ form_row(register.candidate.country) }}
-                    {{ form_row(register.candidate.postalCode) }}
-                </div>
-                <div class="d-flex justify-content-between">
-                    {{ form_row(register.candidate.birthday) }}
-                    {{ form_row(register.candidate.phoneNumber) }}
-                    {{ form_row(register.candidate.otherNumber) }}
-                </div>
-                {{ form_row(register.candidate.isHandicapped) }}
-            {% elseif action == 'create_company' %}
-                {{ form_row(register.company.name) }}
-                {# {{ form_row(register.company.siret) }}#}
-                {{ form_row(register.company.address) }}
-                <h2>Information de l'entreprise</h2>
-                <div class="d-flex justify-content-between">
-                    {{ form_row(register.company.country) }}
-                    {{ form_row(register.company.postalCode) }}
-                    {{ form_row(register.company.city) }}
-                </div>
-                <h2>Contact</h2>
-                {% for contact in register.company.contacts %}
-                <div class="d-flex justify-content-between">
-                    {{ form_row(contact.gender) }}
-                    {{ form_row(contact.surname) }}
-                    {{ form_row(contact.firstName) }}
-                </div>
-                <div class="d-flex justify-content-between">
-                    {{ form_row(contact.email) }}
-                    {{ form_row(contact.job) }}
-                    {{ form_row(contact.phoneNumber) }}
-                </div>
-                {% endfor %}
-
-            {% endif %}
-            {{ form_row(register.agreeTerms) }}
-            <p class="rgdp">Conformément à la loi "informatique & libertés" de 1978 modifiée, Vous bénéficiez notamment d'un droit d'accès,
-                de rectification et de suppression des données vous concernant que vous pouvez exercer via la rubrique Droits d'accès.</p>
-            <div class="btn-register">
-            {% if action == 'create_candidat' %}
-            <button type="submit" class="btn">Créer mon compte Candidat</button>
-            {% elseif action == 'create_company' %}
-            <button type="submit" class="btn">Créer mon compte Entreprise</button>
-            {% endif %}
+            <div class="col-2 offset-1 d-none d-md-block">
+                <img src="{{ asset('build/images/unDraw/register_candidate.svg') }}">
             </div>
-
         </div>
-            {{ form_end(register) }}
+
+        {{ form_row(register.agreeTerms) }}
+        <p class="rgdp">Conformément à la loi "informatique & libertés" de 1978 modifiée, Vous bénéficiez notamment
+            d'un droit d'accès,
+            de rectification et de suppression des données vous concernant que vous pouvez exercer via la rubrique
+            Droits d'accès.
+        </p>
+        {% if action == 'create_candidate' %}
+            <button type="submit" class="btn btn-primary float-right">Créer mon compte Candidat</button>
+        {% elseif action == 'create_company' %}
+            <button type="submit" class="btn btn-primary float-right">Créer mon compte Entreprise</button>
+        {% endif %}
+        {{ form_end(register) }}
     </div>
 
 {% endblock %}

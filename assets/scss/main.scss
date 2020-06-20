@@ -35,43 +35,48 @@ main {
 
 .container {
     @media (min-width: 992px) {
-        margin: 15px 10% 15px 10%;
-        min-width: 80%;
+        margin: 15px auto 15px auto;
+        width: 80%;
+        max-width: 1140px;
     }
 }
 
-.text-secondary {
-    color: $secondary !important
+.text {
+    &-secondary {
+        color: $secondary !important
+    }
+
+    &-orange {
+        color: $orange;
+    }
+
+    &-gold {
+        color: $gold;
+    }
+
+    &-dark-grey {
+        color: $darkGrey;
+    }
+
+    &--grey {
+        color: $grey;
+    }
 }
 
-.text-orange {
-    color: $orange;
-}
+.bg {
+    &-secondary {
+        background-color: $secondary !important;
+    }
 
-.text-gold {
-    color: $gold;
-}
+    &-orange {
+        background-color: $orange;
+    }
 
-.text-dark-grey {
-    color: $darkGrey;
-}
+    &-gold {
+        background-color: $gold;
+    }
 
-.text-grey {
-    color: $grey;
-}
-
-.bg-secondary {
-    background-color: $secondary !important;
-}
-
-.bg-orange {
-    background-color: $orange;
-}
-
-.bg-gold {
-    background-color: $gold;
-}
-
-.bg-dark-grey {
-    background-color: $darkGrey;
+    &-dark-grey {
+        background-color: $darkGrey;
+    }
 }

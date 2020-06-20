@@ -34,7 +34,6 @@ class CandidateType extends AbstractType
             ->add('birthday', DateType::class, [
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy',
-                'html5' => false,
                 'attr' => ['class' => 'js-datepicker']
             ])
             ->add('phoneNumber', IntegerType::class, [
