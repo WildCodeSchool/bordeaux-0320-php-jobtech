@@ -23,15 +23,15 @@ class Candidate
 
     /**
      * @Assert\NotBlank(message="le champ prénom ne doit pas être vide !")
-     * @Assert\Length(max=45, maxMessage="Le prénom ne doit pas dépasser 45 caractères")
      * @ORM\Column(type="string", length=45)
+     * @Assert\Length(max=45, maxMessage="Le prénom ne doit pas dépasser 45 caractères")
      */
     private $surname;
 
     /**
      * @Assert\NotBlank((message="le champ prénom ne doit pas être vide !"))
-     * @Assert\Length(max=45, maxMessage="Le Nom ne doit pas dépasser 45 caractères")
      * @ORM\Column(type="string", length=45)
+     * @Assert\Length(max=45, maxMessage="Le Nom ne doit pas dépasser 45 caractères")
      */
     private $firstName;
 
