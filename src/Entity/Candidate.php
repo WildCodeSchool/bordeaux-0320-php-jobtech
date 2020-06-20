@@ -22,46 +22,58 @@ class Candidate
     private $id;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="le champ prénom ne doit pas être vide !")
      * @Assert\Length(max=45, maxMessage="Le prénom ne doit pas dépasser 45 caractères")
      * @ORM\Column(type="string", length=45)
      */
     private $surname;
 
     /**
-     * @ORM\Column(type="string", length=45)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank((message="le champ prénom ne doit pas être vide !"))
      * @Assert\Length(max=45, maxMessage="Le Nom ne doit pas dépasser 45 caractères")
+     * @ORM\Column(type="string", length=45)
      */
     private $firstName;
 
     /**
+     * @Assert\NotBlank((message="Veuillez choisir une date d'anniversaire !"))
      * @ORM\Column(type="date")
      */
     private $birthday;
 
     /**
+     * @Assert\NotBlank((message="le champ Numéro de téléphone ne doit pas être vide !"))
      * @ORM\Column(type="string", length=20)
+     * @Assert\Length(max=20, maxMessage="Le Numéro de téléphone ne doit pas dépasser 20 caractères")
      */
     private $phoneNumber;
 
     /**
+     * @Assert\NotBlank(message="le champ autre numéro ne doit pas être vide !")
      * @ORM\Column(type="string", length=20, nullable=true)
+     * @Assert\Length(max=20, maxMessage="Le Numéro de téléphone ne doit pas dépasser 20 caractères")
      */
     private $otherNumber;
 
     /**
+     * @Assert\NotBlank(message="le champ Code postal ne doit pas être vide !")
      * @ORM\Column(type="integer")
+     * @Assert\Length(min="3" max=5, maxMessage="Le Code postal ne doit pas dépasser 20 caractères",
+      minMessage="Le Code postal ne doit pas faire moins de 3 chiffres")
      */
     private $postalCode;
 
     /**
+     * @Assert\NotBlank(message="le champ Ville ne doit pas être vide !")
      * @ORM\Column(type="string", length=60)
+     * @Assert\Length(max=60, maxMessage="Le nom de la ville ne doit pas dépasser 60 caractères")
      */
     private $city;
 
     /**
+     * @Assert\NotBlank(message="le champ Pays ne doit pas être vide !")
      * @ORM\Column(type="string", length=60)
+     * @Assert\Length(max=60, maxMessage="Le nom du pays ne doit pas dépasser 60 caractères")
      */
     private $country;
 
