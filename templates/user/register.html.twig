@@ -36,6 +36,7 @@
                         {{ form_row(register.candidate.phoneNumber) }}
                         {{ form_row(register.candidate.otherNumber) }}
                     </div>
+        {{ form_row(register.candidate.isHandicapped) }}
                 {% elseif action == 'create_company' %}
                     {{ form_row(register.company.name) }}
                     {# {{ form_row(register.company.siret) }}#}
@@ -66,7 +67,6 @@
             </div>
         </div>
 
-        {{ form_row(register.candidate.isHandicapped) }}
         {{ form_row(register.agreeTerms) }}
         <p class="rgdp">Conformément à la loi "informatique & libertés" de 1978 modifiée, Vous bénéficiez notamment
             d'un droit d'accès,
