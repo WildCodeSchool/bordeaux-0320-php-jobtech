@@ -27,7 +27,9 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @Assert\NotBlank((message="le champ Email ne doit pas être vide !"))
      * @ORM\Column(type="string", length=80, unique=true)
+     * @Assert\Length(max=80, maxMessage="Le Nom ne doit pas dépasser 80 caractères")
      */
     private $email;
 
@@ -37,7 +39,7 @@ class User implements UserInterface
     private $roles = [];
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Veuillez saisir un Mot de passe.")
      * @Assert\Length(min="8",max=4096, minMessage="Attention le mot de passe doit faire minimum 8 caractères !")
      */
     private $plainPassword;
