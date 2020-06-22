@@ -61,8 +61,8 @@ class Candidate
      * @Assert\NotBlank(message="le champ Code postal ne doit pas être vide !")
      * @ORM\Column(type="integer")
      * @Assert\Length(
-     *     min=3, max=7, maxMessage="Le Code postal ne doit pas dépasser {{ limit }} caractères",
-     *     minMessage="Le Code postal ne doit pas faire moins de {{ limit }} chiffres"
+     *     min=3, minMessage="Le Code postal ne doit pas faire moins de {{ limit }} chiffres",
+     *     max=7, maxMessage="Le Code postal ne doit pas dépasser {{ limit }} caractères"
      * )
      */
     private $postalCode;
