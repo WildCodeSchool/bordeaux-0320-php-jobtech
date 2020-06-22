@@ -44,7 +44,7 @@ class User implements UserInterface
      * @Assert\Length(min=8, minMessage="Attention le mot de passe doit faire minimum {{ limit }} caractères !")
      * @Assert\Regex(
      *     pattern="/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*{}_]{8,}$/",
-     *     message="Le password doit contenir une majuscule, une minuscule, un chiffre."
+     *     message="Le password doit contenir une majuscule, une minuscule et un chiffre."
      * )
      * @Assert\NotCompromisedPassword(message="Ce mot de passe est compromis.")
      */
