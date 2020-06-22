@@ -30,11 +30,9 @@ class OfferRepository extends ServiceEntityRepository
     public function findAllOffersAndAddInterval(array $orderBy = null, int $limit = null, int $offset = null): array
     {
         $request = $this->createQueryBuilder('offer')
-            ->select('offer', 'job', 'jobCategory', 'company', 'contracts', 'workTime')
             ->join('offer.job', 'job')
             ->join('offer.jobCategory', 'jobCategory')
             ->join('offer.company', 'company')
-            ->join('offer.contracts', 'contracts')
             ->join('offer.workTime', 'workTime');
 
         if ($orderBy) {

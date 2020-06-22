@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CandidateRepository;
+use App\Service\DateProcessing;
+use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -24,42 +26,44 @@ class Candidate
     /**
      * @Assert\NotBlank(message="le champ prénom ne doit pas être vide !")
      * @ORM\Column(type="string", length=45)
-     * @Assert\Length(max=45, maxMessage="Le prénom ne doit pas dépasser 45 caractères")
+     * @Assert\Length(max=45, maxMessage="Le prénom ne doit pas dépasser {{ limit }} caractères")
      */
     private $surname;
 
     /**
-     * @Assert\NotBlank((message="le champ prénom ne doit pas être vide !"))
+     * @Assert\NotBlank(message="le champ prénom ne doit pas être vide !")
      * @ORM\Column(type="string", length=45)
-     * @Assert\Length(max=45, maxMessage="Le Nom ne doit pas dépasser 45 caractères")
+     * @Assert\Length(max=45, maxMessage="Le Nom ne doit pas dépasser {{ limit }} caractères")
      */
     private $firstName;
 
     /**
-     * @Assert\NotBlank((message="Veuillez choisir une date d'anniversaire !"))
+     * @Assert\NotBlank(message="Veuillez choisir une date d'anniversaire !")
      * @ORM\Column(type="date")
      */
     private $birthday;
 
     /**
-     * @Assert\NotBlank((message="le champ Numéro de téléphone ne doit pas être vide !"))
+     * @Assert\NotBlank(message="le champ Numéro de téléphone ne doit pas être vide !")
      * @ORM\Column(type="string", length=20)
-     * @Assert\Length(max=20, maxMessage="Le Numéro de téléphone ne doit pas dépasser 20 caractères")
+     * @Assert\Length(max=20, maxMessage="Le Numéro de téléphone ne doit pas dépasser {{ limit }} caractères")
      */
     private $phoneNumber;
 
     /**
      * @Assert\NotBlank(message="le champ autre numéro ne doit pas être vide !")
      * @ORM\Column(type="string", length=20, nullable=true)
-     * @Assert\Length(max=20, maxMessage="Le Numéro de téléphone ne doit pas dépasser 20 caractères")
+     * @Assert\Length(max=20, maxMessage="Le Numéro de téléphone ne doit pas dépasser {{ limit }} caractères")
      */
     private $otherNumber;
 
     /**
      * @Assert\NotBlank(message="le champ Code postal ne doit pas être vide !")
      * @ORM\Column(type="integer")
-     * @Assert\Length(min="3" max=5, maxMessage="Le Code postal ne doit pas dépasser 20 caractères",
-      minMessage="Le Code postal ne doit pas faire moins de 3 chiffres")
+     * @Assert\Length(
+     *     min=3, minMessage="Le Code postal ne doit pas faire moins de {{ limit }} chiffres",
+     *     max=7, maxMessage="Le Code postal ne doit pas dépasser {{ limit }} caractères"
+     * )
      */
     private $postalCode;
 
@@ -220,9 +224,9 @@ class Candidate
     }
 
     /**
-     * @return DateTimeInterface|null
+     * @return DateTime
      */
-    public function getBirthday(): ?DateTimeInterface
+    public function getBirthday(): DateTime
     {
         return $this->birthday;
     }
@@ -236,6 +240,14 @@ class Candidate
         $this->birthday = $birthday;
 
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAge(): int
+    {
+        return DateProcessing::calculateAge($this->getBirthday());
     }
 
     /**

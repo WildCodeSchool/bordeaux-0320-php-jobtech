@@ -18,7 +18,7 @@ class ContactType extends AbstractType
         $builder
             ->add('gender', EntityType::class, [
                 'label' => false,
-                'attr' => ['class' => 'gender'],
+                'attr' => ['class' => 'mt-4'],
                 'class' => Gender::class,
                 'choice_label' => 'acronym',
                 'expanded' => true
