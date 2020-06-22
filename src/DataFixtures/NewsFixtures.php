@@ -12,18 +12,18 @@ class NewsFixtures extends Fixture
         'La Tech été 2020' => [
             'article' => 'Associations et innovations',
             'image' => 'https://tuttonet.com/wp-content/uploads/2019/04/high-tech1.jpg',
-            'description' => 'Cette année 2020 est longue en rebondissement, en passant par la pandemie, la crise ' .
-                'sanitaire et bancaire, le secteur de la Tech reste tout de meme en expention, edit une conférence a ' .
-                'Long Island sur la pérénité des association aux projets innovants.',
+            'description' => 'Cette année 2020 est longue en rebondissement, en passant par la pandémie, la crise ' .
+                'sanitaire et bancaire, le secteur de la Tech reste tout de meme en expansion, edit une conférence a ' .
+                'Long Island sur la pérennité des association aux projets innovants.',
         ],
-        'The buisness gate' => [
-            'article' => 'Technologie et Buisness',
+        'The business gate' => [
+            'article' => 'Technologie et Business',
             'image' => 'https://www.telecomreview.info/images/stories/2017/09/news-28-09-06.jpg ',
-            'description' => 'L\'inovation technologique touche à son paroxisme tout en offrant une possibilité ' .
-                'grandissante d\'essort dans les domaines du Web et du Machine Learning',
+            'description' => 'L\'innovation technologique touche à son paroxysme tout en offrant une possibilité ' .
+                'grandissante d\'essor dans les domaines du Web et du Machine Learning',
         ],
         'Le futur du cellulaire' => [
-            'article' => 'Telephonie et Responsive',
+            'article' => 'Téléphonie et Responsive',
             'image' => 'http://netcomgroup-blog.fr/wp-content/uploads/2018/04/telephone-standard-telephonique.jpg ',
             'description' => 'Les telephones sont de nos jours les outils les plus utilisés par chacun d\'entre nous.' .
                 ' La télé travail ne fait qu\'augmenter le chiffre d\'affaire grandissant des grandes ' .
@@ -42,13 +42,13 @@ class NewsFixtures extends Fixture
             'image' =>
                 'https://www.akamai.com/fr/fr/multimedia/images/intro/2018/big-data-connector-intro.jpg?imwidth=1366',
             'description' => 'Le big data a permis depuis plus de 10ans une connaissance accru des habitudes clients ' .
-                'ce qui en a fait devenir une valeur non négligable pour toute entreprise '
+                'ce qui en a fait devenir une valeur non négligeable pour toute entreprise '
         ],
         'Le géant Ubisoft' => [
             'article' => 'Du jeu video à l\'emploi',
             'image' =>
                 'https://media2.ledevoir.com/images_galerie/nwl_605828_456493/image.jpg',
-            'description' => 'Cela fait maintenant quelque temps que le geant Ubisoft s\'est implanté au port de ' .
+            'description' => 'Cela fait maintenant quelque temps que le géant Ubisoft s\'est implanté au port de ' .
                 'la lune. Évidemment celui ci a permis de mettre la lumière sur le marché du développement en Gironde.'
         ],
         'Chantier Naval' => [
@@ -57,14 +57,14 @@ class NewsFixtures extends Fixture
                 'https://images.sudouest.fr/2016/04/29/57e105ea66a4bde778caaf00
                 /widescreen/1000x500/reportage-dans-les-ateliers.jpg',
             'description' =>
-                'Cela fait maintenant quelque temps que le geant Ubisoft s\'est implanté au port de la lune. ' .
+                'Cela fait maintenant quelque temps que le géant Ubisoft s\'est implanté au port de la lune. ' .
                 'Évidemment celui ci a permis de mettre la lumière sur le marché du développement en Gironde.'
         ],
         'Samsung Coin' => [
             'article' => 'DayTech',
             'image' =>
-                'https://www.pwc.fr/fr/assets/images/2018/12/
-                fr-france-555x312-shutterstock_1100777855.jpg.pwcimage.370.208.jpg',
+                'https://www.pwc.fr/fr/assets/images/2018/12/' .
+                'fr-france-555x312-shutterstock_1100777855.jpg.pwcimage.370.208.jpg',
             'description' => 'Le géant du high-tech va-t-il lancer sa propre cryptomonnaie ? En plus de ses gammes ' .
                 'de smartphones, Samsung développe actuellement sa propre technologie blockchain. ' .
                 'Elle pourrait aboutir à la création de sa monnaie virtuelle.'

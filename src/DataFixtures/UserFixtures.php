@@ -32,7 +32,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     const CANDIDAT_TEST = [
         'start_email' => 'candidat',
         'end_email' => '@test.com',
-        'roles' => ['ROLE_CANDIDAT'],
+        'roles' => ['ROLE_CANDIDATE'],
         'user_information' => 'candidatInformation_'
     ];
 
@@ -54,31 +54,31 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
     public function getDependencies()
     {
-        return [UserInformationFixtures::class, CompanyFixtures::class];
+        return [CandidateFixtures::class, CompanyFixtures::class];
     }
 
     public function load(ObjectManager $manager)
     {
         foreach (self::ADMIN as $email => $data) {
             $admin = new User();
-            $adminInfo = $manager->find('App:UserInformation', $this->getReference($data['user_information']));
+            $adminInfo = $manager->find('App:Candidate', $this->getReference($data['user_information']));
             $admin->setEmail($email)
                 ->setRoles($data['roles'])
                 ->setPassword($this->passwordEncoder->encodePassword($admin, self::PASSWORD_TEST))
-                ->setUserInformation($adminInfo);
+                ->setCandidate($adminInfo);
             $manager->persist($admin);
         }
 
         for ($i = 1; $i < 21; $i++) {
             $candidat = new User();
             $candidatInfo = $manager->find(
-                'App:UserInformation',
+                'App:Candidate',
                 $this->getReference(self::CANDIDAT_TEST['user_information'] . $i)
             );
             $candidat->setEmail(self::CANDIDAT_TEST['start_email'] . $i . self::CANDIDAT_TEST['end_email'])
                 ->setRoles(self::CANDIDAT_TEST['roles'])
                 ->setPassword($this->passwordEncoder->encodePassword($candidat, self::PASSWORD_TEST))
-                ->setUserInformation($candidatInfo);
+                ->setCandidate($candidatInfo);
             $manager->persist($candidat);
         }
 

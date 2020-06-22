@@ -19,21 +19,24 @@
             </li>
             <li class="ml-lg-auto mr-3 nav-item">
                 <div class="dropdown">
-                    <a class="btn bg-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Mon espace <i class="far fa-user"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                        <a class="dropdown-item text-center" href="">Mon compte</a>
+                        <a class="dropdown-item text-center" href="{{ path('profile') }}">Mon compte</a>
+                        {% if is_granted('ROLE_COMPANY') %}
+                            <a class="dropdown-item text-center" href="{{ path('offer_new') }}">Ajouter une offre</a>
+                        {% endif %}
                         {% if is_granted('ROLE_ADMIN') %}
                             <a class="dropdown-item text-center" href="{{ path('easyadmin') }}">Administration</a>
                         {% endif %}
-                        <a class="dropdown-item text-center" href="{{ path('app_logout') }}">Se déconnecter</a>
+                        <a class="dropdown-item text-center" href="{{ path('logout') }}">Se déconnecter</a>
                     {% else %}
-                        <a class="dropdown-item text-center text-turquoise" href="{{ path('app_login') }}">Se connecter</a>
+                        <a class="dropdown-item text-center text-gold" href="{{ path('login') }}">Se connecter</a>
                         <p class="text-center title-dropdown pt-1">Créer mon compte</p>
-                        <a class="dropdown-item text-center" href="{{ path('app_register', {'action': 'create_candidat'}) }}">Nouveau candidat</a>
-                        <a class="dropdown-item text-center" href="{{ path('app_register', {'action': 'create_company'}) }}">Nouvelle entreprise</a>
+                        <a class="dropdown-item text-center" href="{{ path('register', {'action': 'create_candidate'}) }}">Nouveau candidat</a>
+                        <a class="dropdown-item text-center" href="{{ path('register', {'action': 'create_company'}) }}">Nouvelle entreprise</a>
                     {% endif %}
                     </div>
                 </div>

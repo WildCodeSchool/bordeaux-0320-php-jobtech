@@ -6,6 +6,7 @@ use App\Repository\CompanyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CompanyRepository::class)
@@ -20,66 +21,96 @@ class Company
     private $id;
 
     /**
+     * @Assert\NotBlank(message="le champ Nom de l'entreprise ne doit pas être vide !")
      * @ORM\Column(type="string", length=100)
+     * @Assert\Length(max=100, maxMessage="Le Nom de l'entreprise ne doit pas dépasser {{ limit }} caractères")
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="le champ Siret ne doit pas être vide !")
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max=255, maxMessage="Le champ Siret ne doit pas dépasser {{ limit }} caractères")
      */
     private $siret;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $postalCode;
-
-    /**
-     * @ORM\Column(type="string", length=60)
-     */
-    private $city;
-
-    /**
-     * @ORM\Column(type="string", length=60)
-     */
-    private $country;
-
-    /**
+     * @Assert\NotBlank(message="le champ Adresse ne doit pas être vide !")
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(max=255, maxMessage="Le champ Adresse ne doit pas dépasser {{ limit }} caractères")
      */
     private $address;
 
     /**
-     * @ORM\OneToMany(targetEntity=Contact::class, mappedBy="company", orphanRemoval=true)
+     * @Assert\NotBlank(message="le champ Code postal ne doit pas être vide !")
+     * @ORM\Column(type="integer")
+     * @Assert\Length(
+     *     min=3, minMessage="Le Code postal ne doit pas faire moins de 3 chiffres",
+     *     max=5, maxMessage="Le Code postal ne doit pas dépasser {{ limit )} caractères"
+     * )
      */
-    private $contacts;
+    private $postal_code;
+
+    /**
+     * @Assert\NotBlank(message="le champ Ville ne doit pas être vide !")
+     * @ORM\Column(type="string", length=60)
+     * @Assert\Length(max=60, maxMessage="Le nom de la ville ne doit pas dépasser {{ limit }} caractères")
+     */
+    private $city;
+
+    /**
+     * @Assert\NotBlank(message="le champ Pays ne doit pas être vide !")
+     * @ORM\Column(type="string", length=60)
+     * @Assert\Length(max=60, maxMessage="Le nom du pays ne doit pas dépasser {{ limit }} caractères")
+     */
+    private $country;
+
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, mappedBy="company", cascade={"persist", "remove"})
+     */
+    private $user;
 
     /**
      * @ORM\OneToMany(targetEntity=Offer::class, mappedBy="company", orphanRemoval=true)
      */
     private $offers;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Contact::class, mappedBy="company", orphanRemoval=true)
+     */
+    private $contacts;
+
     public function __construct()
     {
-        $this->contacts = new ArrayCollection();
         $this->offers = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
     }
 
-    public function __toString(): ?string
+    public function __toString(): string
     {
         return $this->getName();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): string
+    /**
+     * @return string
+     */
+    public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     * @return $this
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -87,35 +118,75 @@ class Company
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getSiret(): ?string
     {
         return $this->siret;
     }
 
-    public function setSiret(string $siret): self
+    /**
+     * @param string|null $siret
+     * @return $this
+     */
+    public function setSiret(?string $siret): self
     {
         $this->siret = $siret;
 
         return $this;
     }
 
-    public function getPostalCode(): ?int
+    /**
+     * @return string|null
+     */
+    public function getAddress(): ?string
     {
-        return $this->postalCode;
+        return $this->address;
     }
 
-    public function setPostalCode(int $postalCode): self
+    /**
+     * @param string $address
+     * @return $this
+     */
+    public function setAddress(string $address): self
     {
-        $this->postalCode = $postalCode;
+        $this->address = $address;
 
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
+    public function getPostalCode(): ?int
+    {
+        return $this->postal_code;
+    }
+
+    /**
+     * @param int $postal_code
+     * @return $this
+     */
+    public function setPostalCode(int $postal_code): self
+    {
+        $this->postal_code = $postal_code;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
     public function getCity(): ?string
     {
         return $this->city;
     }
 
+    /**
+     * @param string $city
+     * @return $this
+     */
     public function setCity(string $city): self
     {
         $this->city = $city;
@@ -123,11 +194,18 @@ class Company
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getCountry(): ?string
     {
         return $this->country;
     }
 
+    /**
+     * @param string $country
+     * @return $this
+     */
     public function setCountry(string $country): self
     {
         $this->country = $country;
@@ -135,14 +213,66 @@ class Company
         return $this;
     }
 
-    public function getAddress(): ?string
+    /**
+     * @return User
+     */
+    public function getUser(): User
     {
-        return $this->address;
+        return $this->user;
     }
 
-    public function setAddress(string $address): self
+    /**
+     * @param User $user
+     * @return $this
+     */
+    public function setUser(User $user): self
     {
-        $this->address = $address;
+        $this->user = $user;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newCompany = null === $user ? null : $this;
+        if ($user->getCompany() !== $newCompany) {
+            $user->setCompany($newCompany);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Offer[]
+     */
+    public function getOffers(): Collection
+    {
+        return $this->offers;
+    }
+
+    /**
+     * @param Offer $offer
+     * @return $this
+     */
+    public function addOffer(Offer $offer): self
+    {
+        if (!$this->offers->contains($offer)) {
+            $this->offers[] = $offer;
+            $offer->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Offer $offer
+     * @return $this
+     */
+    public function removeOffer(Offer $offer): self
+    {
+        if ($this->offers->contains($offer)) {
+            $this->offers->removeElement($offer);
+            // set the owning side to null (unless already changed)
+            if ($offer->getCompany() === $this) {
+                $offer->setCompany(null);
+            }
+        }
 
         return $this;
     }
@@ -172,37 +302,6 @@ class Company
             // set the owning side to null (unless already changed)
             if ($contact->getCompany() === $this) {
                 $contact->setCompany(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Offer[]
-     */
-    public function getOffers(): Collection
-    {
-        return $this->offers;
-    }
-
-    public function addOffer(Offer $offer): self
-    {
-        if (!$this->offers->contains($offer)) {
-            $this->offers[] = $offer;
-            $offer->setCompany($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOffer(Offer $offer): self
-    {
-        if ($this->offers->contains($offer)) {
-            $this->offers->removeElement($offer);
-            // set the owning side to null (unless already changed)
-            if ($offer->getCompany() === $this) {
-                $offer->setCompany(null);
             }
         }
 

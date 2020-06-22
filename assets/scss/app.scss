@@ -1,22 +1,31 @@
 // Library
 @import '~bootstrap/scss/bootstrap';
+@import '~select2/dist/css/select2.min.css';
+@import '~@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css';
+@import '~bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css';
+
+// Variables
+@import '_variables';
 
 // Override Bootstrap
-@import 'bootstrap-override';
+@import 'bootstrap_override/others';
+@import 'bootstrap_override/button';
+@import 'bootstrap_override/dropdown';
 
-// JobTech
-@import '_vars';
+// JobTech Pages
 @import 'main';
 @import 'jobtech/index';
 
 // Components
 @import 'components/_navbar';
+@import 'components/_footer';
 @import 'components/_carousel';
-@import 'components/_login';
 
 // Offer
-@import 'offer/offerlist';
+@import 'offer/list';
 
 // News
+@import 'news/list';
 
-@import 'news/newslist';
+//User
+@import 'user/register';

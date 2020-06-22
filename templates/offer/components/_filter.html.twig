@@ -1,0 +1,17 @@
+{{ form_start(form, {attr: {class: 'filter'}}) }}
+    {{ form_row(form.query) }}
+
+    <div class="mt-3">
+        <h3>Trier par</h3>
+        {{ form_row(form.job) }}
+
+        {{ form_row(form.contract) }}
+
+        {{ form_row(form.workTime)  }}
+    </div>
+
+
+
+<button type="submit" class="btn btn-primary mt-3 mr-3 mb-5 float-right">Rechercher</button>
+
+{{ form_end(form) }}

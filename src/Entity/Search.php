@@ -20,40 +20,95 @@ class Search
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="searches")
+     * @ORM\ManyToOne(targetEntity=Candidate::class, inversedBy="searches")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    private $candidate;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Contract::class)
-     */
-    private $contract;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Job::class)
+     * @ORM\ManyToOne(targetEntity=Job::class, inversedBy="searches")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $job;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=JobCategory::class, inversedBy="searches")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $jobCategory;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Contract::class)
+     * @ORM\JoinTable(name="search_has_contracts")
+     */
+    private $contracts;
+
     public function __construct()
     {
-        $this->contract = new ArrayCollection();
-        $this->job = new ArrayCollection();
+        $this->contracts = new ArrayCollection();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUser(): ?User
+    /**
+     * @return Candidate|null
+     */
+    public function getCandidate(): ?Candidate
     {
-        return $this->user;
+        return $this->candidate;
     }
 
-    public function setUser(?User $user): self
+    /**
+     * @param Candidate|null $candidate
+     * @return $this
+     */
+    public function setCandidate(?Candidate $candidate): self
     {
-        $this->user = $user;
+        $this->candidate = $candidate;
+
+        return $this;
+    }
+
+    /**
+     * @return Job|null
+     */
+    public function getJob(): ?Job
+    {
+        return $this->job;
+    }
+
+    /**
+     * @param Job|null $job
+     * @return $this
+     */
+    public function setJob(?Job $job): self
+    {
+        $this->job = $job;
+
+        return $this;
+    }
+
+    /**
+     * @return JobCategory|null
+     */
+    public function getJobCategory(): ?JobCategory
+    {
+        return $this->jobCategory;
+    }
+
+    /**
+     * @param JobCategory|null $jobCategory
+     * @return $this
+     */
+    public function setJobCategory(?JobCategory $jobCategory): self
+    {
+        $this->jobCategory = $jobCategory;
 
         return $this;
     }
@@ -61,50 +116,32 @@ class Search
     /**
      * @return Collection|Contract[]
      */
-    public function getContract(): Collection
+    public function getContracts(): Collection
     {
-        return $this->contract;
+        return $this->contracts;
     }
 
+    /**
+     * @param Contract $contract
+     * @return $this
+     */
     public function addContract(Contract $contract): self
     {
-        if (!$this->contract->contains($contract)) {
-            $this->contract[] = $contract;
-        }
-
-        return $this;
-    }
-
-    public function removeContract(Contract $contract): self
-    {
-        if ($this->contract->contains($contract)) {
-            $this->contract->removeElement($contract);
+        if (!$this->contracts->contains($contract)) {
+            $this->contracts[] = $contract;
         }
 
         return $this;
     }
 
     /**
-     * @return Collection|Job[]
+     * @param Contract $contract
+     * @return $this
      */
-    public function getJob(): Collection
+    public function removeContract(Contract $contract): self
     {
-        return $this->job;
-    }
-
-    public function addJob(Job $job): self
-    {
-        if (!$this->job->contains($job)) {
-            $this->job[] = $job;
-        }
-
-        return $this;
-    }
-
-    public function removeJob(Job $job): self
-    {
-        if ($this->job->contains($job)) {
-            $this->job->removeElement($job);
+        if ($this->contracts->contains($contract)) {
+            $this->contracts->removeElement($contract);
         }
 
         return $this;

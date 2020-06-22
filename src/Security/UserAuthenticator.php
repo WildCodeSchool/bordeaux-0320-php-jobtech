@@ -25,7 +25,7 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
 {
     use TargetPathTrait;
 
-    public const LOGIN_ROUTE = 'app_login';
+    public const LOGIN_ROUTE = 'login';
 
     private $entityManager;
     private $urlGenerator;

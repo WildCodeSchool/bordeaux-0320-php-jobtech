@@ -27,16 +27,26 @@ class Qualification
      */
     private $identifier;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
+    /**
+     * @param string $title
+     * @return $this
+     */
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -44,11 +54,18 @@ class Qualification
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getIdentifier(): ?string
     {
         return $this->identifier;
     }
 
+    /**
+     * @param string|null $identifier
+     * @return $this
+     */
     public function setIdentifier(?string $identifier): self
     {
         $this->identifier = $identifier;

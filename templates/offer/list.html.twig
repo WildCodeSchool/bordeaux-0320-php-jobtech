@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Liste des offres' %}
+
+{% block body %}
+    <div class="offer-list">
+        <section class="w-100 pt-5 pb-5 jumbotron">
+            <div class="container d-flex">
+                <img src="{{ asset('build/images/unDraw/offer_list.svg') }}" alt="" class="img-offer-list">
+                <div class="w-50 mt-5">
+                    <h1 class="text-center">Trouvez votre futur métier</h1>
+                    <h2 class="text-center scramble-text"></h2>
+                    <p class="text-center">{{ nb_offers }} offres disponibles.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="d-flex">
+            <div class="col-2 bg-secondary">
+                <div class="ml-3">
+                    <h3 class="mt-4">Rechercher</h3>
+                    {% include 'offer/components/_filter.html.twig' with {form: form} only %}
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="row row-cols-1 row-cols-md-3 ml-3 mr-3 mt-3">
+                    {% for offer in offers %}
+                        {% include'offer/components/_card.html.twig' %}
+                    {% endfor %}
+                </div>
+                <div class="navigation">
+                    {{ knp_pagination_render(offers) }}
+                </div>
+            </div>
+        </section>
+    </div>
+    {% block javascript %}
+        {{ encore_entry_script_tags('text_scramble') }}
+    {% endblock %}
+{% endblock %}

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ContactRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ContactRepository::class)
@@ -18,29 +19,46 @@ class Contact
     private $id;
 
     /**
+     * @Assert\NotBlank(message="le champ prénom ne doit pas être vide !")
      * @ORM\Column(type="string", length=45)
+     * @Assert\Length(max=45, maxMessage="Le prénom ne doit pas dépasser {{ limit }} caractères")
      */
-    private $lastname;
+    private $surname;
 
     /**
+     * @Assert\NotBlank(message="le champ prénom ne doit pas être vide !")
      * @ORM\Column(type="string", length=45)
+     * @Assert\Length(max=45, maxMessage="Le Nom ne doit pas dépasser {{ limit }} caractères")
      */
-    private $firstname;
+    private $firstName;
 
     /**
-     * @ORM\Column(type="string", length=80)
+     * @Assert\NotBlank(message="le champ Email ne doit pas être vide !")
+     * @Assert\Email(message="Cette email n'est pas valide")
+     * @ORM\Column(type="string", length=80, unique=true)
+     * @Assert\Length(max=80, maxMessage="Le Nom ne doit pas dépasser {{ limit }} caractères")
      */
     private $email;
 
     /**
+     * @Assert\NotBlank(message="le champ Poste ne doit pas être vide !")
      * @ORM\Column(type="string", length=100)
+     * @Assert\Length(max=100, maxMessage="Le Nom ne doit pas dépasser {{ limit }} caractères")
      */
-    private $poste;
+    private $job;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @Assert\NotBlank(message="le champ Numéro de téléphone ne doit pas être vide !")
+     * @ORM\Column(type="string", length=20)
+     * @Assert\Length(max=20, maxMessage="Le Numéro de téléphone ne doit pas dépasser {{ limit }} caractères")
      */
-    private $phoneNumber;
+    private $phone_number;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Gender::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $gender;
 
     /**
      * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="contacts")
@@ -48,40 +66,69 @@ class Contact
      */
     private $company;
 
+    public function __toString()
+    {
+        return $this->getSurname() . ' ' . $this->getFirstName();
+    }
+
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getLastname(): ?string
+    /**
+     * @return string|null
+     */
+    public function getSurname(): ?string
     {
-        return $this->lastname;
+        return $this->surname;
     }
 
-    public function setLastname(string $lastname): self
+    /**
+     * @param string $surname
+     * @return $this
+     */
+    public function setSurname(string $surname): self
     {
-        $this->lastname = $lastname;
+        $this->surname = $surname;
 
         return $this;
     }
 
-    public function getFirstname(): ?string
+    /**
+     * @return string|null
+     */
+    public function getFirstName(): ?string
     {
-        return $this->firstname;
+        return $this->firstName;
     }
 
-    public function setFirstname(string $firstname): self
+    /**
+     * @param string $firstName
+     * @return $this
+     */
+    public function setFirstName(string $firstName): self
     {
-        $this->firstname = $firstname;
+        $this->firstName = $firstName;
 
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+     * @param string $email
+     * @return $this
+     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -89,26 +136,59 @@ class Contact
         return $this;
     }
 
-    public function getPoste(): ?string
+    /**
+     * @return string|null
+     */
+    public function getJob(): ?string
     {
-        return $this->poste;
+        return $this->job;
     }
 
-    public function setPoste(string $poste): self
+    /**
+     * @param string $job
+     * @return $this
+     */
+    public function setJob(string $job): self
     {
-        $this->poste = $poste;
+        $this->job = $job;
 
         return $this;
     }
 
-    public function getPhoneNumber(): ?int
+    /**
+     * @return string|null
+     */
+    public function getPhoneNumber(): ?string
     {
-        return $this->phoneNumber;
+        return $this->phone_number;
     }
 
-    public function setPhoneNumber(?int $phoneNumber): self
+    /**
+     * @param string|null $phone_number
+     * @return $this
+     */
+    public function setPhoneNumber(?string $phone_number): self
     {
-        $this->phoneNumber = $phoneNumber;
+        $this->phone_number = $phone_number;
+
+        return $this;
+    }
+
+    /**
+     * @return Gender|null
+     */
+    public function getGender(): ?Gender
+    {
+        return $this->gender;
+    }
+
+    /**
+     * @param Gender|null $gender
+     * @return $this
+     */
+    public function setGender(?Gender $gender): self
+    {
+        $this->gender = $gender;
 
         return $this;
     }

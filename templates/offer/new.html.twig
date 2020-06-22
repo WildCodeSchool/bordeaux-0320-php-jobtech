@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block title 'Créer une offre' %}
+{% block body %}
+    <div class="container">
+        {{ form_start(offer) }}
+        {{ form_row(offer.title) }}
+        {{ form_row(offer.city) }}
+        {{ form_row(offer.postalCode) }}
+        {{ form_row(offer.country) }}
+        {{ form_row(offer.availablePlace) }}
+        {{ form_row(offer.contracts) }}
+        {{ form_row(offer.address) }}
+        {{ form_row(offer.jobCategory) }}
+        {{ form_row(offer.job) }}
+        {{ form_row(offer.workTime) }}
+        {{ form_row(offer.description) }}
+        <button class="btn">{{ button_label|default('Ajouter') }}</button>
+        {{ form_end(offer) }}
+    </div>
+{% endblock %}

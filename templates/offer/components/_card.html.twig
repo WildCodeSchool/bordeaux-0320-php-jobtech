@@ -1,0 +1,40 @@
+<div class="col mb-4">
+    <div class="card h-100">
+        <div class="card-body">
+            <p class="card-text">{{ offer.jobCategory.title }}</p>
+            <h5 class="card-title text-turquoise">{{ offer.job.title }}</h5>
+            <p class="card-text">{{ offer.description }}</p>
+            <p class="card-text mt-2">
+                <span class="text-red"><i class="fas fa-hand-point-right"></i></span>
+                {{ offer.company.name }}
+            </p>
+            <p class="card-text">
+                <span class="text-red"><i class="fas fa-map-marker-alt"></i></span>
+                {{ offer.city }}, {{ offer.country }}
+            </p>
+            <p class="card-text">
+                <span class="text-red"><i class="fas fa-calendar-alt"></i></span>
+                {% for contract in offer.contracts %}
+                {{ contract.title }}
+                {% endfor %}
+                - {{ offer.workTime.title }}
+            </p>
+        </div>
+        <div class="card-footer">
+            <p class="card-text text-turquoise">
+                {% if offer.interval | date('%a') >= 1 %}
+                    L'offre date de {{ offer.interval | date('%a') }} {% if offer.interval | date('%a') > 1 %}jours{% else %}jour{% endif %}.
+                {% elseif offer.interval | date('%H') >= 1 %}
+                    L'offre date de {{ offer.interval | date('%H') }} {% if offer.interval | date('%H') > 1 %}heures{% else %}heure{% endif %}
+                {% elseif offer.interval | date('%I') >= 1 %}
+                    L'offre date de {{ offer.interval | date('%I') }} {% if offer.interval | date('%I') > 1 %}minutes{% else %}minute{% endif %}
+                {% else %}
+                    L'offre date de {{ offer.interval | date('%S') }} {% if offer.interval | date('%S') > 1 %}secondes{% else %}seconde{% endif %}
+                {% endif %}
+                <a href="" data-toggle="modal" data-target="#offerModal" class="float-right">Voir <i class="fas fa-long-arrow-alt-right ml-2"></i></a>
+            </p>
+
+            {% include 'offer/components/_modal.html.twig' %}
+        </div>
+    </div>
+</div>

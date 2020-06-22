@@ -10,142 +10,40 @@ use Doctrine\Persistence\ObjectManager;
 class JobFixtures extends Fixture implements DependentFixtureInterface
 {
     const JOBS = [
-        [
-            'title' => 'Chargé de communication scientifique',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'BIM Manager',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Responsable d\'étude',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Chef de projet de construction',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Chef de projet d\'innovation',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Chef de projet ouvrage d\'art',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Chef de projet R&D',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Chiffreur',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Directeur scientifique',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Directeur technique',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Chercheur',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Ingénieur calcul',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Ingénieur projet',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'PMO',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Rédacteur technique',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Responsable BE',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Responsable technique',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Technicien bureau d\'études',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Technicien d\'essais',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Technicien bâtiment',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Attaché de recherche',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Technicien étude de prix',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Assistant R&D',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Testeur',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Technicien méthodes',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Dessinateur CAO/DAO',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Architecte structure',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Dessinateur - Projeteur',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Chargé d\'affaires',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Projeteur - Calculateur',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Assistant chargé d\'affaires',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Métreur',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Conducteur de travaux',
-            'job_category' => 'job_category_1'
-        ],
-        [
-            'title' => 'Technicien maintenance',
-            'job_category' => 'job_category_1'
-        ],
+        Job::JOB_1['title'] => Job::JOB_1['job_category'],
+        Job::JOB_2['title'] => Job::JOB_2['job_category'],
+        Job::JOB_3['title'] => Job::JOB_3['job_category'],
+        Job::JOB_4['title'] => Job::JOB_4['job_category'],
+        Job::JOB_5['title'] => Job::JOB_5['job_category'],
+        Job::JOB_6['title'] => Job::JOB_6['job_category'],
+        Job::JOB_7['title'] => Job::JOB_7['job_category'],
+        Job::JOB_8['title'] => Job::JOB_8['job_category'],
+        Job::JOB_9['title'] => Job::JOB_9['job_category'],
+        Job::JOB_10['title'] => Job::JOB_10['job_category'],
+        Job::JOB_11['title'] => Job::JOB_11['job_category'],
+        Job::JOB_12['title'] => Job::JOB_12['job_category'],
+        Job::JOB_13['title'] => Job::JOB_13['job_category'],
+        Job::JOB_14['title'] => Job::JOB_14['job_category'],
+        Job::JOB_15['title'] => Job::JOB_15['job_category'],
+        Job::JOB_16['title'] => Job::JOB_16['job_category'],
+        Job::JOB_17['title'] => Job::JOB_17['job_category'],
+        Job::JOB_18['title'] => Job::JOB_18['job_category'],
+        Job::JOB_19['title'] => Job::JOB_19['job_category'],
+        Job::JOB_20['title'] => Job::JOB_20['job_category'],
+        Job::JOB_21['title'] => Job::JOB_21['job_category'],
+        Job::JOB_22['title'] => Job::JOB_22['job_category'],
+        Job::JOB_23['title'] => Job::JOB_23['job_category'],
+        Job::JOB_24['title'] => Job::JOB_24['job_category'],
+        Job::JOB_25['title'] => Job::JOB_25['job_category'],
+        Job::JOB_26['title'] => Job::JOB_26['job_category'],
+        Job::JOB_27['title'] => Job::JOB_27['job_category'],
+        Job::JOB_28['title'] => Job::JOB_28['job_category'],
+        Job::JOB_29['title'] => Job::JOB_29['job_category'],
+        Job::JOB_30['title'] => Job::JOB_30['job_category'],
+        Job::JOB_31['title'] => Job::JOB_31['job_category'],
+        Job::JOB_32['title'] => Job::JOB_32['job_category'],
+        Job::JOB_33['title'] => Job::JOB_33['job_category'],
+        Job::JOB_34['title'] => Job::JOB_34['job_category'],
     ];
 
     public function getDependencies()
@@ -155,12 +53,16 @@ class JobFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager)
     {
-        foreach (self::JOBS as $key => $data) {
+        $num = 1;
+        foreach (self::JOBS as $title => $jobCategories) {
             $job = new Job();
-            $job->setTitle($data['title'])
-                ->setJobCategory($this->getReference($data['job_category']));
+            $job->setTitle($title);
+            foreach ($jobCategories as $jobCategory) {
+                $job->addJobCategory($this->getReference($jobCategory));
+            }
             $manager->persist($job);
-            $this->addReference('job_' . $key, $job);
+            $this->addReference('job_' . $num, $job);
+            $num++;
         }
 
         $manager->flush();

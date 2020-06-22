@@ -1,23 +1,26 @@
-// Main
 html {
-    height: 100%;
+    height: 100vh;
 }
 
 body {
-    background-image: url("/build/images/background.jpg");
-    background-attachment: fixed;
-    background-size: cover;
-    height: calc(100% - 70px);
+    height: calc(100vh - 70px);
     font-family: $montserrat;
+    color: $darkGrey;
 
     h1 {
-        font-family: $baloo2;
+        font-size: 2rem;
+        color: $secondary;
+        font-family: $montserrat;
+        text-transform: uppercase;
     }
 
     h2 {
-        color: $turquoise;
-        font-family: $montserrat;
-        text-transform: uppercase;
+        font-size: 2.3rem;
+        font-family: $baloo;
+    }
+
+    h5 {
+        font-family: $baloo;
     }
 
     p {
@@ -25,35 +28,55 @@ body {
     }
 }
 
-.main-container {
+main {
+    min-height: calc(100vh - 70px - 300px);
     margin-top: 70px;
-    background-color: white;
-    border-left: 2px solid $jade;
-    border-right: 2px solid $jade;
-    min-height: 100%;
+}
 
+.container {
     @media (min-width: 992px) {
-        margin-left: 10%;
-        margin-right: 10%;
+        margin: 15px auto 15px auto;
+        width: 80%;
+        max-width: 1140px;
     }
 }
 
-.bg-jade {
-    background-color: $jade;
+.text {
+    &-secondary {
+        color: $secondary !important
+    }
+
+    &-orange {
+        color: $orange;
+    }
+
+    &-gold {
+        color: $gold;
+    }
+
+    &-dark-grey {
+        color: $darkGrey;
+    }
+
+    &--grey {
+        color: $grey;
+    }
 }
 
-.text-jade {
-    color: $jade;
-}
+.bg {
+    &-secondary {
+        background-color: $secondary !important;
+    }
 
-.text-turquoise {
-    color: $turquoise;
-}
+    &-orange {
+        background-color: $orange;
+    }
 
-.text-black {
-    color: black;
-}
+    &-gold {
+        background-color: $gold;
+    }
 
-.text-red {
-    color: red;
+    &-dark-grey {
+        background-color: $darkGrey;
+    }
 }

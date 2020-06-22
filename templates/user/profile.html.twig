@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Mon compte' %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="pt-3">Mon compte</h1>
+        {% if is_granted('ROLE_COMPANY') %}
+            {% include 'user/profile/_company.html.twig' %}
+        {% else %}
+            {% include 'user/profile/_candidate.html.twig' %}
+        {% endif %}
+    </div>
+{% endblock %}

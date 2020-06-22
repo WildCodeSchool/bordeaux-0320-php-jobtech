@@ -20,7 +20,7 @@ class SkillCategory
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=60)
+     * @ORM\Column(type="string", length=45)
      */
     private $title;
 
@@ -30,7 +30,7 @@ class SkillCategory
     private $identifier;
 
     /**
-     * @ORM\OneToMany(targetEntity=Skill::class, mappedBy="skillCategory")
+     * @ORM\OneToMany(targetEntity=Skill::class, mappedBy="skillCategory", orphanRemoval=true)
      */
     private $skills;
 
@@ -39,16 +39,26 @@ class SkillCategory
         $this->skills = new ArrayCollection();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
+    /**
+     * @param string $title
+     * @return $this
+     */
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -56,11 +66,18 @@ class SkillCategory
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getIdentifier(): ?string
     {
         return $this->identifier;
     }
 
+    /**
+     * @param string|null $identifier
+     * @return $this
+     */
     public function setIdentifier(?string $identifier): self
     {
         $this->identifier = $identifier;
@@ -76,6 +93,10 @@ class SkillCategory
         return $this->skills;
     }
 
+    /**
+     * @param Skill $skill
+     * @return $this
+     */
     public function addSkill(Skill $skill): self
     {
         if (!$this->skills->contains($skill)) {
@@ -86,6 +107,10 @@ class SkillCategory
         return $this;
     }
 
+    /**
+     * @param Skill $skill
+     * @return $this
+     */
     public function removeSkill(Skill $skill): self
     {
         if ($this->skills->contains($skill)) {

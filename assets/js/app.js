@@ -9,11 +9,19 @@
 // Font Awesome
 import '@fortawesome/fontawesome-free/js/all';
 
-// any CSS you require will output into a single css file (app.css in this case)
+// SCSS Compiler
 require('../scss/app.scss');
 
-// Bootstrap
+// jQuery
 const $ = require('jquery');
-// this "modifies" the jquery module: adding behavior to it
-// the bootstrap module doesn't export/return anything
+
+// Bootstrap
 require('bootstrap');
+
+// Other Library
+require('select2/dist/js/select2.min')
+require('bootstrap-datepicker/js/bootstrap-datepicker')
+require('bootstrap-datepicker/dist/locales/bootstrap-datepicker.fr.min')
+
+// JS JobTech
+require('./form');

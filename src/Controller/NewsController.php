@@ -24,7 +24,7 @@ class NewsController extends AbstractController
      */
     public function list(NewsRepository $newsRepository, Paginator $paginator): Response
     {
-        $actualities = $newsRepository->findBy([], ['createdAt' => 'DESC']);
+        $actualities = $newsRepository->findBy([], ['postedAt' => 'DESC']);
         $actualities = $paginator->paging($actualities, self::LIMIT_NEWS_PER_PAGE);
 
         if (!$actualities) {
@@ -32,7 +32,7 @@ class NewsController extends AbstractController
                 'No news found in news table.'
             );
         }
-        return $this->render('job_tech/news/list.html.twig', [
+        return $this->render('news/list.html.twig', [
              'actualities' => $actualities,
         ]);
     }

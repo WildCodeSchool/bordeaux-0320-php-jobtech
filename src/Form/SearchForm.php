@@ -4,12 +4,11 @@
 namespace App\Form;
 
 use App\Entity\Contract;
+use App\Entity\WorkTime;
 use App\Entity\Job;
-use App\Entity\Offer;
-use App\Service\OfferSearch;
+use App\Entity\Search\OfferSearch;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,7 +18,7 @@ class SearchForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('que', TextType::class, [
+            ->add('query', TextType::class, [
                 'label' => false,
                 'required' => false,
                 'attr' => [
@@ -31,29 +30,21 @@ class SearchForm extends AbstractType
                 'required' => false,
                 'class' => Job::class,
                 'choice_label' => 'title',
-                'placeholder' => 'Choisissez un métier dans la liste déroulante'
+                'placeholder' => 'Métier'
             ])
             ->add('contract', EntityType::class, [
                 'label' => false,
                 'required' => false,
                 'class' => Contract::class,
                 'choice_label' => 'title',
-                'placeholder' => 'Choisissez un type de contrat dans la liste déroulante'
+                'placeholder' => 'Type de contrat'
             ])
-
-            ->add('min', NumberType::class, [
+            ->add('workTime', EntityType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => [
-                    'placeholder' => 'Temps min'
-                ]
-            ])
-            ->add('max', NumberType::class, [
-                'label' => false,
-                'required' => false,
-                'attr' => [
-                    'placeholder' => 'Temps max'
-                ]
+                'class' => WorkTime::class,
+                'choice_label' => 'title',
+                'placeholder' => 'Temps de travail'
             ])
         ;
     }

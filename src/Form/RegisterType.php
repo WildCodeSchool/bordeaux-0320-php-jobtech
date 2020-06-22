@@ -14,30 +14,35 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 
 class RegisterType extends AbstractType
 {
-    const ACTION_CREATE_CANDIDAT = 'create_candidat';
+    const ACTION_CREATE_CANDIDATE = 'create_candidate';
     const ACTION_CREATE_COMPANY = 'create_company';
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class)
+            ->add('email', EmailType::class, [
+                'label' => 'Email :'
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
+                'attr' => ['class' => 'agree'],
+                'label' => 'En cochant cette case, je reconnais avoir pris 
+                connaissance et accepte la politique de confidentialité relative aux données des candidats.',
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Vous devez accepter les conditions',
                     ]),
                 ],
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options' => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password']
+                'first_options' => ['label' => 'Mot de passe :'],
+                'second_options' => ['label' => 'Confirmer :']
             ]);
 
-        if ($options['action'] === self::ACTION_CREATE_CANDIDAT) {
+        if ($options['action'] === self::ACTION_CREATE_CANDIDATE) {
             $builder
-                ->add('userInformation', UserInformationType::class, ['action' => $options['action']]);
+                ->add('candidate', CandidateType::class, ['action' => $options['action']]);
         }
 
         if ($options['action'] === self::ACTION_CREATE_COMPANY) {
