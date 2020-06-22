@@ -18,6 +18,14 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class UserController extends AbstractController
 {
     /**
+     * @Route("/profile", name="profile")
+     */
+    public function profile(): Response
+    {
+        return $this->render('user/profile.html.twig', ['user' => $this->getUser()]);
+    }
+
+    /**
      * @Route("/register/{action}", name="register")
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder

@@ -22,12 +22,13 @@ class CandidateType extends AbstractType
             ->add('gender', EntityType::class, [
                 'label' => false,
                 'class' => Gender::class,
-                'attr' => ['class' => 'gender'],
+                'attr' => ['class' => 'mt-4'],
                 'choice_label' => 'acronym',
                 'expanded' => true
             ])
             ->add('surname', TextType::class, [
-                'label' => 'Nom :'])
+                'label' => 'Nom :'
+            ])
             ->add('firstName', TextType::class, [
                 'label' => 'Prénom :'
             ])

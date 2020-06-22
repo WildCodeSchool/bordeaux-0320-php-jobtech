@@ -23,43 +23,45 @@ class Company
     /**
      * @Assert\NotBlank(message="le champ Nom de l'entreprise ne doit pas être vide !")
      * @ORM\Column(type="string", length=100)
-     * @Assert\Length(max=100, maxMessage="Le Nom de l'entreprise ne doit pas dépasser 100 caractères")
+     * @Assert\Length(max=100, maxMessage="Le Nom de l'entreprise ne doit pas dépasser {{ limit }} caractères")
      */
     private $name;
 
     /**
      * @Assert\NotBlank(message="le champ Siret ne doit pas être vide !")
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(max=255, maxMessage="Le champ Siret ne doit pas dépasser 255 caractères")
+     * @Assert\Length(max=255, maxMessage="Le champ Siret ne doit pas dépasser {{ limit }} caractères")
      */
     private $siret;
 
     /**
      * @Assert\NotBlank(message="le champ Adresse ne doit pas être vide !")
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(max=255, maxMessage="Le champ Adresse ne doit pas dépasser 255 caractères")
+     * @Assert\Length(max=255, maxMessage="Le champ Adresse ne doit pas dépasser {{ limit }} caractères")
      */
     private $address;
 
     /**
      * @Assert\NotBlank(message="le champ Code postal ne doit pas être vide !")
      * @ORM\Column(type="integer")
-     * @Assert\Length(min="3" max=5, maxMessage="Le Code postal ne doit pas dépasser 20 caractères",
-    minMessage="Le Code postal ne doit pas faire moins de 3 chiffres")
+     * @Assert\Length(
+     *     min=3, minMessage="Le Code postal ne doit pas faire moins de 3 chiffres",
+     *     max=5, maxMessage="Le Code postal ne doit pas dépasser {{ limit )} caractères"
+     * )
      */
     private $postal_code;
 
     /**
      * @Assert\NotBlank(message="le champ Ville ne doit pas être vide !")
      * @ORM\Column(type="string", length=60)
-     * @Assert\Length(max=60, maxMessage="Le nom de la ville ne doit pas dépasser 60 caractères")
+     * @Assert\Length(max=60, maxMessage="Le nom de la ville ne doit pas dépasser {{ limit }} caractères")
      */
     private $city;
 
     /**
      * @Assert\NotBlank(message="le champ Pays ne doit pas être vide !")
      * @ORM\Column(type="string", length=60)
-     * @Assert\Length(max=60, maxMessage="Le nom du pays ne doit pas dépasser 60 caractères")
+     * @Assert\Length(max=60, maxMessage="Le nom du pays ne doit pas dépasser {{ limit }} caractères")
      */
     private $country;
 

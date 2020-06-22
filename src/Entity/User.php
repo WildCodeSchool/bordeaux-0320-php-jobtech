@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\HasLifecycleCallbacks()
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @UniqueEntity(fields={"email"}, message="Un compte avec cette email existe déjà")
  */
 class User implements UserInterface
 {
@@ -27,9 +27,10 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @Assert\NotBlank((message="le champ Email ne doit pas être vide !"))
+     * @Assert\NotBlank(message="le champ Email ne doit pas être vide !")
+     * @Assert\Email(message="Cette email n'est pas valide")
      * @ORM\Column(type="string", length=80, unique=true)
-     * @Assert\Length(max=80, maxMessage="Le Nom ne doit pas dépasser 80 caractères")
+     * @Assert\Length(max=80, maxMessage="Le Nom ne doit pas dépasser {{ limit }} caractères")
      */
     private $email;
 
@@ -40,7 +41,12 @@ class User implements UserInterface
 
     /**
      * @Assert\NotBlank(message="Veuillez saisir un Mot de passe.")
-     * @Assert\Length(min="8",max=4096, minMessage="Attention le mot de passe doit faire minimum 8 caractères !")
+     * @Assert\Length(min=8, minMessage="Attention le mot de passe doit faire minimum {{ limit }} caractères !")
+     * @Assert\Regex(
+     *     pattern="/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*{}_]{8,}$/",
+     *     message="Le password doit contenir une majuscule, une minuscule, un chiffre."
+     * )
+     * @Assert\NotCompromisedPassword(message="Ce mot de passe est compromis.")
      */
     private $plainPassword;
 

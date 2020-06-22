@@ -21,35 +21,36 @@ class Contact
     /**
      * @Assert\NotBlank(message="le champ prénom ne doit pas être vide !")
      * @ORM\Column(type="string", length=45)
-     * @Assert\Length(max=45, maxMessage="Le prénom ne doit pas dépasser 45 caractères")
+     * @Assert\Length(max=45, maxMessage="Le prénom ne doit pas dépasser {{ limit }} caractères")
      */
     private $surname;
 
     /**
-     * @Assert\NotBlank((message="le champ prénom ne doit pas être vide !"))
+     * @Assert\NotBlank(message="le champ prénom ne doit pas être vide !")
      * @ORM\Column(type="string", length=45)
-     * @Assert\Length(max=45, maxMessage="Le Nom ne doit pas dépasser 45 caractères")
+     * @Assert\Length(max=45, maxMessage="Le Nom ne doit pas dépasser {{ limit }} caractères")
      */
     private $firstName;
 
     /**
-     * @Assert\NotBlank((message="le champ Email ne doit pas être vide !"))
-     * @ORM\Column(type="string", length=80)
-     * @Assert\Length(max=80, maxMessage="Le Nom ne doit pas dépasser 80 caractères")
+     * @Assert\NotBlank(message="le champ Email ne doit pas être vide !")
+     * @Assert\Email(message="Cette email n'est pas valide")
+     * @ORM\Column(type="string", length=80, unique=true)
+     * @Assert\Length(max=80, maxMessage="Le Nom ne doit pas dépasser {{ limit }} caractères")
      */
     private $email;
 
     /**
-     * @Assert\NotBlank((message="le champ Poste ne doit pas être vide !"))
+     * @Assert\NotBlank(message="le champ Poste ne doit pas être vide !")
      * @ORM\Column(type="string", length=100)
-     * @Assert\Length(max=100, maxMessage="Le Nom ne doit pas dépasser 100 caractères")
+     * @Assert\Length(max=100, maxMessage="Le Nom ne doit pas dépasser {{ limit }} caractères")
      */
     private $job;
 
     /**
-     * @Assert\NotBlank((message="le champ Numéro de téléphone ne doit pas être vide !"))
+     * @Assert\NotBlank(message="le champ Numéro de téléphone ne doit pas être vide !")
      * @ORM\Column(type="string", length=20)
-     * @Assert\Length(max=20, maxMessage="Le Numéro de téléphone ne doit pas dépasser 20 caractères")
+     * @Assert\Length(max=20, maxMessage="Le Numéro de téléphone ne doit pas dépasser {{ limit }} caractères")
      */
     private $phone_number;
 
