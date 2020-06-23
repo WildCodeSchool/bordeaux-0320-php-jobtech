@@ -4,7 +4,7 @@ namespace App\Service;
 
 class NumberProcessing
 {
-    public static function addPointToPhoneNumber(int $phone)
+    public static function addPointToPhoneNumber(?string $phone)
     {
         $phone = '0' . $phone;
         $result = '';
