@@ -1,20 +1,54 @@
 import Chart from 'chart.js';
 
-const ctx = document.getElementById('myChart').getContext('2d');
-const myChart = new Chart(ctx, {
-    type: 'bar',
+const ctxPro = document.getElementById('myChartPro').getContext('2d');
+const myChartPro = new Chart(ctxPro, {
+    type: 'radar',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['Capacité d\'Orientation', 'Capacité d\'Influence', 'Capacité d\'Organisation', 'Capacité Relationelle'],
         datasets: [{
-            label: '# of Votes',
-            data: [1, 7, 3, 5, 2, 3],
+            label: 'Notes',
+            data: [68, 55, 87, 70],
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
+                'rgba(251, 236, 81, 0.5)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+            ],
+            borderWidth: 1,
+        }],
+    },
+    options: {
+        scales: {
+        },
+    },
+});
+const ctxPerso = document.getElementById('myChartPerso').getContext('2d');
+const myChartPerso = new Chart(ctxPerso, {
+    type: 'radar',
+    data: {
+        labels: ['Initiative', 'Prise de décision', 'Flexibilité', 'Résistance au stress', 'Ambition', 'Indépendance', 'Capacité de persévèrence', 'Orientation, Résultat', 'Disposition à apprendre', 'Implication', 'Exactitude'],
+        datasets: [{
+            label: 'Notes',
+            data: [10, 47, 73, 85, 92, 83, 47, 28, 59, 80, 33],
+            backgroundColor: [
+                'rgba(101, 141, 251, 0.5)',
+            ],
+            pointBackgroundColor: [
+                'rgba(255, 0, 22, 0.5)',
+                'rgba(255, 0, 22, 0.5)',
+                'rgba(255, 0, 22, 0.5)',
+                'rgba(255, 0, 22, 0.5)',
+                'rgba(255, 0, 22, 0.5)',
+                'rgba(255, 0, 22, 0.5)',
+                'rgba(255, 0, 22, 0.5)',
+                'rgba(255, 0, 22, 0.5)',
+                'rgba(255, 0, 22, 0.5)',
+                'rgba(255, 0, 22, 0.5)',
+                'rgba(255, 0, 22, 0.5)',
+
             ],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
@@ -23,17 +57,17 @@ const myChart = new Chart(ctx, {
                 'rgba(75, 192, 192, 1)',
                 'rgba(153, 102, 255, 1)',
                 'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
             ],
             borderWidth: 1,
         }],
     },
     options: {
         scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true,
-                },
-            }],
         },
     },
 });
