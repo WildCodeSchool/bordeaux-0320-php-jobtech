@@ -4,10 +4,28 @@ namespace App\Service\Questionnaire;
 
 use App\Entity\Ability;
 use App\Entity\Question;
-use Doctrine\Common\Collections\Collection;
 
-class QuestionManager
+class QuestionnaireManager
 {
+    /**
+     * @param array $resultQuestionnaire
+     * @return array
+     */
+    public function calculateAbilities(array $resultQuestionnaire): array
+    {
+        $nbQuestion = count($resultQuestionnaire) / 2;
+        $result = [];
+        for ($i = 0; $i < $nbQuestion; $i++) {
+            if (!array_key_exists($resultQuestionnaire['ability' . $i], $result)) {
+                $result[$resultQuestionnaire['ability' . $i]] = 0;
+            }
+
+            $result[$resultQuestionnaire['ability' . $i]] += $resultQuestionnaire['question' . $i];
+        }
+
+        return $result;
+    }
+
     /**
      * @param Ability[] $abilities
      * @param integer $nbQuestion

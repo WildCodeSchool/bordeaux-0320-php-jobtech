@@ -12,11 +12,16 @@ class AbilityFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr_FR');
-
+        $abilities = [];
         for ($i = 0; $i < 10; $i++) {
             $ability = new Ability();
 
-            $ability->setTitle($faker->word());
+            do {
+                $abilityTitle = $faker->word();
+            } while (in_array($abilityTitle, $abilities));
+
+            $ability->setTitle($abilityTitle);
+            $abilities[] = $abilityTitle;
 
             $manager->persist($ability);
 
