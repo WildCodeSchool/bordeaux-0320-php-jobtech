@@ -14,18 +14,17 @@
 
     <div class="container">
         <h1 class="pt-3">Mon compte</h1>
-        <div class="container">
-        <div class="row-cols-8 flex-row">
-            <h2 class="pt-3">MES COMPETENCES PRO : </h2>
-                <canvas id="myChartPro"></canvas>
-            <h2 class="pt-3">MES COMPETENCES PERSO : </h2>
-                <canvas id="myChartPerso"></canvas>
-        </div>
-        </div>
         {% if is_granted('ROLE_COMPANY') %}
             {% include 'user/profile/_company.html.twig' %}
         {% else %}
             {% include 'user/profile/_candidate.html.twig' %}
         {% endif %}
     </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ encore_entry_script_tags('range_slider') }}
+    {% if is_granted('ROLE_CANDIDATE') %}
+        {{ encore_entry_script_tags('candidate_graphic') }}
+    {% endif %}
 {% endblock %}

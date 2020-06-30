@@ -25,10 +25,3 @@ require('bootstrap-datepicker/dist/locales/bootstrap-datepicker.fr.min')
 
 // JS JobTech
 require('./form');
-
-// Chart JS
-require('./questionnaryChartjs');
-
-// Range Slider
-require('./slider');
-

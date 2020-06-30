@@ -1,3 +1,5 @@
+// https://github.com/Stryzhevskyi/rangeSlider
+/* eslint-disable */
 import rangeSlider from 'rangeslider-pure/dist/range-slider.min';
 
 // Initialize a new plugin instance for one element or NodeList of elements.
