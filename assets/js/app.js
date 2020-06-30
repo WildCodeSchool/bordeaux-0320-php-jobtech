@@ -29,3 +29,6 @@ require('./form');
 // Chart JS
 require('./questionnaryChartjs');
 
+// Range Slider
+require('./slider');
+
