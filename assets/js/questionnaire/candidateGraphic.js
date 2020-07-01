@@ -21,7 +21,10 @@ const myChartPro = new Chart(ctxPro, {
         }],
     },
     options: {
-        scales: {
+        scale: {
+            ticks: {
+                beginAtZero: true,
+            },
         },
     },
 });
@@ -67,7 +70,10 @@ const myChartPerso = new Chart(ctxPerso, {
         }],
     },
     options: {
-        scales: {
+        scale: {
+            ticks: {
+                beginAtZero: true,
+            },
         },
     },
 });
