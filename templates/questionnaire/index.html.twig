@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Questionnaire{% endblock %}
+
+{% block body %}
+<div class="container pt-4">
+        <input
+                type="range"
+                min="0"
+                max="4"
+                step="1"
+                data-buffer="0" />
+        <h1 class="mb-3 mt-3">Questionnaire de personnalité</h1>
+    {{ form_start(questions) }}
+        {{ form_widget(questions) }}
+        <button class="btn btn-primary">Envoyer</button>
+    {{ form_end(questions) }}
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+{{ encore_entry_script_tags('range_slider') }}
+{% endblock %}

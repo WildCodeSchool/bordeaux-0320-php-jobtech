@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CandidateRepository;
 use App\Service\DateProcessing;
+use App\Service\NumberProcessing;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -258,6 +259,11 @@ class Candidate
         return $this->phoneNumber;
     }
 
+    public function getFormattedPhoneNumber(): ?string
+    {
+        return NumberProcessing::addPointToPhoneNumber($this->getPhoneNumber());
+    }
+
     /**
      * @param string $phoneNumber
      * @return $this
@@ -275,6 +281,11 @@ class Candidate
     public function getOtherNumber(): ?string
     {
         return $this->otherNumber;
+    }
+
+    public function getFormattedOtherPhoneNumber(): ?string
+    {
+        return NumberProcessing::addPointToPhoneNumber($this->getOtherNumber());
     }
 
     /**
