@@ -1,6 +1,6 @@
 {
     "devDependencies": {
-        "@fortawesome/fontawesome-free": "^5.13.0",
+        "@fortawesome/fontawesome-free": "^5.13.1",
         "@symfony/webpack-encore": "^0.27.0",
         "bootstrap": "^4.5.0",
         "copy-webpack-plugin": "^5.1.1",
@@ -26,7 +26,9 @@
     "dependencies": {
         "@ttskch/select2-bootstrap4-theme": "^1.4.0",
         "bootstrap-datepicker": "^1.9.0",
+        "chart.js": "^2.9.3",
         "node-sass": "^4.13.0",
+        "rangeslider-pure": "^0.4.11",
         "sass-loader": "^7.1.0",
         "select2": "^4.0.13",
         "serialize-javascript": "^3.0.0"

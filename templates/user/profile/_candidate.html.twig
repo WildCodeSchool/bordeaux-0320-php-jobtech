@@ -4,10 +4,25 @@
             <td><i class="fas fa-user"></i> {{ user.candidate.fullname }}</td>
             <td>{{ user.candidate.age }}ans</td>
         </tr>
-    </table>
-    <table class="col-6 offset-1">
         <tr>
-            <td>Test</td>
+            <td><i class="fas fa-at"></i> {{ user.email }}</td>
         </tr>
+        <tr>
+            <td><i class="fas fa-phone-alt"></i> {{ user.candidate.formattedPhoneNumber }}</td>
+        </tr>
+        {% if user.candidate.otherNumber %}
+            <tr>
+                <td><i class="fas fa-phone-alt"></i> {{ user.candidate.formattedOtherPhoneNumber }}</td>
+            </tr>
+        {% endif %}
     </table>
+    <div class="col-8 offset-1">
+        <h2 class="pt-3">MES COMPETENCES PRO : </h2>
+        <canvas id="myChartPro"></canvas>
+        <h2 class="pt-3">MES COMPETENCES PERSO : </h2>
+        <canvas id="myChartPerso"></canvas>
+    </div>
+    <div class="container">
+
+    </div>
 </div>
