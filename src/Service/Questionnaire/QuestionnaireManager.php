@@ -2,11 +2,28 @@
 
 namespace App\Service\Questionnaire;
 
+use App\Controller\QuestionnaireController;
 use App\Entity\Ability;
 use App\Entity\Question;
 
 class QuestionnaireManager
 {
+    const SCALE_WANTED = 100;
+    const MAX_SCORE_BY_QUESTION = 5;
+
+    /**
+     * @param Ability[] $abilities
+     * @param array $resultQuestionnaire
+     * @return boolean
+     */
+    public function isCorrectAbilities(array $abilities, array $resultQuestionnaire): bool
+    {
+        // foreach ($abilities as $key => $value) {
+        //    # code...
+        // }
+        return true;
+    }
+
     /**
      * @param array $resultQuestionnaire
      * @return array
@@ -23,7 +40,7 @@ class QuestionnaireManager
             $result[$resultQuestionnaire['ability' . $i]] += $resultQuestionnaire['question' . $i];
         }
 
-        return $result;
+        return $this->convertScaleTo100($result);
     }
 
     /**
@@ -42,6 +59,17 @@ class QuestionnaireManager
         }
 
         return $this->shuffleQuestions($result);
+    }
+
+    private function convertScaleTo100(array $result): array
+    {
+        $coef = self::SCALE_WANTED/(QuestionnaireController::NB_OF_QUESTIONS_BY_ABILITY*self::MAX_SCORE_BY_QUESTION);
+
+        foreach ($result as $ability => $value) {
+            $result[$ability] = (int) round($value * $coef);
+        }
+
+        return $result;
     }
 
     /**

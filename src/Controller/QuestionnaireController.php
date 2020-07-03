@@ -32,7 +32,10 @@ class QuestionnaireController extends AbstractController
         $form = $this->createForm(QuestionnaireType::class, null, ['questions' => $questions]);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() &&
+            $form->isValid() &&
+            $questionnaireManager->isCorrectAbilities($abilities, $form->getData())) {
+            dd($abilities, $form->getData());
             dd($questionnaireManager->calculateAbilities($form->getData()));
         }
 

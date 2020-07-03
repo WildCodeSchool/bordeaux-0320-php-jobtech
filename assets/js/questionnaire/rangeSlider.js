@@ -41,7 +41,7 @@ rangeSlider.create(slider, {
 const triggerEvents = true; // or false
 slider.rangeSlider.update({
     min: 0,
-    max: 5,
+    max: 4,
     step: 1,
     value: 1.5,
     buffer: 0,

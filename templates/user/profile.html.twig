@@ -4,15 +4,11 @@
 
 {% block body %}
 
-    <input
-            type="range"
-            min="0"
-            max="5"
-            step="1"
-            data-buffer="0" />
+
 
 
     <div class="container">
+
         <h1 class="pt-3">Mon compte</h1>
         {% if is_granted('ROLE_COMPANY') %}
             {% include 'user/profile/_company.html.twig' %}
@@ -23,7 +19,6 @@
 {% endblock %}
 
 {% block javascript %}
-    {{ encore_entry_script_tags('range_slider') }}
     {% if is_granted('ROLE_CANDIDATE') %}
         {{ encore_entry_script_tags('candidate_graphic') }}
     {% endif %}
