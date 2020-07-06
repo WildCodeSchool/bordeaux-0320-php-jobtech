@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\User;
 
 use App\Entity\Company;
 use App\Entity\Contact;
 use App\Entity\User;
-use App\Form\RegisterType;
+use App\Form\User\UserType;
 use App\Security\UserAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +26,23 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/register/{action}", name="register")
+     * @Route("/edit/{action}", name="edit_user")
+     * @param string $action
+     * @param Request $request
+     * @return Response
+     */
+    public function edit(string $action, Request $request): Response
+    {
+        $form = $this->createForm(UserType::class, $this->getUser(), ['action' => $action]);
+        $form->handleRequest($request);
+
+        return $this->render('user/candidate/editPersonalInformation.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/register/{action<^create_[a-z]*$>}", name="register", methods={"GET"})
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param GuardAuthenticatorHandler $guardHandler
@@ -47,7 +63,7 @@ class UserController extends AbstractController
         }
 
         $user = new User();
-        if ($action === RegisterType::ACTION_CREATE_COMPANY) {
+        if ($action === UserType::CREATE_COMPANY) {
             $company = new Company();
             $contact = new Contact();
             $user->setCompany($company);
@@ -55,7 +71,7 @@ class UserController extends AbstractController
         }
 
 
-        $form = $this->createForm(RegisterType::class, $user, ['action' => $action]);
+        $form = $this->createForm(UserType::class, $user, ['action' => $action]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -63,12 +79,12 @@ class UserController extends AbstractController
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
             $entityManager = $this->getDoctrine()->getManager();
-            if ($action === RegisterType::ACTION_CREATE_COMPANY && isset($contact) && isset($company)) {
+            if ($action === UserType::CREATE_COMPANY && isset($contact) && isset($company)) {
                 $contact->setCompany($company);
                 $entityManager->persist($contact);
                 $user->setRoles(['ROLE_COMPANY']);
             }
-            if ($action === RegisterType::ACTION_CREATE_CANDIDATE) {
+            if ($action === UserType::CREATE_CANDIDATE) {
                 $user->setRoles(['ROLE_CANDIDATE']);
             }
             $entityManager->persist($user);

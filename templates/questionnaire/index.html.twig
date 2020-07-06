@@ -20,5 +20,6 @@
 {% endblock %}
 
 {% block javascript %}
-{{ encore_entry_script_tags('range_slider') }}
+        {{ parent() }}
+        {{ encore_entry_script_tags('range_slider') }}
 {% endblock %}

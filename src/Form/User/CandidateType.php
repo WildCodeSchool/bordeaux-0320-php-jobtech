@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\User;
 
 use App\Entity\Candidate;
 use App\Entity\Gender;
+use App\Entity\License;
 use PHPStan\Type\Traits\FalseyBooleanTypeTrait;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -16,7 +17,37 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CandidateType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        if ($options['action'] === UserType::CREATE_CANDIDATE) {
+            $this->personalInformation($builder, $options);
+        }
+
+        if ($options['action'] === UserType::EDIT_CANDIDATE_PERSONAL_INFORMATION) {
+            $this->personalInformation($builder, $options)
+                ->vehicleAndLicense($builder);
+        }
+
+        /**
+         * $builder
+         *  ->add('haveVehicle')
+         *  ->add('curriculumVitae')
+         *  ->add('license')
+         *  ->add('mobility')
+         *  ->add('skill')
+         *  ->add('currentSituation');
+         */
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Candidate::class,
+            'action' => '',
+        ]);
+    }
+
+    private function personalInformation(FormBuilderInterface $builder, array $options): self
     {
         $builder
             ->add('gender', EntityType::class, [
@@ -24,7 +55,8 @@ class CandidateType extends AbstractType
                 'class' => Gender::class,
                 'attr' => ['class' => 'mt-4'],
                 'choice_label' => 'acronym',
-                'expanded' => true
+                'expanded' => true,
+                'disabled' => $options['action'] !== UserType::CREATE_CANDIDATE,
             ])
             ->add('surname', TextType::class, [
                 'label' => 'Nom :'
@@ -35,10 +67,11 @@ class CandidateType extends AbstractType
             ->add('birthday', DateType::class, [
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy',
-                'attr' => ['class' => 'js-datepicker']
+                'attr' => ['class' => 'js-datepicker'],
+                'label' => 'Date de naissance :'
             ])
             ->add('phoneNumber', IntegerType::class, [
-                'label' => 'Numéro portable :'
+                'label' => 'Numéro portable :',
             ])
             ->add('otherNumber', IntegerType::class, [
                 'label' => 'Autre numéro :',
@@ -66,22 +99,23 @@ class CandidateType extends AbstractType
                 'required' => false,
                 'attr' => ['checked' => true]
             ]);
-        /**
-         * $builder
-         *  ->add('haveVehicle')
-         *  ->add('curriculumVitae')
-         *  ->add('license')
-         *  ->add('mobility')
-         *  ->add('skill')
-         *  ->add('currentSituation');
-         */
+
+        return $this;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    private function vehicleAndLicense(FormBuilderInterface $builder): self
     {
-        $resolver->setDefaults([
-            'data_class' => Candidate::class,
-            'action' => '',
-        ]);
+        $builder
+            ->add('haveVehicle', CheckboxType::class)
+            ->add('licenses', EntityType::class, [
+                'label' => 'Permis :',
+                'class' => License::class,
+                'choice_label' => 'title',
+                'placeholder' => 'Choisir un permis.',
+                'required' => false,
+                'multiple' => true
+            ]);
+
+        return $this;
     }
 }

@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-center">
+    <div class="col-5 mt-3 mb-3 card-profile">
+        <h2 class="pt-3 pb-3 border-bottom-title">Mes informations<a class="float-right" href="{{ path('edit_user', {'action': 'personal_information'}) }}"><i class="fas fa-user-edit"></i></a></h2>
+        <table class="mt-3 table">
+            <tr>
+                <td class="border-top-0">
+                    <i class="fas fa-user"></i> {{ user.candidate.gender.acronym }} {{ user.candidate.fullname }}
+                    <span class="float-right">{{ user.candidate.age }}ans</span>
+                </td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-at"></i> {{ user.email }}</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-phone-alt"></i> {{ user.candidate.formattedPhoneNumber }}</td>
+            </tr>
+            {% if user.candidate.otherNumber %}
+                <tr>
+                    <td><i class="fas fa-phone-alt"></i> {{ user.candidate.formattedOtherPhoneNumber }}</td>
+                </tr>
+            {% endif %}
+            <tr>
+                <td><i class="fas fa-map-marker-alt"></i> {{ user.candidate.postalCode }} {{ user.candidate.city }}, {{ user.candidate.countryFullName }}</td>
+            </tr>
+            {% if user.candidate.haveVehicle %}
+            <tr>
+                <td><i class="fas fa-car"></i> Je possède un véhicule.</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td><i class="fas fa-wheelchair"></i> <strong>{{ user.candidate.isHandicapped ? 'Oui' : 'Non' }}</strong>, je {{ user.candidate.isHandicapped ? '' : 'ne' }} suis {{ user.candidate.isHandicapped ? '' : 'pas' }} un travailleur handicapé.</td>
+            </tr>
+            <tr>
+                <td>
+                    <i class="fas fa-comments"></i>
+                    {% if user.candidate.isContactableTel or user.candidate.isContactableEmail %}
+                        J'autorise à me contacter par
+                        {{ user.candidate.isContactableTel ? 'Téléphone' : '' }}
+                        {{ user.candidate.isContactableTel and user.candidate.isContactableEmail ? 'ou' : '' }}
+                        {{ user.candidate.isContactableEmail ? 'Email' : '' }}.
+                    {% else %}
+                        Je ne souhaite pas être contacter.
+                    {% endif %}
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div class="col-6 offset-1 card-profile mt-3 mb-3">
+        <h2 class="pt-3 pb-3 border-bottom-title">Mon profil de compétences</h2>
+        <nav class="nav nav-tabs">
+            <a class="nav-item nav-link active w-50 text-center" href="#pro" data-toggle="tab">Professionnel</a>
+            <a class="nav-item nav-link w-50 text-center" href="#perso" data-toggle="tab">Personnel</a>
+        </nav>
+        <div class="tab-content">
+            <div class="tab-pane active mt-3 mb-3" id="pro">
+                <canvas id="myChartPro"></canvas>
+            </div>
+            <div class="tab-pane mt-3 mb-3" id="perso">
+                <canvas id="myChartPerso"></canvas>
+            </div>
+        </div>
+        <a class="btn btn-primary float-right" href="">Voir plus</a>
+    </div>
+</div>

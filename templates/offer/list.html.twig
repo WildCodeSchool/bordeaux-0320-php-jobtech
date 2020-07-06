@@ -34,7 +34,9 @@
             </div>
         </section>
     </div>
-    {% block javascript %}
-        {{ encore_entry_script_tags('text_scramble') }}
-    {% endblock %}
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('text_scramble') }}
 {% endblock %}

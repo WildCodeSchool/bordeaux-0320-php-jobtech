@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\User;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/candidat", name="candidat_")
+ * @Route(name="candidate_")
  */
-class CandidatController extends AbstractController
+class CandidateController extends AbstractController
 {
 
 }

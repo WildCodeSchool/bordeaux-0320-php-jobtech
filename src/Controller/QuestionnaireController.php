@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class QuestionnaireController extends AbstractController
 {
-    const NB_OF_QUESTIONS_BY_ABILITY = 10;
+    const NB_OF_QUESTION_BY_ABILITY = 10;
 
     /**
      * @Route("/questionnaire", name="questionnaire")
@@ -27,7 +27,7 @@ class QuestionnaireController extends AbstractController
         Request $request
     ) {
         $abilities = $abilityRepository->findAll();
-        $questions = $questionnaireManager->getQuestions($abilities, self::NB_OF_QUESTIONS_BY_ABILITY);
+        $questions = $questionnaireManager->getQuestions($abilities, self::NB_OF_QUESTION_BY_ABILITY);
 
         $form = $this->createForm(QuestionnaireType::class, null, ['questions' => $questions]);
         $form->handleRequest($request);

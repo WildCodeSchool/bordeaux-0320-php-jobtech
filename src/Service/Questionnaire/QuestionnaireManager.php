@@ -54,31 +54,21 @@ class QuestionnaireManager
         $result = [];
         foreach ($abilities as $ability) {
             $questions = $ability->getQuestions()->toArray();
-            $this->shuffleQuestions($questions);
+            shuffle($questions);
             $result = array_merge($result, array_slice($questions, 0, $nbQuestion));
         }
-
-        return $this->shuffleQuestions($result);
+        shuffle($result);
+        return $result;
     }
 
     private function convertScaleTo100(array $result): array
     {
-        $coef = self::SCALE_WANTED/(QuestionnaireController::NB_OF_QUESTIONS_BY_ABILITY*self::MAX_SCORE_BY_QUESTION);
+        $coef = self::SCALE_WANTED / (QuestionnaireController::NB_OF_QUESTION_BY_ABILITY * self::MAX_SCORE_BY_QUESTION);
 
         foreach ($result as $ability => $value) {
             $result[$ability] = (int) round($value * $coef);
         }
 
         return $result;
-    }
-
-    /**
-     * @param Question[] $questions
-     * @return Question[]
-     */
-    private function shuffleQuestions(array $questions): array
-    {
-        shuffle($questions);
-        return $questions;
     }
 }
