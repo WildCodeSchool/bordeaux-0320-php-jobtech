@@ -14,12 +14,12 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 
 class UserType extends AbstractType
 {
-    const CREATE_CANDIDATE = 'create_candidate';
-    const CREATE_COMPANY = 'create_company';
-    const EDIT_CANDIDATE_PERSONAL_INFORMATION = 'personal_information';
+    public const CREATE_CANDIDATE = 'create_candidate';
+    public const CREATE_COMPANY = 'create_company';
+    public const EDIT_CANDIDATE_PERSONAL_INFORMATION = 'personal_information';
 
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         if ($options['action'] === self::CREATE_CANDIDATE) {
             $this->connectionInformation($builder)
@@ -39,7 +39,7 @@ class UserType extends AbstractType
         }
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => User::class,
