@@ -8,9 +8,9 @@ use App\Entity\Questionnaire;
 
 class QuestionnaireManager
 {
-    const SCALE_WANTED = 100;
-    const MAX_SCORE_BY_QUESTION = 5;
-    const ABILITY = 'ability';
+    public const SCALE_WANTED = 100;
+    public const MAX_SCORE_BY_QUESTION = 5;
+    private const ABILITY = 'ability';
 
     /**
      * @param Questionnaire[] $questionnaires
@@ -47,7 +47,7 @@ class QuestionnaireManager
 
         $result = true;
         foreach ($resultQuestionnaire as $key => $value) {
-            if (substr($key, 0, 7) === self::ABILITY && !in_array($value, $abilitiesConfirmed)) {
+            if (strpos($key, self::ABILITY) === 0 && !in_array($value, $abilitiesConfirmed)) {
                 $result = false;
             }
         }
@@ -81,14 +81,17 @@ class QuestionnaireManager
      */
     public function getQuestions(array $abilities): array
     {
-        $result = [];
-        foreach ($abilities as $ability) {
+        $prepareQuestions = static function (Ability $ability): array {
             $questions = $ability->getQuestions()->toArray();
-            $this->shuffleQuestions($questions);
-            $result = array_merge($result, array_slice($questions, 0, $ability->getNbQuestion()));
-        }
+            shuffle($questions);
+            return array_slice($questions, 0, $ability->getNbQuestion());
+        };
 
-        return $this->shuffleQuestions($result);
+        $result = array_map($prepareQuestions, $abilities);
+        $result = array_merge(...$result);
+        shuffle($result);
+
+        return $result;
     }
 
     /**
@@ -108,15 +111,5 @@ class QuestionnaireManager
         }
 
         return $result;
-    }
-
-    /**
-     * @param Question[] $questions
-     * @return Question[]
-     */
-    private function shuffleQuestions(array $questions): array
-    {
-        shuffle($questions);
-        return $questions;
     }
 }

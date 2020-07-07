@@ -2,33 +2,58 @@
 
 namespace App\Controller;
 
-use App\Entity\Candidate;
 use App\Form\QuestionnaireType;
 use App\Entity\Questionnaire;
 use App\Repository\AbilityRepository;
-use App\Repository\QuestionnaireRepository;
 use App\Service\Questionnaire\QuestionnaireManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class QuestionnaireController extends AbstractController
 {
+    public const PROFESSIONAL = 'professionnel';
+    public const PERSONAL = 'personnel';
+
     /**
-     * @Route("/questionnaire", name="questionnaire")
+     * @Route("/questionnaire", name="questionnaire_index")
+     * @return Response
+     */
+    public function index(): Response
+    {
+        return $this->render('questionnaire/index.html.twig');
+    }
+
+    /**
+     * @Route("/questionnaire/resultat/", name="questionnaire_result")
+     * @return Response
+     */
+    public function result(): Response
+    {
+        return $this->render("questionnaire/result.html.twig");
+    }
+
+    /**
+     * @Route("/questionnaire/{competence}", name="questionnaire")
+     * @param string $competence
      * @param AbilityRepository $abilityRepository
      * @param QuestionnaireManager $questionnaireManager
      * @param Request $request
      * @return Response
      */
-    public function index(
+    public function questionnaire(
+        string $competence,
         AbilityRepository $abilityRepository,
         QuestionnaireManager $questionnaireManager,
         Request $request
-    ) {
-        $abilities = $abilityRepository->findAll();
+    ): Response {
+        $abilities = [];
+        if ($competence === self::PROFESSIONAL) {
+            $abilities = $abilityRepository->findBy(['isProfessional' => true]);
+        } elseif ($competence === self::PERSONAL) {
+            $abilities = $abilityRepository->findBy(['isProfessional' => false]);
+        }
         $questions = $questionnaireManager->getQuestions($abilities);
 
         $form = $this->createForm(QuestionnaireType::class, null, ['questions' => $questions]);
@@ -48,29 +73,18 @@ class QuestionnaireController extends AbstractController
             }
             $entityManager->flush();
 
-            $this->redirectToRoute('profile');
+            $path = 'questionnaire_result';
+            $parameter = [];
+            if ($competence === self::PERSONAL) {
+                $path = 'questionnaire';
+                $parameter = ['competence' => self::PROFESSIONAL];
+            }
+            return $this->redirectToRoute($path, $parameter);
         }
 
-        return $this->render('questionnaire/index.html.twig', [
+        return $this->render('questionnaire/questionnaire.html.twig', [
             'questions' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/getData/{id}", name="get_data_chart")
-     * @param Candidate $candidate
-     * @param QuestionnaireManager $questionnaireManager
-     * @return JsonResponse
-     */
-    public function getDataForChart(Candidate $candidate, QuestionnaireManager $questionnaireManager): JsonResponse
-    {
-        $data = $candidate->getQuestionnaires()->toArray();
-        $data = $questionnaireManager->prepareDataForChart($data);
-
-        return new JsonResponse([
-            'pro' => $data['pro'],
-            'perso' => $data['perso'],
-            'date' => $data['postedAt']
+            'competence' => $competence
         ]);
     }
 }
