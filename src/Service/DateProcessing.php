@@ -19,7 +19,6 @@ class DateProcessing
 
     public static function calculateAge(DateTime $birthday): int
     {
-        $interval = DateProcessing::dateIntervalBetweenNowAnd($birthday);
-        return $interval->y;
+        return self::dateIntervalBetweenNowAnd($birthday)->y;
     }
 }
