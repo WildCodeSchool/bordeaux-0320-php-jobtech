@@ -27,6 +27,16 @@
                 <td><i class="fas fa-car"></i> Je possède un véhicule.</td>
             </tr>
             {% endif %}
+            {% if user.candidate.licenses %}
+            <tr>
+                <td>
+                    <i class="fas fa-address-card"></i> Permis :
+                    {% for license in user.candidate.licenses %}
+                        {{ license.title }}{{ loop.index == user.candidate.licenses|length ? '' : ',' }}
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endif %}
             <tr>
                 <td><i class="fas fa-wheelchair"></i> <strong>{{ user.candidate.isHandicapped ? 'Oui' : 'Non' }}</strong>, je {{ user.candidate.isHandicapped ? '' : 'ne' }} suis {{ user.candidate.isHandicapped ? '' : 'pas' }} un travailleur handicapé.</td>
             </tr>

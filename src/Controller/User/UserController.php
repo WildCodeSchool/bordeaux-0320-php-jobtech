@@ -5,6 +5,7 @@ namespace App\Controller\User;
 use App\Entity\Company;
 use App\Entity\Contact;
 use App\Entity\User;
+use App\Form\User\CandidateType;
 use App\Form\User\UserType;
 use App\Security\UserAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,10 +34,16 @@ class UserController extends AbstractController
      */
     public function edit(string $action, Request $request): Response
     {
-        $form = $this->createForm(UserType::class, $this->getUser(), ['action' => $action]);
+        $form = $this->createForm(CandidateType::class, $this->getUser()->getCandidate(), ['action' => $action]);
         $form->handleRequest($request);
 
-        return $this->render('user/candidate/editPersonalInformation.html.twig', [
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('profile');
+        }
+
+        return $this->render('user/candidate/edit_personal_information.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -79,7 +86,7 @@ class UserController extends AbstractController
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
             $entityManager = $this->getDoctrine()->getManager();
-            if ($action === UserType::CREATE_COMPANY && isset($contact) && isset($company)) {
+            if (isset($contact, $company) && $action === UserType::CREATE_COMPANY) {
                 $contact->setCompany($company);
                 $entityManager->persist($contact);
                 $user->setRoles(['ROLE_COMPANY']);

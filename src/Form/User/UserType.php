@@ -34,8 +34,7 @@ class UserType extends AbstractType
         }
 
         if ($options['action'] === self::EDIT_CANDIDATE_PERSONAL_INFORMATION) {
-            $this->connectionInformation($builder)
-                ->candidate($builder, $options);
+            $this->candidate($builder, $options);
         }
     }
 

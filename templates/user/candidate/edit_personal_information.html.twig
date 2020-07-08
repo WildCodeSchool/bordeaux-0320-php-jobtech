@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Modifier information personnel' %}
+
+{% block body %}
+    <div class="container">
+
+        {{ form_start(form) }}
+
+            <h2>Information personnel</h2>
+
+            <div class="row">
+                {{ form_row(form.gender) }}
+                {{ form_row(form.surname) }}
+                {{ form_row(form.firstName) }}
+                {{ form_row(form.birthday) }}
+            </div>
+
+            <div class="row">
+                {{ form_row(form.phoneNumber) }}
+                {{ form_row(form.otherNumber, {'attr': {'class': 'ml-md-4'}, 'label_attr': {'class': 'ml-md-4'}}) }}
+            </div>
+
+            <div class="row">
+                {{ form_row(form.postalCode) }}
+                {{ form_row(form.city, {'attr': {'class': 'ml-md-4'}, 'label_attr': {'class': 'ml-md-4'}}) }}
+                {{ form_row(form.country, {'attr': {'class': 'ml-md-5'}, 'label_attr': {'class': 'ml-md-5'}}) }}
+            </div>
+
+            <h2>Permis</h2>
+
+            <div>
+                {{ form_row(form.haveVehicle) }}
+                {{ form_row(form.licenses) }}
+            </div>
+
+            <h2>Autres informations</h2>
+
+            {{ form_row(form.isHandicapped) }}
+
+            <div class="row">
+                <p>Je souhaite être contacté</p>
+                {{ form_row(form.isContactableTel, {'attr': {'class': 'ml-md-2'}, 'label_attr': {'class': 'ml-md-4'}}) }}
+                {{ form_row(form.isContactableEmail, {'attr': {'class': 'ml-1 ml-md-2'}, 'label_attr': {'class': 'ml-4 ml-md-4'}}) }}
+            </div>
+
+        <button class="btn btn-primary">Enregistrer</button>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

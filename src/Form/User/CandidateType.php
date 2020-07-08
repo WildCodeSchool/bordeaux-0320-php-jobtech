@@ -96,7 +96,7 @@ class CandidateType extends AbstractType
                 'required' => false,
             ])
             ->add('isContactableEmail', CheckboxType::class, [
-                'label' => 'par Email.',
+                'label' => 'par email.',
                 'required' => false,
                 'attr' => ['checked' => true]
             ]);
@@ -107,7 +107,7 @@ class CandidateType extends AbstractType
     private function vehicleAndLicense(FormBuilderInterface $builder): self
     {
         $builder
-            ->add('haveVehicle', CheckboxType::class)
+            ->add('haveVehicle', CheckboxType::class, ['label' => 'Je possède un véhicule'])
             ->add('licenses', EntityType::class, [
                 'label' => 'Permis :',
                 'class' => License::class,
