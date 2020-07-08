@@ -5,10 +5,11 @@ namespace App\Form\User;
 use App\Entity\Candidate;
 use App\Entity\Gender;
 use App\Entity\License;
-use PHPStan\Type\Traits\FalseyBooleanTypeTrait;
+use App\Repository\Api\RestCountries;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
@@ -18,6 +19,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CandidateType extends AbstractType
 {
+    /**
+     * @var RestCountries
+     */
+    private RestCountries $restCountries;
+
+    public function __construct(RestCountries $restCountries)
+    {
+        $this->restCountries = $restCountries;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         if ($options['action'] === UserType::CREATE_CANDIDATE) {
@@ -50,6 +61,8 @@ class CandidateType extends AbstractType
 
     private function personalInformation(FormBuilderInterface $builder, array $options): self
     {
+        $countries = $this->restCountries->getAllCountries();
+
         $builder
             ->add('gender', EntityType::class, [
                 'label' => false,
@@ -84,8 +97,11 @@ class CandidateType extends AbstractType
             ->add('city', TextType::class, [
                 'label' => 'Ville :'
             ])
-            ->add('country', TextType::class, [
-                'label' => 'Pays :'
+            ->add('country', ChoiceType::class, [
+                'label' => 'Pays :',
+                'choices' => $countries,
+                'preferred_choices' => [$countries['France']],
+                'empty_data' => $countries['France']
             ])
             ->add('isHandicapped', CheckboxType::class, [
                 'label' => 'Je souhaite faire part d\'une situation d\'handicap.',
