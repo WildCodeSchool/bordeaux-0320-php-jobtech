@@ -2,12 +2,13 @@
     <div class="card h-100">
         <div class="card-body">
             <p class="card-text">{{ offer.jobCategory.title }}</p>
-            <p>{{ offer.id }}</p>
-            <div>
-                <a href="{{ path('candidate_add_bookmark', {'id' : offer.id}) }}">
-                    <i class="{{ app.user.candidate.bookmarked(offer) ? 'fas' : 'far' }} fa-heart"></i>
+            {% if is_granted('ROLE_CANDIDATE') %}
+            <div class="like">
+                <a href="" data-id="{{ offer.id }}" id="bookmark-card-{{ offer.id }}" class="bookmark {{ app.user.candidate.bookmarked(offer) ? 'heart' : '' }}" data-href="{{ path('candidate_add_bookmark', {'id' : offer.id}) }}">
+                    <i class="fa-heart fas"></i>
                 </a>
             </div>
+            {% endif %}
             <h5 class="card-title text-turquoise">{{ offer.job.title }}</h5>
             <p class="card-text">{{ offer.description }}</p>
             <p class="card-text mt-2">
@@ -44,3 +45,6 @@
         </div>
     </div>
 </div>
+{% block javascript %}
+{{ encore_entry_script_tags('bookmark') }}
+{% endblock %}

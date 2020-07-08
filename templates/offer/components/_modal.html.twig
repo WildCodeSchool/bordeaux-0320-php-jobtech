@@ -12,13 +12,13 @@
                 <h5><span class="text-secondary"><i class="fas fa-map-marker-alt"></i> {{ offer.city }} - {{ offer.postalCode }} - {{ offer.country }}</span></h5>
                 <p>Domaine d'activité: {{ offer.jobCategory.title }}</p>
                 <br>
-                <p>{{ offer.id }}</p>
-                <br>
-                <div>
-                    <a href="{{ path('candidate_add_bookmark', {'id' : offer.id}) }}">
-                    <i class="{{ app.user.candidate.bookmarked(offer) ? 'fas' : 'far' }} fa-heart"></i>
+                {% if is_granted('ROLE_CANDIDATE') %}
+                <div class="like">
+                    <a href="" data-id="{{ offer.id }}" id="bookmark-modal-{{ offer.id }}" class="bookmark {{ app.user.candidate.bookmarked(offer) ? 'heart' : '' }}" data-href="{{ path('candidate_add_bookmark', {'id' : offer.id}) }}">
+                        <i class="fa-heart fas"></i>
                     </a>
                 </div>
+                {% endif %}
                 <br>
                 <p>Métier: {{ offer.job.title }}</p>
                 <br>
@@ -54,3 +54,6 @@
         </div>
     </div>
 </div>
+{% block javascript %}
+{{ encore_entry_script_tags('bookmark') }}
+{% endblock %}
