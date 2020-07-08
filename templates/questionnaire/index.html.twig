@@ -1,25 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Questionnaire{% endblock %}
-
 {% block body %}
-<div class="container pt-4">
-        <input
-                type="range"
-                min="0"
-                max="4"
-                step="1"
-                data-buffer="0" />
-        <h1 class="mb-3 mt-3">Questionnaire de personnalité</h1>
-    {{ form_start(questions) }}
-        {{ form_widget(questions) }}
-        <button class="btn btn-primary">Envoyer</button>
-    {{ form_end(questions) }}
-</div>
+    <div class="pt-5">
+        <div class="container-fluid">
+            <ul class="list-unstyled multi-steps">
+                <li class="is-active">Start</li>
+                <li>Personnel</li>
+                <li>Professionnel</li>
+                <li>Résultat</li>
+            </ul>
+        </div>
+    </div>
 
-{% endblock %}
-
-{% block javascript %}
-        {{ parent() }}
-        {{ encore_entry_script_tags('range_slider') }}
+    <div class="container">
+        <h1 class="text-center pt-3">Questionnaire de personnalité</h1>
+        <p class="text-center">Merci de répondre à ces deux questionnaires qui permettrons d'évaluer vos compétences personnels et professionnels.</p>
+        <div class="text-center">
+            <a class="btn btn-primary mx-auto mt-5" href="{{ path('questionnaire', {'competence': 'personnel'}) }}">Commencer</a>
+        </div>
+    </div>
 {% endblock %}

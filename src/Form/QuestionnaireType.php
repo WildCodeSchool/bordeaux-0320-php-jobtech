@@ -21,7 +21,7 @@ class QuestionnaireType extends AbstractType
                 'constraints' => new Range(['min' => '0', 'max' => 5])
             ])
                 ->add('ability' . $num, HiddenType::class, [
-                    'attr' => ['value' => $question->getAbility()->getTitle()]
+                    'attr' => ['value' => $question->getAbility()->getId()]
                 ]);
             $num++;
         }

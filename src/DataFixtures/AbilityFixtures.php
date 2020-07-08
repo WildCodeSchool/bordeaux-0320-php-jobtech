@@ -5,27 +5,44 @@ namespace App\DataFixtures;
 use App\Entity\Ability;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Faker\Factory;
 
 class AbilityFixtures extends Fixture
 {
+    const PERSONAL = [
+        'communiquer', 'conseiller', 'analyser', 'décider', 'contrôler', 'indépendance',
+        'aptitude à apprendre', 'exactitude', 'reactivité', 'persévérance', 'resistance au stress',
+        'flexibilité'
+    ];
+
+    const PROFESSIONAL = [
+        'organiser', 'former', 'créer', 'produire', 'négocier', 'gérer', 'esprit d\'équipe', 'implication',
+        'prise d\'initiative', 'contrôle de suivi', 'disposition à apprendre'
+    ];
+
     public function load(ObjectManager $manager)
     {
-        $faker = Factory::create('fr_FR');
-        $abilities = [];
-        for ($i = 0; $i < 10; $i++) {
+        $num = 0;
+        foreach (self::PERSONAL as $personalAbility) {
             $ability = new Ability();
-
-            do {
-                $abilityTitle = $faker->word();
-            } while (in_array($abilityTitle, $abilities));
-
-            $ability->setTitle($abilityTitle);
-            $abilities[] = $abilityTitle;
-
+            $ability->setTitle($personalAbility)
+                ->setNbQuestion(rand(3, 10))
+                ->setIsProfessional(false);
+            $this->addReference('personalAbility_' . $num, $ability);
             $manager->persist($ability);
 
-            $this->addReference('ability_' . $i, $ability);
+            $num++;
+        }
+
+        $num = 0;
+        foreach (self::PROFESSIONAL as $professionalAbility) {
+            $ability = new Ability();
+            $ability->setTitle($professionalAbility)
+                ->setNbQuestion(rand(3, 10))
+                ->setIsProfessional(true);
+            $this->addReference('professionalAbility' . $num, $ability);
+            $manager->persist($ability);
+
+            $num++;
         }
 
         $manager->flush();

@@ -158,6 +158,11 @@ class Candidate
     private $gender;
 
     /**
+     * @ORM\OneToMany(targetEntity=Questionnaire::class, mappedBy="candidate")
+     */
+    private $questionnaires;
+
+    /**
      * Candidate constructor.
      */
     public function __construct()
@@ -169,6 +174,7 @@ class Candidate
         $this->licenses = new ArrayCollection();
         $this->skills = new ArrayCollection();
         $this->qualifications = new ArrayCollection();
+        $this->questionnaires = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -730,6 +736,37 @@ class Candidate
     public function setGender(?Gender $gender): self
     {
         $this->gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Questionnaire[]
+     */
+    public function getQuestionnaires(): Collection
+    {
+        return $this->questionnaires;
+    }
+
+    public function addQuestionnaire(Questionnaire $questionnaire): self
+    {
+        if (!$this->questionnaires->contains($questionnaire)) {
+            $this->questionnaires[] = $questionnaire;
+            $questionnaire->setCandidate($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestionnaire(Questionnaire $questionnaire): self
+    {
+        if ($this->questionnaires->contains($questionnaire)) {
+            $this->questionnaires->removeElement($questionnaire);
+            // set the owning side to null (unless already changed)
+            if ($questionnaire->getCandidate() === $this) {
+                $questionnaire->setCandidate(null);
+            }
+        }
 
         return $this;
     }

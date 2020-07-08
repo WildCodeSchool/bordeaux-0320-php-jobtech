@@ -4,7 +4,7 @@ namespace App\Service\ApiProcessing;
 
 class RestCountriesDataProcessing
 {
-    public static function restructuringArray(array $countries)
+    public static function restructuringArray(array $countries): array
     {
         $result = [];
         foreach ($countries as $country) {
