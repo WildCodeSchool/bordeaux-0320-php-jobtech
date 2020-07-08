@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Ability;
 use App\Entity\Question;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -17,12 +18,13 @@ class QuestionFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager)
     {
+        $abilities = $manager->getRepository(Ability::class)->findAll();
         $faker = Factory::create('fr_FR');
-        for ($i = 0; $i < 10; $i++) {
+        foreach ($abilities as $ability) {
             for ($j = 0; $j < 50; $j++) {
                 $question = new Question();
                 $question->setQuestion($faker->sentence(8))
-                    ->setAbility($this->getReference('ability_' . $i));
+                    ->setAbility($ability);
 
                 $manager->persist($question);
             }
