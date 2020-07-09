@@ -6,11 +6,15 @@
 
     <div class="container">
 
-        <h1 class="pt-3">Mon compte</h1>
-        {% if is_granted('ROLE_COMPANY') %}
-            {% include 'user/company/_profile_company.html.twig' %}
+        {% if app.user == user %}
+            <h1 class="pt-3">Mon compte</h1>
+            {% if is_granted('ROLE_COMPANY') %}
+                {% include 'user/components/company/_profile_company.html.twig' %}
+            {% else %}
+                {% include 'user/components/candidate/_profile_candidate.html.twig' %}
+            {% endif %}
         {% else %}
-            {% include 'user/candidate/_profile_candidate.html.twig' %}
+            {% include 'user/components/candidate/_profile_candidate.html.twig' %}
         {% endif %}
     </div>
 {% endblock %}

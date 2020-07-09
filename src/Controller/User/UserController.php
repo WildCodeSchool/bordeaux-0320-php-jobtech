@@ -34,7 +34,11 @@ class UserController extends AbstractController
      */
     public function edit(string $action, Request $request): Response
     {
-        $form = $this->createForm(CandidateType::class, $this->getUser()->getCandidate(), ['action' => $action]);
+        if ($action === UserType::EDIT_CANDIDATE_PERSONAL_INFORMATION) {
+            $form = $this->createForm(CandidateType::class, $this->getUser()->getCandidate(), ['action' => $action]);
+        } else {
+            $form = $this->createForm(UserType::class, $this->getUser(), ['action' => $action]);
+        }
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -43,8 +47,9 @@ class UserController extends AbstractController
             return $this->redirectToRoute('profile');
         }
 
-        return $this->render('user/candidate/edit_personal_information.html.twig', [
-            'form' => $form->createView()
+        return $this->render('user/edit.html.twig', [
+            'form' => $form->createView(),
+            'action' => $action
         ]);
     }
 
