@@ -13,6 +13,7 @@ class RestCountriesDataProcessing
             }
             $result[$country['translations']['fr']] = $country['alpha2Code'];
         }
+        ksort($result);
         return $result;
     }
 }
