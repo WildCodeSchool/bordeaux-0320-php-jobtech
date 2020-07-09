@@ -24,15 +24,15 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 class GeoApiFrGov
 {
-    const REQUEST_METHOD = 'GET';
+    private const REQUEST_METHOD = 'GET';
 
     // Constant Geo Api
-    const URL_GEO_API = 'https://geo.api.gouv.fr/';
-    const GET_BY_POSTAL_CODE = 'communes?codePostal=';
-    const GET_BY_CODE = 'communes?code=';
+    private const URL_GEO_API = 'https://geo.api.gouv.fr/';
+    private const GET_BY_POSTAL_CODE = 'communes?codePostal=';
+    private const GET_BY_CODE = 'communes?code=';
 
     // Constant Address Api
-    const URL_ADDRESS_API = 'https://api-adresse.data.gouv.fr/';
+    private const URL_ADDRESS_API = 'https://api-adresse.data.gouv.fr/';
 
     /**
      * @param string $request
