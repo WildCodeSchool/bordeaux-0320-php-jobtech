@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="offerModal" tabindex="-1" role="dialog" aria-labelledby="offerModalLabel" aria-hidden="true">
+<div class="modal fade" id="offerModal-{{ offer.id }}" tabindex="-1" role="dialog" aria-labelledby="offerModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,6 +11,14 @@
             <div class="modal-body">
                 <h5><span class="text-secondary"><i class="fas fa-map-marker-alt"></i> {{ offer.city }} - {{ offer.postalCode }} - {{ offer.country }}</span></h5>
                 <p>Domaine d'activité: {{ offer.jobCategory.title }}</p>
+                <br>
+                {% if is_granted('ROLE_CANDIDATE') %}
+                <div class="like">
+                    <a href="" data-id="{{ offer.id }}" id="bookmark-modal-{{ offer.id }}" class="bookmark {{ app.user.candidate.bookmarked(offer) ? 'heart' : '' }}" data-href="{{ path('candidate_add_bookmark', {'id' : offer.id}) }}">
+                        <i class="fa-heart fas"></i>
+                    </a>
+                </div>
+                {% endif %}
                 <br>
                 <p>Métier: {{ offer.job.title }}</p>
                 <br>
@@ -46,3 +54,6 @@
         </div>
     </div>
 </div>
+{% block javascript %}
+{{ encore_entry_script_tags('bookmark') }}
+{% endblock %}
