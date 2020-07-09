@@ -339,7 +339,7 @@ class User implements UserInterface
     {
         if (!$this->messages->contains($message)) {
             $this->messages[] = $message;
-            $message->setSender($this);
+            $message->setContact($this);
         }
 
         return $this;
