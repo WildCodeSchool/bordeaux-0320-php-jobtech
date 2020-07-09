@@ -81,9 +81,15 @@ class User implements UserInterface
      */
     private $documents;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="contact")
+     */
+    private $messages;
+
     public function __construct()
     {
         $this->documents = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -316,6 +322,24 @@ class User implements UserInterface
             if ($document->getUser() === $this) {
                 $document->setUser(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setContact($this);
         }
 
         return $this;

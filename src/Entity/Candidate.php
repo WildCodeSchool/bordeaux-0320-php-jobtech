@@ -770,4 +770,9 @@ class Candidate
 
         return $this;
     }
+
+    public function isBookmarked(Offer $offer): bool
+    {
+        return $this->getBookmarks()->contains($offer);
+    }
 }

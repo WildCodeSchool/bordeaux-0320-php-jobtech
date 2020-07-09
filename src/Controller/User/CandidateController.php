@@ -3,8 +3,10 @@
 namespace App\Controller\User;
 
 use App\Entity\Candidate;
+use App\Entity\Offer;
 use App\Entity\User;
 use App\Service\Questionnaire\QuestionnaireManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,5 +43,24 @@ class CandidateController extends AbstractController
             'perso' => $data['perso']?? null,
             'date' => $data['postedAt']
         ]);
+    }
+
+    /**
+     * @Route("/{id}/favoris", name="add_bookmark")
+     * @param Offer $offer
+     * @param EntityManagerInterface $entityManager
+     * @return JsonResponse
+     */
+    public function addToBookmark(Offer $offer, EntityManagerInterface $entityManager): JsonResponse
+    {
+        $user = $this->getUser()->getCandidate();
+
+        $user->isBookmarked($offer) ? $user->removeBookmark($offer) : $user->addBookmark($offer);
+
+        $entityManager->flush();
+
+        return new JsonResponse(
+            $this->getUser()->getCandidate()->isBookmarked($offer)
+        );
     }
 }
