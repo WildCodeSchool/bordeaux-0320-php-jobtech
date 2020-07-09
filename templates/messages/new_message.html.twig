@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block title 'Messagerie' %}
+{% block body %}
+    <div class="container">
+            <h1>Envoyer un message :</h1>
+            {{ form_start(addMessage) }}
+            {{ form_widget(addMessage) }}
+            <button class="btn btn-primary">Envoyer</button>
+            {{ form_end (addMessage) }}
+    </div>
+{% endblock %}

@@ -20,16 +20,10 @@ class Message
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $sender;
-
-    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="messages")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $receiver;
+    private $contact;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -51,33 +45,15 @@ class Message
      */
     private $isNew = true;
 
+    /**
+     * @ORM\Column(type="boolean",  options={"default":false})
+     */
+    private $isToContact = false;
+
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getSender(): ?User
-    {
-        return $this->sender;
-    }
-
-    public function setSender(?User $sender): self
-    {
-        $this->sender = $sender;
-
-        return $this;
-    }
-
-    public function getReceiver(): ?User
-    {
-        return $this->receiver;
-    }
-
-    public function setReceiver(?User $receiver): self
-    {
-        $this->receiver = $receiver;
-
-        return $this;
     }
 
     public function getSubject(): ?string
@@ -128,6 +104,30 @@ class Message
     public function setIsNew(bool $isNew): self
     {
         $this->isNew = $isNew;
+
+        return $this;
+    }
+
+    public function getIsToContact(): ?bool
+    {
+        return $this->isToContact;
+    }
+
+    public function setIsToContact(bool $isToContact): self
+    {
+        $this->isToContact = $isToContact;
+
+        return $this;
+    }
+
+    public function getContact(): ?User
+    {
+        return $this->contact;
+    }
+
+    public function setContact(?User $contact): self
+    {
+        $this->contact = $contact;
 
         return $this;
     }

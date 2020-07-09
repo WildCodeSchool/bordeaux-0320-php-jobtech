@@ -82,7 +82,7 @@ class User implements UserInterface
     private $documents;
 
     /**
-     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="receiver")
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="contact")
      */
     private $messages;
 
