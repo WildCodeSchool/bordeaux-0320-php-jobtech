@@ -9,8 +9,9 @@
     <title>{% block title %}Job-Tech{% endblock %}</title>
     <link rel="shortcut icon" href="{{ asset('build/images/favicon.png') }}" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
-    {{ encore_entry_link_tags('app') }}
-    {% block stylesheets %}{% endblock %}
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
 </head>
 
 <body>
@@ -29,8 +30,9 @@
     {% include 'components/_footer.html.twig' %}
 {% endblock %}
 
-{{ encore_entry_script_tags('app') }}
-{% block javascript %}{% endblock %}
+{% block javascript %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
 </body>
 
 </html>

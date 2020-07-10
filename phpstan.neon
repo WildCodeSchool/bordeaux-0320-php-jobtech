@@ -7,9 +7,14 @@ parameters:
         - %rootDir%/../../../src/Migrations
     excludes_analyse:
         - src/DataFixtures
+        - tests
     ignoreErrors:
         - '#Call to an undefined method [a-zA-Z0-9\\_]+::findOneBy[A-Z][a-zA-Z]*\(\)#'
         - '#Call to an undefined method [a-zA-Z0-9\\_]+::findBy[A-Z][a-zA-Z]*\(\)#'
         - '#Strict comparison using === between null and App\\Entity\\User will always evaluate to false\.#'
         - '#Method App\\Entity\\.*::__toString\(\) should return string but returns string\|null\.#'
+        - '#Cannot call method get.*\(\) on object|null\.#'
+        - '#Parameter \#1 \$contact of method App\\Entity\\Message::setContact\(\) expects App\\Entity\\User\|null, object\|null given\.#'
+        - '#Parameter \#1 \$items of method EasyCorp\\Bundle\\EasyAdminBundle\\Config\\UserMenu::addMenuItems\(\) expects array<EasyCorp\\Bundle\\EasyAdminBundle\\Config\\MenuItem>, array<int, EasyCorp\\Bundle\\EasyAdminBundle\\Config\\Menu\\RouteMenuItem> given\.#'
+        - '#Call to an undefined method Symfony\\Component\\Security\\Core\\User\\UserInterface::getCandidate\(\)\.#'
     reportUnmatchedIgnoredErrors: false

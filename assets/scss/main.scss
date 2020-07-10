@@ -59,7 +59,11 @@ main {
         color: $darkGrey;
     }
 
-    &--grey {
+    &-greyLight {
+        color: $greyLight;
+    }
+
+    &-grey {
         color: $grey;
     }
 }
@@ -79,5 +83,9 @@ main {
 
     &-dark-grey {
         background-color: $darkGrey;
+    }
+
+    &-grey {
+        background-color: $grey;
     }
 }

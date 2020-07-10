@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Modifier information personnel' %}
+
+{% block body %}
+<div class="container">
+    {% if action == 'personal_information' %}
+        {{ include('user/components/candidate/_edit_personal_information.html.twig') }}
+    {% endif %}
+    {% if action == 'connexion' %}
+        {{ include('user/components/_connection_information.html.twig') }}
+    {% endif %}
+</div>
+
+{% endblock %}

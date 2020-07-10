@@ -17,17 +17,14 @@
 // JobTech Pages
 @import 'main';
 @import 'jobtech/index';
+@import 'user/profile';
+@import 'user/register';
+@import 'offer/list';
+@import 'news/list';
+@import 'messages/inbox';
 
 // Components
 @import 'components/_navbar';
 @import 'components/_footer';
 @import 'components/_carousel';
-
-// Offer
-@import 'offer/list';
-
-// News
-@import 'news/list';
-
-// User
-@import 'user/register';
+@import 'components/_step_progress_bar';

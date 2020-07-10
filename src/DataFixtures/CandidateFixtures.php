@@ -62,7 +62,7 @@ class CandidateFixtures extends Fixture implements DependentFixtureInterface
 
     public function getDependencies()
     {
-        return [GenderFixtures::class];
+        return [GenderFixtures::class, LicenseFixtures::class];
     }
 
     public function load(ObjectManager $manager)
@@ -87,7 +87,8 @@ class CandidateFixtures extends Fixture implements DependentFixtureInterface
                 ->setIsContactableTel($data['isContactableTel'])
                 ->setIsContactableEmail($data['isContactableEmail'])
                 ->setHaveVehicle($data['haveVehicle'])
-                ->setCurriculumVitae(uniqid());
+                ->addLicense($this->getReference('permis_B'))
+                ->setCurriculumVitae(uniqid() . '.pdf');
             $this->addReference('adminInformation_' . ($i + 1), $admin);
             $manager->persist($admin);
         }
