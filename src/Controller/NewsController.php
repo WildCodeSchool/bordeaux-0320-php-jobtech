@@ -33,7 +33,7 @@ class NewsController extends AbstractController
             );
         }
         return $this->render('news/list.html.twig', [
-             'actualities' => $actualities,
+            'actualities' => $actualities,
         ]);
     }
 }
