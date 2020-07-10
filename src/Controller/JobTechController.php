@@ -47,9 +47,11 @@ class JobTechController extends AbstractController
 
         $form->handleRequest($request);
 
+        /*
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
         }
+        */
 
         return $this->render('about.html.twig', [
             'form' => $form->createView()
