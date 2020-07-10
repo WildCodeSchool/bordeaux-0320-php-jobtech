@@ -54,3 +54,8 @@
         <a href="{{ path('about') }}">A Propos</a>
     </div>
 {% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('bookmark') }}
+{% endblock %}

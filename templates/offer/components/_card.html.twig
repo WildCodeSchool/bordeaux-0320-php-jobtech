@@ -2,6 +2,13 @@
     <div class="card h-100">
         <div class="card-body">
             <p class="card-text">{{ offer.jobCategory.title }}</p>
+            {% if is_granted('ROLE_CANDIDATE') %}
+            <div class="like">
+                <a href="" data-id="{{ offer.id }}" id="bookmark-card-{{ offer.id }}" class="bookmark {{ app.user.candidate.bookmarked(offer) ? 'heart' : '' }}" data-href="{{ path('candidate_add_bookmark', {'id' : offer.id}) }}">
+                    <i class="fa-heart fas"></i>
+                </a>
+            </div>
+            {% endif %}
             <h5 class="card-title text-turquoise">{{ offer.job.title }}</h5>
             <p class="card-text">{{ offer.description }}</p>
             <p class="card-text mt-2">
@@ -31,10 +38,13 @@
                 {% else %}
                     L'offre date de {{ offer.interval | date('%S') }} {% if offer.interval | date('%S') > 1 %}secondes{% else %}seconde{% endif %}
                 {% endif %}
-                <a href="" data-toggle="modal" data-target="#offerModal" class="float-right">Voir <i class="fas fa-long-arrow-alt-right ml-2"></i></a>
+                <a href="" data-toggle="modal" data-target="#offerModal-{{ offer.id }}" class="float-right">Voir <i class="fas fa-long-arrow-alt-right ml-2"></i></a>
             </p>
 
             {% include 'offer/components/_modal.html.twig' %}
         </div>
     </div>
 </div>
+{% block javascript %}
+{{ encore_entry_script_tags('bookmark') }}
+{% endblock %}

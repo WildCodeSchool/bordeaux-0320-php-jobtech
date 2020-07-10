@@ -25,6 +25,16 @@ class Ability
     private $title;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isProfessional;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $nbQuestion;
+
+    /**
      * @ORM\OneToMany(targetEntity=Question::class, mappedBy="ability", orphanRemoval=true)
      */
     private $questions;
@@ -47,6 +57,30 @@ class Ability
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getIsProfessional(): ?bool
+    {
+        return $this->isProfessional;
+    }
+
+    public function setIsProfessional(bool $isProfessional): self
+    {
+        $this->isProfessional = $isProfessional;
+
+        return $this;
+    }
+
+    public function getNbQuestion(): ?int
+    {
+        return $this->nbQuestion;
+    }
+
+    public function setNbQuestion(int $nbQuestion): self
+    {
+        $this->nbQuestion = $nbQuestion;
 
         return $this;
     }

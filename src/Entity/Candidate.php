@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\Api\RestCountries;
 use App\Repository\CandidateRepository;
 use App\Service\DateProcessing;
 use App\Service\NumberProcessing;
@@ -11,6 +12,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
  * @ORM\Entity(repositoryClass=CandidateRepository::class)
@@ -152,6 +158,11 @@ class Candidate
     private $gender;
 
     /**
+     * @ORM\OneToMany(targetEntity=Questionnaire::class, mappedBy="candidate")
+     */
+    private $questionnaires;
+
+    /**
      * Candidate constructor.
      */
     public function __construct()
@@ -163,6 +174,7 @@ class Candidate
         $this->licenses = new ArrayCollection();
         $this->skills = new ArrayCollection();
         $this->qualifications = new ArrayCollection();
+        $this->questionnaires = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -256,7 +268,7 @@ class Candidate
      */
     public function getPhoneNumber(): ?string
     {
-        return $this->phoneNumber;
+        return '0' . $this->phoneNumber;
     }
 
     public function getFormattedPhoneNumber(): ?string
@@ -280,7 +292,7 @@ class Candidate
      */
     public function getOtherNumber(): ?string
     {
-        return $this->otherNumber;
+        return '0' . $this->otherNumber;
     }
 
     public function getFormattedOtherPhoneNumber(): ?string
@@ -343,6 +355,20 @@ class Candidate
     public function getCountry(): ?string
     {
         return $this->country;
+    }
+
+    /**
+     * @return string|null
+     * @throws ClientExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    public function getCountryFullName(): ?string
+    {
+        $restCountries = new RestCountries();
+        return $restCountries->getCountryByCode($this->country);
     }
 
     /**
@@ -712,5 +738,41 @@ class Candidate
         $this->gender = $gender;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Questionnaire[]
+     */
+    public function getQuestionnaires(): Collection
+    {
+        return $this->questionnaires;
+    }
+
+    public function addQuestionnaire(Questionnaire $questionnaire): self
+    {
+        if (!$this->questionnaires->contains($questionnaire)) {
+            $this->questionnaires[] = $questionnaire;
+            $questionnaire->setCandidate($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestionnaire(Questionnaire $questionnaire): self
+    {
+        if ($this->questionnaires->contains($questionnaire)) {
+            $this->questionnaires->removeElement($questionnaire);
+            // set the owning side to null (unless already changed)
+            if ($questionnaire->getCandidate() === $this) {
+                $questionnaire->setCandidate(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isBookmarked(Offer $offer): bool
+    {
+        return $this->getBookmarks()->contains($offer);
     }
 }
