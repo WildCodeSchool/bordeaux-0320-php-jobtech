@@ -12,7 +12,7 @@
                         {% if message.isToContact %}
                             <h2 class="text-secondary">Administrateur</h2>
                         {% else %}
-                            <h2>{{ message.contact.company ? message.contact.company.name : message.contact.candidate.fullName }}</h2>
+                            <h2>{{ message.contact.candidate == null ? message.contact.company.name : message.contact.candidate.fullName }}</h2>
                         {% endif %}
                         <p class="card-title"> Objet : {{ message.subject }}</p>
                         <h6 class="card-subtitle mb-2 text-muted">
