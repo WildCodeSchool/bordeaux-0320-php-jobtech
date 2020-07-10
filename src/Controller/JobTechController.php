@@ -39,9 +39,10 @@ class JobTechController extends AbstractController
 
     /**
      * @Route("/about", name="about")
+     * @param Request $request
      * @return Response
      */
-    public function about(Request $request)
+    public function about(Request $request): Response
     {
         $form = $this->createForm(AboutType::class);
 
@@ -53,7 +54,7 @@ class JobTechController extends AbstractController
         }
         */
 
-        return $this->render('about.html.twig', [
+        return $this->render('footer/about.html.twig', [
             'form' => $form->createView()
         ]);
     }
