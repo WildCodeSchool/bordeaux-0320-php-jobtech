@@ -5,7 +5,7 @@
         "php": "^7.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "easycorp/easyadmin-bundle": "^2.3",
+        "easycorp/easyadmin-bundle": "^3.0",
         "friendsofsymfony/ckeditor-bundle": "^2.2",
         "knplabs/knp-paginator-bundle": "^5.2",
         "phpmd/phpmd": "^2.6",
