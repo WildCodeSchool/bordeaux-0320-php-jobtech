@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Form\AboutType;
 use App\Repository\JobCategoryRepository;
 use App\Repository\NewsRepository;
 use App\Repository\OfferRepository;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -31,6 +34,27 @@ class JobTechController extends AbstractController
             'job_categories' => $jobCategoryRepo->getJobCategoryWithOffersNb(self::MAX_JOB_CATEGORY_IN_INDEX),
             'actualities' => $newsRepository->findBy([], ['postedAt' => 'DESC'], self::MAX_NEWS_IN_CAROUSEL),
             'offers' => $offerRepository->findAllOffersAndAddInterval(['postedAt' => 'DESC'], self::MAX_OFFER_IN_INDEX)
+        ]);
+    }
+
+    /**
+     * @Route("/about", name="about")
+     * @return Response
+     */
+    public function about(Request $request)
+    {
+        $form = $this->createForm(AboutType::class);
+
+        $form->handleRequest($request);
+
+        /*
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+        }
+        */
+
+        return $this->render('about.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }
