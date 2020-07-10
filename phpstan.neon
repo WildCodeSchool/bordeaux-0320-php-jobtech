@@ -14,5 +14,5 @@ parameters:
         - '#Strict comparison using === between null and App\\Entity\\User will always evaluate to false\.#'
         - '#Method App\\Entity\\.*::__toString\(\) should return string but returns string\|null\.#'
         - '#Cannot call method get.*\(\) on object|null\.#'
-        - '#Parameter \#1 $contact of method App\\Entity\\Message::setContact\(\) expects App\\Entity\\User\|null, object\|null given\.#'
+        - '#Parameter \#1 \$contact of method App\\Entity\\Message::setContact\(\) expects App\\Entity\\User\|null, object\|null given\.#'
     reportUnmatchedIgnoredErrors: false
