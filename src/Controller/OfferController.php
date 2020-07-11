@@ -3,10 +3,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Candidate;
 use App\Entity\Offer;
 use App\Entity\Search\OfferSearch;
 use App\Form\OfferType;
 use App\Form\SearchForm;
+use App\Repository\CandidateRepository;
 use App\Repository\OfferRepository;
 use App\Service\Paginator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -80,5 +82,16 @@ class OfferController extends AbstractController
             'nb_offers' => $offerRepository->getTotalOfOffers(),
             'form'   => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/bookmark", name="bookmark")
+     * @param OfferRepository $offerRepository
+     */
+    public function selectFavorite(OfferRepository $offerRepository)
+    {
+        $user = $this->getUser();
+/*        $bookmark = $favorite->getUser();*/
+        dd($user);
     }
 }
