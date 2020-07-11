@@ -88,6 +88,11 @@ class QuestionnaireManager
         return $result;
     }
 
+    /**
+     * @param Ability $ability
+     * @return array
+     * @SuppressWarnings("unused")
+     */
     private function prepareQuestions(Ability $ability): array
     {
         $questions = $ability->getQuestions()->toArray();
