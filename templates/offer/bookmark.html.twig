@@ -1,5 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<h1>test</h1>
+    <h1>Mes Favoris</h1>
+    <div class="col-12">
+        <div class="row row-cols-1 row-cols-md-3 ml-3 mr-3 mt-3">
+            {% for offer in bookmarks %}
+                {% include 'offer/components/_card.html.twig' %}
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

@@ -86,12 +86,17 @@ class OfferController extends AbstractController
 
     /**
      * @Route("/bookmark", name="bookmark")
-     * @param OfferRepository $offerRepository
+     * @return Response
      */
-    public function selectFavorite(OfferRepository $offerRepository)
+    public function bookmark(): Response
     {
-        $user = $this->getUser();
-/*        $bookmark = $favorite->getUser();*/
-        dd($user);
+        $offers = $this->getUser()->getCandidate()->getBookmarks();
+        foreach ($offers as $offer) {
+            $offer->setInterval();
+        }
+
+        return $this->render('offer/bookmark.html.twig', [
+            'bookmarks' => $offers
+        ]);
     }
 }
