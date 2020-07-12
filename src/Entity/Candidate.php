@@ -109,11 +109,6 @@ class Candidate
     private $haveVehicle = 0;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $curriculumVitae = 'test';
-
-    /**
      * @ORM\OneToOne(targetEntity=User::class, mappedBy="candidate", cascade={"persist", "remove"})
      */
     private $user;
@@ -454,25 +449,6 @@ class Candidate
     public function setHaveVehicle(bool $haveVehicle): self
     {
         $this->haveVehicle = $haveVehicle;
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getCurriculumVitae(): ?string
-    {
-        return $this->curriculumVitae;
-    }
-
-    /**
-     * @param string $curriculumVitae
-     * @return $this
-     */
-    public function setCurriculumVitae(string $curriculumVitae): self
-    {
-        $this->curriculumVitae = $curriculumVitae;
 
         return $this;
     }
