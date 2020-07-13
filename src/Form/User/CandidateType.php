@@ -5,6 +5,7 @@ namespace App\Form\User;
 use App\Entity\Candidate;
 use App\Entity\Gender;
 use App\Entity\License;
+use App\Form\CurriculumVitaeType;
 use App\Repository\Api\RestCountries;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -32,23 +33,14 @@ class CandidateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         if ($options['action'] === UserType::CREATE_CANDIDATE) {
-            $this->personalInformation($builder, $options);
+            $this->personalInformation($builder, $options)
+                ->curriculumVitae($builder);
         }
 
         if ($options['action'] === UserType::EDIT_CANDIDATE_PERSONAL_INFORMATION) {
             $this->personalInformation($builder, $options)
                 ->vehicleAndLicense($builder);
         }
-
-        /**
-         * $builder
-         *  ->add('haveVehicle')
-         *  ->add('curriculumVitae')
-         *  ->add('license')
-         *  ->add('mobility')
-         *  ->add('skill')
-         *  ->add('currentSituation');
-         */
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -132,6 +124,14 @@ class CandidateType extends AbstractType
                 'required' => false,
                 'multiple' => true
             ]);
+
+        return $this;
+    }
+
+    private function curriculumVitae(FormBuilderInterface $builder): self
+    {
+        $builder
+            ->add('curriculumVitae', CurriculumVitaeType::class);
 
         return $this;
     }

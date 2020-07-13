@@ -37,3 +37,4 @@ yarn-error.log
 /ressources/
 .DS_Store
 ###< others ###
+/public/uploads/

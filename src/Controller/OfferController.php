@@ -3,10 +3,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Candidate;
 use App\Entity\Offer;
 use App\Entity\Search\OfferSearch;
 use App\Form\OfferType;
 use App\Form\SearchForm;
+use App\Repository\CandidateRepository;
 use App\Repository\OfferRepository;
 use App\Service\Paginator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -79,6 +81,22 @@ class OfferController extends AbstractController
             'offers' => $offers,
             'nb_offers' => $offerRepository->getTotalOfOffers(),
             'form'   => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/bookmark", name="bookmark")
+     * @return Response
+     */
+    public function bookmark(): Response
+    {
+        $offers = $this->getUser()->getCandidate()->getBookmarks();
+        foreach ($offers as $offer) {
+            $offer->setInterval();
+        }
+
+        return $this->render('offer/bookmark.html.twig', [
+            'bookmarks' => $offers
         ]);
     }
 }

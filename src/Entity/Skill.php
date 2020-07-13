@@ -18,20 +18,15 @@ class Skill
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=45)
+     * @ORM\Column(type="string", length=255)
      */
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=45, nullable=true)
-     */
-    private $identifier;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=SkillCategory::class, inversedBy="skills")
+     * @ORM\ManyToOne(targetEntity=Candidate::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $skillCategory;
+    private $candidate;
 
     /**
      * @return int|null
@@ -41,18 +36,11 @@ class Skill
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    /**
-     * @param string $title
-     * @return $this
-     */
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -60,40 +48,14 @@ class Skill
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getIdentifier(): ?string
+    public function getCandidate(): ?Candidate
     {
-        return $this->identifier;
+        return $this->candidate;
     }
 
-    /**
-     * @param string|null $identifier
-     * @return $this
-     */
-    public function setIdentifier(?string $identifier): self
+    public function setCandidate(?Candidate $candidate): self
     {
-        $this->identifier = $identifier;
-
-        return $this;
-    }
-
-    /**
-     * @return SkillCategory|null
-     */
-    public function getSkillCategory(): ?SkillCategory
-    {
-        return $this->skillCategory;
-    }
-
-    /**
-     * @param SkillCategory|null $skillCategory
-     * @return $this
-     */
-    public function setSkillCategory(?SkillCategory $skillCategory): self
-    {
-        $this->skillCategory = $skillCategory;
+        $this->candidate = $candidate;
 
         return $this;
     }

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+    <div>
+    {% if is_granted('ROLE_ADMIN') %}
+    {{  form_start(form) }}
+        <div>
+    {{ form_widget(form.html) }}
+        </div>
+        <button  class="btn-success">Enregistrer</button>
+    <a class="btn btn-dark" href="{{ path('footer_page', {'page': content.identifier}) }}">Revenir vers la page {{ content.title }}</a>
+
+    {{ form_end(form) }}
+    </div>
+    {% endif %}
+</div>
+
+    <script>
+        CKEDITOR.replace('editor1', {
+          height: 260,
+         width: 900,
+        });
+    </script>
+
+{% endblock %}
