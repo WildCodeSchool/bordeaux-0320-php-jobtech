@@ -136,8 +136,7 @@ class Candidate
     private $licenses;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Skill::class)
-     * @ORM\JoinTable(name="candidate_has_skills")
+     * @ORM\OneToMany(targetEntity=Skill::class, mappedBy="candidate", orphanRemoval=true)
      */
     private $skills;
 
@@ -630,40 +629,6 @@ class Candidate
     }
 
     /**
-     * @return Collection|Skill[]
-     */
-    public function getSkills(): Collection
-    {
-        return $this->skills;
-    }
-
-    /**
-     * @param Skill $skill
-     * @return $this
-     */
-    public function addSkill(Skill $skill): self
-    {
-        if (!$this->skills->contains($skill)) {
-            $this->skills[] = $skill;
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Skill $skill
-     * @return $this
-     */
-    public function removeSkill(Skill $skill): self
-    {
-        if ($this->skills->contains($skill)) {
-            $this->skills->removeElement($skill);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|CandidateHasQualifications[]
      */
     public function getQualifications(): Collection
@@ -755,6 +720,37 @@ class Candidate
     public function isBookmarked(Offer $offer): bool
     {
         return $this->getBookmarks()->contains($offer);
+    }
+
+    /**
+     * @return Collection|Skill[]
+     */
+    public function getSkills(): Collection
+    {
+        return $this->skills;
+    }
+
+    public function addSkill(Skill $skill): self
+    {
+        if (!$this->skills->contains($skill)) {
+            $this->skills[] = $skill;
+            $skill->setCandidate($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSkill(Skill $skill): self
+    {
+        if ($this->skills->contains($skill)) {
+            $this->skills->removeElement($skill);
+            // set the owning side to null (unless already changed)
+            if ($skill->getCandidate() === $this) {
+                $skill->setCandidate(null);
+            }
+        }
+      
+        return $this;
     }
 
     public function getCurriculumVitae(): ?CurriculumVitae
