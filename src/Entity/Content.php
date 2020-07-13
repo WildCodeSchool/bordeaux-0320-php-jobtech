@@ -10,25 +10,25 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Content
 {
-    CONST ABOUT = [
+    const ABOUT = [
         'title' => 'A propos',
         'html' => '',
         'identifier' => 'about',
     ];
 
-    CONST LEGAL_MENTIONS = [
+    const LEGAL_MENTIONS = [
         'title' => 'Mentions légales',
         'html' => '',
         'identifier' => 'legal_mentions',
     ];
 
-    CONST FAQ = [
+    const FAQ = [
         'title' => 'Foire aux questions',
         'html' => '',
         'identifier' => 'faq',
     ];
 
-    CONST CONFIDENTIAL_POLITICS = [
+    const CONFIDENTIAL_POLITICS = [
         'title' => 'Politique de confidentialité',
         'html' => '',
         'identifier' => 'confidential_politics',
