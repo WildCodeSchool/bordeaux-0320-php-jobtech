@@ -81,17 +81,23 @@ class QuestionnaireManager
      */
     public function getQuestions(array $abilities): array
     {
-        $prepareQuestions = static function (Ability $ability): array {
-            $questions = $ability->getQuestions()->toArray();
-            shuffle($questions);
-            return array_slice($questions, 0, $ability->getNbQuestion());
-        };
-
-        $result = array_map($prepareQuestions, $abilities);
+        $result = array_map([__CLASS__, 'prepareQuestions'], $abilities);
         $result = array_merge(...$result);
         shuffle($result);
 
         return $result;
+    }
+
+    /**
+     * @param Ability $ability
+     * @return array
+     * @SuppressWarnings("unused")
+     */
+    private function prepareQuestions(Ability $ability): array
+    {
+        $questions = $ability->getQuestions()->toArray();
+        shuffle($questions);
+        return array_slice($questions, 0, $ability->getNbQuestion());
     }
 
     /**

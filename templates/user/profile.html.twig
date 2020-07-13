@@ -12,6 +12,11 @@
                 {% include 'user/components/company/_profile_company.html.twig' %}
             {% else %}
                 {% include 'user/components/candidate/_profile_candidate.html.twig' %}
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button>Envoyé</button>
+                {{ form_end(form) }}
+
             {% endif %}
         {% else %}
             {% include 'user/components/candidate/_profile_candidate.html.twig' %}
@@ -24,4 +29,5 @@
     {% if is_granted('ROLE_CANDIDATE') %}
         {{ encore_entry_script_tags('candidate_graphic') }}
     {% endif %}
+
 {% endblock %}
