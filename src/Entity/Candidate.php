@@ -158,6 +158,11 @@ class Candidate
     private $questionnaires;
 
     /**
+     * @ORM\OneToOne(targetEntity=CurriculumVitae::class, cascade={"persist", "remove"})
+     */
+    private $curriculumVitae;
+
+    /**
      * Candidate constructor.
      */
     public function __construct()
@@ -750,5 +755,17 @@ class Candidate
     public function isBookmarked(Offer $offer): bool
     {
         return $this->getBookmarks()->contains($offer);
+    }
+
+    public function getCurriculumVitae(): ?CurriculumVitae
+    {
+        return $this->curriculumVitae;
+    }
+
+    public function setCurriculumVitae(?CurriculumVitae $curriculumVitae): self
+    {
+        $this->curriculumVitae = $curriculumVitae;
+
+        return $this;
     }
 }
