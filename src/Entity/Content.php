@@ -10,6 +10,30 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Content
 {
+    CONST ABOUT = [
+        'title' => 'A propos',
+        'html' => '',
+        'identifier' => 'about',
+    ];
+
+    CONST LEGAL_MENTIONS = [
+        'title' => 'Mentions légales',
+        'html' => '',
+        'identifier' => 'legal_mentions',
+    ];
+
+    CONST FAQ = [
+        'title' => 'Foire aux questions',
+        'html' => '',
+        'identifier' => 'faq',
+    ];
+
+    CONST CONFIDENTIAL_POLITICS = [
+        'title' => 'Politique de confidentialité',
+        'html' => '',
+        'identifier' => 'confidential_politics',
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -23,9 +47,14 @@ class Content
     private $html;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $identifier;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $title;
 
     public function getId(): ?int
     {
@@ -52,6 +81,18 @@ class Content
     public function setIdentifier(?string $identifier): self
     {
         $this->identifier = $identifier;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
 
         return $this;
     }

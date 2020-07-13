@@ -2,11 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Content;
 use App\Form\AboutType;
+use App\Repository\ContentRepository;
 use App\Repository\JobCategoryRepository;
 use App\Repository\NewsRepository;
 use App\Repository\OfferRepository;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,24 +42,42 @@ class JobTechController extends AbstractController
     }
 
     /**
-     * @Route("/about", name="about")
+     * @Route("/footer/{page}/edit", name="footer_page_edit")
      * @param Request $request
+     * @param Content $content
+     * @ParamConverter("content", options={"mapping":{"page":"identifier"}})
+     * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    public function about(Request $request): Response
+    public function footerPageEdit(Request $request, Content $content, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(AboutType::class);
+        $form = $this->createForm(AboutType::class, $content);
 
         $form->handleRequest($request);
-
-        /*
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-        }
-        */
+            $content = $form->getData();
 
-        return $this->render('footer/about.html.twig', [
-            'form' => $form->createView()
+            $entityManager->persist($content);
+
+            $entityManager->flush();
+        }
+
+        return $this->render('footer/page_footer_edit.html.twig', [
+            'form' => $form->createView(),
+            'content' => $content,
+        ]);
+    }
+
+    /**
+     * @Route("/footer/{page}", name="footer_page", methods={"GET"})
+     * @ParamConverter("content", options={"mapping":{"page":"identifier"}})
+     * @param Content $content
+     * @return Response
+     */
+    public function footerPage(Content $content): Response
+    {
+        return $this->render('footer/page_footer.html.twig', [
+            'content' => $content,
         ]);
     }
 }

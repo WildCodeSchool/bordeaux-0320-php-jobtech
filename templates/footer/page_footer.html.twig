@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div>{{ content.title }}</div>
+        <div>{{ content.html | raw }}</div>
+
+{% if is_granted('ROLE_ADMIN') %}
+        <a class="btn btn-primary" href="{{ path('footer_page_edit', {'page': content.identifier}) }}">Editer</a>
+{% endif %}
+
+</div>
+
+{% endblock %}
