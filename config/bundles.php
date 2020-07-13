@@ -17,4 +17,5 @@ return [
     Knp\Bundle\PaginatorBundle\KnpPaginatorBundle::class => ['all' => true],
     FOS\CKEditorBundle\FOSCKEditorBundle::class => ['all' => true],
     Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
+    Vich\UploaderBundle\VichUploaderBundle::class => ['all' => true],
 ];
