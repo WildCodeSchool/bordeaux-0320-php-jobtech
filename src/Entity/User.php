@@ -344,4 +344,17 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
+            // set the owning side to null (unless already changed)
+            if ($message->getContact() === $this) {
+                $message->setContact(null);
+            }
+        }
+
+        return $this;
+    }
 }
