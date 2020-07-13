@@ -9,7 +9,7 @@ use App\Form\CurriculumVitaeType;
 use App\Repository\Api\RestCountries;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -70,7 +70,7 @@ class CandidateType extends AbstractType
             ->add('firstName', TextType::class, [
                 'label' => 'Prénom :'
             ])
-            ->add('birthday', DateType::class, [
+            ->add('birthday', BirthdayType::class, [
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy',
                 'attr' => ['class' => 'js-datepicker'],

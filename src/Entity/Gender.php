@@ -35,6 +35,11 @@ class Gender
      */
     private $identifier;
 
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
     /**
      * @return int|null
      */
@@ -44,9 +49,9 @@ class Gender
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }

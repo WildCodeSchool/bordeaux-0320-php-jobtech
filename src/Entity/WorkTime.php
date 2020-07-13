@@ -43,6 +43,11 @@ class WorkTime
         $this->offers = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
     /**
      * @return int|null
      */

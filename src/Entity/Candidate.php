@@ -198,6 +198,14 @@ class Candidate
     }
 
     /**
+     * @return string
+     */
+    public function getFullNameWithGender(): string
+    {
+        return $this->getGender()->getAcronym() . ' ' . $this->getSurname() . ' ' . $this->getFirstName();
+    }
+
+    /**
      * @return string|null
      */
     public function getSurname(): ?string

@@ -2,9 +2,12 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Ability;
 use App\Entity\Job;
 use App\Entity\JobCategory;
 use App\Entity\News;
+use App\Entity\Offer;
+use App\Entity\Question;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -41,6 +44,7 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::section('Site');
+        yield MenuItem::linktoRoute('Index', 'fa fa-home', 'index');
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::subMenu('Actualité', 'fas fa-newspaper')->setSubItems([
             MenuItem::linkToCrud('Nouvelle actualité', 'fa fa-plus', News::class)
@@ -50,7 +54,7 @@ class DashboardController extends AbstractDashboardController
 
         yield MenuItem::section('Utilisateurs');
         yield MenuItem::linkToCrud('Candidats', 'fa fa-user-secret', User::class)
-            ->setController(CandidatCrudController::class);
+            ->setController(CandidateCrudController::class);
         yield MenuItem::linkToCrud('Entreprises', 'fa fa-user-tie', User::class)
             ->setController(CompanyCrudController::class)
             ->setDefaultSort(['createdAt' => 'DESC']);
@@ -58,6 +62,13 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Métiers');
         yield MenuItem::linkToCrud('Secteurs d\'activités', 'fa fa-th-large', JobCategory::class);
         yield MenuItem::linkToCrud('Métiers', 'fa fa-stream', Job::class);
+
+        yield MenuItem::section('Offres');
+        yield MenuItem::LinkToCrud('Liste des offres', 'fas fa-clipboard-list', Offer::class);
+
+        yield MenuItem::section('Questionnaire');
+        yield MenuItem::LinkToCrud('Compétences', 'fas fa-clipboard-list', Ability::class);
+        yield MenuItem::LinkToCrud('Questions', 'fas fa-question', Question::class);
     }
 
     public function configureUserMenu(UserInterface $user): UserMenu
@@ -65,9 +76,6 @@ class DashboardController extends AbstractDashboardController
         return parent::configureUserMenu($user)
             ->setName($user->getCandidate()->getFullname())
             ->displayUserName(true)
-            ->displayUserAvatar(true)
-            ->addMenuItems([
-                MenuItem::linkToRoute('Index', 'fa fa-id-card', 'index'),
-            ]);
+            ->displayUserAvatar(true);
     }
 }
