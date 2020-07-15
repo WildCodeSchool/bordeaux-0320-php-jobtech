@@ -63,7 +63,7 @@
                         {{ user.candidate.isContactableTel and user.candidate.isContactableEmail ? 'ou' : '' }}
                         {{ user.candidate.isContactableEmail ? 'Email' : '' }}.
                     {% else %}
-                        Je ne souhaite pas être contacter.
+                        Je ne souhaite pas être contacté.
                     {% endif %}
                 </td>
             </tr>
@@ -122,5 +122,11 @@
             </div>
         </div>
         <a class="btn btn-primary float-right mb-3" href="">Voir plus</a>
+    </div>
+    <div>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button>Envoyé</button>
+        {{ form_end(form) }}
     </div>
 </div>
