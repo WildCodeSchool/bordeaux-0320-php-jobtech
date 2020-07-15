@@ -79,7 +79,41 @@
                         {% endif %}
                     </td>
                 </tr>
-
+            {% endif %}
+            <tr>
+                <td><i class="fas fa-map-marker-alt"></i> {{ user.candidate.postalCode }} {{ user.candidate.city }}, {{ user.candidate.countryFullName }}</td>
+            </tr>
+            {% if user.candidate.haveVehicle %}
+            <tr>
+                <td><i class="fas fa-car"></i> Je possède un véhicule.</td>
+            </tr>
+            {% endif %}
+            {% if user.candidate.licenses %}
+            <tr>
+                <td>
+                    <i class="fas fa-address-card"></i> Permis :
+                    {% for license in user.candidate.licenses %}
+                        {{ license.title }}{{ loop.index == user.candidate.licenses|length ? '' : ',' }}
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td><i class="fas fa-wheelchair"></i> <strong>{{ user.candidate.isHandicapped ? 'Oui' : 'Non' }}</strong>, je {{ user.candidate.isHandicapped ? '' : 'ne' }} suis {{ user.candidate.isHandicapped ? '' : 'pas' }} un travailleur handicapé.</td>
+            </tr>
+            <tr>
+                <td>
+                    <i class="fas fa-comments"></i>
+                    {% if user.candidate.isContactableTel or user.candidate.isContactableEmail %}
+                        J'autorise à me contacter par
+                        {{ user.candidate.isContactableTel ? 'Téléphone' : '' }}
+                        {{ user.candidate.isContactableTel and user.candidate.isContactableEmail ? 'ou' : '' }}
+                        {{ user.candidate.isContactableEmail ? 'Email' : '' }}.
+                    {% else %}
+                        Je ne souhaite pas être contacté.
+                    {% endif %}
+                </td>
+            </tr>
             </table>
         </div>
     {% else %}
@@ -140,5 +174,11 @@
             </div>
         </div>
         <a class="btn btn-primary float-right mb-3" href="">Voir plus</a>
+    </div>
+    <div>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button>Envoyé</button>
+        {{ form_end(form) }}
     </div>
 </div>

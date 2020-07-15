@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div>Ajoutez vos compétences techniques que vous pensez utiles à connaître pour un recruteur.</div>
+    <br>
+
+{{ form_start(form) }}
+{{ form_widget(form) }}
+<button class="btn btn-success">Envoyer</button>
+{{ form_end(form) }}
+
+    <div>Vos compétences:</div>
+    <ul>
+        {% for skill in skills %}
+            <li>
+                {{ skill.title }}
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
