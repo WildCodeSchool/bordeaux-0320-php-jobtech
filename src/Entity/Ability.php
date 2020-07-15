@@ -44,6 +44,11 @@ class Ability
         $this->questions = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,7 +56,7 @@ class Ability
 
     public function getTitle(): ?string
     {
-        return $this->title;
+        return ucfirst($this->title);
     }
 
     public function setTitle(string $title): self
