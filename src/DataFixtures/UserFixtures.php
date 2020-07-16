@@ -65,11 +65,12 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $admin->setEmail($email)
                 ->setRoles($data['roles'])
                 ->setPassword($this->passwordEncoder->encodePassword($admin, self::PASSWORD_TEST))
-                ->setCandidate($adminInfo);
+                ->setCandidate($adminInfo)
+                ->setIsActive(true);
             $manager->persist($admin);
         }
 
-        for ($i = 1; $i < 21; $i++) {
+        for ($i = 1; $i <= 20; $i++) {
             $candidat = new User();
             $candidatInfo = $manager->find(
                 'App:Candidate',
@@ -79,16 +80,22 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 ->setRoles(self::CANDIDAT_TEST['roles'])
                 ->setPassword($this->passwordEncoder->encodePassword($candidat, self::PASSWORD_TEST))
                 ->setCandidate($candidatInfo);
+            if ($i <= 10) {
+                $candidat->setIsActive(true);
+            }
             $manager->persist($candidat);
         }
 
-        for ($i = 1; $i < 51; $i++) {
+        for ($i = 1; $i <= 50; $i++) {
             $company = new User();
             $companyInfo = $manager->find('App:Company', $this->getReference(self::COMPANY_TEST['company'] . $i));
             $company->setEmail(self::COMPANY_TEST['start_email'] . $i . self::COMPANY_TEST['end_email'])
                 ->setRoles(self::COMPANY_TEST['roles'])
                 ->setPassword($this->passwordEncoder->encodePassword($company, self::PASSWORD_TEST))
                 ->setCompany($companyInfo);
+            if ($i <= 30) {
+                $company->setIsActive(true);
+            }
             $manager->persist($company);
         }
 

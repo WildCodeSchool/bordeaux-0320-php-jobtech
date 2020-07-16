@@ -3,9 +3,11 @@
 namespace App\Controller\User;
 
 use App\Entity\Candidate;
+use App\Entity\CurriculumVitae;
 use App\Entity\Offer;
 use App\Entity\Skill;
 use App\Entity\User;
+use App\Form\CurriculumVitaeType;
 use App\Form\SkillType;
 use App\Service\Questionnaire\QuestionnaireManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,11 +25,30 @@ class CandidateController extends AbstractController
     /**
      * @Route("/{id}", name="show_profile")
      * @param User $user
+     * @param Request $request
      * @return Response
      */
-    public function show(User $user): Response
+    public function show(User $user, Request $request): Response
     {
-        return $this->render('user/profile.html.twig', ['user' => $user]);
+        if (!$this->getUser()->getIsActive()) {
+            return $this->redirectToRoute('index');
+        }
+
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $curriculumVitae = new CurriculumVitae();
+            $form = $this->createForm(CurriculumVitaeType::class, $curriculumVitae);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $user->getCandidate()->setCurriculumVitae($curriculumVitae);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->flush();
+            }
+        }
+
+        return $this->render('user/profile.html.twig', [
+            'user' => $user,
+            'form' => isset($form) ? $form->createView() : null
+        ]);
     }
 
     /**
@@ -68,30 +89,29 @@ class CandidateController extends AbstractController
     }
 
     /**
-     * @Route("/candidate/skill", name="candidate_skill")
+     * @Route("/nouvelle_competence", name="add_skill")
      * @param Request $request
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
     public function addSKill(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser()->getCandidate();
         $newSkill = new Skill();
         $form = $this->createForm(SkillType::class, $newSkill);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $newSkill = $form->getData();
-            $user = $this->getUser();
-            $newSkill->setCandidate($user->getCandidate());
+            $newSkill->setCandidate($user);
 
             $entityManager->persist($newSkill);
-
             $entityManager->flush();
         }
 
-        return $this->render('candidate/skill.html.twig', [
+        return $this->render('/user/candidate/add_skill.html.twig', [
             'form' => $form->createView(),
-            'skills' => $this->getUser()->getCandidate()->getSkills(),
+            'skills' => $user->getSkills(),
         ]);
     }
 }

@@ -23,7 +23,7 @@ class Skill
     private $title;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Candidate::class)
+     * @ORM\ManyToOne(targetEntity=Candidate::class, inversedBy="skills")
      * @ORM\JoinColumn(nullable=false)
      */
     private $candidate;

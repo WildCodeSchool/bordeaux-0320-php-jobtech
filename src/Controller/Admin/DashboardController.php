@@ -25,7 +25,7 @@ class DashboardController extends AbstractDashboardController
      */
     public function index(): Response
     {
-        return parent::index();
+        return $this->render('admin/dashboard.html.twig');
     }
 
     public function configureDashboard(): Dashboard
@@ -58,6 +58,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Entreprises', 'fa fa-user-tie', User::class)
             ->setController(CompanyCrudController::class)
             ->setDefaultSort(['createdAt' => 'DESC']);
+        yield MenuItem::linkToCrud('En attente', 'fas fa-user-check', User::class)
+            ->setController(UserNotActiveCrudController::class);
 
         yield MenuItem::section('Métiers');
         yield MenuItem::linkToCrud('Secteurs d\'activités', 'fa fa-th-large', JobCategory::class);

@@ -1,0 +1,71 @@
+<div class="d-flex justify-content-center">
+
+    <div class="col-6">
+
+        <!-- INFORMATION -->
+        <div class="mt-3 mb-3 card-profile">
+            <h2 class="p-3 border-bottom-title">Informations</h2>
+
+            <table class="mt-3 table">
+                <tr>
+                    <td class="border-top-0">
+                        <i class="fas fa-user"></i> {{ user.candidate.gender.identifier == 'mister' ? 'Homme' : 'Femme' }}
+                        - {{ user.candidate.age }}ans
+                    </td>
+                </tr>
+                <tr>
+                    <td><i class="fas fa-map-marker-alt"></i> {{ user.candidate.postalCode }} {{ user.candidate.city }}
+                        , {{ user.candidate.countryFullName }}</td>
+                </tr>
+                {% if user.candidate.haveVehicle %}
+                    <tr>
+                        <td><i class="fas fa-car"></i> Possède un véhicule.</td>
+                    </tr>
+                {% endif %}
+                {% if user.candidate.licenses %}
+                    <tr>
+                        <td>
+                            <i class="fas fa-address-card"></i> Permis :
+                            {% for license in user.candidate.licenses %}
+                                {{ license.title }}{{ loop.index == user.candidate.licenses|length ? '' : ',' }}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <td><i class="fas fa-wheelchair"></i>
+                        <strong>{{ user.candidate.isHandicapped ? 'Oui' : 'Non' }}</strong>, {{ user.candidate.isHandicapped ? '' : 'n\'' }}
+                        est {{ user.candidate.isHandicapped ? '' : 'pas' }} un travailleur handicapé.
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="col-6">
+
+        <!-- CHART ABILITY -->
+        <div class="card-profile mt-3 mb-3">
+            <h2 class="p-3 border-bottom-title">Profil de compétences</h2>
+            <nav class="nav nav-tabs">
+                <a class="nav-item nav-link active w-50 text-center" href="#pro" data-toggle="tab">Professionnel</a>
+                <a class="nav-item nav-link w-50 text-center" href="#perso" data-toggle="tab">Personnel</a>
+            </nav>
+            <div class="tab-content">
+                <input type="hidden" id="candidate"
+                       data-url="{{ path('candidate_get_data_chart', {'id': user.candidate.id}) }}">
+                <div class="tab-pane active mt-3 mb-3" id="pro">
+                    <canvas id="myChartPro"></canvas>
+                </div>
+                <div class="tab-pane mt-3 mb-3" id="perso">
+                    <canvas id="myChartPerso"></canvas>
+                </div>
+            </div>
+            <a class="btn btn-primary m-3" href="">Voir plus</a>
+        </div>
+
+    </div>
+
+
+</div>

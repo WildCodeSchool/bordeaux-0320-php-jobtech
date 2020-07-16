@@ -34,21 +34,21 @@ class OfferCrudController extends AbstractCrudController
     {
         // FIELDS
         $id = IdField::new('id', 'ID');
-        $title = TextField::new('title');
-        $description = TextEditorField::new('description');
-        $availablePlace = IntegerField::new('availablePlace');
-        $address = TextField::new('address');
-        $postalCode = IntegerField::new('postalCode');
-        $city = TextField::new('city');
-        $country = TextField::new('country');
-        $postedAt = DateTimeField::new('postedAt');
-        $updatedAt = DateTimeField::new('updatedAt');
-        $company = AssociationField::new('company');
-        $job = AssociationField::new('job');
-        $jobCategory = AssociationField::new('jobCategory');
-        $workTime = AssociationField::new('workTime');
-        $contracts = AssociationField::new('contracts');
-        $contractsShow = ArrayField::new('contracts');
+        $title = TextField::new('title', 'Titre');
+        $description = TextEditorField::new('description', 'Description');
+        $availablePlace = IntegerField::new('availablePlace', 'Places disponibles');
+        $address = TextField::new('address', 'Adresse');
+        $postalCode = IntegerField::new('postalCode', 'Code postal');
+        $city = TextField::new('city', 'Ville');
+        $country = TextField::new('country', 'Pays');
+        $postedAt = DateTimeField::new('postedAt', 'Poster le');
+        $updatedAt = DateTimeField::new('updatedAt', 'MAJ le');
+        $company = AssociationField::new('company', 'Entreprise');
+        $job = AssociationField::new('job', 'Métier');
+        $jobCategory = AssociationField::new('jobCategory', 'Secteur d\'activité');
+        $workTime = AssociationField::new('workTime', 'Temps de travail');
+        $contracts = AssociationField::new('contracts', 'Contrats');
+        $contractsShow = ArrayField::new('contracts', 'Contrats');
 
         // PANELS
         $addressPanel = FormField::addPanel('Adresse');
@@ -61,6 +61,7 @@ class OfferCrudController extends AbstractCrudController
         if (Crud::PAGE_DETAIL === $pageName) {
             return [
                 $id,
+                $company,
                 $title,
                 $description,
                 $contractsShow,

@@ -28,7 +28,7 @@ class UserController extends AbstractController
     public function profile(Request $request): Response
     {
         $user = $this->getUser();
-        if (in_array('ROLE_CANDIDATE', $user->getRoles())) {
+        if ($this->isGranted('ROLE_CANDIDATE')) {
             $curriculumVitae = new CurriculumVitae();
             $form = $this->createForm(CurriculumVitaeType::class, $curriculumVitae);
             $form->handleRequest($request);
