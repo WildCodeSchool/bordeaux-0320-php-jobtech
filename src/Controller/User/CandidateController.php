@@ -23,7 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CandidateController extends AbstractController
 {
     /**
-     * @Route("/{id}", name="show_profile")
+     * @Route("/show/{id}", name="show_profile")
      * @param User $user
      * @param Request $request
      * @return Response

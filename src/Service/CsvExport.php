@@ -17,11 +17,11 @@ class CsvExport
      */
     public function exportDataToCsv(array $data, $filename = 'export', $delimiter = ';', $enclosure = '"'): void
     {
-        $fileOpen = fopen("php://output", 'w');
-        fputs($fileOpen, (chr(0xEF) . chr(0xBB) . chr(0xBF)));
+        $fileOpen = fopen("php://output", 'wb');
+        fwrite($fileOpen, (chr(0xEF) . chr(0xBB) . chr(0xBF)));
         fputcsv($fileOpen, array_values($data[0]), $delimiter, $enclosure);
 
-        for ($i = 1; $i < count($data); $i++) {
+        for ($i = 1, $iMax = count($data); $i < $iMax; $i++) {
             fputcsv($fileOpen, array_values($data[$i]), $delimiter, $enclosure);
         }
 
@@ -59,8 +59,8 @@ class CsvExport
                 $field->getCandidate()->getSurname(),
                 $field->getCandidate()->getFirstname(),
                 $field->getEmail(),
-                $field->getCandidate()->getPhoneNumber(),
-                $field->getCandidate()->getOtherNumber(),
+                $field->getCandidate()->getFormattedPhoneNumber(),
+                $field->getCandidate()->getFormattedOtherPhoneNumber(),
                 $field->getCreatedAt()->format('d-m-Y H:i'),
                 $field->getCandidate()->getCity(),
                 $field->getCandidate()->getPostalCode(),
@@ -84,7 +84,8 @@ class CsvExport
         $dataCompaniesExport[] = [
             'Nom',
             'Siret',
-            'email',
+            'Email',
+            'Date de création',
             'Adresse',
             'Code postal',
             'Ville',
@@ -95,6 +96,7 @@ class CsvExport
                 $field->getCompany()->getName(),
                 $field->getCompany()->getSiret(),
                 $field->getEmail(),
+                $field->getCreatedAt()->format('d-m-Y H:i'),
                 $field->getCompany()->getAddress(),
                 $field->getCompany()->getPostalCode(),
                 $field->getCompany()->getCity(),

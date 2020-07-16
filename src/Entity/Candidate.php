@@ -757,7 +757,7 @@ class Candidate
                 $skill->setCandidate(null);
             }
         }
-      
+
         return $this;
     }
 
