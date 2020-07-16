@@ -86,6 +86,11 @@ class User implements UserInterface
      */
     private $messages;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default":false})
+     */
+    private $isActive = false;
+
     public function __construct()
     {
         $this->documents = new ArrayCollection();
@@ -354,6 +359,18 @@ class User implements UserInterface
                 $message->setContact(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }

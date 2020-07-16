@@ -62,5 +62,15 @@ class AbilityCrudController extends AbstractCrudController
                     ->setHelp('Nombre de questions utilisées quand un questionnaire est généré.'),
             ];
         }
+
+        if (Crud::PAGE_NEW === $pageName) {
+            return [
+                $isProfessional
+                    ->setLabel('Compétence professionnelle ?')
+                    ->setHelp('Laisser décocher pour une compétence personnelle'),
+                $title,
+                $nbQuestion
+            ];
+        }
     }
 }
