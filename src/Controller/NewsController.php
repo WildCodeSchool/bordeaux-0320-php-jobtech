@@ -3,6 +3,7 @@
 
 namespace App\Controller;
 
+use App\Entity\News;
 use App\Repository\NewsRepository;
 use App\Service\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +15,17 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class NewsController extends AbstractController
 {
-    const LIMIT_NEWS_PER_PAGE = 5;
+    public const LIMIT_NEWS_PER_PAGE = 5;
+
+    /**
+     * @Route("/{id}", name="show")
+     * @param News $news
+     * @return Response
+     */
+    public function show(News $news): Response
+    {
+        return $this->render('news/show.html.twig', ['actuality' => $news]);
+    }
 
     /**
      * @Route("/", name="list")

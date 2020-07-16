@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title actuality.title %}
+
+{% block body %}
+    <div class="container">
+        <h1>{{ actuality.title }}</h1>
+        <img src="{{ actuality.image }}" alt="image de l'article">
+        <p>{{ actuality.description }}</p>
+        <p>{{ actuality.article }}</p>
+        <p>Posté le {{ actuality.postedAt | date('Y/m/d h:i') }}</p>
+    </div>
+{% endblock %}
+
