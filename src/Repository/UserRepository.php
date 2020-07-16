@@ -41,4 +41,22 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->persist($user);
         $this->_em->flush();
     }
+    public function findAllCandidate()
+    {
+        $request = $this->createQueryBuilder('u')
+            ->select('u', 'c')
+            ->innerJoin('u.candidate', 'c')
+            ->groupBy('u.id');
+
+        return $request->getQuery()->getResult();
+    }
+    public function findAllCompany()
+    {
+        $request = $this->createQueryBuilder('u')
+            ->select('u', 'co')
+            ->innerJoin('u.company', 'co')
+            ->groupBy('u.id');
+
+        return $request->getQuery()->getResult();
+    }
 }
