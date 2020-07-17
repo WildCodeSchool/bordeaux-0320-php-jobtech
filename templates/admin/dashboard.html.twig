@@ -1,0 +1,8 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block page_title 'Dashboard' %}
+
+{% block page_content %}
+    <a href="{{ path('csv_candidates') }}" download="candidats_{{ "now"|date("d_m_Y") }}.csv"><i class="fas fa-file-download"></i> Exporter les candidats</a>
+    <a href="{{ path('csv_companies') }}" download="entreprises_{{ "now"|date("d_m_Y") }}.csv"><i class="fas fa-file-download"></i> Exporter les entreprises</a>
+{% endblock %}

@@ -86,6 +86,11 @@ class User implements UserInterface
      */
     private $messages;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default":false})
+     */
+    private $isActive = false;
+
     public function __construct()
     {
         $this->documents = new ArrayCollection();
@@ -341,6 +346,31 @@ class User implements UserInterface
             $this->messages[] = $message;
             $message->setContact($this);
         }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
+            // set the owning side to null (unless already changed)
+            if ($message->getContact() === $this) {
+                $message->setContact(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }

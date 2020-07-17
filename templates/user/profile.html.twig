@@ -6,22 +6,20 @@
 
     <div class="container">
 
-        {% if app.user == user %}
+        {% if app.user == user or is_granted('ROLE_ADMIN') %}
             <h1 class="pt-3">Mon compte</h1>
             {% if is_granted('ROLE_COMPANY') %}
-                {% include 'user/components/company/_profile_company.html.twig' %}
+                {% include 'user/company/_profile_company.html.twig' %}
             {% else %}
-                {% include 'user/components/candidate/_profile_candidate.html.twig' %}
+                {% include 'user/candidate/_profile_complete.html.twig' %}
             {% endif %}
         {% else %}
-            {% include 'user/components/candidate/_profile_candidate.html.twig' %}
+            {% include 'user/candidate/_profile_limited.html.twig' %}
         {% endif %}
     </div>
 {% endblock %}
 
 {% block javascript %}
     {{ parent() }}
-    {% if is_granted('ROLE_CANDIDATE') %}
-        {{ encore_entry_script_tags('candidate_graphic') }}
-    {% endif %}
+    {{ encore_entry_script_tags('candidate_graphic') }}
 {% endblock %}

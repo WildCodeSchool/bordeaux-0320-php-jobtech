@@ -12,11 +12,9 @@ class AboutType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('content', CKEditorType::class, [
+            ->add('html', CKEditorType::class, [
                 'config' => [
-                    'uicolor' => '#e2e2e2',
                     'toolbar' => 'standard',
-                    'required' => true,
                 ]
             ])
         ;

@@ -25,7 +25,7 @@
             <div class="col-8">
                 <div class="row row-cols-1 row-cols-md-3 ml-3 mr-3 mt-3">
                     {% for offer in offers %}
-                        {% include'offer/components/_card.html.twig' %}
+                        {% include 'offer/components/_card.html.twig' %}
                     {% endfor %}
                 </div>
                 <div class="navigation">
@@ -40,4 +40,5 @@
     {{ parent() }}
     {{ encore_entry_script_tags('text_scramble') }}
     {{ encore_entry_script_tags('bookmark') }}
+    {{ encore_entry_script_tags('apply') }}
 {% endblock %}

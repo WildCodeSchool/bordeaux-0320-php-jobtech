@@ -109,11 +109,6 @@ class Candidate
     private $haveVehicle = 0;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $curriculumVitae = 'test';
-
-    /**
      * @ORM\OneToOne(targetEntity=User::class, mappedBy="candidate", cascade={"persist", "remove"})
      */
     private $user;
@@ -141,8 +136,7 @@ class Candidate
     private $licenses;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Skill::class)
-     * @ORM\JoinTable(name="candidate_has_skills")
+     * @ORM\OneToMany(targetEntity=Skill::class, mappedBy="candidate", orphanRemoval=true)
      */
     private $skills;
 
@@ -161,6 +155,11 @@ class Candidate
      * @ORM\OneToMany(targetEntity=Questionnaire::class, mappedBy="candidate")
      */
     private $questionnaires;
+
+    /**
+     * @ORM\OneToOne(targetEntity=CurriculumVitae::class, cascade={"persist", "remove"})
+     */
+    private $curriculumVitae;
 
     /**
      * Candidate constructor.
@@ -196,6 +195,14 @@ class Candidate
     public function getFullName(): string
     {
         return $this->getSurname() . ' ' . $this->getFirstName();
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullNameWithGender(): string
+    {
+        return $this->getGender()->getAcronym() . ' ' . $this->getSurname() . ' ' . $this->getFirstName();
     }
 
     /**
@@ -459,25 +466,6 @@ class Candidate
     }
 
     /**
-     * @return string|null
-     */
-    public function getCurriculumVitae(): ?string
-    {
-        return $this->curriculumVitae;
-    }
-
-    /**
-     * @param string $curriculumVitae
-     * @return $this
-     */
-    public function setCurriculumVitae(string $curriculumVitae): self
-    {
-        $this->curriculumVitae = $curriculumVitae;
-
-        return $this;
-    }
-
-    /**
      * @return User
      */
     public function getUser(): User
@@ -544,36 +532,7 @@ class Candidate
         return $this->applies;
     }
 
-    /**
-     * @param Apply $apply
-     * @return $this
-     */
-    public function addApply(Apply $apply): self
-    {
-        if (!$this->applies->contains($apply)) {
-            $this->applies[] = $apply;
-            $apply->setUser($this);
-        }
 
-        return $this;
-    }
-
-    /**
-     * @param Apply $apply
-     * @return $this
-     */
-    public function removeApply(Apply $apply): self
-    {
-        if ($this->applies->contains($apply)) {
-            $this->applies->removeElement($apply);
-            // set the owning side to null (unless already changed)
-            if ($apply->getUser() === $this) {
-                $apply->setUser(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Search[]
@@ -643,40 +602,6 @@ class Candidate
     {
         if ($this->licenses->contains($license)) {
             $this->licenses->removeElement($license);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Skill[]
-     */
-    public function getSkills(): Collection
-    {
-        return $this->skills;
-    }
-
-    /**
-     * @param Skill $skill
-     * @return $this
-     */
-    public function addSkill(Skill $skill): self
-    {
-        if (!$this->skills->contains($skill)) {
-            $this->skills[] = $skill;
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Skill $skill
-     * @return $this
-     */
-    public function removeSkill(Skill $skill): self
-    {
-        if ($this->skills->contains($skill)) {
-            $this->skills->removeElement($skill);
         }
 
         return $this;
@@ -774,5 +699,48 @@ class Candidate
     public function isBookmarked(Offer $offer): bool
     {
         return $this->getBookmarks()->contains($offer);
+    }
+
+    /**
+     * @return Collection|Skill[]
+     */
+    public function getSkills(): Collection
+    {
+        return $this->skills;
+    }
+
+    public function addSkill(Skill $skill): self
+    {
+        if (!$this->skills->contains($skill)) {
+            $this->skills[] = $skill;
+            $skill->setCandidate($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSkill(Skill $skill): self
+    {
+        if ($this->skills->contains($skill)) {
+            $this->skills->removeElement($skill);
+            // set the owning side to null (unless already changed)
+            if ($skill->getCandidate() === $this) {
+                $skill->setCandidate(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCurriculumVitae(): ?CurriculumVitae
+    {
+        return $this->curriculumVitae;
+    }
+
+    public function setCurriculumVitae(?CurriculumVitae $curriculumVitae): self
+    {
+        $this->curriculumVitae = $curriculumVitae;
+
+        return $this;
     }
 }

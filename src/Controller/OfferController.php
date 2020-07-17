@@ -3,10 +3,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Apply;
 use App\Entity\Offer;
 use App\Entity\Search\OfferSearch;
 use App\Form\OfferType;
 use App\Form\SearchForm;
+use App\Repository\ApplyRepository;
 use App\Repository\OfferRepository;
 use App\Service\Paginator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class OfferController extends AbstractController
 {
-    const MAX_OFFER_PER_PAGE = 9;
+    public const MAX_OFFER_PER_PAGE = 9;
 
     /**
      * @Route("/new", name="new")
@@ -80,5 +82,42 @@ class OfferController extends AbstractController
             'nb_offers' => $offerRepository->getTotalOfOffers(),
             'form'   => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/bookmark", name="bookmark")
+     * @return Response
+     */
+    public function bookmark(): Response
+    {
+        $offers = $this->getUser()->getCandidate()->getBookmarks();
+        foreach ($offers as $offer) {
+            $offer->setInterval();
+        }
+
+        return $this->render('offer/bookmark.html.twig', [
+            'bookmarks' => $offers
+        ]);
+    }
+
+    /**
+     * @Route("/apply/{id}", name="apply")
+     * @param Offer $offer
+     * @param ApplyRepository $applyRepository
+     * @param EntityManagerInterface $entityManager
+     */
+    public function applyOffer(Offer $offer, ApplyRepository $applyRepository, EntityManagerInterface $entityManager)
+    {
+        $candidate = $this->getUser()->getCandidate();
+        $apply = $applyRepository->findBy(['offer' => $offer, 'user' => $candidate]);
+        if ($apply) {
+            $applyRepository->removeApply($apply[0]);
+        } else {
+            $apply = new Apply();
+            $apply->setOffer($offer);
+            $apply->setUser($candidate);
+            $entityManager->persist($apply);
+            $entityManager->flush();
+        }
     }
 }
