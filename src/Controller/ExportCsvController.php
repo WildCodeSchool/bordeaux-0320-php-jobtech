@@ -21,29 +21,23 @@ class ExportCsvController extends AbstractController
      * @Route("/candidates", name="candidates")
      * @param UserRepository $userRepository
      * @param CsvExport $csvExport
-     * @return Response
      */
-    public function exportCandidateCsv(UserRepository $userRepository, CsvExport $csvExport): Response
+    public function exportCandidateCsv(UserRepository $userRepository, CsvExport $csvExport): void
     {
-
         $candidates = $userRepository->findAllCandidate();
         $candidatesForExport = $csvExport->dataCandidateBeforeExport($candidates);
         $csvExport->exportDataToCsv($candidatesForExport);
-        // redirect ne marche pas
-        return $this->redirectToRoute('index');
     }
 
     /**
      * @Route("companies", name="companies")
      * @param UserRepository $userRepository
      * @param CsvExport $csvExport
-     * @return RedirectResponse
      */
-    public function exportCompanyCsv(UserRepository $userRepository, CsvExport $csvExport)
+    public function exportCompanyCsv(UserRepository $userRepository, CsvExport $csvExport): void
     {
         $companies = $userRepository->findAllCompany();
         $companiesForExport = $csvExport->dataCompanyBeforeExport($companies);
         $csvExport->exportDataToCsv($companiesForExport);
-        return $this->redirectToRoute('index');
     }
 }

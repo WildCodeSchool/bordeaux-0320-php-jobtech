@@ -66,6 +66,10 @@ main {
     &-grey {
         color: $grey;
     }
+
+    &-black {
+        color: black;
+    }
 }
 
 .bg {
@@ -87,5 +91,11 @@ main {
 
     &-grey {
         background-color: $grey;
+    }
+}
+
+.hover {
+    &-orange:hover {
+        color: $orange;
     }
 }
