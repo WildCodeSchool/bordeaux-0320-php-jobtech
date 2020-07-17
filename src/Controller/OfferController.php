@@ -3,12 +3,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Candidate;
+use App\Entity\Apply;
 use App\Entity\Offer;
 use App\Entity\Search\OfferSearch;
 use App\Form\OfferType;
 use App\Form\SearchForm;
-use App\Repository\CandidateRepository;
 use App\Repository\OfferRepository;
 use App\Service\Paginator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -98,5 +97,20 @@ class OfferController extends AbstractController
         return $this->render('offer/bookmark.html.twig', [
             'bookmarks' => $offers
         ]);
+    }
+
+    /**
+     * @Route("/apply/{id}", name="apply")
+     * @param Offer $offer
+     * @param EntityManagerInterface $entityManager
+     */
+
+    public function applyOffer(Offer $offer, EntityManagerInterface $entityManager)
+    {
+        $apply = new Apply();
+        $apply->setOffer($offer);
+        $apply->setUser($this->getUser()->getCandidate());
+        $entityManager->persist($apply);
+        $entityManager->flush();
     }
 }

@@ -34,7 +34,7 @@
                     {% endfor %}
                     à {{ offer.workTime.title }}</p>
                 <br>
-                <button>Je postule</button>
+                <a class="btn-primary btn apply" data-id={{ offer.id}} id="offer-{{ offer.id }}" href="" data-href="{{ path('offer_apply', {'id': offer.id}) }}">Je postule</a>
                 <br>
 
                 <div class="card-footer">
