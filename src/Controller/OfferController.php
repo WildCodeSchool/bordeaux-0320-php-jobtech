@@ -8,6 +8,7 @@ use App\Entity\Offer;
 use App\Entity\Search\OfferSearch;
 use App\Form\OfferType;
 use App\Form\SearchForm;
+use App\Repository\ApplyRepository;
 use App\Repository\OfferRepository;
 use App\Service\Paginator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class OfferController extends AbstractController
 {
-    const MAX_OFFER_PER_PAGE = 9;
+    public const MAX_OFFER_PER_PAGE = 9;
 
     /**
      * @Route("/new", name="new")
@@ -102,15 +103,21 @@ class OfferController extends AbstractController
     /**
      * @Route("/apply/{id}", name="apply")
      * @param Offer $offer
+     * @param ApplyRepository $applyRepository
      * @param EntityManagerInterface $entityManager
      */
-
-    public function applyOffer(Offer $offer, EntityManagerInterface $entityManager)
+    public function applyOffer(Offer $offer, ApplyRepository $applyRepository, EntityManagerInterface $entityManager)
     {
-        $apply = new Apply();
-        $apply->setOffer($offer);
-        $apply->setUser($this->getUser()->getCandidate());
-        $entityManager->persist($apply);
-        $entityManager->flush();
+        $candidate = $this->getUser()->getCandidate();
+        $apply = $applyRepository->findBy(['offer' => $offer, 'user' => $candidate]);
+        if ($apply) {
+            $applyRepository->removeApply($apply[0]);
+        } else {
+            $apply = new Apply();
+            $apply->setOffer($offer);
+            $apply->setUser($candidate);
+            $entityManager->persist($apply);
+            $entityManager->flush();
+        }
     }
 }

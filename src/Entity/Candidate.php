@@ -532,36 +532,7 @@ class Candidate
         return $this->applies;
     }
 
-    /**
-     * @param Apply $apply
-     * @return $this
-     */
-    public function addApply(Apply $apply): self
-    {
-        if (!$this->applies->contains($apply)) {
-            $this->applies[] = $apply;
-            $apply->setUser($this);
-        }
 
-        return $this;
-    }
-
-    /**
-     * @param Apply $apply
-     * @return $this
-     */
-    public function removeApply(Apply $apply): self
-    {
-        if ($this->applies->contains($apply)) {
-            $this->applies->removeElement($apply);
-            // set the owning side to null (unless already changed)
-            if ($apply->getUser() === $this) {
-                $apply->setUser(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Search[]
