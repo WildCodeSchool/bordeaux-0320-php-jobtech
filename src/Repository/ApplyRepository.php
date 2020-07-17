@@ -18,4 +18,13 @@ class ApplyRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Apply::class);
     }
+
+    public function removeApply(Apply $apply): void
+    {
+        $this->createQueryBuilder('a')
+            ->delete()
+            ->where('a.id = ' . $apply->getId())
+            ->getQuery()
+            ->execute();
+    }
 }

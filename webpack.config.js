@@ -21,6 +21,7 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('bookmark', './assets/js/bookmark.js')
+    .addEntry('apply', './assets/js/apply.js')
     .addEntry('text_scramble', './assets/js/TextScramble.js')
     .addEntry('candidate_graphic', './assets/js/questionnaire/candidateGraphic.js')
     .addEntry('range_slider', './assets/js/questionnaire/rangeSlider.js')
