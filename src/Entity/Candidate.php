@@ -4,14 +4,14 @@ namespace App\Entity;
 
 use App\Repository\Api\RestCountries;
 use App\Repository\CandidateRepository;
-use App\Service\DateProcessing;
-use App\Service\NumberProcessing;
+use App\Service\DateManager;
+use App\Service\NumberManager;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -267,7 +267,7 @@ class Candidate
      */
     public function getAge(): int
     {
-        return DateProcessing::calculateAge($this->getBirthday());
+        return DateManager::calculateAge($this->getBirthday());
     }
 
     /**
@@ -280,7 +280,7 @@ class Candidate
 
     public function getFormattedPhoneNumber(): ?string
     {
-        return NumberProcessing::addPointToPhoneNumber($this->getPhoneNumber());
+        return NumberManager::addPointToPhoneNumber($this->getPhoneNumber());
     }
 
     /**
@@ -304,7 +304,7 @@ class Candidate
 
     public function getFormattedOtherPhoneNumber(): ?string
     {
-        return NumberProcessing::addPointToPhoneNumber($this->getOtherNumber());
+        return NumberManager::addPointToPhoneNumber($this->getOtherNumber());
     }
 
     /**

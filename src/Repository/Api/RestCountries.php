@@ -2,7 +2,7 @@
 
 namespace App\Repository\Api;
 
-use App\Service\ApiProcessing\RestCountriesDataProcessing;
+use App\Service\ApiManager\RestCountriesDataManager;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
@@ -46,7 +46,7 @@ class RestCountries
     {
         $result = $this->makeRequest(self::GET_ALL);
         $result = $result->toArray();
-        return RestCountriesDataProcessing::restructuringArray($result);
+        return RestCountriesDataManager::restructuringArray($result);
     }
 
     /**

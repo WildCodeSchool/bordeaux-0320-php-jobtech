@@ -7,7 +7,7 @@ use App\Entity\Apply;
 use App\Entity\Offer;
 use App\Entity\Search\OfferSearch;
 use App\Form\OfferType;
-use App\Form\SearchForm;
+use App\Form\SearchType;
 use App\Repository\ApplyRepository;
 use App\Repository\OfferRepository;
 use App\Service\Paginator;
@@ -68,7 +68,7 @@ class OfferController extends AbstractController
         }
 
         $criteria = new OfferSearch();
-        $form = $this->createForm(SearchForm::class, $criteria);
+        $form = $this->createForm(SearchType::class, $criteria);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

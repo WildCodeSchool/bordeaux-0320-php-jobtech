@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Service\ApiProcessing;
+namespace App\Service\ApiManager;
 
-class RestCountriesDataProcessing
+class RestCountriesDataManager
 {
     public static function restructuringArray(array $countries): array
     {
