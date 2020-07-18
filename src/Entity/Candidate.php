@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\Api\RestCountries;
 use App\Repository\CandidateRepository;
+use App\Service\ArrayManager;
 use App\Service\DateManager;
 use App\Service\NumberManager;
 use DateTime;
@@ -699,6 +700,11 @@ class Candidate
     public function isBookmarked(Offer $offer): bool
     {
         return $this->getBookmarks()->contains($offer);
+    }
+
+    public function haveApply(Offer $offer): bool
+    {
+        return in_array($offer, ArrayManager::getOffersFromApplies($this->getApplies()->toArray()));
     }
 
     /**

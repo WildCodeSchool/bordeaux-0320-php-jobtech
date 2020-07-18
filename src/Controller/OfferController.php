@@ -8,11 +8,11 @@ use App\Entity\Offer;
 use App\Entity\Search\OfferSearch;
 use App\Form\OfferType;
 use App\Form\SearchType;
-use App\Repository\ApplyRepository;
 use App\Repository\OfferRepository;
 use App\Service\Paginator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -100,24 +100,26 @@ class OfferController extends AbstractController
         ]);
     }
 
+    // todo send Http code response if apply fail
     /**
      * @Route("/apply/{id}", name="apply")
      * @param Offer $offer
-     * @param ApplyRepository $applyRepository
      * @param EntityManagerInterface $entityManager
+     * @return JsonResponse
      */
-    public function applyOffer(Offer $offer, ApplyRepository $applyRepository, EntityManagerInterface $entityManager)
+    public function applyOffer(Offer $offer, EntityManagerInterface $entityManager)
     {
         $candidate = $this->getUser()->getCandidate();
-        $apply = $applyRepository->findBy(['offer' => $offer, 'user' => $candidate]);
-        if ($apply) {
-            $applyRepository->removeApply($apply[0]);
-        } else {
-            $apply = new Apply();
-            $apply->setOffer($offer);
-            $apply->setUser($candidate);
-            $entityManager->persist($apply);
-            $entityManager->flush();
+        if ($candidate->haveApply($offer)) {
+            return $this->json(null, 304);
         }
+
+        $apply = new Apply();
+        $apply->setOffer($offer);
+        $apply->setUser($candidate);
+        $entityManager->persist($apply);
+        $entityManager->flush();
+
+        return $this->json(null, 204);
     }
 }
