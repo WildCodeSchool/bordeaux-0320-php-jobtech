@@ -1,0 +1,37 @@
+<!-- INFORMATION -->
+<div class="mt-3 mb-3 card-profile">
+    <div class="d-flex border-bottom-title align-items-center justify-content-between pl-3 pr-3 pt-2 pb-2">
+        <h2 class="mt-2">Informations de la société</h2>
+        <div class="dropdown show">
+            <button class="btn iconEdit" type="button" id="dropdownProfile" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user-edit"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownProfile">
+                <a class="dropdown-item" href="{{ path('edit_user', {'action': 'connexion'}) }}">Email et Mot de
+                    Passe</a>
+                <a class="dropdown-item" href="{{ path('edit_user', {'action': 'personal_information'}) }}">Informations
+                    Personnelles</a>
+            </div>
+        </div>
+    </div>
+
+<table class="mt-3 table">
+    <tr>
+        <td class="border-top-0">
+            <i class="fas fa-user"></i> {{ user.company.name }}
+        </td>
+    </tr>
+    <tr>
+        <td><i class="fas fa-at"></i> {{ user.email }}</td>
+    </tr>
+    <tr>
+        <td><i class="fas fa-phone-alt"></i> {{ user.company.siret }}</td>
+    </tr>
+    <tr>
+        <td><i class="fas fa-map-marker-alt"></i> {{ user.company.postalCode }} {{ user.company.city }}
+            , {{ user.company.countryFullName }}</td>
+    </tr>
+</table>
+</div>
+
