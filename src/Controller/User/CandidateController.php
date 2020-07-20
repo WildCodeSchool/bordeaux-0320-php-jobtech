@@ -4,6 +4,7 @@ namespace App\Controller\User;
 
 use App\Entity\Candidate;
 use App\Entity\CurriculumVitae;
+use App\Entity\JobCategory;
 use App\Entity\Offer;
 use App\Entity\Search;
 use App\Entity\Skill;
@@ -11,6 +12,7 @@ use App\Entity\User;
 use App\Form\SearchJobType;
 use App\Form\SkillType;
 use App\Form\User\CurriculumVitaeType;
+use App\Service\ArrayManager;
 use App\Service\Questionnaire\QuestionnaireManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -124,6 +126,13 @@ class CandidateController extends AbstractController
      */
     public function addJobSearch(Request $request): Response
     {
+        if ($request->isXmlHttpRequest()) {
+            $jobCategoryRepo = $this->getDoctrine()->getRepository(JobCategory::class);
+            $jobs = $jobCategoryRepo->find($request->get('jobCategory'))->getJobs();
+            $jobs = ArrayManager::prepareJobsForSelect($jobs->toArray());
+            return $this->json($jobs);
+        }
+
         $search = new Search();
         $form = $this->createForm(SearchJobType::class, $search);
         $form->handleRequest($request);

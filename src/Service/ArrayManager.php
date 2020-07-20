@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Apply;
+use App\Entity\Job;
 
 class ArrayManager
 {
@@ -17,6 +18,22 @@ class ArrayManager
             $result[] = $apply->getOffer();
         }
 
+        return $result;
+    }
+
+    /**
+     * @param Job[] $jobs
+     * @return array
+     */
+    public static function prepareJobsForSelect(array $jobs): array
+    {
+        $result = [];
+        foreach ($jobs as $job) {
+            $result[] = [
+                'id' => $job->getId(),
+                'title' => $job->getTitle()
+            ];
+        }
         return $result;
     }
 }
