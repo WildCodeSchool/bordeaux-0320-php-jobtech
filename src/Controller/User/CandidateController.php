@@ -124,7 +124,7 @@ class CandidateController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function addJobSearch(Request $request): Response
+    public function addSearchJob(Request $request): Response
     {
         if ($request->isXmlHttpRequest()) {
             $jobCategoryRepo = $this->getDoctrine()->getRepository(JobCategory::class);
@@ -146,7 +146,36 @@ class CandidateController extends AbstractController
             return $this->redirectToRoute('profile');
         }
 
-        return $this->render('user/candidate/add_search_job.html.twig', [
+        return $this->render('user/candidate/search_job.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route ("/metier_rechercher/edit", name="edit_search_job")
+     * @param Request $request
+     * @return Response
+     */
+    public function editSearchJob(Request $request): Response
+    {
+        if ($request->isXmlHttpRequest()) {
+            $jobCategoryRepo = $this->getDoctrine()->getRepository(JobCategory::class);
+            $jobs = $jobCategoryRepo->find($request->get('jobCategory'))->getJobs();
+            $jobs = ArrayManager::prepareJobsForSelect($jobs->toArray());
+            return $this->json($jobs);
+        }
+
+        $form = $this->createForm(SearchJobType::class, $this->getUser()->getCandidate()->getSearch());
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->flush();
+
+            return $this->redirectToRoute('profile');
+        }
+
+        return $this->render('user/candidate/search_job.html.twig', [
             'form' => $form->createView(),
         ]);
     }
