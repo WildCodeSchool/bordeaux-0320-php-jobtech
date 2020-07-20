@@ -41,16 +41,13 @@
             </table>
         </div>
 
-        <!-- SKILLS -->
+        <!-- JOB -->
         <div class="card-profile mt-3 mb-3">
-            <h2 class="p-3 border-bottom-title">Compétences techniques</h2>
+            <h2 class="p-3 border-bottom-title">Recherche<a class="float-right mr-3 text-black hover-orange" href="{{ path('candidate_add_search_job') }}"><i class="fas fa-plus"></i></a></h2>
             <div class="m-3">
-                <p>
-                    {% for skill in user.candidate.skills %}
-                        <span class="badge badge-primary p-1">{{ skill.title }}</span>
-                    {% endfor %}
-                </p>
-
+                <p>Métier : {{ user.candidate.search.job.title }}</p>
+                <p>Secteur : {{ user.candidate.search.jobCategory.title }}</p>
+                <p>Contrats : {% for contract in user.candidate.search.contracts %}{{ contract.title }}{{ loop.index == user.candidate.search.contracts|length ? '' : ',' }} {% endfor %}</p>
             </div>
         </div>
 
@@ -76,6 +73,19 @@
                 </div>
             </div>
             <a class="btn btn-primary m-3" href="">Voir plus</a>
+        </div>
+
+        <!-- SKILLS -->
+        <div class="card-profile mt-3 mb-3">
+            <h2 class="p-3 border-bottom-title">Compétences techniques</h2>
+            <div class="m-3">
+                <p>
+                    {% for skill in user.candidate.skills %}
+                        <span class="badge badge-primary p-1">{{ skill.title }}</span>
+                    {% endfor %}
+                </p>
+
+            </div>
         </div>
 
     </div>

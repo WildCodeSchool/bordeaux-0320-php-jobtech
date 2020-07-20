@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\User;
 
 use App\Entity\CurriculumVitae;
 use Symfony\Component\Form\AbstractType;

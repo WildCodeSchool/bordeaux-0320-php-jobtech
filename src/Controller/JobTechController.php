@@ -3,13 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Content;
-use App\Form\AboutType;
-use App\Repository\ContentRepository;
+use App\Form\ContentType;
 use App\Repository\JobCategoryRepository;
 use App\Repository\NewsRepository;
 use App\Repository\OfferRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,7 +49,7 @@ class JobTechController extends AbstractController
      */
     public function footerPageEdit(Request $request, Content $content, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(AboutType::class, $content);
+        $form = $this->createForm(ContentType::class, $content);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

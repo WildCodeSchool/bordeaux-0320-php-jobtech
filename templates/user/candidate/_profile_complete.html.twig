@@ -6,6 +6,7 @@
         <div class="mt-3 mb-3 card-profile">
             <div class="d-flex border-bottom-title align-items-center justify-content-between pl-3 pr-3 pt-2 pb-2">
                 <h2 class="mt-2">Mes informations</h2>
+                {% if app.user == user %}
                 <div class="dropdown show">
                     <button class="btn iconEdit" type="button" id="dropdownProfile" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
@@ -14,10 +15,11 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownProfile">
                         <a class="dropdown-item" href="{{ path('edit_user', {'action': 'connexion'}) }}">Email et Mot de
                             Passe</a>
-                        <a class="dropdown-item" href="{{ path('edit_user', {'action': 'personal_information'}) }}">Information
-                            Personnel</a>
+                        <a class="dropdown-item" href="{{ path('edit_user', {'action': 'personal_information'}) }}">Informations
+                            Personnelles</a>
                     </div>
                 </div>
+                {% endif %}
             </div>
 
             <table class="mt-3 table">
@@ -61,7 +63,7 @@
                     <td><i class="fas fa-wheelchair"></i>
                         <strong>{{ user.candidate.isHandicapped ? 'Oui' : 'Non' }}</strong>,
                         je {{ user.candidate.isHandicapped ? '' : 'ne' }}
-                        suis {{ user.candidate.isHandicapped ? '' : 'pas' }} travailleur handicapé.
+                        suis {{ user.candidate.isHandicapped ? '' : 'pas' }} travailleur(se) handicapé(e).
                     </td>
                 </tr>
                 <tr>
@@ -73,22 +75,48 @@
                             {{ user.candidate.isContactableTel and user.candidate.isContactableEmail ? 'ou' : '' }}
                             {{ user.candidate.isContactableEmail ? 'Email' : '' }}.
                         {% else %}
-                            Je ne souhaite pas être contacté.
+                            Je ne souhaite pas être contacté(e).
                         {% endif %}
                     </td>
                 </tr>
             </table>
         </div>
 
-        <!-- SKILLS -->
+        <!-- JOB -->
         <div class="card-profile mt-3 mb-3">
-            <h2 class="p-3 border-bottom-title">Compétences techniques<a class="float-right mr-3 text-black hover-orange" href="{{ path('candidate_add_skill') }}"><i class="fas fa-plus"></i></a></h2>
+            <h2 class="p-3 border-bottom-title">Recherche
+                {% if app.user == user and user.candidate.search %}<a class="float-right mr-3 text-black hover-orange" href="{{ path('candidate_edit_search_job') }}"><i class="fas fa-edit"></i></a>{% endif %}
+            </h2>
             <div class="m-3">
-                <p>
-                    {% for skill in user.candidate.skills %}
-                        <span class="badge badge-primary p-1">{{ skill.title }}</span>
-                    {% endfor %}
-                </p>
+                {% if user.candidate.search %}
+                <p>Métier : {{ user.candidate.search.job.title }}</p>
+                <p>Secteur : {{ user.candidate.search.jobCategory.title }}</p>
+                <p>Contrats : {% for contract in user.candidate.search.contracts %}{{ contract.title }}{{ loop.index == user.candidate.search.contracts|length ? '' : ',' }} {% endfor %}</p>
+                {% elseif app.user == user %}
+                    <a href="{{ path('candidate_add_search_job') }}">Ajouter le métier recherché</a>
+                {% else %}
+                    <p>Pas encore renseigné.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- EXPERIENCE -->
+        <div class="card-profile mt-3 mb-3">
+            <h2 class="p-3 border-bottom-title">Expérience professionnelle
+                {% if app.user == user and user.candidate.experiences.toArray %}<a class="float-right mr-3 text-black hover-orange" href="{{ path('candidate_add_experience') }}"><i class="fas fa-plus"></i></a>{% endif %}
+            </h2>
+            <div class="m-3">
+                {% if user.candidate.experiences.toArray %}
+                    <ul>
+                        {% for experience in user.candidate.experiences | reverse %}
+                            <li>{{ experience.job }} pendant {{ experience.years }}ans</li>
+                        {% endfor %}
+                    </ul>
+                {% elseif app.user == user %}
+                    <a href="{{ path('candidate_add_experience') }}">Ajouter mon expérience professionnelle</a>
+                {% else %}
+                    <p>Pas encore renseigné.</p>
+                {% endif %}
             </div>
         </div>
 
@@ -102,14 +130,35 @@
             <div class="m-3">
                 {{ form_start(form) }}
                 {{ form_widget(form.cvFile) }}
-                <button class="btn btn-primary mt-3">Envoyé</button>
+                <button class="btn btn-primary mt-3">Envoyer</button>
                 {{ form_end(form) }}
+            </div>
+        </div>
+
+        <!-- SKILLS -->
+        <div class="card-profile mt-3 mb-3">
+            <h2 class="p-3 border-bottom-title">Compétences techniques
+                {% if app.user == user and user.candidate.skills.toArray %}<a class="float-right mr-3 text-black hover-orange" href="{{ path('candidate_add_skill') }}"><i class="fas fa-plus"></i></a>{% endif %}
+            </h2>
+            <div class="m-3">
+                {% if user.candidate.skills.toArray %}
+                <p>
+                    {% for skill in user.candidate.skills %}
+                        <span class="badge badge-primary p-1">{{ skill.title }}</span>
+                    {% endfor %}
+                </p>
+                {% elseif app.user == user %}
+                    <a href="{{ path('candidate_add_skill') }}">Ajouter des compétences techniques</a>
+                {% else %}
+                    <p>Pas encore renseigné.</p>
+                {% endif %}
             </div>
         </div>
 
         <!-- CHART ABILITY -->
         <div class="card-profile mt-3 mb-3">
             <h2 class="p-3 border-bottom-title">Mon profil de compétences</h2>
+            {% if user.candidate.questionnaires.toArray %}
             <nav class="nav nav-tabs">
                 <a class="nav-item nav-link active w-50 text-center" href="#pro" data-toggle="tab">Professionnel</a>
                 <a class="nav-item nav-link w-50 text-center" href="#perso" data-toggle="tab">Personnel</a>
@@ -125,9 +174,17 @@
                 </div>
                 <a class="btn btn-primary ml-3 mb-3" href="">Voir plus</a>
             </div>
+            {% elseif app.user == user %}
+                <div class="m-3">
+                    <a href="{{ path('questionnaire_index') }}">Remplir les questionnaires de personnalité</a>
+                </div>
+            {% else %}
+                <div class="m-3">
+                    <p>Pas encore renseigné.</p>
+                </div>
+            {% endif %}
         </div>
 
     </div>
-
 
 </div>

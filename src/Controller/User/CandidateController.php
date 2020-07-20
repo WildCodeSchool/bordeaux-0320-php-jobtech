@@ -4,11 +4,17 @@ namespace App\Controller\User;
 
 use App\Entity\Candidate;
 use App\Entity\CurriculumVitae;
+use App\Entity\Experience;
+use App\Entity\JobCategory;
 use App\Entity\Offer;
+use App\Entity\Search;
 use App\Entity\Skill;
 use App\Entity\User;
-use App\Form\CurriculumVitaeType;
+use App\Form\ExperienceType;
+use App\Form\SearchJobType;
 use App\Form\SkillType;
+use App\Form\User\CurriculumVitaeType;
+use App\Service\ArrayManager;
 use App\Service\Questionnaire\QuestionnaireManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -113,5 +119,111 @@ class CandidateController extends AbstractController
             'form' => $form->createView(),
             'skills' => $user->getSkills(),
         ]);
+    }
+
+    /**
+     * @Route ("/metier_rechercher", name="add_search_job")
+     * @param Request $request
+     * @return Response
+     */
+    public function addSearchJob(Request $request): Response
+    {
+        if ($request->isXmlHttpRequest()) {
+            $jobCategoryRepo = $this->getDoctrine()->getRepository(JobCategory::class);
+            $jobs = $jobCategoryRepo->find($request->get('jobCategory'))->getJobs();
+            $jobs = ArrayManager::prepareJobsForSelect($jobs->toArray());
+            return $this->json($jobs);
+        }
+
+        $search = new Search();
+        $form = $this->createForm(SearchJobType::class, $search);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $search->setCandidate($this->getUser()->getCandidate());
+            $manager->persist($search);
+            $manager->flush();
+
+            return $this->redirectToRoute('profile');
+        }
+
+        return $this->render('user/candidate/search_job.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route ("/metier_rechercher/edit", name="edit_search_job")
+     * @param Request $request
+     * @return Response
+     */
+    public function editSearchJob(Request $request): Response
+    {
+        if ($request->isXmlHttpRequest()) {
+            $jobCategoryRepo = $this->getDoctrine()->getRepository(JobCategory::class);
+            $jobs = $jobCategoryRepo->find($request->get('jobCategory'))->getJobs();
+            $jobs = ArrayManager::prepareJobsForSelect($jobs->toArray());
+            return $this->json($jobs);
+        }
+
+        $form = $this->createForm(SearchJobType::class, $this->getUser()->getCandidate()->getSearch());
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->flush();
+
+            return $this->redirectToRoute('profile');
+        }
+
+        return $this->render('user/candidate/search_job.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/experience", name="add_experience")
+     * @param Request $request
+     * @return Response
+     */
+    public function addExperience(Request $request): Response
+    {
+        $experience = new Experience();
+        $form = $this->createForm(ExperienceType::class, $experience);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $experience->setCandidate($this->getUser()->getCandidate());
+            $manager->persist($experience);
+            $manager->flush();
+        }
+
+        return $this->render('user/candidate/experience.html.twig', [
+            'form' => $form->createView(),
+            'experiences' => $this->getUser()->getCandidate()->getExperiences()
+        ]);
+    }
+
+    /**
+     * @Route("/experience/edit/{id}", name="edit_experience")
+     * @param Experience $experience
+     * @param Request $request
+     * @return Response
+     */
+    public function editExperience(Experience $experience, Request $request): Response
+    {
+        $form = $this->createForm(ExperienceType::class, $experience);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->flush();
+
+            return $this->redirectToRoute('candidate_add_experience');
+        }
+
+        return $this->render('user/candidate/experience.html.twig', ['form' => $form->createView()]);
     }
 }

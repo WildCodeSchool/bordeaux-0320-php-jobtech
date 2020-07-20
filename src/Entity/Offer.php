@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\OfferRepository;
-use App\Service\DateProcessing;
+use App\Service\DateManager;
 use DateInterval;
 use DateTime;
 use DateTimeInterface;
@@ -293,7 +293,7 @@ class Offer
      */
     public function setInterval(): self
     {
-        $this->interval = DateProcessing::dateIntervalBetweenNowAnd($this->getPostedAt());
+        $this->interval = DateManager::dateIntervalBetweenNowAnd($this->getPostedAt());
 
         return $this;
     }
