@@ -9,7 +9,7 @@
             <div class="carousel-item {% if loop.index == 1 %}active{% endif %} p-4">
                 <h3 class="ml-3"><span class="text-gold">{{ actuality.postedAt | date('Y-m-d h:i:s') }}</span> - <span class="text-secondary">{{ actuality.title }}</span></h3>
                 <p class="text-center">{{ actuality.description }}</p>
-                <a href="{{ path('news_show', {'id': actuality.id}) }}" class="text-gold float-right">Lire l'article</a>
+                <a class="text-gold float-right" href="{{ actuality.isExternal ? actuality.url : path('news_show', {'id': actuality.id}) }} target="{{ actuality.isExternal ? '_blank' : '_self' }}">Lire l'article</a>
             </div>
         {% endfor %}
         </div>
