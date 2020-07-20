@@ -158,6 +158,11 @@ class Candidate
     private $curriculumVitae;
 
     /**
+     * @ORM\OneToMany(targetEntity=Experience::class, mappedBy="candidate", orphanRemoval=true)
+     */
+    private $experiences;
+
+    /**
      * Candidate constructor.
      */
     public function __construct()
@@ -167,6 +172,7 @@ class Candidate
         $this->licenses = new ArrayCollection();
         $this->skills = new ArrayCollection();
         $this->questionnaires = new ArrayCollection();
+        $this->experiences = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -675,6 +681,37 @@ class Candidate
         $newCandidate = null === $search ? null : $this;
         if ($search->getCandidate() !== $newCandidate) {
             $search->setCandidate($newCandidate);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Experience[]
+     */
+    public function getExperiences(): Collection
+    {
+        return $this->experiences;
+    }
+
+    public function addExperience(Experience $experience): self
+    {
+        if (!$this->experiences->contains($experience)) {
+            $this->experiences[] = $experience;
+            $experience->setCandidate($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExperience(Experience $experience): self
+    {
+        if ($this->experiences->contains($experience)) {
+            $this->experiences->removeElement($experience);
+            // set the owning side to null (unless already changed)
+            if ($experience->getCandidate() === $this) {
+                $experience->setCandidate(null);
+            }
         }
 
         return $this;

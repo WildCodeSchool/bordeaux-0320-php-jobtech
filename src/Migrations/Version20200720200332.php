@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200720194132 extends AbstractMigration
+final class Version20200720200332 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -24,6 +24,7 @@ final class Version20200720194132 extends AbstractMigration
 
         $this->addSql('CREATE TABLE news (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(80) NOT NULL, description LONGTEXT NOT NULL, is_external TINYINT(1) DEFAULT \'0\' NOT NULL, url LONGTEXT DEFAULT NULL, article LONGTEXT DEFAULT NULL, image VARCHAR(255) DEFAULT NULL, posted_at DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE document (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, document VARCHAR(255) NOT NULL, INDEX IDX_D8698A76A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE experience (id INT AUTO_INCREMENT NOT NULL, candidate_id INT NOT NULL, job VARCHAR(255) NOT NULL, years INT NOT NULL, INDEX IDX_590C10391BD8781 (candidate_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE offer (id INT AUTO_INCREMENT NOT NULL, company_id INT NOT NULL, job_id INT NOT NULL, job_category_id INT NOT NULL, work_time_id INT NOT NULL, title VARCHAR(80) NOT NULL, description VARCHAR(255) NOT NULL, available_place INT NOT NULL, address VARCHAR(255) NOT NULL, postal_code INT NOT NULL, city VARCHAR(60) NOT NULL, country VARCHAR(60) NOT NULL, posted_at DATETIME NOT NULL, updated_at DATETIME DEFAULT NULL, INDEX IDX_29D6873E979B1AD6 (company_id), INDEX IDX_29D6873EBE04EA9 (job_id), INDEX IDX_29D6873E712A86AB (job_category_id), INDEX IDX_29D6873E8B216519 (work_time_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE offer_has_contracts (offer_id INT NOT NULL, contract_id INT NOT NULL, INDEX IDX_74A1683753C674EE (offer_id), INDEX IDX_74A168372576E0FD (contract_id), PRIMARY KEY(offer_id, contract_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE work_time (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(45) NOT NULL, identifier VARCHAR(45) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -52,6 +53,7 @@ final class Version20200720194132 extends AbstractMigration
         $this->addSql('CREATE TABLE mobility (id INT AUTO_INCREMENT NOT NULL, radius_id INT DEFAULT NULL, is_international TINYINT(1) DEFAULT \'0\' NOT NULL, is_national TINYINT(1) DEFAULT \'0\' NOT NULL, INDEX IDX_D650201CA5A71553 (radius_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE gender (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(45) NOT NULL, acronym VARCHAR(45) NOT NULL, identifier VARCHAR(45) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE document ADD CONSTRAINT FK_D8698A76A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
+        $this->addSql('ALTER TABLE experience ADD CONSTRAINT FK_590C10391BD8781 FOREIGN KEY (candidate_id) REFERENCES candidate (id)');
         $this->addSql('ALTER TABLE offer ADD CONSTRAINT FK_29D6873E979B1AD6 FOREIGN KEY (company_id) REFERENCES company (id)');
         $this->addSql('ALTER TABLE offer ADD CONSTRAINT FK_29D6873EBE04EA9 FOREIGN KEY (job_id) REFERENCES job (id)');
         $this->addSql('ALTER TABLE offer ADD CONSTRAINT FK_29D6873E712A86AB FOREIGN KEY (job_category_id) REFERENCES job_category (id)');
@@ -101,6 +103,7 @@ final class Version20200720194132 extends AbstractMigration
         $this->addSql('ALTER TABLE offer DROP FOREIGN KEY FK_29D6873E712A86AB');
         $this->addSql('ALTER TABLE search DROP FOREIGN KEY FK_B4F0DBA7712A86AB');
         $this->addSql('ALTER TABLE job_has_categories DROP FOREIGN KEY FK_4EC8EF3E712A86AB');
+        $this->addSql('ALTER TABLE experience DROP FOREIGN KEY FK_590C10391BD8781');
         $this->addSql('ALTER TABLE questionnaire DROP FOREIGN KEY FK_7A64DAF91BD8781');
         $this->addSql('ALTER TABLE apply DROP FOREIGN KEY FK_BD2F8C1FA76ED395');
         $this->addSql('ALTER TABLE user DROP FOREIGN KEY FK_8D93D64991BD8781');
@@ -124,6 +127,7 @@ final class Version20200720194132 extends AbstractMigration
         $this->addSql('ALTER TABLE candidate DROP FOREIGN KEY FK_C8B28E44708A0E0');
         $this->addSql('DROP TABLE news');
         $this->addSql('DROP TABLE document');
+        $this->addSql('DROP TABLE experience');
         $this->addSql('DROP TABLE offer');
         $this->addSql('DROP TABLE offer_has_contracts');
         $this->addSql('DROP TABLE work_time');

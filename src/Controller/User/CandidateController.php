@@ -4,11 +4,13 @@ namespace App\Controller\User;
 
 use App\Entity\Candidate;
 use App\Entity\CurriculumVitae;
+use App\Entity\Experience;
 use App\Entity\JobCategory;
 use App\Entity\Offer;
 use App\Entity\Search;
 use App\Entity\Skill;
 use App\Entity\User;
+use App\Form\ExperienceType;
 use App\Form\SearchJobType;
 use App\Form\SkillType;
 use App\Form\User\CurriculumVitaeType;
@@ -178,5 +180,50 @@ class CandidateController extends AbstractController
         return $this->render('user/candidate/search_job.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/experience", name="add_experience")
+     * @param Request $request
+     * @return Response
+     */
+    public function addExperience(Request $request): Response
+    {
+        $experience = new Experience();
+        $form = $this->createForm(ExperienceType::class, $experience);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $experience->setCandidate($this->getUser()->getCandidate());
+            $manager->persist($experience);
+            $manager->flush();
+        }
+
+        return $this->render('user/candidate/experience.html.twig', [
+            'form' => $form->createView(),
+            'experiences' => $this->getUser()->getCandidate()->getExperiences()
+        ]);
+    }
+
+    /**
+     * @Route("/experience/edit/{id}", name="edit_experience")
+     * @param Experience $experience
+     * @param Request $request
+     * @return Response
+     */
+    public function editExperience(Experience $experience, Request $request): Response
+    {
+        $form = $this->createForm(ExperienceType::class, $experience);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->flush();
+
+            return $this->redirectToRoute('candidate_add_experience');
+        }
+
+        return $this->render('user/candidate/experience.html.twig', ['form' => $form->createView()]);
     }
 }

@@ -100,6 +100,26 @@
             </div>
         </div>
 
+        <!-- EXPERIENCE -->
+        <div class="card-profile mt-3 mb-3">
+            <h2 class="p-3 border-bottom-title">Expérience professionnelle
+                {% if app.user == user and user.candidate.experiences.toArray %}<a class="float-right mr-3 text-black hover-orange" href="{{ path('candidate_add_experience') }}"><i class="fas fa-plus"></i></a>{% endif %}
+            </h2>
+            <div class="m-3">
+                {% if user.candidate.experiences.toArray %}
+                    <ul>
+                        {% for experience in user.candidate.experiences | reverse %}
+                            <li>{{ experience.job }} pendant {{ experience.years }}ans</li>
+                        {% endfor %}
+                    </ul>
+                {% elseif app.user == user %}
+                    <a href="{{ path('candidate_add_experience') }}">Ajouter mon expérience professionnelle</a>
+                {% else %}
+                    <p>Pas encore renseigné.</p>
+                {% endif %}
+            </div>
+        </div>
+
     </div>
 
     <div class="col-6">
@@ -166,6 +186,5 @@
         </div>
 
     </div>
-
 
 </div>
