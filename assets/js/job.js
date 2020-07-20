@@ -1,3 +1,4 @@
+/* eslint-disable */
 $(document).ready(() => {
     $('#search_job_jobCategory').change(function () {
         const $field = $(this);
