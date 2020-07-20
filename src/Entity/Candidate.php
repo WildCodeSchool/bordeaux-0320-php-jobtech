@@ -142,11 +142,6 @@ class Candidate
     private $skills;
 
     /**
-     * @ORM\OneToMany(targetEntity=CandidateHasQualifications::class, mappedBy="candidate", orphanRemoval=true)
-     */
-    private $qualifications;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Gender::class)
      * @ORM\JoinColumn(nullable=false)
      */
@@ -169,11 +164,8 @@ class Candidate
     {
         $this->bookmarks = new ArrayCollection();
         $this->applies = new ArrayCollection();
-        $this->qualifications = new ArrayCollection();
-        $this->search = new ArrayCollection();
         $this->licenses = new ArrayCollection();
         $this->skills = new ArrayCollection();
-        $this->qualifications = new ArrayCollection();
         $this->questionnaires = new ArrayCollection();
     }
 
@@ -562,45 +554,6 @@ class Candidate
     {
         if ($this->licenses->contains($license)) {
             $this->licenses->removeElement($license);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|CandidateHasQualifications[]
-     */
-    public function getQualifications(): Collection
-    {
-        return $this->qualifications;
-    }
-
-    /**
-     * @param CandidateHasQualifications $qualification
-     * @return $this
-     */
-    public function addQualification(CandidateHasQualifications $qualification): self
-    {
-        if (!$this->qualifications->contains($qualification)) {
-            $this->qualifications[] = $qualification;
-            $qualification->setCandidate($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param CandidateHasQualifications $qualification
-     * @return $this
-     */
-    public function removeQualification(CandidateHasQualifications $qualification): self
-    {
-        if ($this->qualifications->contains($qualification)) {
-            $this->qualifications->removeElement($qualification);
-            // set the owning side to null (unless already changedok)
-            if ($qualification->getCandidate() === $this) {
-                $qualification->setCandidate(null);
-            }
         }
 
         return $this;
