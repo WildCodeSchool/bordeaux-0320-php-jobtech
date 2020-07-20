@@ -126,9 +126,9 @@ class Candidate
     private $applies;
 
     /**
-     * @ORM\OneToMany(targetEntity=Search::class, mappedBy="candidate", orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity=Search::class, mappedBy="candidate", orphanRemoval=true)
      */
-    private $searches;
+    private $search;
 
     /**
      * @ORM\ManyToMany(targetEntity=License::class)
@@ -170,7 +170,7 @@ class Candidate
         $this->bookmarks = new ArrayCollection();
         $this->applies = new ArrayCollection();
         $this->qualifications = new ArrayCollection();
-        $this->searches = new ArrayCollection();
+        $this->search = new ArrayCollection();
         $this->licenses = new ArrayCollection();
         $this->skills = new ArrayCollection();
         $this->qualifications = new ArrayCollection();
@@ -533,47 +533,6 @@ class Candidate
         return $this->applies;
     }
 
-
-
-    /**
-     * @return Collection|Search[]
-     */
-    public function getSearches(): Collection
-    {
-        return $this->searches;
-    }
-
-    /**
-     * @param Search $search
-     * @return $this
-     */
-    public function addSearch(Search $search): self
-    {
-        if (!$this->searches->contains($search)) {
-            $this->searches[] = $search;
-            $search->setCandidate($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Search $search
-     * @return $this
-     */
-    public function removeSearch(Search $search): self
-    {
-        if ($this->searches->contains($search)) {
-            $this->searches->removeElement($search);
-            // set the owning side to null (unless already changed)
-            if ($search->getCandidate() === $this) {
-                $search->setCandidate(null);
-            }
-        }
-
-        return $this;
-    }
-
     /**
      * @return Collection|License[]
      */
@@ -746,6 +705,24 @@ class Candidate
     public function setCurriculumVitae(?CurriculumVitae $curriculumVitae): self
     {
         $this->curriculumVitae = $curriculumVitae;
+
+        return $this;
+    }
+
+    public function getSearch(): ?Search
+    {
+        return $this->search;
+    }
+
+    public function setSearch(?Search $search): self
+    {
+        $this->search = $search;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newCandidate = null === $search ? null : $this;
+        if ($search->getCandidate() !== $newCandidate) {
+            $search->setCandidate($newCandidate);
+        }
 
         return $this;
     }

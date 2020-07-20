@@ -5,8 +5,10 @@ namespace App\Controller\User;
 use App\Entity\Candidate;
 use App\Entity\CurriculumVitae;
 use App\Entity\Offer;
+use App\Entity\Search;
 use App\Entity\Skill;
 use App\Entity\User;
+use App\Form\SearchJobType;
 use App\Form\SkillType;
 use App\Form\User\CurriculumVitaeType;
 use App\Service\Questionnaire\QuestionnaireManager;
@@ -112,6 +114,31 @@ class CandidateController extends AbstractController
         return $this->render('/user/candidate/add_skill.html.twig', [
             'form' => $form->createView(),
             'skills' => $user->getSkills(),
+        ]);
+    }
+
+    /**
+     * @Route ("/metier_rechercher", name="add_search_job")
+     * @param Request $request
+     * @return Response
+     */
+    public function addJobSearch(Request $request): Response
+    {
+        $search = new Search();
+        $form = $this->createForm(SearchJobType::class, $search);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $search->setCandidate($this->getUser()->getCandidate());
+            $manager->persist($search);
+            $manager->flush();
+
+            return $this->redirectToRoute('profile');
+        }
+
+        return $this->render('user/candidate/add_search_job.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }

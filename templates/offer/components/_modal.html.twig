@@ -34,7 +34,7 @@
                     {% endfor %}
                     à {{ offer.workTime.title }}</p>
                 <br>
-                {% if app.user.candidate.haveApply(offer) == true %}
+                {% if app.user and app.user.candidate.haveApply(offer) == true %}
                     <p class="btn btn-primary">Vous avez déjà postulé</p>
                 {% else %}
                     <a class="btn btn-primary apply" data-id={{ offer.id}} id="offer-{{ offer.id }}" href="" data-href="{{ path('offer_apply', {'id': offer.id}) }}">Je postule</a>

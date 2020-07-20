@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Métier' %}
+
+{% block body %}
+    <div class="container pt-5">
+        {{ form_start(form) }}
+        {{ form_row(form.contracts) }}
+        {{ form_row(form.jobCategory) }}
+        <div id="form_search_job">
+            {{ form_row(form.job) }}
+        </div>
+        <button class="btn btn-primary">Envoyé</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+

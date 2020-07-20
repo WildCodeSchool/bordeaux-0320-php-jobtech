@@ -7,7 +7,7 @@ use App\Entity\Apply;
 use App\Entity\Offer;
 use App\Entity\Search\OfferSearch;
 use App\Form\OfferType;
-use App\Form\SearchType;
+use App\Form\SearchOfferType;
 use App\Repository\OfferRepository;
 use App\Service\Paginator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -68,7 +68,7 @@ class OfferController extends AbstractController
         }
 
         $criteria = new OfferSearch();
-        $form = $this->createForm(SearchType::class, $criteria);
+        $form = $this->createForm(SearchOfferType::class, $criteria);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
