@@ -11,7 +11,7 @@
                 <a class="dropdown-item" href="{{ path('edit_user', {'action': 'connexion'}) }}">Email et Mot de
                     Passe</a>
                 <a class="dropdown-item" href="{{ path('edit_user', {'action': 'personal_information'}) }}">Informations
-                    Personnelles</a>
+                    de la société</a>
             </div>
         </div>
     </div>
@@ -26,10 +26,10 @@
         <td><i class="fas fa-at"></i> {{ user.email }}</td>
     </tr>
     <tr>
-        <td><i class="fas fa-phone-alt"></i> {{ user.company.siret }}</td>
+        <td>Numéro Siret : {{ user.company.siret }}</td>
     </tr>
     <tr>
-        <td><i class="fas fa-map-marker-alt"></i> {{ user.company.postalCode }} {{ user.company.city }}
+        <td><i class="fas fa-map-marker-alt"></i> {{ user.company.address}}, {{ user.company.postalCode }} {{ user.company.city }}
             , {{ user.company.countryFullName }}</td>
     </tr>
 </table>
