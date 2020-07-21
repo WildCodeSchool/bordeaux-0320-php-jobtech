@@ -1,8 +1,9 @@
-<h2>Information de connexion</h2>
+<h2>Vous souhaitez éditer vos informations de connexion ?</h2>
 
 {{ form_start(form) }}
     {{ form_row(form.email) }}
     {{ form_row(form.plainPassword.first) }}
     {{ form_row(form.plainPassword.second) }}
-    <button class="btn btn-primary float-right">Modifié</button>
+    <button class="btn btn-primary float-right">Modifier</button>
+    <a href="{{ path('profile') }}" class="btn btn-primary float-right">Retour</a>
 {{ form_end(form) }}
