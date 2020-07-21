@@ -22,16 +22,19 @@ class JobCategoryCrudController extends AbstractCrudController
             ->setHelp('Les icônes sont à prendre sur Font Awesome | https://fontawesome.com/icons?d=gallery');
         $id = IntegerField::new('id', 'ID');
 
+        $result = [];
         if (Crud::PAGE_INDEX === $pageName) {
-            return [$id, $title, $icon];
+            $result = [$id, $title, $icon];
         }
 
         if (Crud::PAGE_NEW === $pageName) {
-            return [$title, $icon];
+            $result = [$title, $icon];
         }
 
         if (Crud::PAGE_EDIT === $pageName) {
-            return [$title, $icon];
+            $result = [$title, $icon];
         }
+
+        return $result;
     }
 }

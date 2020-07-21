@@ -55,20 +55,23 @@ class NewsCrudController extends AbstractCrudController
         $internal = FormField::addPanel('Actualité interne');
         $external = FormField::addPanel('Actualité externe');
 
+        $result = [];
         if (Crud::PAGE_INDEX === $pageName) {
-            return [$id, $title, $description, $postedAt];
+            $result = [$id, $title, $description, $postedAt];
         }
 
         if (Crud::PAGE_DETAIL === $pageName) {
-            return [$id, $title, $description, $image, $postedAt, $isExternal, $internal, $article, $external, $url];
+            $result = [$id, $title, $description, $image, $postedAt, $isExternal, $internal, $article, $external, $url];
         }
 
         if (Crud::PAGE_NEW === $pageName) {
-            return [$title, $description, $image, $isExternal, $internal, $article, $external, $url];
+            $result = [$title, $description, $image, $isExternal, $internal, $article, $external, $url];
         }
 
         if (Crud::PAGE_EDIT === $pageName) {
-            return [$title, $description, $image, $isExternal, $internal, $article, $external, $url];
+            $result = [$title, $description, $image, $isExternal, $internal, $article, $external, $url];
         }
+
+        return $result;
     }
 }
