@@ -52,16 +52,21 @@ class CompanyCrudController extends AbstractCrudController
         // PANELS
         $addressPanel = FormField::addPanel('Adresse');
 
+        $result = [];
         if (Crud::PAGE_INDEX === $pageName) {
-            return [$id, $name, $city, $createdAt, $updatedAt];
+            $result = [$id, $name, $city, $createdAt, $updatedAt];
         }
 
         if (Crud::PAGE_DETAIL === $pageName) {
-            return [$id, $name, $siret, $createdAt, $updatedAt, $addressPanel, $address, $postalCode, $city, $country];
+            $result = [
+                $id, $name, $siret, $createdAt, $updatedAt, $addressPanel, $address, $postalCode, $city, $country
+            ];
         }
 
         if (Crud::PAGE_EDIT === $pageName) {
-            return [$name, $siret, $addressPanel, $address, $postalCode, $city, $country];
+            $result = [$name, $siret, $addressPanel, $address, $postalCode, $city, $country];
         }
+
+        return $result;
     }
 }

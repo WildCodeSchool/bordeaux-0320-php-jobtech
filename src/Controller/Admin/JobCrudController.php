@@ -46,20 +46,23 @@ class JobCrudController extends AbstractCrudController
             ->setHelp('Personne cherchant un contrat dans ce travail.');
         $id = IntegerField::new('id', 'ID');
 
+        $result = [];
         if (Crud::PAGE_INDEX === $pageName) {
-            return [$id, $title, $jobCategory, $offers, $searches];
+            $result = [$id, $title, $jobCategory, $offers, $searches];
         }
 
         if (Crud::PAGE_DETAIL === $pageName) {
-            return [$id, $title, $jobCategoryShow, $offersShow, $searchesShow];
+            $result = [$id, $title, $jobCategoryShow, $offersShow, $searchesShow];
         }
 
         if (Crud::PAGE_NEW === $pageName) {
-            return [$title, $jobCategory];
+            $result = [$title, $jobCategory];
         }
 
         if (Crud::PAGE_EDIT === $pageName) {
-            return [$title, $jobCategory];
+            $result = [$title, $jobCategory];
         }
+
+        return $result;
     }
 }

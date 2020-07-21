@@ -53,12 +53,13 @@ class OfferCrudController extends AbstractCrudController
         $addressPanel = FormField::addPanel('Adresse');
         $jobPanel = FormField::addPanel('Métier');
 
+        $result = [];
         if (Crud::PAGE_INDEX === $pageName) {
-            return [$id, $title, $company, $availablePlace, $city, $postedAt, $updatedAt];
+            $result = [$id, $title, $company, $availablePlace, $city, $postedAt, $updatedAt];
         }
 
         if (Crud::PAGE_DETAIL === $pageName) {
-            return [
+            $result = [
                 $id,
                 $company,
                 $title,
@@ -78,17 +79,19 @@ class OfferCrudController extends AbstractCrudController
         }
 
         if (Crud::PAGE_EDIT === $pageName) {
-            return [
+            $result = [
                 $title, $description, $contracts, $jobPanel, $job, $jobCategory, $availablePlace, $workTime,
                 $addressPanel, $address, $postalCode, $city, $country
             ];
         }
 
         if (Crud::PAGE_NEW === $pageName) {
-            return [
+            $result = [
                 $title, $description, $company, $contracts, $jobPanel, $job, $jobCategory, $availablePlace, $workTime,
                 $addressPanel, $address, $postalCode, $city, $country
             ];
         }
+
+        return $result;
     }
 }
