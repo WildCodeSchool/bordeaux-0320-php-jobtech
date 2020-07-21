@@ -9,10 +9,12 @@ use Doctrine\Persistence\ObjectManager;
 class ContentFixtures extends Fixture
 {
     const CONTENTS = [
-        'about' => Content::ABOUT,
-        'politics' => Content::CONFIDENTIAL_POLITICS,
-        'faq' => Content::FAQ,
-        'legal_mentions' => Content::LEGAL_MENTIONS,
+        Content::ABOUT,
+        Content::CONFIDENTIAL_POLITICS,
+        Content::FAQ,
+        Content::LEGAL_MENTIONS,
+        Content::PERSONAL_DATA,
+        Content::TERMS_AND_CONDITIONS
     ];
 
     public function load(ObjectManager $manager)

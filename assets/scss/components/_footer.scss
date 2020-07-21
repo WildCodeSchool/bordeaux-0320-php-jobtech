@@ -1,4 +1,19 @@
 footer {
-    height: 300px;
+    height: 250px;
     border-top: 1px solid $darkGrey;
+
+    .logo {
+        height: 60px;
+        width: auto;
+    }
+
+    .logo-text {
+        font-size: 1.3rem;
+        color: $secondary;
+    }
+
+    .linkedin {
+        color: #0E76A8;
+        font-size: 4rem;
+    }
 }
