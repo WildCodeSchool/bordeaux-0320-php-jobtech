@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Tests\Service\ApiProcessing;
+namespace App\Tests\Service\ApiManager;
 
-use App\Service\ApiProcessing\RestCountriesDataProcessing;
+use App\Service\ApiManager\RestCountriesDataManager;
 use PHPUnit\Framework\TestCase;
 
-class RestCountriesDataProcessingTest extends TestCase
+class RestCountriesDataManagerTest extends TestCase
 {
     public function testRestructuringArray(): void
     {
         $result = ['France' => 'FR', 'Republic of Kosovo' => 'XK'];
-        self::assertEquals($result, RestCountriesDataProcessing::restructuringArray([
+        self::assertEquals($result, RestCountriesDataManager::restructuringArray([
             [
                 "name" => "France",
                 "alpha2Code" => 'FR',

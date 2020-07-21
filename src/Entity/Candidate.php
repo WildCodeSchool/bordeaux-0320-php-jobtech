@@ -4,14 +4,15 @@ namespace App\Entity;
 
 use App\Repository\Api\RestCountries;
 use App\Repository\CandidateRepository;
-use App\Service\DateProcessing;
-use App\Service\NumberProcessing;
+use App\Service\ArrayManager;
+use App\Service\DateManager;
+use App\Service\NumberManager;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -125,9 +126,9 @@ class Candidate
     private $applies;
 
     /**
-     * @ORM\OneToMany(targetEntity=Search::class, mappedBy="candidate", orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity=Search::class, mappedBy="candidate", orphanRemoval=true)
      */
-    private $searches;
+    private $search;
 
     /**
      * @ORM\ManyToMany(targetEntity=License::class)
@@ -139,11 +140,6 @@ class Candidate
      * @ORM\OneToMany(targetEntity=Skill::class, mappedBy="candidate", orphanRemoval=true)
      */
     private $skills;
-
-    /**
-     * @ORM\OneToMany(targetEntity=CandidateHasQualifications::class, mappedBy="candidate", orphanRemoval=true)
-     */
-    private $qualifications;
 
     /**
      * @ORM\ManyToOne(targetEntity=Gender::class)
@@ -162,18 +158,21 @@ class Candidate
     private $curriculumVitae;
 
     /**
+     * @ORM\OneToMany(targetEntity=Experience::class, mappedBy="candidate", orphanRemoval=true)
+     */
+    private $experiences;
+
+    /**
      * Candidate constructor.
      */
     public function __construct()
     {
         $this->bookmarks = new ArrayCollection();
         $this->applies = new ArrayCollection();
-        $this->qualifications = new ArrayCollection();
-        $this->searches = new ArrayCollection();
         $this->licenses = new ArrayCollection();
         $this->skills = new ArrayCollection();
-        $this->qualifications = new ArrayCollection();
         $this->questionnaires = new ArrayCollection();
+        $this->experiences = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -267,7 +266,7 @@ class Candidate
      */
     public function getAge(): int
     {
-        return DateProcessing::calculateAge($this->getBirthday());
+        return DateManager::calculateAge($this->getBirthday());
     }
 
     /**
@@ -280,7 +279,7 @@ class Candidate
 
     public function getFormattedPhoneNumber(): ?string
     {
-        return NumberProcessing::addPointToPhoneNumber($this->getPhoneNumber());
+        return NumberManager::addPointToPhoneNumber($this->getPhoneNumber());
     }
 
     /**
@@ -304,7 +303,7 @@ class Candidate
 
     public function getFormattedOtherPhoneNumber(): ?string
     {
-        return NumberProcessing::addPointToPhoneNumber($this->getOtherNumber());
+        return NumberManager::addPointToPhoneNumber($this->getOtherNumber());
     }
 
     /**
@@ -533,76 +532,6 @@ class Candidate
     }
 
     /**
-     * @param Apply $apply
-     * @return $this
-     */
-    public function addApply(Apply $apply): self
-    {
-        if (!$this->applies->contains($apply)) {
-            $this->applies[] = $apply;
-            $apply->setUser($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Apply $apply
-     * @return $this
-     */
-    public function removeApply(Apply $apply): self
-    {
-        if ($this->applies->contains($apply)) {
-            $this->applies->removeElement($apply);
-            // set the owning side to null (unless already changed)
-            if ($apply->getUser() === $this) {
-                $apply->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Search[]
-     */
-    public function getSearches(): Collection
-    {
-        return $this->searches;
-    }
-
-    /**
-     * @param Search $search
-     * @return $this
-     */
-    public function addSearch(Search $search): self
-    {
-        if (!$this->searches->contains($search)) {
-            $this->searches[] = $search;
-            $search->setCandidate($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Search $search
-     * @return $this
-     */
-    public function removeSearch(Search $search): self
-    {
-        if ($this->searches->contains($search)) {
-            $this->searches->removeElement($search);
-            // set the owning side to null (unless already changed)
-            if ($search->getCandidate() === $this) {
-                $search->setCandidate(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|License[]
      */
     public function getLicenses(): Collection
@@ -631,45 +560,6 @@ class Candidate
     {
         if ($this->licenses->contains($license)) {
             $this->licenses->removeElement($license);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|CandidateHasQualifications[]
-     */
-    public function getQualifications(): Collection
-    {
-        return $this->qualifications;
-    }
-
-    /**
-     * @param CandidateHasQualifications $qualification
-     * @return $this
-     */
-    public function addQualification(CandidateHasQualifications $qualification): self
-    {
-        if (!$this->qualifications->contains($qualification)) {
-            $this->qualifications[] = $qualification;
-            $qualification->setCandidate($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param CandidateHasQualifications $qualification
-     * @return $this
-     */
-    public function removeQualification(CandidateHasQualifications $qualification): self
-    {
-        if ($this->qualifications->contains($qualification)) {
-            $this->qualifications->removeElement($qualification);
-            // set the owning side to null (unless already changedok)
-            if ($qualification->getCandidate() === $this) {
-                $qualification->setCandidate(null);
-            }
         }
 
         return $this;
@@ -730,6 +620,11 @@ class Candidate
         return $this->getBookmarks()->contains($offer);
     }
 
+    public function haveApply(Offer $offer): bool
+    {
+        return in_array($offer, ArrayManager::getOffersFromApplies($this->getApplies()->toArray()));
+    }
+
     /**
      * @return Collection|Skill[]
      */
@@ -769,6 +664,55 @@ class Candidate
     public function setCurriculumVitae(?CurriculumVitae $curriculumVitae): self
     {
         $this->curriculumVitae = $curriculumVitae;
+
+        return $this;
+    }
+
+    public function getSearch(): ?Search
+    {
+        return $this->search;
+    }
+
+    public function setSearch(?Search $search): self
+    {
+        $this->search = $search;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newCandidate = null === $search ? null : $this;
+        if ($search->getCandidate() !== $newCandidate) {
+            $search->setCandidate($newCandidate);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Experience[]
+     */
+    public function getExperiences(): Collection
+    {
+        return $this->experiences;
+    }
+
+    public function addExperience(Experience $experience): self
+    {
+        if (!$this->experiences->contains($experience)) {
+            $this->experiences[] = $experience;
+            $experience->setCandidate($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExperience(Experience $experience): self
+    {
+        if ($this->experiences->contains($experience)) {
+            $this->experiences->removeElement($experience);
+            // set the owning side to null (unless already changed)
+            if ($experience->getCandidate() === $this) {
+                $experience->setCandidate(null);
+            }
+        }
 
         return $this;
     }

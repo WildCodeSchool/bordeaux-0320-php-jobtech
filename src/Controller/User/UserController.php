@@ -6,7 +6,7 @@ use App\Entity\Company;
 use App\Entity\Contact;
 use App\Entity\CurriculumVitae;
 use App\Entity\User;
-use App\Form\CurriculumVitaeType;
+use App\Form\User\CurriculumVitaeType;
 use App\Form\User\CandidateType;
 use App\Form\User\UserType;
 use App\Security\UserAuthenticator;

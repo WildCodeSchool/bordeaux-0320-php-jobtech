@@ -5,7 +5,7 @@ namespace App\Service;
 
 use Symfony\Component\HttpFoundation\Response;
 
-class CsvExport
+class CsvManager
 {
 
     /**

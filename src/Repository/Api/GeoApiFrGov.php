@@ -2,7 +2,7 @@
 
 namespace App\Repository\Api;
 
-use App\Service\ApiProcessing\GeoApiDataProcessing;
+use App\Service\ApiManager\GeoApiDataManager;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
@@ -59,7 +59,7 @@ class GeoApiFrGov
         $request = self::URL_GEO_API . self::GET_BY_POSTAL_CODE . $postalCode;
         $result = $this->makeRequest($request);
         $result = $result->toArray();
-        return GeoApiDataProcessing::cityProcessing($result);
+        return GeoApiDataManager::cityProcessing($result);
     }
 
     /**

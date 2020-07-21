@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints\Range;
 
 class QuestionnaireType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $num = 0;
         foreach ($options['questions'] as $question) {
@@ -27,7 +27,7 @@ class QuestionnaireType extends AbstractType
         }
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'questions' => [],

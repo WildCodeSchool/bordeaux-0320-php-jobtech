@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-class NumberProcessing
+class NumberManager
 {
     public static function addPointToPhoneNumber(?string $phone): string
     {

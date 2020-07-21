@@ -5,9 +5,8 @@ namespace App\Service;
 
 use DateInterval;
 use DateTime;
-use DateTimeInterface;
 
-class DateProcessing
+class DateManager
 {
 
     public static function dateIntervalBetweenNowAnd(DateTime $date): DateInterval
