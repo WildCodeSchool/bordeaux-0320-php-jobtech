@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\SearchRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -20,7 +21,7 @@ class Search
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Candidate::class, inversedBy="searches")
+     * @ORM\OneToOne(targetEntity=Candidate::class, inversedBy="search")
      * @ORM\JoinColumn(nullable=false)
      */
     private $candidate;

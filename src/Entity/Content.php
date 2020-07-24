@@ -34,6 +34,18 @@ class Content
         'identifier' => 'confidential_politics',
     ];
 
+    const TERMS_AND_CONDITIONS = [
+        'title' => 'Conditions d\'utilisation',
+        'html' => '',
+        'identifier' => 'terms_and_conditions',
+    ];
+
+    const PERSONAL_DATA = [
+        'title' => 'Données personnelles',
+        'html' => '',
+        'identifier' => 'personal_data',
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

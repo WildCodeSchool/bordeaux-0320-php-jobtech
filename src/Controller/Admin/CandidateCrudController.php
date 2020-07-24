@@ -7,7 +7,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
@@ -60,12 +59,13 @@ class CandidateCrudController extends AbstractCrudController
         $vehiclePanel = FormField::addPanel('Véhicule et permis');
         $otherInfoPanel = FormField::addPanel('Autres informations');
 
+        $result = [];
         if (Crud::PAGE_INDEX === $pageName) {
-            return [$fullNameWithGender, $email, $formattedPhoneNumber, $city, $createdAt, $updatedAt];
+            $result = [$fullNameWithGender, $email, $formattedPhoneNumber, $city, $createdAt, $updatedAt];
         }
 
         if (Crud::PAGE_DETAIL === $pageName) {
-            return [
+            $result = [
                 $fullNameWithGender,
                 $createdAt,
                 $updatedAt,
@@ -87,7 +87,7 @@ class CandidateCrudController extends AbstractCrudController
         }
 
         if (Crud::PAGE_EDIT === $pageName) {
-            return [
+            $result = [
                 $surname,
                 $firstName,
                 $contactPanel,
@@ -105,5 +105,7 @@ class CandidateCrudController extends AbstractCrudController
                 $isHandicapped
             ];
         }
+
+        return $result;
     }
 }

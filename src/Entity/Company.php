@@ -2,11 +2,17 @@
 
 namespace App\Entity;
 
+use App\Repository\Api\RestCountries;
 use App\Repository\CompanyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
  * @ORM\Entity(repositoryClass=CompanyRepository::class)
@@ -200,6 +206,20 @@ class Company
     public function getCountry(): ?string
     {
         return $this->country;
+    }
+
+    /**
+     * @return string|null
+     * @throws ClientExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    public function getCountryFullName(): ?string
+    {
+        $restCountries = new RestCountries();
+        return $restCountries->getCountryByCode($this->country);
     }
 
     /**

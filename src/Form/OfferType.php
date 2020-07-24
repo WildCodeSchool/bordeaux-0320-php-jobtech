@@ -3,10 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Contract;
-use App\Entity\WorkTime;
 use App\Entity\Job;
 use App\Entity\JobCategory;
 use App\Entity\Offer;
+use App\Entity\WorkTime;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -17,7 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class OfferType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('title', TextType::class, [
@@ -65,7 +65,7 @@ class OfferType extends AbstractType
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Offer::class,

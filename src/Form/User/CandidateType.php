@@ -5,7 +5,6 @@ namespace App\Form\User;
 use App\Entity\Candidate;
 use App\Entity\Gender;
 use App\Entity\License;
-use App\Form\CurriculumVitaeType;
 use App\Repository\Api\RestCountries;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;

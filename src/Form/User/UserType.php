@@ -18,6 +18,7 @@ class UserType extends AbstractType
     public const CREATE_COMPANY = 'create_company';
     public const EDIT_CONNECTION_INFORMATION = 'connexion';
     public const EDIT_CANDIDATE_PERSONAL_INFORMATION = 'personal_information';
+    public const EDIT_COMPANY_INFORMATION = 'company_information';
 
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -36,6 +37,10 @@ class UserType extends AbstractType
 
         if ($options['action'] === self::EDIT_CONNECTION_INFORMATION) {
             $this->connectionInformation($builder);
+        }
+
+        if ($options['action'] === self::EDIT_COMPANY_INFORMATION) {
+            $this->company($builder, $options);
         }
     }
 

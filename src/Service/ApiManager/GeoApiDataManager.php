@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Service\ApiProcessing;
+namespace App\Service\ApiManager;
 
-class GeoApiDataProcessing
+class GeoApiDataManager
 {
     /**
      * @param array $cities

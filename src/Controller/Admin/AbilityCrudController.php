@@ -36,12 +36,13 @@ class AbilityCrudController extends AbstractCrudController
         $availableQuestion = AssociationField::new('questions', 'Questions disponibles');
         $questions = ArrayField::new('questions', 'Questions');
 
+        $result = [];
         if (Crud::PAGE_INDEX === $pageName) {
-            return [$id, $isProfessional, $title, $nbQuestion, $availableQuestion];
+            $result = [$id, $isProfessional, $title, $nbQuestion, $availableQuestion];
         }
 
         if (Crud::PAGE_DETAIL === $pageName) {
-            return [
+            $result = [
                 $id,
                 $isProfessional->setLabel('Professionnel ?'),
                 $title,
@@ -52,7 +53,7 @@ class AbilityCrudController extends AbstractCrudController
         }
 
         if (Crud::PAGE_EDIT === $pageName) {
-            return [
+            $result = [
                 $isProfessional
                     ->setLabel('Compétence professionnelle ?')
                     ->setHelp('Laisser décocher pour une compétence personnelle'),
@@ -64,7 +65,7 @@ class AbilityCrudController extends AbstractCrudController
         }
 
         if (Crud::PAGE_NEW === $pageName) {
-            return [
+            $result = [
                 $isProfessional
                     ->setLabel('Compétence professionnelle ?')
                     ->setHelp('Laisser décocher pour une compétence personnelle'),
@@ -72,5 +73,7 @@ class AbilityCrudController extends AbstractCrudController
                 $nbQuestion
             ];
         }
+
+        return $result;
     }
 }

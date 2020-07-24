@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Ajouter expérience professionnelle' %}
+
+{% block body %}
+    <div class="container">
+        <div>
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button class="btn btn-primary">{{ experiences is defined ? 'Ajouter' : 'Modifier' }}</button>
+            {{ form_end(form) }}
+        </div>
+        {% if experiences is defined %}
+        <ul class="list-group mt-3">
+            {% for experience in experiences | reverse %}
+                <li class="list-group-item">{{ experience.job }} pendant {{ experience.years }}ans - <a href="{{ path('candidate_edit_experience', {'id': experience.id}) }}">Éditer</a></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Tests\Service\ApiProcessing;
+namespace App\Tests\Service\ApiManager;
 
-use App\Service\ApiProcessing\GeoApiDataProcessing;
+use App\Service\ApiManager\GeoApiDataManager;
 use PHPUnit\Framework\TestCase;
 
-class GeoApiDataProcessingTest extends TestCase
+class GeoApiDataManagerTest extends TestCase
 {
     public function testCityProcessing(): void
     {
-        self::assertEquals('Aucune ville trouvé.', GeoApiDataProcessing::cityProcessing([]));
+        self::assertEquals('Aucune ville trouvé.', GeoApiDataManager::cityProcessing([]));
 
-        self::assertEquals('Bordeaux', GeoApiDataProcessing::cityProcessing([
+        self::assertEquals('Bordeaux', GeoApiDataManager::cityProcessing([
             [
                 "nom" => "Bordeaux",
                 "code" => "33063",
@@ -29,7 +29,7 @@ class GeoApiDataProcessingTest extends TestCase
             ],
         ]));
 
-        self::assertEquals(['Pessac', 'Talence'], GeoApiDataProcessing::cityProcessing([
+        self::assertEquals(['Pessac', 'Talence'], GeoApiDataManager::cityProcessing([
             [
                 "nom" => "Pessac",
                 "code" => "33318",

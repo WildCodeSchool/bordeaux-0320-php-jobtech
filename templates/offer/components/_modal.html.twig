@@ -13,11 +13,11 @@
                 <p>Domaine d'activité: {{ offer.jobCategory.title }}</p>
                 <br>
                 {% if is_granted('ROLE_CANDIDATE') %}
-                <div class="like">
-                    <a href="" data-id="{{ offer.id }}" id="bookmark-modal-{{ offer.id }}" class="bookmark {{ app.user.candidate.bookmarked(offer) ? 'heart' : '' }}" data-href="{{ path('candidate_add_bookmark', {'id' : offer.id}) }}">
-                        <i class="fa-heart fas"></i>
-                    </a>
-                </div>
+                    <div class="like">
+                        <a href="" data-id="{{ offer.id }}" id="bookmark-modal-{{ offer.id }}" class="bookmark {{ app.user.candidate.bookmarked(offer) ? 'heart' : '' }}" data-href="{{ path('candidate_add_bookmark', {'id' : offer.id}) }}">
+                            <i class="fa-heart fas"></i>
+                        </a>
+                    </div>
                 {% endif %}
                 <br>
                 <p>Métier: {{ offer.job.title }}</p>
@@ -34,7 +34,13 @@
                     {% endfor %}
                     à {{ offer.workTime.title }}</p>
                 <br>
-                <a class="btn-primary btn apply" data-id={{ offer.id}} id="offer-{{ offer.id }}" href="" data-href="{{ path('offer_apply', {'id': offer.id}) }}">Je postule</a>
+                {% if is_granted('ROLE_CANDIDATE') %}
+                    {% if app.user.candidate.haveApply(offer) == true %}
+                        <p class="btn btn-primary">Vous avez déjà postulé</p>
+                    {% else %}
+                        <a class="btn btn-primary apply" data-id={{ offer.id}} id="offer-{{ offer.id }}" href="" data-href="{{ path('offer_apply', {'id': offer.id}) }}">Je postule</a>
+                    {% endif %}
+                {% endif %}
                 <br>
 
                 <div class="card-footer">
