@@ -30,16 +30,13 @@ class CandidateController extends AbstractController
 {
     /**
      * @Route("/show/{id}", name="show_profile")
-     * @param User $user
+     * @param Candidate $candidate
      * @param Request $request
      * @return Response
      */
-    public function show(User $user, Request $request): Response
+    public function show(Candidate $candidate, Request $request): Response
     {
-        if (!$this->getUser()->getIsActive()) {
-            return $this->redirectToRoute('index');
-        }
-
+        $user = $candidate->getUser();
         if ($this->isGranted('ROLE_ADMIN')) {
             $curriculumVitae = new CurriculumVitae();
             $form = $this->createForm(CurriculumVitaeType::class, $curriculumVitae);
