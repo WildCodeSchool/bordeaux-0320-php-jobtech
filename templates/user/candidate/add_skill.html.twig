@@ -9,32 +9,27 @@
             <div class="col-6 card-profile m-3">
                 <div class="p-3">
                     {{ form_start(form) }}
+                    {{ form_label(form.title) }}
                     {{ form_widget(form.title) }}
-                    <button class="btn btn-success mt-3 float-right">Ajouter</button>
+                    <button class="btn btn-primary mt-3 mb-3 float-right">Ajouter</button>
                     {{ form_end(form) }}
                 </div>
             </div>
 
             <div class="col-6 card-profile m-3">
-                {#
-                    <ul class="list-group">
-                        <li class="list-group-item active">Vos compétences :</li>
-                        {% for skill in skills %}
-                            <li class="list-group-item">
-                                {{ skill.title }}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                #}
-
                 <h2 class="p-3 border-bottom-title">Compétences techniques</h2>
-                <div class="m-3">
-                    <p>
+                <div class="m-3 d-flex flex-wrap justify-content-center">
                         {% for skill in skills %}
-                            <span class="badge badge-primary p-1">{{ skill.title }}</span>
+                            <div class="badge badge-primary m-2 pl-2 d-flex align-items-center w-auto">
+                                <p>{{ skill.title }}</p>
+                                <form method="post" action="{{ path('candidate_delete_skill', {'id': skill.id}) }}"
+                                      onsubmit="return confirm('Voulez-vous vraiment supprimer cette compétence?');">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ skill.id) }}">
+                                    <button class="btn text-white pt-0 pb-0 pr-1"><i class="far fa-times-circle"></i></button>
+                                </form>
+                            </div>
                         {% endfor %}
-                    </p>
-
                 </div>
             </div>
         </div>

@@ -119,6 +119,23 @@ class CandidateController extends AbstractController
     }
 
     /**
+     * @Route("/competence/{id}", name="delete_skill", methods={"DELETE"})
+     * @param Skill $skill
+     * @param Request $request
+     * @return Response
+     */
+    public function deleteSkill(Skill $skill, Request $request): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$skill->getId(), $request->request->get('_token'))) {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->remove($skill);
+            $manager->flush();
+        }
+
+        return $this->redirectToRoute('candidate_add_skill');
+    }
+
+    /**
      * @Route ("/metier_rechercher", name="add_search_job")
      * @param Request $request
      * @return Response
