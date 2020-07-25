@@ -26,6 +26,26 @@ class CompanyType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        if ($options['action'] === UserType::CREATE_COMPANY) {
+            $this->companyInformations($builder);
+        }
+        if ($options['action'] === UserType::EDIT_COMPANY_INFORMATION) {
+            $this
+                ->companyInformations($builder)
+                ->siret($builder);
+        }
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => Company::class,
+            'action' => ''
+        ]);
+    }
+
+    private function companyInformations(FormBuilderInterface $builder): self
+    {
         $countries = $this->restCountries->getAllCountries();
 
         $builder
@@ -49,15 +69,16 @@ class CompanyType extends AbstractType
             ])
             ->add('contacts', CollectionType::class, [
                 'entry_type' => ContactType::class,
-                'entry_options' => ['label' => false],
+                'entry_options' => ['label' => false]
             ]);
-            //->add('siret')
+        return $this;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    private function siret(FormBuilderInterface $builder): self
     {
-        $resolver->setDefaults([
-            'data_class' => Company::class,
-        ]);
+        $builder
+            ->add('siret', IntegerType::class);
+
+        return $this;
     }
 }

@@ -76,7 +76,7 @@ class UserType extends AbstractType
                 connaissance et accepte la politique de confidentialité relative aux données des candidats.',
             'constraints' => [
                 new IsTrue([
-                    'message' => 'Vous devez accepter les conditions',
+                    'message' => 'Vous devez accepté les conditions',
                 ]),
             ],
         ]);
