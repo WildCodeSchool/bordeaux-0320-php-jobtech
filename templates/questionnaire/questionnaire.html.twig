@@ -3,27 +3,40 @@
 {% block title %}Questionnaire{% endblock %}
 
 {% block body %}
-<div class="pt-5">
+    <div class="pt-5">
         <div class="container-fluid">
-                <ul class="list-unstyled multi-steps">
-                        <li>Start</li>
-                        <li class="{{ competence is same as('personnel') ? 'is-active' : null }}">Personnel</li>
-                        <li class="{{ competence is same as('professionnel') ? 'is-active' : null }}">Professionnel</li>
-                        <li>Résultat</li>
-                </ul>
+            <ul class="list-unstyled multi-steps">
+                <li>Start</li>
+                <li class="{{ competence is same as('personnel') ? 'is-active' : null }}">Personnel</li>
+                <li class="{{ competence is same as('professionnel') ? 'is-active' : null }}">Professionnel</li>
+                <li>Résultat</li>
+            </ul>
         </div>
-</div>
-<div class="container pt-4">
+    </div>
+    <div class="container pt-4">
         <h1 class="text-center">Compétences {{ competence }}les</h1>
-    {{ form_start(questions) }}
-        {{ form_widget(questions) }}
-        <button class="btn btn-primary">Envoyer</button>
-    {{ form_end(questions) }}
-</div>
+        {{ form_start(questions) }}
+            {% for question in questions %}
+                <div class="m-5">
+                    {{ form_row(question) }}
+                    {% if questions | length != loop.index %}
+                        {% if loop.index % 2 != 0 %}
+                            <div class="row justify-content-between margin-negative">
+                                <p>Pas d'accord</p>
+                                <p>Plutôt pas d'accord</p>
+                                <p>Indiffèrent</p>
+                                <p>Plutôt d'accord</p>
+                                <p>Tout à fait d'accord</p>
+                            </div>
+                        {% endif %}
+                        {{ loop.index % 2 != 0 ? '<hr class="mt-5">' : '' }}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        <div class="d-flex justify-content-end mb-5">
+            <button class="btn btn-primary">Envoyer</button>
+        </div>
+        {{ form_end(questions) }}
+    </div>
 
-{% endblock %}
-
-{% block javascript %}
-        {{ parent() }}
-        {{ encore_entry_script_tags('range_slider') }}
 {% endblock %}

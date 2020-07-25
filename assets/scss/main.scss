@@ -11,7 +11,7 @@ body {
         font-size: 2rem;
         color: $secondary;
         font-family: $montserrat;
-        text-transform: uppercase;
+        font-variant-caps: small-caps;
     }
 
     h2 {
@@ -26,6 +26,18 @@ body {
 
     p {
         margin-bottom: unset;
+    }
+
+    a {
+        color: $secondary;
+
+        &:hover {
+            color: $gold;
+        }
+    }
+
+    hr {
+        border-top: 1px solid rgba(0, 0, 0, 0.4)
     }
 }
 
@@ -70,6 +82,10 @@ main {
     &-black {
         color: black;
     }
+
+    &-italic {
+        font-style: italic;
+    }
 }
 
 .bg {
@@ -97,5 +113,12 @@ main {
 .hover {
     &-orange:hover {
         color: $orange;
+    }
+}
+
+.margin {
+    &-negative {
+        margin-left: -40px !important;
+        margin-right: -70px !important;
     }
 }

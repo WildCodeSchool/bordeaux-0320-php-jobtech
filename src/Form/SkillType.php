@@ -15,7 +15,7 @@ class SkillType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => 'Compétence :'
+                'label' => 'Nouvelle compétence :'
             ]);
     }
 
