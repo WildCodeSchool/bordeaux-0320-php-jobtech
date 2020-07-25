@@ -115,3 +115,10 @@ main {
         color: $orange;
     }
 }
+
+.margin {
+    &-negative {
+        margin-left: -40px !important;
+        margin-right: -70px !important;
+    }
+}
