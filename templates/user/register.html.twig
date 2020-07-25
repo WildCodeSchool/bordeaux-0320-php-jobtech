@@ -9,6 +9,11 @@
             <div class="col-md-9">
                 <h1>Créer mon compte</h1>
 
+                {% if action == 'create_candidate' %}
+                    <div>
+                        {{ form_widget(register.candidate.curriculumVitae) }}
+                    </div>
+                {% endif %}
                 <div class="row justify-content-between">
                     {{ form_row(register.email) }}
                     {{ form_row(register.plainPassword.first) }}
@@ -36,7 +41,7 @@
                         {{ form_row(register.candidate.phoneNumber) }}
                         {{ form_row(register.candidate.otherNumber) }}
                     </div>
-        {{ form_row(register.candidate.isHandicapped) }}
+                    {{ form_row(register.candidate.isHandicapped) }}
                 {% elseif action == 'create_company' %}
                     {{ form_row(register.company.name) }}
                     <h2>Information de l'entreprise</h2>
@@ -71,15 +76,18 @@
         </div>
 
         {% if action == 'create_candidate' %}
-        {{ form_row(register.candidate.isHandicapped) }}
+            {{ form_row(register.candidate.isHandicapped) }}
         {% endif %}
-        {{ form_row(register.agreeTerms) }}
-        <p class="rgdp w-75">
+        <div class="pl-3 pr-3">
+        {{ form_label(register.agreeTerms) }}
+        {{ form_widget(register.agreeTerms) }}
+        </div>
+        <p class="rgdp w-75 ml-3">
             Conformément à la loi "informatique & libertés" de 1978 modifiée, Vous bénéficiez notamment d'un droit
             d'accès, de rectification et de suppression des données vous concernant que vous pouvez exercer via la
             rubrique Droits d'accès.
         </p>
-        <div class="row">
+        <div class="row justify-content-end">
             {% if action == 'create_candidate' %}
                 <button type="submit" class="btn btn-primary align-self-end">Créer mon compte Candidat</button>
             {% elseif action == 'create_company' %}

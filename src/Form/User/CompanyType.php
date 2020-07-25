@@ -50,6 +50,7 @@ class CompanyType extends AbstractType
             ->add('contacts', CollectionType::class, [
                 'entry_type' => ContactType::class,
                 'entry_options' => ['label' => false],
+                'label' => false,
             ]);
             //->add('siret')
     }

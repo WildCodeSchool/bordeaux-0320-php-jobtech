@@ -130,7 +130,10 @@ class CandidateType extends AbstractType
     private function curriculumVitae(FormBuilderInterface $builder): self
     {
         $builder
-            ->add('curriculumVitae', CurriculumVitaeType::class);
+            ->add('curriculumVitae', CurriculumVitaeType::class, [
+                'label' => 'Votre CV :'
+
+            ]);
 
         return $this;
     }
