@@ -27,6 +27,18 @@ body {
     p {
         margin-bottom: unset;
     }
+
+    a {
+        color: $secondary;
+
+        &:hover {
+            color: $gold;
+        }
+    }
+
+    hr {
+        border-top: 1px solid rgba(0, 0, 0, 0.4)
+    }
 }
 
 main {
@@ -69,6 +81,10 @@ main {
 
     &-black {
         color: black;
+    }
+
+    &-italic {
+        font-style: italic;
     }
 }
 
