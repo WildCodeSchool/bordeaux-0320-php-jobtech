@@ -1,5 +1,24 @@
-<div class="container">
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-    {{ form_end(form) }}
-</div>
+<h2>Informations personnelles</h2>
+
+{{ form_start(form) }}
+    <div class="row">
+        {{ form_row(form.company.name) }}
+    </div>
+
+    <div class="row">
+        {{ form_row(form.company.siret) }}
+    </div>
+
+    <div class="row">
+        {{ form_row(form.company.address) }}
+        {{ form_row(form.company.postalCode) }}
+        {{ form_row(form.company.city) }}
+    </div>
+
+    <div class="row">
+        {{ form_row(form.company.country) }}
+    </div>
+
+<button class="btn btn-primary">Enregistrer</button>
+{{ form_end(form) }}
+
