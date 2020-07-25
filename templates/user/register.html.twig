@@ -12,6 +12,10 @@
                 {% if action == 'create_candidate' %}
                     <div>
                         {{ form_widget(register.candidate.curriculumVitae) }}
+                        <div class="d-flex justify-content-end mb-5">
+                            <p>Vous n'avez pas encore de CV ? <a href="https://cvdesignr.com/fr" class="">Créez-en un !</a></p>
+                        </div>
+
                     </div>
                 {% endif %}
                 <div class="row justify-content-between">
@@ -79,8 +83,8 @@
             {{ form_row(register.candidate.isHandicapped) }}
         {% endif %}
         <div class="pl-3 pr-3">
-        {{ form_label(register.agreeTerms) }}
-        {{ form_widget(register.agreeTerms) }}
+            {{ form_label(register.agreeTerms) }}
+            {{ form_widget(register.agreeTerms) }}
         </div>
         <p class="rgdp w-75 ml-3">
             Conformément à la loi "informatique & libertés" de 1978 modifiée, Vous bénéficiez notamment d'un droit
