@@ -23,10 +23,16 @@ document.addEventListener('DOMContentLoaded', () => {
                                 ],
                             },
                             options: {
+                                tooltips: {
+                                    enabled: false,
+                                },
+                                legend: {
+                                    display: false,
+                                },
                                 scale: {
                                     ticks: {
                                         beginAtZero: true,
-                                        max: 100,
+                                        display: false,
                                     },
                                 },
                             },
@@ -50,10 +56,16 @@ document.addEventListener('DOMContentLoaded', () => {
                                 ],
                             },
                             options: {
+                                tooltips: {
+                                    enabled: false,
+                                },
+                                legend: {
+                                    display: false,
+                                },
                                 scale: {
                                     ticks: {
                                         beginAtZero: true,
-                                        max: 100,
+                                        display: false,
                                     },
                                 },
                             },

@@ -4,17 +4,21 @@
 
 {% block body %}
     <div class="container">
-        <h1 class="pt-3 ml-5">Actualités</h1>
+        <h1 class="pt-3 ml-5 text-center">Actualités</h1>
+        <hr>
         <div>
             {% for actuality in actualities %}
-                <div class="d-flex mt-3 mb-3">
-                    <img class="col-5 news-image" src="{{ actuality.image }}" alt="image de l'article">
-                    <div class="col-6 offset-1">
-                        <p>{{ actuality.postedAt | date('Y/m/d h:i') }} - {{ actuality.title }}</p>
-                        <p>{{ actuality.description }}</p>
-                        <a href="{{ actuality.isExternal ? actuality.url : path('news_show', {'id': actuality.id}) }}" target="{{ actuality.isExternal ? '_blank' : '_self' }}">Voir plus</a>
+                <div class="d-flex {{ loop.index % 2 == 0 ? 'flex-lg-row-reverse' : '' }} flex-column flex-lg-row mt-3 mb-3">
+                    <img class="d-none d-lg-block col-lg-5 news-image {{ loop.index % 2 == 0 ? 'offset-lg-1' : '' }}" src="{{ actuality.image }}" alt="image de l'article">
+                    <div class="col-12 col-lg-6 {{ loop.index % 2 == 0 ? '' : 'offset-lg-1' }} d-flex flex-column justify-content-center">
+                        <p class="pb-2">{{ actuality.postedAt | format_datetime('long', locale='fr') }} - <span class="text-gold font-weight-bolder">{{ actuality.title }}</span></p>
+                        <p class="pb-3">{{ actuality.description }}</p>
+                        <div class="d-flex justify-content-end">
+                            <a href="{{ actuality.isExternal ? actuality.url : path('news_show', {'id': actuality.id}) }}" target="{{ actuality.isExternal ? '_blank' : '_self' }}">Lire l'article</a>
+                        </div>
                     </div>
                 </div>
+                <hr>
             {% else %}
                 Aucune news trouvée.
             {% endfor %}
