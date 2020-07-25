@@ -86,14 +86,20 @@ class UserType extends AbstractType
 
     private function candidate(FormBuilderInterface $builder, array $options): self
     {
-        $builder->add('candidate', CandidateType::class, ['action' => $options['action']]);
+        $builder->add('candidate', CandidateType::class, [
+            'action' => $options['action'],
+            'label' => false,
+        ]);
 
         return $this;
     }
 
     private function company(FormBuilderInterface $builder, array $options): self
     {
-        $builder->add('company', CompanyType::class, ['action' => $options['action']]);
+        $builder->add('company', CompanyType::class, [
+            'action' => $options['action'],
+            'label' => false,
+        ]);
 
         return $this;
     }
