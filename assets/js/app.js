@@ -27,3 +27,4 @@ require('bootstrap-datepicker/dist/locales/bootstrap-datepicker.fr.min')
 require('./form');
 require('./bookmark')
 require('./job')
+require('./uploader')
