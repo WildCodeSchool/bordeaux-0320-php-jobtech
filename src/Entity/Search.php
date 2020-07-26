@@ -49,6 +49,11 @@ class Search
         $this->contracts = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return 'Candidat ' . $this->getCandidate()->getId() . ' - ' . $this->getCandidate()->getFullName();
+    }
+
     /**
      * @return int|null
      */
