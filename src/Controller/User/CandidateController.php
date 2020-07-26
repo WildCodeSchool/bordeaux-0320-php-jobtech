@@ -9,7 +9,6 @@ use App\Entity\JobCategory;
 use App\Entity\Offer;
 use App\Entity\Search;
 use App\Entity\Skill;
-use App\Entity\User;
 use App\Form\ExperienceType;
 use App\Form\SearchJobType;
 use App\Form\SkillType;
@@ -38,11 +37,12 @@ class CandidateController extends AbstractController
     {
         $user = $candidate->getUser();
         if ($this->isGranted('ROLE_ADMIN')) {
-            $curriculumVitae = new CurriculumVitae();
-            $form = $this->createForm(CurriculumVitaeType::class, $curriculumVitae);
+            $curriculumVitae = $candidate->getCurriculumVitae();
+            $newCV = new CurriculumVitae();
+            $newCV->setCandidate($candidate);
+            $form = $this->createForm(CurriculumVitaeType::class, $newCV);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
-                $user->getCandidate()->setCurriculumVitae($curriculumVitae);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->flush();
             }
@@ -50,7 +50,8 @@ class CandidateController extends AbstractController
 
         return $this->render('user/profile.html.twig', [
             'user' => $user,
-            'form' => isset($form) ? $form->createView() : null
+            'form' => isset($form) ? $form->createView() : null,
+            'cv' => $curriculumVitae ?? null
         ]);
     }
 

@@ -51,6 +51,11 @@ class CurriculumVitae implements Serializable
     private $updatedAt;
 
     /**
+     * @ORM\OneToOne(targetEntity=Candidate::class, mappedBy="curriculumVitae", cascade={"persist", "remove"})
+     */
+    private $candidate;
+
+    /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
      * of 'UploadedFile' is injected into this setter to trigger the update. If this
      * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
@@ -85,6 +90,15 @@ class CurriculumVitae implements Serializable
         return $this->cvName;
     }
 
+    /**
+     * Used for naming CV when upload
+     */
+    public function getCvTitle(): string
+    {
+        $candidate = $this->getCandidate();
+        return $candidate->getFirstName() . '-' . $candidate->getSurname() . '-CV';
+    }
+
     public function setCvSize(?int $cvSize): void
     {
         $this->cvSize = $cvSize;
@@ -108,5 +122,23 @@ class CurriculumVitae implements Serializable
     public function unserialize($serialized)
     {
         $this->id = unserialize($serialized);
+    }
+
+    public function getCandidate(): ?Candidate
+    {
+        return $this->candidate;
+    }
+
+    public function setCandidate(?Candidate $candidate): self
+    {
+        $this->candidate = $candidate;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newCurriculumVitae = null === $candidate ? null : $this;
+        if ($candidate->getCurriculumVitae() !== $newCurriculumVitae) {
+            $candidate->setCurriculumVitae($newCurriculumVitae);
+        }
+
+        return $this;
     }
 }

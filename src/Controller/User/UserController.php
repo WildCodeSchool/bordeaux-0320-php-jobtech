@@ -29,18 +29,20 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
         if ($this->isGranted('ROLE_CANDIDATE')) {
-            $curriculumVitae = new CurriculumVitae();
-            $form = $this->createForm(CurriculumVitaeType::class, $curriculumVitae);
+            $curriculumVitae = $user->getCandidate()->getCurriculumVitae();
+            $newCV = new CurriculumVitae();
+            $newCV->setCandidate($this->getUser()->getCandidate());
+            $form = $this->createForm(CurriculumVitaeType::class, $newCV);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
-                $this->getUser()->getCandidate()->setCurriculumVitae($curriculumVitae);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->flush();
             }
         }
         return $this->render('user/profile.html.twig', [
             'user' => $user,
-            'form' => isset($form) ? $form->createView() : null
+            'form' => isset($form) ? $form->createView() : null,
+            'cv' => $curriculumVitae ?? null
         ]);
     }
 

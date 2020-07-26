@@ -153,7 +153,7 @@ class Candidate
     private $questionnaires;
 
     /**
-     * @ORM\OneToOne(targetEntity=CurriculumVitae::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=CurriculumVitae::class, inversedBy="candidate", cascade={"persist", "remove"})
      */
     private $curriculumVitae;
 
