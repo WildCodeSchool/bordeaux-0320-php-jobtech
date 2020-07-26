@@ -40,7 +40,7 @@ class NewsFixtures extends Fixture
         'La rigueur des statistiques' => [
             'article' => 'De nombreux nombres',
             'image' =>
-                'https://www.akamai.com/fr/fr/multimedia/images/intro/2018/big-data-connector-intro.jpg?imwidth=1366',
+                'https://img.over-blog-kiwi.com/2/49/57/72/20171130/ob_0baedb_industrie-stats.jpg',
             'description' => 'Le big data a permis depuis plus de 10ans une connaissance accru des habitudes clients ' .
                 'ce qui en a fait devenir une valeur non négligeable pour toute entreprise '
         ],

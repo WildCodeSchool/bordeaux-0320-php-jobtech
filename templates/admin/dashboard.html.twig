@@ -3,6 +3,26 @@
 {% block page_title 'Dashboard' %}
 
 {% block page_content %}
-    <a href="{{ path('csv_candidates') }}" download="candidats_{{ "now"|date("d_m_Y") }}.csv"><i class="fas fa-file-download"></i> Exporter les candidats</a>
-    <a href="{{ path('csv_companies') }}" download="entreprises_{{ "now"|date("d_m_Y") }}.csv"><i class="fas fa-file-download"></i> Exporter les entreprises</a>
+    <div class="container">
+        <div>
+            <h1>Image de la page d'accueil</h1>
+            <p>Taille recommandé : 1500px de largeur par 500px de hauteur.</p>
+            {{ form_start(form) }}
+            {{ form_widget(form.imageFile) }}
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-primary mt-3">Modifié</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+
+        <div>
+            <h1>Exporter les utilisateurs</h1>
+            <div class="d-flex flex-column ml-5">
+                <a href="{{ path('csv_candidates') }}" download="candidats_{{ "now"|date("d_m_Y") }}.csv"><i class="fas fa-file-download"></i> Exporter les candidats</a>
+                <a href="{{ path('csv_companies') }}" download="entreprises_{{ "now"|date("d_m_Y") }}.csv"><i class="fas fa-file-download"></i> Exporter les entreprises</a>
+            </div>
+        </div>
+    </div>
+
+    {{ encore_entry_script_tags('ea-dashboard') }}
 {% endblock %}

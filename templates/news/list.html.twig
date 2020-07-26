@@ -11,7 +11,9 @@
                 <div class="d-flex {{ loop.index % 2 == 0 ? 'flex-lg-row-reverse' : '' }} flex-column flex-lg-row mt-3 mb-3">
                     <img class="d-none d-lg-block col-lg-5 news-image {{ loop.index % 2 == 0 ? 'offset-lg-1' : '' }}" src="{{ actuality.image }}" alt="image de l'article">
                     <div class="col-12 col-lg-6 {{ loop.index % 2 == 0 ? '' : 'offset-lg-1' }} d-flex flex-column justify-content-center">
-                        <p class="pb-2">{{ actuality.postedAt | format_datetime('long', locale='fr') }} - <span class="text-gold font-weight-bolder">{{ actuality.title }}</span></p>
+                        <p class="pb-2 d-none d-sm-block">{{ actuality.postedAt | format_datetime('long', locale='fr') }} - <span class="text-gold font-weight-bolder">{{ actuality.title }}</span></p>
+                        <p class="pb-2 d-sm-none text-gold font-weight-bolder">{{ actuality.title }}</p>
+                        <p class="pb-2 d-sm-none">{{ actuality.postedAt | format_datetime('long', locale='fr') }}</p>
                         <p class="pb-3">{{ actuality.description }}</p>
                         <div class="d-flex justify-content-end">
                             <a href="{{ actuality.isExternal ? actuality.url : path('news_show', {'id': actuality.id}) }}" target="{{ actuality.isExternal ? '_blank' : '_self' }}">Lire l'article</a>
