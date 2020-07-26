@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Content;
 use App\Form\ContentType;
+use App\Repository\ImageRepository;
 use App\Repository\JobCategoryRepository;
 use App\Repository\NewsRepository;
 use App\Repository\OfferRepository;
@@ -25,17 +26,20 @@ class JobTechController extends AbstractController
      * @param JobCategoryRepository $jobCategoryRepo
      * @param OfferRepository $offerRepository
      * @param NewsRepository $newsRepository
+     * @param ImageRepository $imageRepository
      * @return Response
      */
     public function index(
         JobCategoryRepository $jobCategoryRepo,
         OfferRepository $offerRepository,
-        NewsRepository $newsRepository
+        NewsRepository $newsRepository,
+        ImageRepository $imageRepository
     ): Response {
         return $this->render('index.html.twig', [
             'job_categories' => $jobCategoryRepo->getJobCategoryWithOffersNb(self::MAX_JOB_CATEGORY_IN_INDEX),
             'actualities' => $newsRepository->findBy([], ['postedAt' => 'DESC'], self::MAX_NEWS_IN_CAROUSEL),
-            'offers' => $offerRepository->findAllOffersAndAddInterval(['postedAt' => 'DESC'], self::MAX_OFFER_IN_INDEX)
+            'offers' => $offerRepository->findAllOffersAndAddInterval(['postedAt' => 'DESC'], self::MAX_OFFER_IN_INDEX),
+            'image' => $imageRepository->findOneBy(['identifier' => 'index'])
         ]);
     }
 

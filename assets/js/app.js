@@ -25,6 +25,6 @@ require('bootstrap-datepicker/dist/locales/bootstrap-datepicker.fr.min')
 
 // JS JobTech
 require('./form');
-require('./bookmark')
-require('./job')
-require('./uploader')
+require('./bookmark');
+require('./job');
+require('./uploader');
