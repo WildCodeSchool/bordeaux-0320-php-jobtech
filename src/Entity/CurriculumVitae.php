@@ -96,7 +96,7 @@ class CurriculumVitae implements Serializable
     public function getCvTitle(): string
     {
         $candidate = $this->getCandidate();
-        return $candidate->getFirstName() . '-' . $candidate->getSurname() . '-CV';
+        return $candidate->getUser()->getEmail() . '-CV';
     }
 
     public function setCvSize(?int $cvSize): void
