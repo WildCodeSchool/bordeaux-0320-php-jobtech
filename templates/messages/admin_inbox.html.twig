@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% block title 'Messagerie' %}
+{% block body %}
+    <div class="container">
+     <h1 class="p-2">Utilisateurs :</h1>
+        <div class="scroll">
+        {% for user in users %}
+            <div class="contact-box card text-white bg-{{ user.candidate ? 'secondary' : 'orange' }} mb-3" style="max-width: 30%;">
+                    <div class="card-body">
+                    <h3>{{ user.candidate.fullNameWithGender ?? user.company.name }}</h3>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+{% endblock %}
+        {% block javascript %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('inbox_admin') }}
+        {% endblock %}
