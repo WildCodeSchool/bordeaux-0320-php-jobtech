@@ -63,7 +63,7 @@
                     <td><i class="fas fa-wheelchair"></i>
                         <strong>{{ user.candidate.isHandicapped ? 'Oui' : 'Non' }}</strong>,
                         je {{ user.candidate.isHandicapped ? '' : 'ne' }}
-                        suis {{ user.candidate.isHandicapped ? '' : 'pas' }} travailleur(se) handicapé(e).
+                        suis {{ user.candidate.isHandicapped ? '' : 'pas' }} travailleu{{ user.candidate.gender.identifier == 'mister' ? 'r' : 'se' }} handicapé{{ user.candidate.gender.identifier == 'madam' ? 'e' : '' }}.
                     </td>
                 </tr>
                 <tr>
@@ -130,9 +130,16 @@
             <div class="m-3">
                 {{ form_start(form) }}
                 {{ form_widget(form.cvFile) }}
-                <div class="d-flex justify-content-end">
-                    <button class="btn btn-primary mt-3">Envoyer</button>
-                </div>
+                {% if cv is not null %}
+                    <div class="d-flex justify-content-between mt-3">
+                        <a class="btn btn-primary" href="{{ vich_uploader_asset(cv, 'cvFile') }}" download>Télécharger le CV</a>
+                        <button class="btn btn-primary">Envoyer</button>
+                    </div>
+                {% else %}
+                    <div class="d-flex justify-content-end mt-3">
+                        <button class="btn btn-primary">Envoyer</button>
+                    </div>
+                {% endif %}
                 {{ form_end(form) }}
             </div>
         </div>

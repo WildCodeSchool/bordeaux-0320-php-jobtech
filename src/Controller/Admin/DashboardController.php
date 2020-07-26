@@ -48,6 +48,7 @@ class DashboardController extends AbstractDashboardController
 
         return $this->render('admin/dashboard.html.twig', [
             'form' => $form->createView(),
+            'imageIndex' => $imageIndex
         ]);
     }
 

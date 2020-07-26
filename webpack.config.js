@@ -24,7 +24,7 @@ Encore
     .addEntry('apply', './assets/js/apply.js')
     .addEntry('text_scramble', './assets/js/TextScramble.js')
     .addEntry('candidate_graphic', './assets/js/questionnaire/candidateGraphic.js')
-    .addEntry('ea-dashboard', './assets/js/ea-dashboard.js')
+    .addEntry('uploader', './assets/js/uploader.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

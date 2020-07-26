@@ -5,7 +5,9 @@ vich_uploader:
     curriculum_vitae:
       uri_prefix: /uploads/cv
       upload_destination: '%kernel.project_dir%/public/uploads/cv'
-      namer: Vich\UploaderBundle\Naming\UniqidNamer
+      namer:
+        service: Vich\UploaderBundle\Naming\PropertyNamer
+        options: { property: 'cvTitle'}
       inject_on_load: false
       delete_on_update: true
       delete_on_remove: true
