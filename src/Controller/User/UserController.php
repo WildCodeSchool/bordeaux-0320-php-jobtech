@@ -42,7 +42,7 @@ class UserController extends AbstractController
         return $this->render('user/profile.html.twig', [
             'user' => $user,
             'form' => isset($form) ? $form->createView() : null,
-            'cv' => $curriculumVitae ?? null
+            'cv' => $curriculumVitae ?? null,
         ]);
     }
 
