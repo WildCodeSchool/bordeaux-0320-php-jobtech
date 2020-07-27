@@ -1,49 +1,57 @@
 <!-- Modal -->
-<div class="modal fade" id="offerModal-{{ offer.id }}" tabindex="-1" role="dialog" aria-labelledby="offerModalLabel" aria-hidden="true">
+<div class="modal fade" id="offerModal-{{ offer.id }}" tabindex="-1" role="dialog" aria-labelledby="offerModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title text-gold" id="offerModalLabel">{{ offer.title }}</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div class="d-flex flex-column">
+                    <p class="text-gold">{{ offer.jobCategory.title }}</p>
+                    <h3 class="modal-title text-gold" id="offerModalLabel">{{ offer.job.title }}</h3>
+                    <p class="text-secondary"><i
+                                    class="fas fa-map-marker-alt"></i> {{ offer.company.name }} - {{ offer.address}}, {{ offer.city }}
+                        {{ offer.postalCode }}, {{ offer.country }}
+                    </p>
+                    <p><span class="text-red"><i class="fas fa-calendar-alt"></i></span>
+                        {% for contract in offer.contracts %}
+                            {{ contract.title }}
+                        {% endfor %}
+                        à {{ offer.workTime.title }} - Nombre
+                        de {% if offer.availablePlace > 1 %}postes{% else %}poste{% endif %}
+                        : {{ offer.availablePlace }} </p>
+                </div>
+                <div class="close">
+                    {% if is_granted('ROLE_CANDIDATE') %}
+                        <div class="like">
+                            <a href="" data-id="{{ offer.id }}" id="bookmark-modal-{{ offer.id }}"
+                               class="bookmark {{ app.user.candidate.bookmarked(offer) ? 'heart' : '' }}"
+                               data-href="{{ path('candidate_add_bookmark', {'id' : offer.id}) }}">
+                                <i class="fa-heart fas"></i>
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+                <br>
+                <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <h5><span class="text-secondary"><i class="fas fa-map-marker-alt"></i> {{ offer.city }} - {{ offer.postalCode }} - {{ offer.country }}</span></h5>
-                <p>Domaine d'activité: {{ offer.jobCategory.title }}</p>
-                <br>
-                {% if is_granted('ROLE_CANDIDATE') %}
-                    <div class="like">
-                        <a href="" data-id="{{ offer.id }}" id="bookmark-modal-{{ offer.id }}" class="bookmark {{ app.user.candidate.bookmarked(offer) ? 'heart' : '' }}" data-href="{{ path('candidate_add_bookmark', {'id' : offer.id}) }}">
-                            <i class="fa-heart fas"></i>
-                        </a>
-                    </div>
-                {% endif %}
-                <br>
-                <p>Métier: {{ offer.job.title }}</p>
-                <br>
-                <p>Entreprise publiant l'offre: {{ offer.company.name }}</p>
-                <br>
-                <p>Description de l'offre: {{ offer.description }}</p>
-                <br>
-                <p>Nombre de {% if offer.availablePlace > 1 %}postes{% else %}poste{% endif %} : {{ offer.availablePlace }} </p>
-                <br>
-                <p><span class="text-red"><i class="fas fa-calendar-alt"></i></span> Type de contrat :
-                    {% for contract in offer.contracts %}
-                        {{ contract.title }}
-                    {% endfor %}
-                    à {{ offer.workTime.title }}</p>
-                <br>
-                {% if is_granted('ROLE_CANDIDATE') %}
-                    {% if app.user.candidate.haveApply(offer) == true %}
-                        <p class="btn btn-primary">Vous avez déjà postulé</p>
-                    {% else %}
-                        <a class="btn btn-primary apply" data-id={{ offer.id}} id="offer-{{ offer.id }}" href="" data-href="{{ path('offer_apply', {'id': offer.id}) }}">Je postule</a>
+            <div class="modal-body p-0">
+                <div class="p-3">
+                <h5>{{ offer.title }}</h5>
+                <p>{{ offer.description }}</p>
+                </div>
+                <div class="d-flex justify-content-end mr-3">
+                    {% if is_granted('ROLE_CANDIDATE') %}
+                        {% if app.user.candidate.haveApply(offer) == true %}
+                            <p class="btn btn-primary">Vous avez déjà postulé</p>
+                        {% else %}
+                            <a class="btn btn-primary apply" data-id={{ offer.id }} id="offer-{{ offer.id }}" href=""
+                               data-href="{{ path('offer_apply', {'id': offer.id}) }}">Je postule</a>
+                        {% endif %}
                     {% endif %}
-                {% endif %}
+                </div>
                 <br>
-
-                <div class="card-footer">
+                <div class="card-footer mt-3">
                     <p class="card-text text-turquoise">
                         {% if offer.interval | date('%a') >= 1 %}
                             L'offre date de {{ offer.interval | date('%a') }} {% if offer.interval | date('%a') > 1 %}jours{% else %}jour{% endif %}.
