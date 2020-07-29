@@ -11,4 +11,25 @@
             </ul>
         </div>
     </div>
+    <div class="container pt-4">
+        <input type="hidden" id="candidate" data-url="{{ path('candidate_get_data_chart', {'id': app.user.candidate.id}) }}">
+        <div class="p-4">
+            <h3 class="text-center text-gold pb-3">Compétences personnelles</h3>
+            <canvas id="myChartPerso"></canvas>
+        </div>
+        <hr>
+        <div class="p-4">
+            <h3 class="text-center text-gold pb-3">Compétences professionnelles</h3>
+            <canvas id="myChartPro"></canvas>
+        </div>
+
+        <div class="d-flex justify-content-end p-3">
+            <a href="{{ path('profile') }}" class="btn btn-primary">Retour au profil</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('candidate_graphic') }}
 {% endblock %}

@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -32,6 +33,7 @@ class CandidateCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         // Fields
+        $id = IdField::new('candidate.id', 'Candidat');
         $email =  EmailField::new('email');
         // $gender = AssociationField::new('candidate.gender', 'Genre');
         $fullNameWithGender = TextField::new('candidate.fullNameWithGender', 'Nom');
@@ -61,11 +63,12 @@ class CandidateCrudController extends AbstractCrudController
 
         $result = [];
         if (Crud::PAGE_INDEX === $pageName) {
-            $result = [$fullNameWithGender, $email, $formattedPhoneNumber, $city, $createdAt, $updatedAt];
+            $result = [$id, $fullNameWithGender, $email, $formattedPhoneNumber, $city, $createdAt, $updatedAt];
         }
 
         if (Crud::PAGE_DETAIL === $pageName) {
             $result = [
+                $id,
                 $fullNameWithGender,
                 $createdAt,
                 $updatedAt,

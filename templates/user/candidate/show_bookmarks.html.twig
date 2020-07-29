@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Mes favoris' %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center pt-5">Mes favoris</h1>
+        <table class="table table-light table-hover table-bordered table-responsive mt-5 mb-5">
+            <thead class="bg-secondary">
+                <tr>
+                    <th scope="col" class="text-center">Titre</th>
+                    <th scope="col" class="text-center">Entreprise</th>
+                    <th scope="col" class="text-center">Métier</th>
+                    <th scope="col" class="text-center">Secteur d'activité</th>
+                    <th scope="col" class="text-center">Temps de travail</th>
+                    <th scope="col" class="text-center">Lieu</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for offer in bookmarks %}
+                    <tr>
+                        <th scope="row" class="text-center"><a href="" data-toggle="modal" data-target="#offerModal-{{ offer.id }}" class="text-gold">{{ offer.title }}</a></th>
+                        <td class="text-center">{{ offer.company.name }}</td>
+                        <td class="text-center">{{ offer.job.title }}</td>
+                        <td class="text-center">{{ offer.jobCategory.title }}</td>
+                        <td class="text-center">{{ offer.workTime }}</td>
+                        <td class="text-center">{{ offer.postalCode }} {{ offer.city }}, {{ offer.country }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% for offer in bookmarks %}
+            {% include 'offer/components/_modal.html.twig' %}
+        {% endfor %}
+    </div>
+{% endblock %}
