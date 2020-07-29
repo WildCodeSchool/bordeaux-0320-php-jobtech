@@ -1,14 +1,13 @@
-{% for message in messages %}
-    <div class="card {{ message.isToContact ? '' : 'align-self-end' }}" style="width: 30rem;">
+{% for message in messages|reverse %}
+    <div class="card {{ message.isToContact ? '' : 'align-self-end' }} msg-card">
         <div class="card-body">
+            <small class="right">le {{ message.postedAt|format_datetime('long', 'short', locale='fr') }}</small>
             {% if message.isToContact %}
-                <h2 class="text-secondary">Administrateur</h2>
+                <h2 class="text-secondary">Vous</h2>
             {% else %}
                 <h2>{{ message.contact.candidate == null ? message.contact.company.name : message.contact.candidate.fullName }}</h2>
             {% endif %}
             <p class="card-title"> Objet : {{ message.subject }}</p>
-            <h6 class="card-subtitle mb-2 text-muted">
-                <small>{{ message.postedAt | date('Y/m/d h:i') }}</small></h6>
             <p class="card-text">{{ message.content | raw }}</p>
         </div>
     </div>
