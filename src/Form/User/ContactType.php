@@ -6,7 +6,7 @@ use App\Entity\Contact;
 use App\Entity\Gender;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -35,7 +35,7 @@ class ContactType extends AbstractType
             ->add('job', TextType::class, [
                 'label' => 'Poste :'
             ])
-            ->add('phoneNumber', IntegerType::class, [
+            ->add('phoneNumber', TelType::class, [
                 'label' => 'Numéro de téléphone :'
             ]);
     }
