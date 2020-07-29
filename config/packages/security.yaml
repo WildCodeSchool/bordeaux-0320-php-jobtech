@@ -38,7 +38,7 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/footer/[a-z_]*/edit, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: [ROLE_CANDIDATE, ROLE_COMPANY] }
-        - { path: ^/candidat, roles: [ROLE_CANDIDATE, ROLE_ADMIN] }
+        - { path: ^/candidat, roles: ROLE_CANDIDATE }
         - { path: ^/entreprise, roles: [ROLE_COMPANY] }
 
     role_hierarchy:
