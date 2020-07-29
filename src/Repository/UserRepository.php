@@ -50,6 +50,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->leftJoin('u.candidate', 'c')
             ->leftJoin('u.company', 'co')
             ->groupBy('m.contact');
+        
+        return $request->getQuery()->getResult();
+    }
 
     public function findAllCandidate()
     {
