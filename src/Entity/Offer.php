@@ -80,6 +80,11 @@ class Offer
     private $updatedAt;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $endedAt;
+
+    /**
      * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="offers")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -318,6 +323,23 @@ class Offer
     public function setUpdatedAt(): self
     {
         $this->updatedAt = new DateTime();
+
+        return $this;
+    }
+
+    public function getEndedAt(): ?\DateTimeInterface
+    {
+        return $this->endedAt;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @return $this
+     */
+    public function setEndedAt(): self
+    {
+        $now = new DateTime();
+        $this->endedAt = $now->modify('+30 days');
 
         return $this;
     }

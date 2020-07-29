@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200729165020 extends AbstractMigration
+final class Version20200729203634 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -25,9 +25,10 @@ final class Version20200729165020 extends AbstractMigration
         $this->addSql('CREATE TABLE news (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(80) NOT NULL, description LONGTEXT NOT NULL, is_external TINYINT(1) DEFAULT \'0\' NOT NULL, url LONGTEXT DEFAULT NULL, article LONGTEXT DEFAULT NULL, image VARCHAR(255) DEFAULT NULL, posted_at DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE document (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, document VARCHAR(255) NOT NULL, INDEX IDX_D8698A76A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE experience (id INT AUTO_INCREMENT NOT NULL, candidate_id INT NOT NULL, job VARCHAR(255) NOT NULL, years INT NOT NULL, INDEX IDX_590C10391BD8781 (candidate_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE offer (id INT AUTO_INCREMENT NOT NULL, company_id INT NOT NULL, job_id INT NOT NULL, job_category_id INT NOT NULL, work_time_id INT NOT NULL, title VARCHAR(80) NOT NULL, description VARCHAR(255) NOT NULL, detail LONGTEXT NOT NULL, available_place INT NOT NULL, address VARCHAR(255) NOT NULL, postal_code INT NOT NULL, city VARCHAR(60) NOT NULL, country VARCHAR(60) NOT NULL, posted_at DATETIME NOT NULL, updated_at DATETIME DEFAULT NULL, INDEX IDX_29D6873E979B1AD6 (company_id), INDEX IDX_29D6873EBE04EA9 (job_id), INDEX IDX_29D6873E712A86AB (job_category_id), INDEX IDX_29D6873E8B216519 (work_time_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE offer (id INT AUTO_INCREMENT NOT NULL, company_id INT NOT NULL, job_id INT NOT NULL, job_category_id INT NOT NULL, work_time_id INT NOT NULL, title VARCHAR(80) NOT NULL, description VARCHAR(255) NOT NULL, detail LONGTEXT NOT NULL, available_place INT NOT NULL, address VARCHAR(255) NOT NULL, postal_code INT NOT NULL, city VARCHAR(60) NOT NULL, country VARCHAR(60) NOT NULL, posted_at DATETIME NOT NULL, updated_at DATETIME DEFAULT NULL, ended_at DATETIME NOT NULL, INDEX IDX_29D6873E979B1AD6 (company_id), INDEX IDX_29D6873EBE04EA9 (job_id), INDEX IDX_29D6873E712A86AB (job_category_id), INDEX IDX_29D6873E8B216519 (work_time_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE offer_has_contracts (offer_id INT NOT NULL, contract_id INT NOT NULL, INDEX IDX_74A1683753C674EE (offer_id), INDEX IDX_74A168372576E0FD (contract_id), PRIMARY KEY(offer_id, contract_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE work_time (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(45) NOT NULL, identifier VARCHAR(45) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE link (id INT AUTO_INCREMENT NOT NULL, identifier VARCHAR(255) NOT NULL, content VARCHAR(2083) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE questionnaire (id INT AUTO_INCREMENT NOT NULL, candidate_id INT NOT NULL, ability_id INT NOT NULL, score INT NOT NULL, posted_at DATETIME NOT NULL, INDEX IDX_7A64DAF91BD8781 (candidate_id), INDEX IDX_7A64DAF8016D8B2 (ability_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE question (id INT AUTO_INCREMENT NOT NULL, ability_id INT NOT NULL, question VARCHAR(255) NOT NULL, INDEX IDX_B6F7494E8016D8B2 (ability_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE radius (id INT AUTO_INCREMENT NOT NULL, radius INT NOT NULL, identifier VARCHAR(45) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -135,6 +136,7 @@ final class Version20200729165020 extends AbstractMigration
         $this->addSql('DROP TABLE offer');
         $this->addSql('DROP TABLE offer_has_contracts');
         $this->addSql('DROP TABLE work_time');
+        $this->addSql('DROP TABLE link');
         $this->addSql('DROP TABLE questionnaire');
         $this->addSql('DROP TABLE question');
         $this->addSql('DROP TABLE radius');

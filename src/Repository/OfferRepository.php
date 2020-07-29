@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Offer;
 use App\Entity\Search\OfferSearch;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,7 +22,7 @@ class OfferRepository extends ServiceEntityRepository
     }
 
     /**
-     * Find all offers and add the interval between the creation and now.
+     * Find all offers not ended and add the interval between the creation and now.
      * @param array|null $orderBy
      * @param int $limit
      * @param int $offset
@@ -29,15 +30,17 @@ class OfferRepository extends ServiceEntityRepository
      */
     public function findAllOffersAndAddInterval(array $orderBy = null, int $limit = null, int $offset = null): array
     {
-        $request = $this->createQueryBuilder('offer')
-            ->join('offer.job', 'job')
-            ->join('offer.jobCategory', 'jobCategory')
-            ->join('offer.company', 'company')
-            ->join('offer.workTime', 'workTime');
+        $request = $this->createQueryBuilder('o')
+            ->where('o.endedAt > :now')
+            ->setParameter('now', new DateTime())
+            ->join('o.job', 'job')
+            ->join('o.jobCategory', 'jobCategory')
+            ->join('o.company', 'company')
+            ->join('o.workTime', 'workTime');
 
         if ($orderBy) {
             foreach ($orderBy as $key => $order) {
-                $request->addOrderBy('offer.' . $key, $order);
+                $request->addOrderBy('o.' . $key, $order);
             }
         }
         if ($limit) {
@@ -64,6 +67,8 @@ class OfferRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('o')
             ->select('COUNT(o.title) AS offers')
+            ->where('o.endedAt > :now')
+            ->setParameter('now', new DateTime())
             ->getQuery()
             ->getResult()[0]['offers'];
     }
@@ -76,14 +81,14 @@ class OfferRepository extends ServiceEntityRepository
      */
     public function findSearch(OfferSearch $search, array $offers): array
     {
-
-
         if ($search->checkIfFormIsEmpty()) {
             return $offers;
         }
 
         $query = $this->createQueryBuilder('o')
             ->select('j', 'o')
+            ->where('o.endedAt > :now')
+            ->setParameter('now', new DateTime())
             ->join('o.job', 'j')
             ->join('o.contracts', 'c')
             ->join('o.workTime', 'wt');
@@ -97,26 +102,25 @@ class OfferRepository extends ServiceEntityRepository
                 ->setParameter('query', "%{$search->getQuery()}%");
         }
 
-        if (!empty($search->getJob())) {
+        if ($search->getJob() !== null) {
             $query
                 ->andWhere('j.id IN (:job)')
                 ->setParameter('job', $search->getJob());
         }
 
-        if (!empty($search->getContract())) {
+        if ($search->getContract() !== null) {
             $query
                 ->andWhere('c.id IN (:contract)')
                 ->setParameter('contract', $search->getContract());
         }
 
-        if (!empty($search->getWorkTime())) {
+        if ($search->getWorkTime() !== null) {
             $query
                 ->andWhere('wt.id IN (:workTime)')
                 ->setParameter('workTime', $search->getWorkTime());
         }
 
-        $offers = $query->getQuery()
-            ->getResult();
+        $offers = $query->getQuery()->getResult();
 
         foreach ($offers as $offer) {
             $offer->setInterval();

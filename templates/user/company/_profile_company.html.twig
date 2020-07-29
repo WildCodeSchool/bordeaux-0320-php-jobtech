@@ -47,8 +47,14 @@
     </div>
     <ul class="list-group">
         {% for offer in user.company.offers %}
-            <li class="list-group-item">
-                - <a href=" {{ path('offer_show', {'id': offer.id}) }}"> {{ offer.title }} <span class="badge badge-primary ml-3">{{ offer.applies | length }}</span></a>
+            <li class="list-group-item d-flex justify-content-between">
+                {% if date(offer.endedAt) < date("now") %}
+                    <a class="text-red" href="{{ path('offer_show', {'id': offer.id}) }}"> {{ offer.title }} <span class="badge badge-danger ml-3">{{ offer.applies | length }}</span></a>
+                    <p>Terminé le {{ offer.endedAt | format_datetime('long', locale='fr') }}</p>
+                {% else %}
+                    <a href="{{ path('offer_show', {'id': offer.id}) }}"> {{ offer.title }} <span class="badge badge-primary ml-3">{{ offer.applies | length }}</span></a>
+                    <p>Se termine le {{ offer.endedAt | format_datetime('long', locale='fr') }}</p>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>

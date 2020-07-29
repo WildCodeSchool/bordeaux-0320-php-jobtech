@@ -82,7 +82,7 @@ class OfferController extends AbstractController
             return $this->redirectToRoute('offer_show', ['id' => $offer->getId()]);
         }
 
-        return $this->render('offer/new.html.twig', [
+        return $this->render('offer/form.html.twig', [
             'offer' => $form->createView(),
         ]);
     }
@@ -105,7 +105,7 @@ class OfferController extends AbstractController
             return $this->redirectToRoute('offer_show', ['id' => $offer->getId()]);
         }
 
-        return $this->render('offer/new.html.twig', ['offer' => $form->createView()]);
+        return $this->render('offer/form.html.twig', ['offer' => $form->createView()]);
     }
 
     /**
