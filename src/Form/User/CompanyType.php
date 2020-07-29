@@ -6,7 +6,6 @@ use App\Entity\Company;
 use App\Repository\Api\RestCountries;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -68,9 +67,7 @@ class CompanyType extends AbstractType
                 'label' => 'Adresse :'
             ])
             ->add('siret', IntegerType::class)
-            ->add('contacts', CollectionType::class, [
-                'entry_type' => ContactType::class,
-                'entry_options' => ['label' => false],
+            ->add('contact', ContactType::class, [
                 'label' => false,
             ]);
         return $this;

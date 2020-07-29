@@ -82,14 +82,13 @@ class Company
     private $offers;
 
     /**
-     * @ORM\OneToMany(targetEntity=Contact::class, mappedBy="company", orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity=Contact::class, inversedBy="company", cascade={"persist", "remove"})
      */
-    private $contacts;
+    private $contact;
 
     public function __construct()
     {
         $this->offers = new ArrayCollection();
-        $this->contacts = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -297,33 +296,14 @@ class Company
         return $this;
     }
 
-    /**
-     * @return Collection|Contact[]
-     */
-    public function getContacts(): Collection
+    public function getContact(): ?Contact
     {
-        return $this->contacts;
+        return $this->contact;
     }
 
-    public function addContact(Contact $contact): self
+    public function setContact(?Contact $contact): self
     {
-        if (!$this->contacts->contains($contact)) {
-            $this->contacts[] = $contact;
-            $contact->setCompany($this);
-        }
-
-        return $this;
-    }
-
-    public function removeContact(Contact $contact): self
-    {
-        if ($this->contacts->contains($contact)) {
-            $this->contacts->removeElement($contact);
-            // set the owning side to null (unless already changed)
-            if ($contact->getCompany() === $this) {
-                $contact->setCompany(null);
-            }
-        }
+        $this->contact = $contact;
 
         return $this;
     }

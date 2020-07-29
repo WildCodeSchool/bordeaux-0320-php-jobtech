@@ -28,6 +28,9 @@ class UserController extends AbstractController
     public function profile(Request $request): Response
     {
         $user = $this->getUser();
+        if ($this->isGranted('ROLE_COMPANY')) {
+            $contact = $user->getCompany()->getContact();
+        }
         if ($this->isGranted('ROLE_CANDIDATE')) {
             $curriculumVitae = $user->getCandidate()->getCurriculumVitae();
             $newCV = new CurriculumVitae();
@@ -40,6 +43,7 @@ class UserController extends AbstractController
             }
         }
         return $this->render('user/profile.html.twig', [
+            'contact' => $contact ?? null,
             'user' => $user,
             'form' => isset($form) ? $form->createView() : null,
             'cv' => $curriculumVitae ?? null,
@@ -95,14 +99,6 @@ class UserController extends AbstractController
         }
 
         $user = new User();
-        if ($action === UserType::CREATE_COMPANY) {
-            $company = new Company();
-            $contact = new Contact();
-            $user->setCompany($company);
-            $user->getCompany()->getContacts()->add($contact);
-        }
-
-
         $form = $this->createForm(UserType::class, $user, ['action' => $action]);
         $form->handleRequest($request);
 
@@ -111,9 +107,7 @@ class UserController extends AbstractController
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
             $entityManager = $this->getDoctrine()->getManager();
-            if (isset($contact, $company) && $action === UserType::CREATE_COMPANY) {
-                $contact->setCompany($company);
-                $entityManager->persist($contact);
+            if ($action === UserType::CREATE_COMPANY) {
                 $user->setRoles(['ROLE_COMPANY']);
             }
             if ($action === UserType::CREATE_CANDIDATE) {

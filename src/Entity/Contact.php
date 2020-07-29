@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ContactRepository;
+use App\Service\NumberManager;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -52,7 +53,7 @@ class Contact
      * @ORM\Column(type="string", length=20)
      * @Assert\Length(max=20, maxMessage="Le Numéro de téléphone ne doit pas dépasser {{ limit }} caractères")
      */
-    private $phone_number;
+    private $phoneNumber;
 
     /**
      * @ORM\ManyToOne(targetEntity=Gender::class)
@@ -61,10 +62,10 @@ class Contact
     private $gender;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="contacts")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity=Company::class, mappedBy="contact", cascade={"persist", "remove"})
      */
     private $company;
+
 
     public function __toString()
     {
@@ -160,16 +161,21 @@ class Contact
      */
     public function getPhoneNumber(): ?string
     {
-        return $this->phone_number;
+        return $this->phoneNumber;
+    }
+
+    public function getFormattedPhoneNumber(): ?string
+    {
+        return NumberManager::addPointToPhoneNumber($this->getPhoneNumber());
     }
 
     /**
-     * @param string|null $phone_number
+     * @param string|null $phoneNumber
      * @return $this
      */
-    public function setPhoneNumber(?string $phone_number): self
+    public function setPhoneNumber(?string $phoneNumber): self
     {
-        $this->phone_number = $phone_number;
+        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }
@@ -201,6 +207,12 @@ class Contact
     public function setCompany(?Company $company): self
     {
         $this->company = $company;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newContact = null === $company ? null : $this;
+        if ($company->getContact() !== $newContact) {
+            $company->setContact($newContact);
+        }
 
         return $this;
     }
