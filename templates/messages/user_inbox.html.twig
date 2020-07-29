@@ -3,8 +3,10 @@
 {% block body %}
     <div class="container">
         <h1 class="text-center p-2">Boite de réception :</h1>
-        <a class="btn btn-primary" href="{{ path('message_new') }}">Nouveau message</a>
-        <div class="scroll">
+        <div class="d-flex justify-content-center">
+            <a class="btn btn-primary" href="{{ path('message_new') }}">Nouveau message</a>
+        </div>
+        <div class="scroll mt-3">
         <div class="d-flex flex-column">
             {% for message in messages %}
                 <div class="card {{ message.isToContact ? '' : 'align-self-end' }}" style="width: 30rem;">
@@ -17,7 +19,7 @@
                         <p class="card-title"> Objet : {{ message.subject }}</p>
                         <h6 class="card-subtitle mb-2 text-muted">
                             <small>{{ message.postedAt | date('Y/m/d h:i') }}</small></h6>
-                        <p class="card-text">{{ message.content }}</p>
+                        <p class="card-text">{{ message.content | raw }}</p>
                     </div>
                 </div>
             {% endfor %}

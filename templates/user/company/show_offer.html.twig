@@ -42,11 +42,15 @@
                 <td class="text-center">{{ offer.description | raw }}</td>
             </tr>
             <tr>
+                <th scope="row" class="text-center">Détails</th>
+                <td class="text-center">{{ offer.detail | raw }}</td>
+            </tr>
+            <tr>
                 <th scope="row" class="text-center">Postulant(s)</th>
                 <td class="text-center">
                     <ul>
                         {% for apply in offer.applies %}
-                            <li><a href="{{ path('candidate_show_profile', {'id': apply.user.id}) }}">Candidat {{ apply.user.id }}</a></li>
+                            <li><a href="{{ path('candidate_show_profile', {'id': apply.user.id}) }}">Candidat {{ apply.user.id }} - Le {{ apply.applyAt | format_datetime('long', locale='fr') }}</a></li>
                         {% endfor %}
                     </ul>
                 </td>

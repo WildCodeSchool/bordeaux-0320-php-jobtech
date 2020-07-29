@@ -245,7 +245,7 @@ class Candidate
     /**
      * @return DateTime
      */
-    public function getBirthday(): DateTime
+    public function getBirthday(): ?DateTime
     {
         return $this->birthday;
     }
@@ -274,7 +274,7 @@ class Candidate
      */
     public function getPhoneNumber(): ?string
     {
-        return '0' . $this->phoneNumber;
+        return $this->phoneNumber;
     }
 
     public function getFormattedPhoneNumber(): ?string
