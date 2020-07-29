@@ -33,6 +33,9 @@
                         {% endif %}
                         {% if is_granted('ROLE_ADMIN') %}
                             <a class="dropdown-item text-center" href="{{ path('admin') }}">Administration</a>
+                            <a class="dropdown-item text-center" href="{{ path('message_admin_inbox') }}">Messagerie</a>
+                            {% else %}
+                                <a class="dropdown-item text-center" href="{{ path('message_inbox') }}">Messagerie</a>
                         {% endif %}
                         <a class="dropdown-item text-center" href="{{ path('logout') }}">Se déconnecter</a>
                     {% else %}
