@@ -27,7 +27,7 @@ class CompanyController extends AbstractController
     }
 
     /**
-     * @Route("/offres/edit/{id}", name="edit_offre")
+     * @Route("/offres/edit/{id}", name="edit_offer")
      * @param Offer $offer
      * @param Request $request
      * @return Response
@@ -41,9 +41,9 @@ class CompanyController extends AbstractController
             $manager = $this->getDoctrine()->getManager();
             $manager->flush();
 
-            return $this->redirectToRoute('offer_new');
+            return $this->redirectToRoute('company_show_offer', ['id' => $offer->getId()]);
         }
 
-        return $this->render('user/company/show_offer.html.twig', ['form' => $form->createView()]);
+        return $this->render('user/company/_edit_company_offer.html.twig', ['form' => $form->createView()]);
     }
 }
