@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const persons = document.getElementsByClassName('contact-line');
 
     if (persons) {
-        for (let i = 0; i < persons.length; i++) {
+        for (let i = 0; i < persons.length; i+=1) {
             persons[i].addEventListener('click', () => {
                 const user = persons[i].dataset.user;
                 persons[i].innerHTML += '<span class="small">chargement ...</span>';
