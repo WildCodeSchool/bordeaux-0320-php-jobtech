@@ -74,7 +74,7 @@ class CandidateController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/favoris", name="add_bookmark")
+     * @Route("/favoris/{id}", name="add_bookmark")
      * @param Offer $offer
      * @param EntityManagerInterface $entityManager
      * @return JsonResponse
@@ -90,6 +90,23 @@ class CandidateController extends AbstractController
         return new JsonResponse(
             $this->getUser()->getCandidate()->isBookmarked($offer)
         );
+    }
+
+    /**
+     * @Route("/favoris", name="show_bookmarks")
+     * @return Response
+     */
+    public function showBookmarks(): Response
+    {
+        $bookmarks = $this->getUser()->getCandidate()->getBookmarks();
+
+        foreach ($bookmarks as $offer) {
+            $offer->setInterval();
+        }
+
+        return $this->render('user/candidate/show_bookmarks.html.twig', [
+            'bookmarks' => $bookmarks
+        ]);
     }
 
     /**

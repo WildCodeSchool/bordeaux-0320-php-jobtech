@@ -11,6 +11,7 @@ use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,8 +24,11 @@ class OfferType extends AbstractType
             ->add('title', TextType::class, [
                 'label'=>'Nom de l\'annonce'
             ])
-            ->add('description', CKEditorType::class, [
+            ->add('description', TextareaType::class, [
                 'label' => 'Description de l\'offre'
+            ])
+            ->add('detail', CKEditorType::class, [
+                'label' => 'Détails de l\'offre'
             ])
             ->add('availablePlace', IntegerType::class, [
                 'label' => 'Nombre de postes'

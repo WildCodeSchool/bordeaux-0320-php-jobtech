@@ -35,6 +35,11 @@ class Offer
     private $description;
 
     /**
+     * @ORM\Column(type="text")
+     */
+    private $detail;
+
+    /**
      * @ORM\Column(type="integer")
      */
     private $availablePlace;
@@ -462,6 +467,18 @@ class Offer
                 $apply->setOffer(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDetail(): ?string
+    {
+        return $this->detail;
+    }
+
+    public function setDetail(string $detail): self
+    {
+        $this->detail = $detail;
 
         return $this;
     }
