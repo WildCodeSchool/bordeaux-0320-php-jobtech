@@ -1,24 +1,16 @@
-<h2>Informations personnelles</h2>
+<h2 class="pt-5 text-center">Informations personnelles</h2>
 
 {{ form_start(form) }}
-    <div class="row">
+    <div class="d-flex flex-column">
         {{ form_row(form.company.name) }}
-    </div>
-
-    <div class="row">
         {{ form_row(form.company.siret) }}
-    </div>
-
-    <div class="row">
         {{ form_row(form.company.address) }}
         {{ form_row(form.company.postalCode) }}
         {{ form_row(form.company.city) }}
-    </div>
-
-    <div class="row">
         {{ form_row(form.company.country) }}
     </div>
-
-<button class="btn btn-primary">Enregistrer</button>
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-primary m-3">Enregistrer</button>
+    </div>
 {{ form_end(form) }}
 

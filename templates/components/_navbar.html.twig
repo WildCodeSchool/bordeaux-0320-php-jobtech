@@ -14,8 +14,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('news_list') }}">Actualités</a>
             </li>
-            <li class="nav-item mr-lg-3">
+            <li class="nav-item">
                 <a class="nav-link" href="{{ path('offer_list') }}">Offres</a>
+            </li>
+            <li class="nav-item mr-lg-3">
+                <a class="nav-link" href="{{ path('footer_page', {'page': 'about'}) }}">À Propos</a>
             </li>
             <li class="ml-lg-auto mr-5 nav-item d-none d-lg-block dropdown">
                 <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -26,10 +29,9 @@
                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                         <a class="dropdown-item text-center" href="{{ path('profile') }}">Mon compte</a>
                         {% if is_granted('ROLE_CANDIDATE') %}
-                            <a class="dropdown-item text-center" href="{{ path('candidate_show_bookmarks') }}">Mes
-                                favoris</a>
+                            <a class="dropdown-item text-center" href="{{ path('candidate_show_bookmarks') }}">Mes favoris</a>
                         {% endif %}
-                        {% if is_granted('ROLE_COMPANY') %}
+                        {% if is_granted('ROLE_COMPANY') and app.user.isActive != false %}
                             <a class="dropdown-item text-center" href="{{ path('offer_new') }}">Ajouter une offre</a>
                         {% endif %}
                         {% if is_granted('ROLE_ADMIN') %}

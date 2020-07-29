@@ -48,6 +48,7 @@
                     {{ form_row(register.candidate.isHandicapped) }}
                 {% elseif action == 'create_company' %}
                     {{ form_row(register.company.name) }}
+                    {{ form_row(register.company.siret) }}
                     <h2>Information de l'entreprise</h2>
                     {{ form_row(register.company.address) }}
                     <div class="row justify-content-between">
@@ -74,7 +75,7 @@
                 {% if action == 'create_candidate' %}
                     <img src="{{ asset('build/images/unDraw/register_candidate.svg') }}">
                 {% elseif action == 'create_company' %}
-                    <img src="{{ asset('build/images/unDraw/register_company.svg') }}">
+                    <img src="{{ asset('build/images/unDraw/register_company.svg') }}" class="mt-5">
                 {% endif %}
             </div>
         </div>

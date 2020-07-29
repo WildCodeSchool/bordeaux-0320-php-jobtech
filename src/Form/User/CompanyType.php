@@ -67,6 +67,7 @@ class CompanyType extends AbstractType
             ->add('address', TextType::class, [
                 'label' => 'Adresse :'
             ])
+            ->add('siret', IntegerType::class)
             ->add('contacts', CollectionType::class, [
                 'entry_type' => ContactType::class,
                 'entry_options' => ['label' => false],

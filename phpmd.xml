@@ -40,4 +40,5 @@
     </rule>
     <exclude-pattern>src/Migrations</exclude-pattern>
     <exclude-pattern>src/Entity</exclude-pattern>
+    <exclude-pattern>src/Controller/Admin</exclude-pattern>
 </ruleset>

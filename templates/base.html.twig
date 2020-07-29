@@ -27,11 +27,22 @@
 </main>
 
 {% block footer %}
-    {% include 'components/_footer.html.twig' %}
+    {{ render(controller(
+        'App\\Controller\\JobTechController::footer'
+    )) }}
 {% endblock %}
 
 {% block javascript %}
     {{ encore_entry_script_tags('app') }}
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173063700-1%22%3E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-173063700-1');
+    </script>
 {% endblock %}
 </body>
 
