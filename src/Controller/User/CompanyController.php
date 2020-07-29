@@ -3,7 +3,9 @@
 namespace App\Controller\User;
 
 use App\Entity\Offer;
+use App\Form\OfferType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -22,5 +24,26 @@ class CompanyController extends AbstractController
         return $this->render('user/company/show_offer.html.twig', [
             'offer' => $offer
         ]);
+    }
+
+    /**
+     * @Route("/offres/edit/{id}", name="edit_offre")
+     * @param Offer $offer
+     * @param Request $request
+     * @return Response
+     */
+    public function editOffer(Offer $offer, Request $request): Response
+    {
+        $form = $this->createForm(OfferType::class, $offer);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->flush();
+
+            return $this->redirectToRoute('offer_new');
+        }
+
+        return $this->render('user/company/show_offer.html.twig', ['form' => $form->createView()]);
     }
 }
