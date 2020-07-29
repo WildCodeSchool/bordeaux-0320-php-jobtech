@@ -105,7 +105,6 @@ class CandidateType extends AbstractType
             ->add('isContactableEmail', CheckboxType::class, [
                 'label' => 'par email.',
                 'required' => false,
-                'attr' => ['checked' => true]
             ]);
 
         return $this;
