@@ -10,6 +10,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -63,15 +64,16 @@ class MessageController extends AbstractController
 
     /**
      * @Route("/admin/", name="admin_inbox")
-     * @param UserRepository $userRepository
+     * @param MessageRepository $messageRepository
      * @return Response
      */
-    public function adminInbox(UserRepository $userRepository): Response
+    public function adminInbox(MessageRepository $messageRepository): Response
     {
-        $users = $userRepository->findAllContact();
-
+        $candidates = $messageRepository->getAllContactCandidate();
+        $companies  = $messageRepository->getAllContactCompanies();
         return $this->render('messages/admin_inbox.html.twig', [
-            'users' => $users,
+            'candidates' => $candidates,
+            'companies'  => $companies,
         ]);
     }
     /**
@@ -86,12 +88,26 @@ class MessageController extends AbstractController
         UserRepository $userRepository,
         User $user
     ): Response {
-        $users = $userRepository->findAllContact();
+        $candidates = $messageRepository->getAllContactCandidate();
+        $companies  = $messageRepository->getAllContactCompanies();
         $messages = $messageRepository->findBy(['contact' => $user]);
-
         return $this->render('messages/admin_inbox.html.twig', [
-            'users' => $users,
+            'candidates' => $candidates,
+            'companies' => $companies,
             'messages' => $messages,
         ]);
+    }
+
+
+    /**
+     * @Route("/reset/{id}", name="reset_messages")
+     * @param MessageRepository $messageRepository
+     */
+    public function resetMessages(User $user, MessageRepository $messageRepository)
+    {
+        $response = new JsonResponse();
+        $messageRepository->resetNew($user);
+        $response->setData(Response::HTTP_OK);
+        return $response;
     }
 }

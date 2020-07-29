@@ -33,6 +33,17 @@ table {
     &.table-exp {
         margin-top:10px;
         border-radius:5px 0 0 0;
+        .notification {
+            float:right;
+            width:30px;
+            height:30px;
+            line-height:30px;
+            text-align:center;
+            vertical-align:center;
+            border-radius:200px;
+            background:$red;
+            border:1px solid $primary;
+        }
     }
     tr {
         &.contact-box {

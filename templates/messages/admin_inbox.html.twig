@@ -2,7 +2,7 @@
 {% block title 'Messagerie' %}
 {% block body %}
 <div class="container">
-    <h1 class="p-2">Utilisateurs :</h1>
+    <h1 class="p-2">Messagerie</h1>
     <a class="btn btn-primary" href="{{ path('message_new') }}">Nouveau message</a>
     <div class="d-flex">
         <table class="table col-3 table-exp">
@@ -12,13 +12,31 @@
             </tr>
             </thead>
             <tbody>
-            {% for user in users %}
-                <tr class="contact-box" data-url="{{ path('message_admin_message', {'id': user.id}) }}">
+            {% for candidate in candidates %}
+                <tr class="contact-box">
                     <th
                         scope="row"
-                        class="text-white bg-{{ user.candidate ? 'secondary' : 'orange' }} contact-line"
+                        class="text-white bg-secondary contact-line"
+                        data-user="{{ candidate.id }}"
                     >
-                        {{ user.candidate.fullNameWithGender ?? user.company.name }}
+                        {{ candidate.gender }} {{ candidate.firstName }} {{ candidate.surname }}
+                        {% if candidate.news > 0 %}
+                        <span class="right notification">{{ candidate.news }}</span>
+                        {% endif %}
+                    </th>
+                </tr>
+            {% endfor %}
+            {% for company in companies %}
+                <tr class="contact-box" data-url="{{ path('message_admin_message', {'id': company.id}) }}">
+                    <th
+                            scope="row"
+                            class="text-white bg-orange contact-line"
+                            data-user="{{ company.id }}"
+                    >
+                        Sté. {{ company.name }}
+                        {% if company.news > 0 %}
+                            <span class="right notification">{{ company.news }}</span>
+                        {% endif %}
                     </th>
                 </tr>
             {% endfor %}
