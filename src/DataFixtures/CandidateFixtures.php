@@ -54,8 +54,8 @@ class CandidateFixtures extends Fixture implements DependentFixtureInterface
         ],
     ];
 
-    const PREFIX_PHONE = 06;
-    const PREFIX_PHONE_HOME = 05;
+    const PREFIX_PHONE = '06';
+    const PREFIX_PHONE_HOME = '05';
     const POSTAL_CODE = 33100;
     const CITY = 'Bordeaux';
     const COUNTRY = 'FR';
@@ -78,8 +78,8 @@ class CandidateFixtures extends Fixture implements DependentFixtureInterface
                 ->setFirstname($data['firstname'])
                 ->setBirthday($birthday)
                 ->setGender($this->getReference($data['gender']))
-                ->setPhoneNumber((int)$phoneNumber)
-                ->setOtherNumber((int)$otherNumber)
+                ->setPhoneNumber($phoneNumber)
+                ->setOtherNumber($otherNumber)
                 ->setPostalCode(self::POSTAL_CODE)
                 ->setCity(self::CITY)
                 ->setCountry(self::COUNTRY)
@@ -105,8 +105,8 @@ class CandidateFixtures extends Fixture implements DependentFixtureInterface
                 ->setFirstname($firstname)
                 ->setBirthday($birthday)
                 ->setGender($this->getReference('gender_' . rand(0, 1)))
-                ->setPhoneNumber((int)$phoneNumber)
-                ->setOtherNumber((int)$otherNumber)
+                ->setPhoneNumber($phoneNumber)
+                ->setOtherNumber($otherNumber)
                 ->setPostalCode(self::POSTAL_CODE)
                 ->setCity(self::CITY)
                 ->setCountry(self::COUNTRY)
