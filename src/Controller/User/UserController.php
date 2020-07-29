@@ -21,7 +21,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/profile", name="profile")
+     * @Route("/profil", name="profile")
      * @param Request $request
      * @return Response
      */
@@ -139,7 +139,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/login", name="login")
+     * @Route("/connexion", name="login")
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */

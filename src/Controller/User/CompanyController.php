@@ -27,7 +27,7 @@ class CompanyController extends AbstractController
     }
 
     /**
-     * @Route("/offres/edit/{id}", name="edit_offer")
+     * @Route("/offres/{id}/edit", name="edit_offer")
      * @param Offer $offer
      * @param Request $request
      * @return Response
