@@ -4,7 +4,9 @@
     <div class="container">
             <h1>Envoyer un message :</h1>
             {{ form_start(addMessage) }}
+        {% if is_granted('ROLE_ADMIN')%}
                 {{ form_row(addMessage.contact) }}
+        {% endif %}
                 {{ form_row(addMessage.subject) }}
                 {{ form_widget(addMessage.content) }}
                 <div class="d-flex justify-content-end">

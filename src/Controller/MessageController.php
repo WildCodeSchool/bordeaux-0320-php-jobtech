@@ -26,7 +26,7 @@ class MessageController extends AbstractController
      */
     public function inbox(MessageRepository $messageRepository): Response
     {
-        $messages = $messageRepository->findBy(['contact' => $this->getUser()], ['postedAt' => 'DESC']);
+        $messages = $messageRepository->findBy(['contact' => $this->getUser()], ['postedAt' => 'ASC']);
 
         return $this->render('messages/user_inbox.html.twig', [
             'messages' => $messages,
