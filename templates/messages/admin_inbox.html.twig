@@ -5,17 +5,21 @@
     <h1 class="p-2">Utilisateurs :</h1>
     <a class="btn btn-primary" href="{{ path('message_new') }}">Nouveau message</a>
     <div class="d-flex">
-        <table class="table col-3">
+        <table class="table col-3 table-exp">
             <thead class="thead-dark">
             <tr>
-                <th scope="col" class="text-center">Contact</th>
+                <th scope="col" class="text-center">Contacts</th>
             </tr>
             </thead>
             <tbody>
             {% for user in users %}
                 <tr class="contact-box" data-url="{{ path('message_admin_message', {'id': user.id}) }}">
-                    <th scope="row"
-                        class="text-white bg-{{ user.candidate ? 'secondary' : 'orange' }}">{{ user.candidate.fullNameWithGender ?? user.company.name }}</th>
+                    <th
+                        scope="row"
+                        class="text-white bg-{{ user.candidate ? 'secondary' : 'orange' }} contact-line"
+                    >
+                        {{ user.candidate.fullNameWithGender ?? user.company.name }}
+                    </th>
                 </tr>
             {% endfor %}
             </tbody>
