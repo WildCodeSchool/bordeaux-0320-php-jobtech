@@ -1,0 +1,6 @@
+<h1 style="text-align: center">Bonjour !</h1>
+
+<p style="text-align: center">
+    Pour réinitialiser votre mot de passe, veuillez consulter le site <a href="{{ url('reset_password', {token: resetToken.token}) }}">ici</a>.<br>
+    Ce lien expirera dans {{ tokenLifetime|date('g') }} heure(s)..
+</p>

@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Envoi d\'un courriel de réinitialisation du mot de passe' %}
+
+{% block body %}
+    <div class="d-flex flex-column justify-content-center align-items-center vh-50">
+        <p>Un courriel a été envoyé, contenant un lien sur lequel vous pouvez cliquer pour réinitialiser votre mot de passe. Ce lien expirera dans {{ tokenLifetime|date('g') }} heure(s).</p>
+        <p>Si vous ne recevez pas de courrier électronique, veuillez vérifier votre dossier de courrier indésirable ou <a href="{{ path('forgot_password_request') }}">essayer à nouveau</a>.</p>
+    </div>
+{% endblock %}

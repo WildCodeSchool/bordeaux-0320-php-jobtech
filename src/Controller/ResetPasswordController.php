@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\ChangePasswordFormType;
-use App\Form\ResetPasswordRequestFormType;
+use App\Form\User\ChangePasswordFormType;
+use App\Form\User\ResetPasswordRequestFormType;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -52,7 +52,7 @@ class ResetPasswordController extends AbstractController
             );
         }
 
-        return $this->render('reset_password/request.html.twig', [
+        return $this->render('user/reset_password/request.html.twig', [
             'requestForm' => $form->createView(),
         ]);
     }
@@ -69,7 +69,7 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('forgot_password_request');
         }
 
-        return $this->render('reset_password/check_email.html.twig', [
+        return $this->render('user/reset_password/check_email.html.twig', [
             'tokenLifetime' => $this->resetPasswordHelper->getTokenLifetime(),
         ]);
     }
@@ -98,14 +98,15 @@ class ResetPasswordController extends AbstractController
 
         $token = $this->getTokenFromSession();
         if (null === $token) {
-            throw $this->createNotFoundException('No reset password token found in the URL or in the session.');
+            $error = 'Aucun jeton de réinitialisation de mot de passe trouvé dans l\'URL ou dans la session.';
+            throw $this->createNotFoundException($error);
         }
 
         try {
             $user = $this->resetPasswordHelper->validateTokenAndFetchUser($token);
         } catch (ResetPasswordExceptionInterface $e) {
             $this->addFlash('reset_password_error', sprintf(
-                'There was a problem validating your reset request - %s',
+                'Il y a eu un problème pour valider votre demande de réinitialisation - %s',
                 $e->getReason()
             ));
 
@@ -135,7 +136,7 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('index');
         }
 
-        return $this->render('reset_password/reset.html.twig', [
+        return $this->render('user/reset_password/reset.html.twig', [
             'resetForm' => $form->createView(),
         ]);
     }
@@ -172,8 +173,8 @@ class ResetPasswordController extends AbstractController
         $email = (new TemplatedEmail())
             ->from(new Address('no-reply@jobtech.com', 'JobTech'))
             ->to($user->getEmail())
-            ->subject('Your password reset request')
-            ->htmlTemplate('reset_password/email.html.twig')
+            ->subject('Votre demande de réinitialisation de mot de passe')
+            ->htmlTemplate('user/reset_password/email.html.twig')
             ->context([
                 'resetToken' => $resetToken,
                 'tokenLifetime' => $this->resetPasswordHelper->getTokenLifetime(),
