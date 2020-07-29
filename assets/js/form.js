@@ -13,4 +13,3 @@ $('.js-datepicker')
         startDate: '-70y',
         endDate: '-18y',
     });
-
