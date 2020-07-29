@@ -6,6 +6,7 @@ use App\Entity\Content;
 use App\Form\ContentType;
 use App\Repository\ImageRepository;
 use App\Repository\JobCategoryRepository;
+use App\Repository\LinkRepository;
 use App\Repository\NewsRepository;
 use App\Repository\OfferRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -80,6 +81,22 @@ class JobTechController extends AbstractController
     {
         return $this->render('footer/page_footer.html.twig', [
             'content' => $content,
+        ]);
+    }
+
+    /**
+     * Embedded Controller
+     * @param LinkRepository $linkRepository
+     * @return Response
+     */
+    public function footer(LinkRepository $linkRepository): Response
+    {
+        $contact = $linkRepository->findOneBy(['identifier' => 'contact']);
+        $linkedIn = $linkRepository->findOneBy(['identifier' => 'linkedin']);
+
+        return $this->render('components/_footer.html.twig', [
+            'contact' => $contact->getContent(),
+            'linkedIn' => $linkedIn->getContent()
         ]);
     }
 }

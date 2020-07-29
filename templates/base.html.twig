@@ -27,7 +27,9 @@
 </main>
 
 {% block footer %}
-    {% include 'components/_footer.html.twig' %}
+    {{ render(controller(
+        'App\\Controller\\JobTechController::footer'
+    )) }}
 {% endblock %}
 
 {% block javascript %}
