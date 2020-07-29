@@ -86,7 +86,7 @@ class Candidate
     private $postalCode;
 
     /**
-     * @Assert\NotBlank(message="e champ 'Ville' ne doit pas être vide !")
+     * @Assert\NotBlank(message="Le champ 'Ville' ne doit pas être vide !")
      * @ORM\Column(type="string", length=60)
      * @Assert\Length(max=60, maxMessage="Le nom de la ville ne doit pas dépasser 60 caractères")
      */
