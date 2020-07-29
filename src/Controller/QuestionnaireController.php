@@ -11,13 +11,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/candidat", name="questionnaire_")
+ */
 class QuestionnaireController extends AbstractController
 {
     public const PROFESSIONAL = 'professionnel';
     public const PERSONAL = 'personnel';
 
     /**
-     * @Route("/questionnaire", name="questionnaire_index")
+     * @Route("/questionnaire", name="index")
      * @return Response
      */
     public function index(): Response
@@ -26,7 +29,7 @@ class QuestionnaireController extends AbstractController
     }
 
     /**
-     * @Route("/questionnaire/resultat/", name="questionnaire_result")
+     * @Route("/questionnaire/resultat/", name="result")
      * @return Response
      */
     public function result(): Response

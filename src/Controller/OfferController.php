@@ -18,40 +18,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route ("/offre", name="offer_")
+ * @Route (name="offer_")
  */
 class OfferController extends AbstractController
 {
     public const MAX_OFFER_PER_PAGE = 9;
 
     /**
-     * @Route("/nouvelle", name="new")
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @return Response
-     */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $offer = new Offer();
-        $form =$this->createForm(OfferType::class, $offer);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->getUser();
-            $offer->setCompany($user->getCompany());
-            $entityManager->persist($offer);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('index');
-        }
-
-        return $this->render('offer/new.html.twig', [
-            'offer' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/", name="list")
+     * @Route("/offres", name="list")
      * @param OfferRepository $offerRepository
      * @param Request $request
      * @param Paginator $paginator
@@ -85,6 +59,32 @@ class OfferController extends AbstractController
     }
 
     /**
+     * @Route("/entreprise/offres/nouvelle", name="new")
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $offer = new Offer();
+        $form =$this->createForm(OfferType::class, $offer);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+            $offer->setCompany($user->getCompany());
+            $entityManager->persist($offer);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->render('offer/new.html.twig', [
+            'offer' => $form->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/favori", name="bookmark")
      * @return Response
      */
@@ -102,7 +102,7 @@ class OfferController extends AbstractController
 
     // todo send Http code response if apply fail
     /**
-     * @Route("/candidater/{id}", name="apply")
+     * @Route("/candidat/offres/{id}/candidater", name="apply")
      * @param Offer $offer
      * @param EntityManagerInterface $entityManager
      * @return JsonResponse

@@ -44,7 +44,7 @@ class JobTechController extends AbstractController
     }
 
     /**
-     * @Route("/footer/{page}/edit", name="footer_page_edit")
+     * @Route("/admin/page/{page}/edit", name="footer_page_edit")
      * @param Request $request
      * @param Content $content
      * @ParamConverter("content", options={"mapping":{"page":"identifier"}})
@@ -71,7 +71,7 @@ class JobTechController extends AbstractController
     }
 
     /**
-     * @Route("/footer/{page}", name="footer_page", methods={"GET"})
+     * @Route("/page/{page}", name="footer_page", methods={"GET"})
      * @ParamConverter("content", options={"mapping":{"page":"identifier"}})
      * @param Content $content
      * @return Response

@@ -28,7 +28,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CandidateController extends AbstractController
 {
     /**
-     * @Route("/show/{id}", name="show_profile")
+     * @Route("/profil/{id}", name="show_profile")
      * @param Candidate $candidate
      * @param Request $request
      * @return Response
@@ -110,7 +110,7 @@ class CandidateController extends AbstractController
     }
 
     /**
-     * @Route("/nouvelle_competence", name="add_skill")
+     * @Route("/competences/nouvelle", name="add_skill")
      * @param Request $request
      * @param EntityManagerInterface $entityManager
      * @return Response
@@ -137,7 +137,7 @@ class CandidateController extends AbstractController
     }
 
     /**
-     * @Route("/competence/{id}", name="delete_skill", methods={"DELETE"})
+     * @Route("/competences/{id}", name="delete_skill", methods={"DELETE"})
      * @param Skill $skill
      * @param Request $request
      * @return Response
@@ -215,7 +215,7 @@ class CandidateController extends AbstractController
     }
 
     /**
-     * @Route("/experience", name="add_experience")
+     * @Route("/experiences", name="add_experience")
      * @param Request $request
      * @return Response
      */
@@ -239,7 +239,7 @@ class CandidateController extends AbstractController
     }
 
     /**
-     * @Route("/experience/edit/{id}", name="edit_experience")
+     * @Route("/experiences/{id}/edit", name="edit_experience")
      * @param Experience $experience
      * @param Request $request
      * @return Response
