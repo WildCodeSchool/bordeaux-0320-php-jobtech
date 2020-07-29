@@ -57,8 +57,7 @@
                 </li>
                 {% if is_granted('ROLE_CANDIDATE') %}
                     <li class="nav-item d-lg-none">
-                        <a class="dropdown-item text-center" href="{{ path('candidate_show_bookmarks') }}">Mes
-                            favoris</a>
+                        <a class="dropdown-item text-center" href="{{ path('candidate_show_bookmarks') }}">Mes favoris</a>
                     </li>
                 {% endif %}
                 <li class="nav-item d-lg-none">
@@ -86,12 +85,10 @@
                     <a href="{{ path('login') }}" class="nav-link">Se connecter</a>
                 </li>
                 <li class="nav-item d-lg-none">
-                    <a href="{{ path('register', {'action': 'create_candidate'}) }}" class="nav-link">Nouveau
-                        candidat</a>
+                    <a href="{{ path('register', {'action': 'create_candidate'}) }}" class="nav-link">Nouveau candidat</a>
                 </li>
                 <li class="nav-item d-lg-none">
-                    <a href="{{ path('register', {'action': 'create_company'}) }}" class="nav-link">Nouvelle
-                        entreprise</a>
+                    <a href="{{ path('register', {'action': 'create_company'}) }}" class="nav-link">Nouvelle entreprise</a>
                 </li>
             {% endif %}
         </ul>
