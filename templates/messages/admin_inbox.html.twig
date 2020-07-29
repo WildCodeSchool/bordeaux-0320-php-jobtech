@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block title 'Messagerie' %}
+{% block body %}
+<div class="container">
+    <h1 class="p-2">Utilisateurs :</h1>
+    <a class="btn btn-primary" href="{{ path('message_new') }}">Nouveau message</a>
+    <div class="d-flex">
+        <table class="table col-3">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="text-center">Contact</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr class="contact-box" data-url="{{ path('message_admin_message', {'id': user.id}) }}">
+                    <th scope="row"
+                        class="text-white bg-{{ user.candidate ? 'secondary' : 'orange' }}">{{ user.candidate.fullNameWithGender ?? user.company.name }}</th>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="col-9">
+             {% if messages is defined %}
+            <div class="scroll">
+                <div class="d-flex flex-column">
+                 {% include 'components/_messagerie.html.twig' %}
+                </div>
+            </div>
+            {% else %}
+                 <p>Messagerie Accueil</p>
+            {% endif %}
+        </div>
+    </div>
+    {% endblock %}
+    {% block javascript %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('inbox_admin') }}
+    {% endblock %}

@@ -74,7 +74,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/register/{action<^create_[a-z]*$>}", name="register", methods={"GET","POST"})
+     * @Route("/inscription/{action<^create_[a-z]*$>}", name="register", methods={"GET","POST"})
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param GuardAuthenticatorHandler $guardHandler

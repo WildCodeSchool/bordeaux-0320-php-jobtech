@@ -18,14 +18,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route ("/offer", name="offer_")
+ * @Route ("/offre", name="offer_")
  */
 class OfferController extends AbstractController
 {
     public const MAX_OFFER_PER_PAGE = 9;
 
     /**
-     * @Route("/new", name="new")
+     * @Route("/nouvelle", name="new")
      * @param Request $request
      * @param EntityManagerInterface $entityManager
      * @return Response
@@ -86,7 +86,7 @@ class OfferController extends AbstractController
 
     // todo send Http code response if apply fail
     /**
-     * @Route("/apply/{id}", name="apply")
+     * @Route("/candidater/{id}", name="apply")
      * @param Offer $offer
      * @param EntityManagerInterface $entityManager
      * @return JsonResponse
