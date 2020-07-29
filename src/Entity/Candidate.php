@@ -298,7 +298,7 @@ class Candidate
      */
     public function getOtherNumber(): ?string
     {
-        return '0' . $this->otherNumber;
+        return $this->otherNumber;
     }
 
     public function getFormattedOtherPhoneNumber(): ?string
