@@ -43,7 +43,9 @@
                 </div>
                 <div class="d-flex justify-content-end mr-3">
                     {% if is_granted('ROLE_CANDIDATE') %}
-                        {% if app.user.candidate.haveApply(offer) == true %}
+                        {% if app.user.isActive == false %}
+                            <p class="btn btn-primary">Votre compte est inactif</p>
+                        {% elseif app.user.candidate.haveApply(offer) == true %}
                             <p class="btn btn-primary">Vous avez déjà postulé</p>
                         {% else %}
                             <a class="btn btn-primary apply" data-id={{ offer.id }} id="offer-{{ offer.id }}" href=""

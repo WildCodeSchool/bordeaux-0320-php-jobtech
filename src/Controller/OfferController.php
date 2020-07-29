@@ -89,10 +89,14 @@ class OfferController extends AbstractController
      * @Route("/candidat/offres/{id}/candidater", name="apply")
      * @param Offer $offer
      * @param EntityManagerInterface $entityManager
-     * @return JsonResponse
+     * @return Response
      */
-    public function applyOffer(Offer $offer, EntityManagerInterface $entityManager)
+    public function applyOffer(Offer $offer, EntityManagerInterface $entityManager): Response
     {
+        if ($this->getUser()->getIsActive() === false) {
+            return $this->redirectToRoute('index');
+        }
+
         $candidate = $this->getUser()->getCandidate();
         if ($candidate->haveApply($offer)) {
             return $this->json(null, 304);
