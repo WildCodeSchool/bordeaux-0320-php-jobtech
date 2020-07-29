@@ -2,11 +2,14 @@
 {% block title 'Messagerie' %}
 {% block body %}
     <div class="container">
-        <a class="btn btn-primary" href="{{ path('message_new') }}">Nouveau message</a>
-        <div class="scroll">
-            <div class="d-flex flex-column">
-      {% include 'components/_messagerie.html.twig' %}
-    </div>
+        <h1 class="text-center p-2">Boite de réception :</h1>
+        <div class="d-flex justify-content-center">
+            <a class="btn btn-primary" href="{{ path('message_new') }}">Nouveau message</a>
+        </div>
+        <div class="scroll mt-3">
+        <div class="d-flex flex-column">
+            {% include 'components/_messagerie.html.twig' %}
+        </div>
         </div>
     </div>
 {% endblock %}

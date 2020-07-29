@@ -1,6 +1,7 @@
 .scroll {
     height: 70vh;
-    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .msg-card {

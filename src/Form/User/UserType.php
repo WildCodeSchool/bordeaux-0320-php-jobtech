@@ -18,6 +18,7 @@ class UserType extends AbstractType
     public const CREATE_COMPANY = 'create_company';
     public const EDIT_CONNECTION_INFORMATION = 'connexion';
     public const EDIT_CANDIDATE_PERSONAL_INFORMATION = 'personal_information';
+    public const EDIT_COMPANY_INFORMATION = 'company_information';
 
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -36,6 +37,10 @@ class UserType extends AbstractType
 
         if ($options['action'] === self::EDIT_CONNECTION_INFORMATION) {
             $this->connectionInformation($builder);
+        }
+
+        if ($options['action'] === self::EDIT_COMPANY_INFORMATION) {
+            $this->company($builder, $options);
         }
     }
 
@@ -71,7 +76,7 @@ class UserType extends AbstractType
                 connaissance et accepte la politique de confidentialité relative aux données des candidats.',
             'constraints' => [
                 new IsTrue([
-                    'message' => 'Vous devez accepter les conditions',
+                    'message' => 'Vous devez accepté les conditions',
                 ]),
             ],
         ]);
@@ -81,14 +86,20 @@ class UserType extends AbstractType
 
     private function candidate(FormBuilderInterface $builder, array $options): self
     {
-        $builder->add('candidate', CandidateType::class, ['action' => $options['action']]);
+        $builder->add('candidate', CandidateType::class, [
+            'action' => $options['action'],
+            'label' => false,
+        ]);
 
         return $this;
     }
 
     private function company(FormBuilderInterface $builder, array $options): self
     {
-        $builder->add('company', CompanyType::class, ['action' => $options['action']]);
+        $builder->add('company', CompanyType::class, [
+            'action' => $options['action'],
+            'label' => false,
+        ]);
 
         return $this;
     }

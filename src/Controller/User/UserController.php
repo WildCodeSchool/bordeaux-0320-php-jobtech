@@ -4,7 +4,9 @@ namespace App\Controller\User;
 
 use App\Entity\Company;
 use App\Entity\Contact;
+use App\Entity\CurriculumVitae;
 use App\Entity\User;
+use App\Form\User\CurriculumVitaeType;
 use App\Form\User\CandidateType;
 use App\Form\User\UserType;
 use App\Security\UserAuthenticator;
@@ -20,10 +22,28 @@ class UserController extends AbstractController
 {
     /**
      * @Route("/profile", name="profile")
+     * @param Request $request
+     * @return Response
      */
-    public function profile(): Response
+    public function profile(Request $request): Response
     {
-        return $this->render('user/profile.html.twig', ['user' => $this->getUser()]);
+        $user = $this->getUser();
+        if ($this->isGranted('ROLE_CANDIDATE')) {
+            $curriculumVitae = $user->getCandidate()->getCurriculumVitae();
+            $newCV = new CurriculumVitae();
+            $newCV->setCandidate($this->getUser()->getCandidate());
+            $form = $this->createForm(CurriculumVitaeType::class, $newCV);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->flush();
+            }
+        }
+        return $this->render('user/profile.html.twig', [
+            'user' => $user,
+            'form' => isset($form) ? $form->createView() : null,
+            'cv' => $curriculumVitae ?? null,
+        ]);
     }
 
     /**
@@ -54,7 +74,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/register/{action<^create_[a-z]*$>}", name="register", methods={"GET"})
+     * @Route("/inscription/{action<^create_[a-z]*$>}", name="register", methods={"GET","POST"})
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param GuardAuthenticatorHandler $guardHandler

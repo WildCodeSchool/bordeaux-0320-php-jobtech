@@ -3,8 +3,11 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Job;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -25,23 +28,41 @@ class JobCrudController extends AbstractCrudController
             ->setSearchFields(['id', 'title', 'identifier']);
     }
 
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->add(Crud::PAGE_INDEX, Action::DETAIL);
+    }
+
     public function configureFields(string $pageName): iterable
     {
-        $title = TextField::new('title');
-        $identifier = TextField::new('identifier');
-        $jobCategory = AssociationField::new('jobCategory');
-        $offers = AssociationField::new('offers');
-        $searches = AssociationField::new('searches');
+        $title = TextField::new('title', 'Intitulé');
+        $jobCategory = AssociationField::new('jobCategory', 'Catégorie');
+        $jobCategoryShow = ArrayField::new('jobCategory', 'Catégorie');
+        $offers = AssociationField::new('offers', 'Offres disponibles');
+        $offersShow = ArrayField::new('offers', 'Offres disponibles');
+        $searches = AssociationField::new('searches', 'Recherches');
+        $searchesShow = ArrayField::new('searches', 'Recherches')
+            ->setHelp('Personne cherchant un contrat dans ce travail.');
         $id = IntegerField::new('id', 'ID');
 
+        $result = [];
         if (Crud::PAGE_INDEX === $pageName) {
-            return [$id, $title, $identifier, $jobCategory, $offers, $searches];
-        } elseif (Crud::PAGE_DETAIL === $pageName) {
-            return [$id, $title, $identifier, $jobCategory, $offers, $searches];
-        } elseif (Crud::PAGE_NEW === $pageName) {
-            return [$title, $identifier, $jobCategory, $offers, $searches];
-        } elseif (Crud::PAGE_EDIT === $pageName) {
-            return [$title, $identifier, $jobCategory, $offers, $searches];
+            $result = [$id, $title, $jobCategory, $offers, $searches];
         }
+
+        if (Crud::PAGE_DETAIL === $pageName) {
+            $result = [$id, $title, $jobCategoryShow, $offersShow, $searchesShow];
+        }
+
+        if (Crud::PAGE_NEW === $pageName) {
+            $result = [$title, $jobCategory];
+        }
+
+        if (Crud::PAGE_EDIT === $pageName) {
+            $result = [$title, $jobCategory];
+        }
+
+        return $result;
     }
 }

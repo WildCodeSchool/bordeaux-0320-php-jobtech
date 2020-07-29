@@ -1,16 +1,18 @@
 <div class="col mb-4">
     <div class="card h-100">
         <div class="card-body">
-            <p class="card-text">{{ offer.jobCategory.title }}</p>
-            {% if is_granted('ROLE_CANDIDATE') %}
-            <div class="like">
-                <a href="" data-id="{{ offer.id }}" id="bookmark-card-{{ offer.id }}" class="bookmark {{ app.user.candidate.bookmarked(offer) ? 'heart' : '' }}" data-href="{{ path('candidate_add_bookmark', {'id' : offer.id}) }}">
-                    <i class="fa-heart fas"></i>
-                </a>
+            <div class="d-flex justify-content-between">
+                <p class="card-text">{{ offer.jobCategory.title }}</p>
+                {% if is_granted('ROLE_CANDIDATE') %}
+                    <div class="like">
+                        <a href="" data-id="{{ offer.id }}" id="bookmark-card-{{ offer.id }}" class="bookmark {{ app.user.candidate.bookmarked(offer) ? 'heart' : '' }}" data-href="{{ path('candidate_add_bookmark', {'id' : offer.id}) }}">
+                            <i class="fa-heart fas"></i>
+                        </a>
+                    </div>
+                {% endif %}
             </div>
-            {% endif %}
-            <h5 class="card-title text-turquoise">{{ offer.job.title }}</h5>
-            <p class="card-text">{{ offer.description }}</p>
+            <h5 class="card-title text-gold">{{ offer.job.title }}</h5>
+            <p class="card-text">{{ offer.description | raw }}</p>
             <p class="card-text mt-2">
                 <span class="text-red"><i class="fas fa-hand-point-right"></i></span>
                 {{ offer.company.name }}

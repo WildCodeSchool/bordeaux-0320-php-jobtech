@@ -35,5 +35,5 @@ yarn-error.log
 
 ###> others ###
 /ressources/
+.scannerwork
 .DS_Store
-###< others ###

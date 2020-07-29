@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\OfferRepository;
-use App\Service\DateProcessing;
+use App\Service\DateManager;
 use DateInterval;
 use DateTime;
 use DateTimeInterface;
@@ -33,6 +33,11 @@ class Offer
      * @ORM\Column(type="string", length=255)
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $detail;
 
     /**
      * @ORM\Column(type="integer")
@@ -293,7 +298,7 @@ class Offer
      */
     public function setInterval(): self
     {
-        $this->interval = DateProcessing::dateIntervalBetweenNowAnd($this->getPostedAt());
+        $this->interval = DateManager::dateIntervalBetweenNowAnd($this->getPostedAt());
 
         return $this;
     }
@@ -462,6 +467,18 @@ class Offer
                 $apply->setOffer(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDetail(): ?string
+    {
+        return $this->detail;
+    }
+
+    public function setDetail(string $detail): self
+    {
+        $this->detail = $detail;
 
         return $this;
     }

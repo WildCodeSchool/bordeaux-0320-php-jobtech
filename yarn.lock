@@ -1511,6 +1511,11 @@ browserslist@^4.0.0, browserslist@^4.6.0, browserslist@^4.7.3:
     electron-to-chromium "^1.3.306"
     node-releases "^1.1.40"
 
+bs-custom-file-input@^1.3.4:
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/bs-custom-file-input/-/bs-custom-file-input-1.3.4.tgz#c275cb8d4f1c02ba026324292509fa9a747dbda8"
+  integrity sha512-NBsQzTnef3OW1MvdKBbMHAYHssCd613MSeJV7z2McXznWtVMnJCy7Ckyc+PwxV6Pk16cu6YBcYWh/ZE0XWNKCA==
+
 buffer-from@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/buffer-from/-/buffer-from-1.1.1.tgz#32713bc028f75c02fdb710d7c7bcec1f2c6070ef"
@@ -6402,11 +6407,6 @@ range-parser@^1.2.1, range-parser@~1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.1.tgz#3cf37023d199e1c24d1a55b84800c2f3e6468031"
   integrity sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==
-
-rangeslider-pure@^0.4.11:
-  version "0.4.11"
-  resolved "https://registry.yarnpkg.com/rangeslider-pure/-/rangeslider-pure-0.4.11.tgz#e06ea857c47e24e6a01f6ef0bd31d2e31fb3de10"
-  integrity sha512-/dI1OFYj4chJuIUiUc3XlefSTDff8mAQyE0Yjke4Ozta+GsOtZaSV2U5AkUTFmE0ngMKYb23h5G1iAUJ5o8C8w==
 
 raw-body@2.4.0:
   version "2.4.0"

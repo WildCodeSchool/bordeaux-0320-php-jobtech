@@ -79,7 +79,7 @@ const fx = new TextScramble(el);
 let counter = 0;
 const next = () => {
     fx.setText(phrases[counter]).then(() => {
-        setTimeout(next, 800);
+        setTimeout(next, 2500);
     });
     counter = (counter + 1) % phrases.length;
 };

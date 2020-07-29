@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title actuality.title %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center pt-3">{{ actuality.title }}</h1>
+        <div class="d-flex justify-content-center m-4">
+            <img class="rounded border-dark" src="{{ actuality.image }}" alt="image de l'article">
+        </div>
+        <hr>
+        <p class="m-5 font-weight-bolder text-italic">{{ actuality.description }}</p>
+        <hr>
+        <p class="m-5">{{ actuality.article | raw }}</p>
+        <div class="d-flex flex-column align-items-end mt-5">
+            <p>Posté le {{ actuality.postedAt | format_datetime('long', locale='fr') }}</p>
+            <a class="btn btn-primary mt-3 mb-3" href="{{ path('news_list') }}">Retour</a>
+        </div>
+    </div>
+{% endblock %}

@@ -34,7 +34,7 @@ class MessageController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="new")
+     * @Route("/nouveau", name="new")
      * @param Request $request
      * @param EntityManagerInterface $entityManager
      * @return Response

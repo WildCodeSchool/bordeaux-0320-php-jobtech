@@ -1,0 +1,67 @@
+{% extends('base.html.twig') %}
+
+{% block title %}Offre '{{ offer.title }}'{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center pt-4">Offre '{{ offer.title }}'</h1>
+        <table class="table table-light table-striped border mt-4">
+            <tbody>
+            <tr>
+                <th scope="row" class="text-center">Secteur d'activité</th>
+                <td class="text-center">{{ offer.jobCategory.title }}</td>
+            </tr>
+            <tr>
+                <th scope="row" class="text-center">Métier</th>
+                <td class="text-center">{{ offer.job.title }}</td>
+            </tr>
+            <tr>
+                <th scope="row" class="text-center">Place(s) disponible(s)</th>
+                <td class="text-center">{{ offer.availablePlace }}</td>
+            </tr>
+            <tr>
+                <th scope="row" class="text-center">Heures</th>
+                <td class="text-center">{{ offer.workTime.title }}</td>
+            </tr>
+            <tr>
+                <th scope="row" class="text-center">Contrat(s)</th>
+                <td class="text-center">
+                    <ul>
+                        {% for contract in offer.contracts %}
+                            <li>{{ contract.title }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row" class="text-center">Adresse</th>
+                <td class="text-center">{{ offer.address }}, {{ offer.postalCode }} {{ offer.city }}, {{ offer.country }}</td>
+            </tr>
+            <tr>
+                <th scope="row" class="text-center">Description</th>
+                <td class="text-center">{{ offer.description | raw }}</td>
+            </tr>
+            <tr>
+                <th scope="row" class="text-center">Détails</th>
+                <td class="text-center">{{ offer.detail | raw }}</td>
+            </tr>
+            <tr>
+                <th scope="row" class="text-center">Postulant(s)</th>
+                <td class="text-center">
+                    <ul>
+                        {% for apply in offer.applies %}
+                            <li><a href="{{ path('candidate_show_profile', {'id': apply.user.id}) }}">Candidat {{ apply.user.id }} - Le {{ apply.applyAt | format_datetime('long', locale='fr') }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-end p-3">
+            <a href="{{ path('company_edit_offer', {'id': offer.company.id}) }}" class="btn btn-primary">Editer</a>
+            <a href="{{ path('profile') }}" class="btn btn-primary ml-3">Retour au profil</a>
+        </div>
+
+    </div>
+{% endblock %}
