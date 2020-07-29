@@ -8,6 +8,14 @@
         <table class="table table-light table-striped border mt-4">
             <tbody>
             <tr>
+                <th scope="row" class="text-center">Créer le</th>
+                <td class="text-center">{{ offer.postedAt | format_datetime('long', locale='fr') }}</td>
+            </tr>
+            <tr>
+                <th scope="row" class="text-center">Terminé le</th>
+                <td class="text-center">{{ offer.endedAt | format_datetime('long', locale='fr') }}</td>
+            </tr>
+            <tr>
                 <th scope="row" class="text-center">Secteur d'activité</th>
                 <td class="text-center">{{ offer.jobCategory.title }}</td>
             </tr>
@@ -51,6 +59,8 @@
                     <ul>
                         {% for apply in offer.applies %}
                             <li><a href="{{ path('candidate_show_profile', {'id': apply.user.id}) }}">Candidat {{ apply.user.id }} - Le {{ apply.applyAt | format_datetime('long', locale='fr') }}</a></li>
+                        {% else %}
+                            <li>Aucun postulant.</li>
                         {% endfor %}
                     </ul>
                 </td>
