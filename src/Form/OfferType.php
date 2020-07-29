@@ -52,18 +52,18 @@ class OfferType extends AbstractType
                 'multiple' => true,
             ])
             ->add('workTime', EntityType::class, [
-                'class'=>WorkTime::class,
-                'choice_label'=>'title',
+                'class' => WorkTime::class,
+                'choice_label' => 'title',
                 'label' => 'Temps de travail'
             ])
             ->add('jobCategory', EntityType::class, [
-                'class'=>JobCategory::class,
-                'choice_label'=>'title',
-                'label'=> 'Catégorie'
+                'class' => JobCategory::class,
+                'choice_label' => 'title',
+                'label' => 'Catégorie'
             ])
             ->add('job', EntityType::class, [
-                'class'=>Job::class,
-                'choice_label'=>'title',
+                'class' => Job::class,
+                'choice_label' => 'title',
                 'label' => 'Métier',
             ])
         ;

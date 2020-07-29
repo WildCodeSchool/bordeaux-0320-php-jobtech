@@ -6,6 +6,7 @@ use App\Entity\Ability;
 use App\Entity\Image;
 use App\Entity\Job;
 use App\Entity\JobCategory;
+use App\Entity\Link;
 use App\Entity\News;
 use App\Entity\Offer;
 use App\Entity\Question;
@@ -82,7 +83,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Entreprises', 'fa fa-user-tie', User::class)
             ->setController(CompanyCrudController::class)
             ->setDefaultSort(['createdAt' => 'DESC']);
-        yield MenuItem::linkToCrud('En attente', 'fas fa-user-check', User::class)
+        yield MenuItem::linkToCrud('Actif | Inactif', 'fas fa-user-check', User::class)
             ->setController(UserNotActiveCrudController::class);
 
         yield MenuItem::section('Métiers');
@@ -95,6 +96,9 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Questionnaire');
         yield MenuItem::LinkToCrud('Compétences', 'fas fa-clipboard-list', Ability::class);
         yield MenuItem::LinkToCrud('Questions', 'fas fa-question', Question::class);
+
+        yield MenuItem::section('Contenu');
+        yield MenuItem::LinkToCrud('Liens', 'fas fa-link', Link::class);
     }
 
     public function configureUserMenu(UserInterface $user): UserMenu

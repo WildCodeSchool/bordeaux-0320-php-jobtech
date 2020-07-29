@@ -59,7 +59,9 @@
         </table>
 
         <div class="d-flex justify-content-end p-3">
-            <a href="{{ path('company_edit_offer', {'id': offer.company.id}) }}" class="btn btn-primary">Editer</a>
+            {% if date(offer.endedAt) > date("now") %}
+                <a href="{{ path('offer_edit', {'id': offer.company.id}) }}" class="btn btn-primary">Éditer</a>
+            {% endif %}
             <a href="{{ path('profile') }}" class="btn btn-primary ml-3">Retour au profil</a>
         </div>
 

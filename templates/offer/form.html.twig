@@ -1,13 +1,16 @@
 {% extends 'base.html.twig' %}
 {% block title 'Créer une offre' %}
 {% block body %}
+    {% set edit = ('edit' in app.request.pathInfo) %}
     <section class="w-100 pt-5 pb-5 jumbotron mb-0">
         <div class="container d-flex">
             <img src="{{ asset('build/images/unDraw/offernew.svg') }}" width="400" alt="logo ajouter offre"
                  class="img-offer-list">
             <div class="w-50 mt-5">
-                <h1 class="text-center">Ajouter une offre</h1>
+                <h1 class="text-center">{{ edit ? 'Éditer' : 'Ajouter' }} une offre</h1>
+                {% if edit == false %}
                 <p class="text-center">Et trouvez une équipe qui vous correspond</p>
+                {% endif %}
             </div>
         </div>
     </section>
@@ -27,7 +30,7 @@
             {{ form_row(offer.description) }}
             {{ form_row(offer.detail) }}
             <div class="d-flex justify-content-end">
-                <button class="btn btn-primary">{{ button_label|default('Ajouter') }}</button>
+                <button class="btn btn-primary">{{ edit ? 'Éditer' : 'Ajouter' }}</button>
             </div>
             {{ form_end(offer) }}
         </div>

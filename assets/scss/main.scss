@@ -83,6 +83,10 @@ main {
         color: black;
     }
 
+    &-red {
+        color: $red;
+    }
+
     &-italic {
         font-style: italic;
     }
