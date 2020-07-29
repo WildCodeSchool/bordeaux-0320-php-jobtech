@@ -26,9 +26,9 @@ class MessageType extends AbstractType
         if ($options['admin'] ===  true) {
             $builder
                 ->add('contact', EntityType::class, [
-                    'label' => 'Utilisateur : ',
+                    'label' => 'Destinataire : ',
                     'class' => User::class,
-                    'choice_label' => function (User $user) {
+                    'choice_label' => static function (User $user) {
                         if ($user->getCandidate() !== null) {
                             return $user->getCandidate()->getFullName();
                         } else {

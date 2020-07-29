@@ -14,15 +14,15 @@
             <h5 class="card-title text-gold">{{ offer.job.title }}</h5>
             <p class="card-text">{{ offer.description }}</p>
             <p class="card-text mt-2">
-                <span class="text-red"><i class="fas fa-hand-point-right"></i></span>
+                <span><i class="fas fa-hand-point-right"></i></span>
                 {{ offer.company.name }}
             </p>
             <p class="card-text">
-                <span class="text-red"><i class="fas fa-map-marker-alt"></i></span>
+                <span><i class="fas fa-map-marker-alt"></i></span>
                 {{ offer.city }}, {{ offer.country }}
             </p>
             <p class="card-text">
-                <span class="text-red"><i class="fas fa-calendar-alt"></i></span>
+                <span><i class="fas fa-calendar-alt"></i></span>
                 {% for contract in offer.contracts %}
                 {{ contract.title }}
                 {% endfor %}
