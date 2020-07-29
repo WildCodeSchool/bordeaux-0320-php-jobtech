@@ -20,4 +20,7 @@ parameters:
         - '#Parameter \#1 \$fp of function fclose expects resource, resource\|false given\.#'
         - '#Parameter \#1 \$fp of function fwrite expects resource, resource\|false given\.#'
         - '#Parameter \#1 \$fp of function fputcsv expects resource, resource\|false given\.#'
+        - '#Parameter \#1 \$user of method Symfony\\Component\\Security\\Core\\Encoder\\UserPasswordEncoderInterface::encodePassword\(\) expects Symfony\\Component\\Security\\Core\\User\\UserInterface, object given\.#'
+        - '#Call to an undefined method object::setPassword\(\)\.#'
+        - '#Call to an undefined method object::getEmail\(\)\.#'
     reportUnmatchedIgnoredErrors: false

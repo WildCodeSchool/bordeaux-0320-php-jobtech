@@ -26,12 +26,9 @@
             </div>
             <div class="d-flex justify-content-center mb-5">
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-                <button class="btn btn-lg btn-primary" type="submit">
-                    Se connecter
-                </button>
+                <a class="btn btn-primary ml-5 mr-5" href="{{ path('forgot_password_request') }}">Mot de passe oublié</a>
+                <button class="btn btn-primary ml-5 mr-5" type="submit">Se connecter</button>
             </div>
         </form>
     </div>
-
 {% endblock %}

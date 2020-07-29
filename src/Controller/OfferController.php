@@ -84,22 +84,6 @@ class OfferController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/favori", name="bookmark")
-     * @return Response
-     */
-    public function bookmark(): Response
-    {
-        $offers = $this->getUser()->getCandidate()->getBookmarks();
-        foreach ($offers as $offer) {
-            $offer->setInterval();
-        }
-
-        return $this->render('offer/bookmark.html.twig', [
-            'bookmarks' => $offers
-        ]);
-    }
-
     // todo send Http code response if apply fail
     /**
      * @Route("/candidat/offres/{id}/candidater", name="apply")
