@@ -17,7 +17,9 @@ class SearchJobType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('contracts')
+            ->add('contracts', null, [
+                'label' => 'Type de contrat',
+            ])
             ->add('jobCategory', EntityType::class, [
                 'label' => false,
                 'required' => false,
