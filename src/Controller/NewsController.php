@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/news", name="news_")
+ * @Route("/actualités", name="news_")
  */
 class NewsController extends AbstractController
 {
