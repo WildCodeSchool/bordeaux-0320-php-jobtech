@@ -12,7 +12,6 @@ use App\Repository\OfferRepository;
 use App\Service\Paginator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -66,6 +65,10 @@ class OfferController extends AbstractController
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        if ($this->getUser()->getIsActive() === false) {
+            return $this->redirectToRoute('index');
+        }
+
         $offer = new Offer();
         $form =$this->createForm(OfferType::class, $offer);
         $form->handleRequest($request);
@@ -76,11 +79,44 @@ class OfferController extends AbstractController
             $entityManager->persist($offer);
             $entityManager->flush();
 
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('offer_show', ['id' => $offer->getId()]);
         }
 
         return $this->render('offer/new.html.twig', [
             'offer' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/entreprise/offres/{id}/edit", name="edit")
+     * @param Offer $offer
+     * @param Request $request
+     * @return Response
+     */
+    public function edit(Offer $offer, Request $request): Response
+    {
+        $form = $this->createForm(OfferType::class, $offer);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->flush();
+
+            return $this->redirectToRoute('offer_show', ['id' => $offer->getId()]);
+        }
+
+        return $this->render('offer/new.html.twig', ['offer' => $form->createView()]);
+    }
+
+    /**
+     * @Route("entreprise/offres/{id}", name="show")
+     * @param Offer $offer
+     * @return Response
+     */
+    public function show(Offer $offer): Response
+    {
+        return $this->render('offer/show_offer.html.twig', [
+            'offer' => $offer
         ]);
     }
 

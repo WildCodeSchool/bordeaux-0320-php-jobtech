@@ -19,7 +19,7 @@
 <table class="mt-3 table">
     <tr>
         <td class="border-top-0">
-            <i class="fas fa-user"></i> {{ user.company.name }}
+            <i class="fas fa-user-tie"></i> {{ user.company.name }}
         </td>
     </tr>
     <tr>
@@ -29,7 +29,7 @@
     </tr>
     <tr>
         <td>
-            Numéro Siret : {{ user.company.siret }}
+            <i class="fas fa-building"></i> N° Siret : {{ user.company.siret }}
         </td>
     </tr>
     <tr>
@@ -48,7 +48,7 @@
     <ul class="list-group">
         {% for offer in user.company.offers %}
             <li class="list-group-item">
-                - <a href=" {{ path('company_show_offer', {'id': offer.id}) }}"> {{ offer.title }} <span class="badge badge-primary ml-3">{{ offer.applies | length }}</span></a>
+                - <a href=" {{ path('offer_show', {'id': offer.id}) }}"> {{ offer.title }} <span class="badge badge-primary ml-3">{{ offer.applies | length }}</span></a>
             </li>
         {% endfor %}
     </ul>

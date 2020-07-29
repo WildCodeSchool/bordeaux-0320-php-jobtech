@@ -82,7 +82,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Entreprises', 'fa fa-user-tie', User::class)
             ->setController(CompanyCrudController::class)
             ->setDefaultSort(['createdAt' => 'DESC']);
-        yield MenuItem::linkToCrud('En attente', 'fas fa-user-check', User::class)
+        yield MenuItem::linkToCrud('Actif | Inactif', 'fas fa-user-check', User::class)
             ->setController(UserNotActiveCrudController::class);
 
         yield MenuItem::section('Métiers');

@@ -31,7 +31,7 @@
                         {% if is_granted('ROLE_CANDIDATE') %}
                             <a class="dropdown-item text-center" href="{{ path('candidate_show_bookmarks') }}">Mes favoris</a>
                         {% endif %}
-                        {% if is_granted('ROLE_COMPANY') %}
+                        {% if is_granted('ROLE_COMPANY') and app.user.isActive != false %}
                             <a class="dropdown-item text-center" href="{{ path('offer_new') }}">Ajouter une offre</a>
                         {% endif %}
                         {% if is_granted('ROLE_ADMIN') %}

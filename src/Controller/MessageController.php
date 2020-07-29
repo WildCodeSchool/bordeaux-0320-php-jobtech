@@ -7,7 +7,6 @@ use App\Entity\User;
 use App\Form\MessageType;
 use App\Repository\MessageRepository;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
