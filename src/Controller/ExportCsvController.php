@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class ExportCsvController
  * @package App\Controller
- * @Route ("/csv", name="csv_")
+ * @Route ("/admin/csv", name="csv_")
  */
 class ExportCsvController extends AbstractController
 {

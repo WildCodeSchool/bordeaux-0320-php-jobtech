@@ -18,16 +18,6 @@ class NewsController extends AbstractController
     public const LIMIT_NEWS_PER_PAGE = 5;
 
     /**
-     * @Route("/{id}", name="show")
-     * @param News $news
-     * @return Response
-     */
-    public function show(News $news): Response
-    {
-        return $this->render('news/show.html.twig', ['actuality' => $news]);
-    }
-
-    /**
      * @Route("/", name="list")
      * @param NewsRepository $newsRepository
      * @param Paginator $paginator
@@ -46,5 +36,15 @@ class NewsController extends AbstractController
         return $this->render('news/list.html.twig', [
             'actualities' => $actualities,
         ]);
+    }
+
+    /**
+     * @Route("/{id}", name="show")
+     * @param News $news
+     * @return Response
+     */
+    public function show(News $news): Response
+    {
+        return $this->render('news/show.html.twig', ['actuality' => $news]);
     }
 }
