@@ -36,21 +36,7 @@ class DashboardController extends AbstractDashboardController
      */
     public function index(): Response
     {
-        $imageRepository = $this->getDoctrine()->getRepository(Image::class);
-        $imageIndex = $imageRepository->findOneBy(['identifier' => Image::INDEX['identifier']]);
-
-        $form = $this->createForm(ImageType::class, $imageIndex);
-        $form->handleRequest($this->request->getCurrentRequest());
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $manager = $this->getDoctrine()->getManager();
-            $manager->flush();
-        }
-
-        return $this->render('admin/dashboard.html.twig', [
-            'form' => $form->createView(),
-            'imageIndex' => $imageIndex
-        ]);
+        return $this->render('admin/dashboard.html.twig', []);
     }
 
     public function configureDashboard(): Dashboard
