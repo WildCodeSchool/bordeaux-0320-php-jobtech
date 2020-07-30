@@ -57,18 +57,16 @@
                         {{ form_row(register.company.city) }}
                     </div>
                     <h2>Contact</h2>
-                    {% for contact in register.company.contacts %}
                         <div class="row justify-content-between">
-                            {{ form_row(contact.gender) }}
-                            {{ form_row(contact.surname) }}
-                            {{ form_row(contact.firstName) }}
+                            {{ form_row(register.company.contact.gender) }}
+                            {{ form_row(register.company.contact.surname) }}
+                            {{ form_row(register.company.contact.firstName) }}
                         </div>
                         <div class="row justify-content-between">
-                            {{ form_row(contact.email) }}
-                            {{ form_row(contact.job) }}
-                            {{ form_row(contact.phoneNumber) }}
+                            {{ form_row(register.company.contact.email) }}
+                            {{ form_row(register.company.contact.job) }}
+                            {{ form_row(register.company.contact.phoneNumber) }}
                         </div>
-                    {% endfor %}
                 {% endif %}
             </div>
             <div class="col-2 offset-1 d-none d-md-block">

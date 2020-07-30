@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block title %}Modifier le contact de la société{% endblock  %}
+{% block body %}
+    <div class="container">
+        <h2 class="pt-5 text-center">Contact de la société</h2>
+        {{ form_start(contact) }}
+        <div class="d-flex flex-column">
+            {{ form_row(contact.gender) }}
+            {{ form_row(contact.surname) }}
+            {{ form_row(contact.firstName) }}
+            {{ form_row(contact.job) }}
+            {{ form_row(contact.email) }}
+            {{ form_row(contact.phoneNumber) }}
+        </div>
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-primary m-3">Enregistrer</button>
+        </div>
+        {{ form_end(contact) }}
+    </div>
+{% endblock %}

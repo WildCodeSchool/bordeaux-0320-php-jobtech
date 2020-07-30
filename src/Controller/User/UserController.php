@@ -30,6 +30,9 @@ class UserController extends AbstractController
     public function profile(Request $request): Response
     {
         $user = $this->getUser();
+        if ($this->isGranted('ROLE_COMPANY')) {
+            $contact = $user->getCompany()->getContact();
+        }
         if ($this->isGranted('ROLE_CANDIDATE')) {
             $curriculumVitae = $user->getCandidate()->getCurriculumVitae();
             $newCV = new CurriculumVitae();
@@ -42,6 +45,7 @@ class UserController extends AbstractController
             }
         }
         return $this->render('user/profile.html.twig', [
+            'contact' => $contact ?? null,
             'user' => $user,
             'form' => isset($form) ? $form->createView() : null,
             'cv' => $curriculumVitae ?? null,
@@ -103,7 +107,6 @@ class UserController extends AbstractController
         if ($action === UserType::CREATE_COMPANY) {
             $image = Image::REGISTER_COMPANY['identifier'];
         }
-
 
         $form = $this->createForm(UserType::class, $user, ['action' => $action]);
         $form->handleRequest($request);
