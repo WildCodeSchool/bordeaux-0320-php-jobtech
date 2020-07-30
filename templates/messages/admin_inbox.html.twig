@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+{% block title 'Messagerie' %}
+{% block body %}
+<div class="container-fluid pt-4">
+    <div class="d-flex align-items-center flex-column pb-3">
+        <h1 class="pb-2">Messagerie</h1>
+        <a class="btn btn-primary" href="{{ path('message_new') }}">Nouveau message</a>
+    </div>
+    <div class="d-flex">
+        <div class="scroll col-3">
+            <table class="table table-exp">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col" class="text-center">Contacts</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for candidate in candidates %}
+                    <tr class="contact-box">
+                        <th
+                                scope="row"
+                                class="text-white bg-secondary contact-line"
+                                data-user="{{ candidate.id }}"
+                        >
+                            {{ candidate.gender }} {{ candidate.firstName }} {{ candidate.surname }}
+                            {% if candidate.news > 0 %}
+                                <span class="right notification">{{ candidate.news }}</span>
+                            {% endif %}
+                        </th>
+                    </tr>
+                {% endfor %}
+                {% for company in companies %}
+                    <tr class="contact-box" data-url="{{ path('message_admin_message', {'id': company.id}) }}">
+                        <th
+                                scope="row"
+                                class="text-black bg-orange contact-line"
+                                data-user="{{ company.id }}"
+                        >
+                            Sté. {{ company.name }}
+                            {% if company.news > 0 %}
+                                <span class="right notification">{{ company.news }}</span>
+                            {% endif %}
+                        </th>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-9">
+             {% if messages is defined %}
+            <div class="scroll">
+                <div class="d-flex flex-column">
+                 {% include 'messages/components/_messagerie.html.twig' %}
+                </div>
+            </div>
+            {% else %}
+                <div class="d-flex justify-content-center align-items-center h-100">
+                    <img src="{{ vich_uploader_asset(image, 'imageFile') }}" width="auto" height="auto" />
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

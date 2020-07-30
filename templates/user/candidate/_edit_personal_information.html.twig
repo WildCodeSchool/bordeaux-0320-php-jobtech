@@ -1,32 +1,34 @@
-<h2>Informations personnelles</h2>
+<h2 class="text-center pt-5">Informations personnelles</h2>
 
 {{ form_start(form) }}
-    <div class="row">
+    <div class="row justify-content-between">
         {{ form_row(form.gender) }}
         {{ form_row(form.surname) }}
         {{ form_row(form.firstName) }}
         {{ form_row(form.birthday) }}
     </div>
 
-    <div class="row">
-        {{ form_row(form.phoneNumber) }}
-        {{ form_row(form.otherNumber) }}
-    </div>
-
-    <div class="row">
+    <div class="row justify-content-between">
         {{ form_row(form.postalCode) }}
         {{ form_row(form.city) }}
         {{ form_row(form.country) }}
     </div>
 
-    <h2>Permis</h2>
+    <div class="row">
+        {{ form_row(form.phoneNumber) }}
+        {{ form_row(form.otherNumber, {'attr': {'class': 'ml-5'}, 'label_attr': {'class': 'ml-5'}}) }}
+    </div>
+
+    <h2 class="text-center">Permis</h2>
 
     <div>
-        {{ form_row(form.haveVehicle) }}
+        <div class="d-flex justify-content-center">
+            {{ form_row(form.haveVehicle) }}
+        </div>
         {{ form_row(form.licenses) }}
     </div>
 
-    <h2>Autres informations</h2>
+    <h2 class="text-center">Autres informations</h2>
 
     {{ form_row(form.isHandicapped) }}
 

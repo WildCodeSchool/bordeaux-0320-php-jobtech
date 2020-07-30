@@ -4,13 +4,13 @@
 
 {% block body %}
 <div class="container">
-    {% if action == 'personal_information' %}
+    {% if action == constant('App\\Form\\User\\UserType::EDIT_CANDIDATE_PERSONAL_INFORMATION') %}
         {{ include('user/candidate/_edit_personal_information.html.twig') }}
     {% endif %}
-    {% if action == 'company_information' %}
+    {% if action == constant('App\\Form\\User\\UserType::EDIT_COMPANY_INFORMATION') %}
         {{ include('user/company/_edit_company_information.html.twig') }}
     {% endif %}
-    {% if action == 'connexion' %}
+    {% if action == constant('App\\Form\\User\\UserType::EDIT_CONNECTION_INFORMATION') %}
         {{ include('user/_connection_information.html.twig') }}
     {% endif %}
 </div>

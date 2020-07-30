@@ -2,13 +2,14 @@
 
 namespace App\Controller\User;
 
-use App\Entity\Company;
-use App\Entity\Contact;
 use App\Entity\CurriculumVitae;
+use App\Entity\Image;
+use App\Entity\Link;
 use App\Entity\User;
-use App\Form\User\CurriculumVitaeType;
 use App\Form\User\CandidateType;
+use App\Form\User\CurriculumVitaeType;
 use App\Form\User\UserType;
+use App\Repository\ImageRepository;
 use App\Security\UserAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,26 +22,32 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/profile", name="profile")
+     * @Route("/profil", name="profile")
      * @param Request $request
      * @return Response
      */
     public function profile(Request $request): Response
     {
         $user = $this->getUser();
+        if ($this->isGranted('ROLE_COMPANY')) {
+            $contact = $user->getCompany()->getContact();
+        }
         if ($this->isGranted('ROLE_CANDIDATE')) {
-            $curriculumVitae = new CurriculumVitae();
-            $form = $this->createForm(CurriculumVitaeType::class, $curriculumVitae);
+            $curriculumVitae = $user->getCandidate()->getCurriculumVitae();
+            $newCV = new CurriculumVitae();
+            $newCV->setCandidate($this->getUser()->getCandidate());
+            $form = $this->createForm(CurriculumVitaeType::class, $newCV);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
-                $this->getUser()->getCandidate()->setCurriculumVitae($curriculumVitae);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->flush();
             }
         }
         return $this->render('user/profile.html.twig', [
+            'contact' => $contact ?? null,
             'user' => $user,
-            'form' => isset($form) ? $form->createView() : null
+            'form' => isset($form) ? $form->createView() : null,
+            'cv' => $curriculumVitae ?? null,
         ]);
     }
 
@@ -72,11 +79,12 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/register/{action<^create_[a-z]*$>}", name="register", methods={"GET","POST"})
+     * @Route("/inscription/{action<^create_[a-z]*$>}", name="register", methods={"GET","POST"})
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param GuardAuthenticatorHandler $guardHandler
      * @param UserAuthenticator $authenticator
+     * @param ImageRepository $imageRepository
      * @param string $action
      * Action is a parameter to select the type of user to be created.
      * @return Response
@@ -86,6 +94,7 @@ class UserController extends AbstractController
         UserPasswordEncoderInterface $passwordEncoder,
         GuardAuthenticatorHandler $guardHandler,
         UserAuthenticator $authenticator,
+        ImageRepository $imageRepository,
         string $action
     ): ?Response {
         if ($this->getUser()) {
@@ -93,13 +102,14 @@ class UserController extends AbstractController
         }
 
         $user = new User();
-        if ($action === UserType::CREATE_COMPANY) {
-            $company = new Company();
-            $contact = new Contact();
-            $user->setCompany($company);
-            $user->getCompany()->getContacts()->add($contact);
+        if ($action === UserType::CREATE_CANDIDATE) {
+            $image = Image::REGISTER_CANDIDATE['identifier'];
+            $linkRepository = $this->getDoctrine()->getRepository(Link::class);
+            $link = $linkRepository->findOneBy(['identifier' => Link::CREATE_CV['identifier']]);
         }
-
+        if ($action === UserType::CREATE_COMPANY) {
+            $image = Image::REGISTER_COMPANY['identifier'];
+        }
 
         $form = $this->createForm(UserType::class, $user, ['action' => $action]);
         $form->handleRequest($request);
@@ -109,9 +119,7 @@ class UserController extends AbstractController
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
             $entityManager = $this->getDoctrine()->getManager();
-            if (isset($contact, $company) && $action === UserType::CREATE_COMPANY) {
-                $contact->setCompany($company);
-                $entityManager->persist($contact);
+            if ($action === UserType::CREATE_COMPANY) {
                 $user->setRoles(['ROLE_COMPANY']);
             }
             if ($action === UserType::CREATE_CANDIDATE) {
@@ -133,15 +141,18 @@ class UserController extends AbstractController
         return $this->render('user/register.html.twig', [
             'register' => $form->createView(),
             'action' => $action,
+            'image' => $imageRepository->findOneBy(['identifier' => $image]),
+            'link' => $link ?? null
         ]);
     }
 
     /**
-     * @Route("/login", name="login")
+     * @Route("/connexion", name="login")
      * @param AuthenticationUtils $authenticationUtils
+     * @param ImageRepository $imageRepository
      * @return Response
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils, ImageRepository $imageRepository): Response
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('index');
@@ -152,6 +163,10 @@ class UserController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('user/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('user/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error,
+            'image' => $imageRepository->findOneBy(['identifier' => Image::LOGIN['identifier']])
+        ]);
     }
 }

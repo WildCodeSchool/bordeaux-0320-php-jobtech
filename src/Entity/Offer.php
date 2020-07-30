@@ -35,6 +35,11 @@ class Offer
     private $description;
 
     /**
+     * @ORM\Column(type="text")
+     */
+    private $detail;
+
+    /**
      * @ORM\Column(type="integer")
      */
     private $availablePlace;
@@ -73,6 +78,11 @@ class Offer
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $endedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="offers")
@@ -317,6 +327,23 @@ class Offer
         return $this;
     }
 
+    public function getEndedAt(): ?\DateTimeInterface
+    {
+        return $this->endedAt;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @return $this
+     */
+    public function setEndedAt(): self
+    {
+        $now = new DateTime();
+        $this->endedAt = $now->modify('+30 days');
+
+        return $this;
+    }
+
     /**
      * @return Company|null
      */
@@ -462,6 +489,18 @@ class Offer
                 $apply->setOffer(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDetail(): ?string
+    {
+        return $this->detail;
+    }
+
+    public function setDetail(string $detail): self
+    {
+        $this->detail = $detail;
 
         return $this;
     }

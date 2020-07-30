@@ -6,7 +6,6 @@ use App\Entity\Company;
 use App\Repository\Api\RestCountries;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,7 +23,27 @@ class CompanyType extends AbstractType
         $this->restCountries = $restCountries;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        if ($options['action'] === UserType::CREATE_COMPANY) {
+            $this->companyInformations($builder);
+        }
+        if ($options['action'] === UserType::EDIT_COMPANY_INFORMATION) {
+            $this
+                ->companyInformations($builder)
+                ->siret($builder);
+        }
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Company::class,
+            'action' => ''
+        ]);
+    }
+
+    private function companyInformations(FormBuilderInterface $builder): self
     {
         $countries = $this->restCountries->getAllCountries();
 
@@ -47,17 +66,18 @@ class CompanyType extends AbstractType
             ->add('address', TextType::class, [
                 'label' => 'Adresse :'
             ])
-            ->add('contacts', CollectionType::class, [
-                'entry_type' => ContactType::class,
-                'entry_options' => ['label' => false],
+            ->add('siret', IntegerType::class)
+            ->add('contact', ContactType::class, [
+                'label' => false,
             ]);
-            //->add('siret')
+        return $this;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    private function siret(FormBuilderInterface $builder): self
     {
-        $resolver->setDefaults([
-            'data_class' => Company::class,
-        ]);
+        $builder
+            ->add('siret', IntegerType::class);
+
+        return $this;
     }
 }

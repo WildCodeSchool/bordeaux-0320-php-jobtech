@@ -86,6 +86,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer = new Offer();
             $offer->setTitle($faker->sentence(2))
                 ->setDescription($faker->sentence())
+                ->setDetail($faker->paragraph)
                 ->setAvailablePlace(1)
                 ->setAddress($faker->streetAddress)
                 ->setPostalCode($data['postal_code'])
@@ -108,6 +109,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
             $offer = new Offer();
             $offer->setTitle($faker->sentence(2))
                 ->setDescription($faker->sentence())
+                ->setDetail($faker->paragraph)
                 ->setAvailablePlace(rand(1, 3))
                 ->setAddress($faker->streetAddress)
                 ->setPostalCode($postCode)

@@ -9,7 +9,6 @@ use App\Entity\JobCategory;
 use App\Entity\Offer;
 use App\Entity\Search;
 use App\Entity\Skill;
-use App\Entity\User;
 use App\Form\ExperienceType;
 use App\Form\SearchJobType;
 use App\Form\SkillType;
@@ -29,7 +28,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CandidateController extends AbstractController
 {
     /**
-     * @Route("/show/{id}", name="show_profile")
+     * @Route("/profil/{id}", name="show_profile")
      * @param Candidate $candidate
      * @param Request $request
      * @return Response
@@ -38,11 +37,12 @@ class CandidateController extends AbstractController
     {
         $user = $candidate->getUser();
         if ($this->isGranted('ROLE_ADMIN')) {
-            $curriculumVitae = new CurriculumVitae();
-            $form = $this->createForm(CurriculumVitaeType::class, $curriculumVitae);
+            $curriculumVitae = $candidate->getCurriculumVitae();
+            $newCV = new CurriculumVitae();
+            $newCV->setCandidate($candidate);
+            $form = $this->createForm(CurriculumVitaeType::class, $newCV);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
-                $user->getCandidate()->setCurriculumVitae($curriculumVitae);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->flush();
             }
@@ -50,7 +50,8 @@ class CandidateController extends AbstractController
 
         return $this->render('user/profile.html.twig', [
             'user' => $user,
-            'form' => isset($form) ? $form->createView() : null
+            'form' => isset($form) ? $form->createView() : null,
+            'cv' => $curriculumVitae ?? null
         ]);
     }
 
@@ -73,7 +74,7 @@ class CandidateController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/favoris", name="add_bookmark")
+     * @Route("/favoris/{id}", name="add_bookmark")
      * @param Offer $offer
      * @param EntityManagerInterface $entityManager
      * @return JsonResponse
@@ -92,7 +93,24 @@ class CandidateController extends AbstractController
     }
 
     /**
-     * @Route("/nouvelle_competence", name="add_skill")
+     * @Route("/favoris", name="show_bookmarks")
+     * @return Response
+     */
+    public function showBookmarks(): Response
+    {
+        $bookmarks = $this->getUser()->getCandidate()->getBookmarks();
+
+        foreach ($bookmarks as $offer) {
+            $offer->setInterval();
+        }
+
+        return $this->render('user/candidate/show_bookmarks.html.twig', [
+            'bookmarks' => $bookmarks
+        ]);
+    }
+
+    /**
+     * @Route("/competences/nouvelle", name="add_skill")
      * @param Request $request
      * @param EntityManagerInterface $entityManager
      * @return Response
@@ -116,6 +134,23 @@ class CandidateController extends AbstractController
             'form' => $form->createView(),
             'skills' => $user->getSkills(),
         ]);
+    }
+
+    /**
+     * @Route("/competences/{id}", name="delete_skill", methods={"DELETE"})
+     * @param Skill $skill
+     * @param Request $request
+     * @return Response
+     */
+    public function deleteSkill(Skill $skill, Request $request): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$skill->getId(), $request->request->get('_token'))) {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->remove($skill);
+            $manager->flush();
+        }
+
+        return $this->redirectToRoute('candidate_add_skill');
     }
 
     /**
@@ -180,7 +215,7 @@ class CandidateController extends AbstractController
     }
 
     /**
-     * @Route("/experience", name="add_experience")
+     * @Route("/experiences", name="add_experience")
      * @param Request $request
      * @return Response
      */
@@ -204,7 +239,7 @@ class CandidateController extends AbstractController
     }
 
     /**
-     * @Route("/experience/edit/{id}", name="edit_experience")
+     * @Route("/experiences/{id}/edit", name="edit_experience")
      * @param Experience $experience
      * @param Request $request
      * @return Response

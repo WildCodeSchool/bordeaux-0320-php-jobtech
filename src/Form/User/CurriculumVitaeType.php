@@ -10,14 +10,16 @@ use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class CurriculumVitaeType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('cvFile', VichFileType::class)
+            ->add('cvFile', VichFileType::class, [
+                'label' => 'Votre CV :'
+            ])
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => CurriculumVitae::class,

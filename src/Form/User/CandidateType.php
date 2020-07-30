@@ -114,7 +114,10 @@ class CandidateType extends AbstractType
     private function vehicleAndLicense(FormBuilderInterface $builder): self
     {
         $builder
-            ->add('haveVehicle', CheckboxType::class, ['label' => 'Je possède un véhicule'])
+            ->add('haveVehicle', CheckboxType::class, [
+                'label' => 'Je possède un véhicule',
+                'required' => false,
+                ])
             ->add('licenses', EntityType::class, [
                 'label' => 'Permis :',
                 'class' => License::class,
@@ -130,7 +133,10 @@ class CandidateType extends AbstractType
     private function curriculumVitae(FormBuilderInterface $builder): self
     {
         $builder
-            ->add('curriculumVitae', CurriculumVitaeType::class);
+            ->add('curriculumVitae', CurriculumVitaeType::class, [
+                'label' => 'Votre CV :'
+
+            ]);
 
         return $this;
     }

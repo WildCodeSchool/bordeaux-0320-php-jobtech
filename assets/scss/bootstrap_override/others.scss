@@ -6,3 +6,12 @@
     margin-left: unset;
     margin-right: unset;
 }
+
+.badge-primary {
+    color: #fff;
+    background-color: $secondary;
+}
+
+nav .navbar-brand img {
+    height: 50px !important;
+}

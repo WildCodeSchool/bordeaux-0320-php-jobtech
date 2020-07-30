@@ -1,4 +1,70 @@
 .scroll {
     height: 70vh;
-    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.msg-card {
+    position: relative;
+    padding: 0.5rem;
+    width: 47%;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px $grey;
+
+    .card-title {
+        font-size: 1rem;
+        background: $greyLight;
+        padding: 5px 4px;
+        border-radius: 5px;
+        border: 1px solid $grey;
+    }
+
+    .right {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+    }
+
+    &.align-self-end {
+        margin-right: 10px;
+    }
+
+    p {
+        font-size: 1.05rem;
+    }
+}
+
+table {
+    &.table-exp {
+        margin-top: 10px;
+        border-radius: 5px 0 0 0;
+
+        .notification {
+            float: right;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            vertical-align: center;
+            border-radius: 200px;
+            background: $red;
+            border: 1px solid $primary;
+        }
+    }
+
+    tr {
+        &.contact-box {
+            &:hover {
+                cursor: pointer;
+            }
+
+            .contact-line {
+                .small {
+                    font-weight: normal;
+                    font-size: 0.8rem;
+                    font-style: italic;
+                }
+            }
+        }
+    }
 }

@@ -1,2 +1,2 @@
 logout:
-    path: /logout
+    path: /deconnexion

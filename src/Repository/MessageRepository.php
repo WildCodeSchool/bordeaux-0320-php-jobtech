@@ -2,8 +2,14 @@
 
 namespace App\Repository;
 
+use App\Entity\Candidate;
+use App\Entity\Company;
+use App\Entity\Gender;
 use App\Entity\Message;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\GroupBy;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,32 +25,52 @@ class MessageRepository extends ServiceEntityRepository
         parent::__construct($registry, Message::class);
     }
 
-    // /**
-    //  * @return Message[] Returns an array of Message objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getAllContactCandidate()
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
+            ->select('u.id')
+            ->addSelect('c.surname surname')
+            ->addSelect('c.firstName firstName')
+            ->addSelect('g.acronym gender')
+            ->addSelect('SUM(m.isNew) news')
+            ->join(User::class, 'u', Join::WITH, 'u.id = m.contact')
+            ->join(Candidate::class, 'c', Join::WITH, 'c.id = u.candidate')
+            ->join(Gender::class, 'g', Join::WITH, 'g.id = c.gender')
+            ->where('u.candidate IS NOT NULL')
+            ->andWhere('m.isToContact = :status')
+            ->setParameter('status', false)
+            ->orderBy('surname', 'ASC')
+            ->groupBy('m.contact')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Message
+    public function getAllContactCompanies()
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
+            ->select('u.id')
+            ->addSelect('c.name name')
+            ->addSelect('SUM(m.isNew) news')
+            ->join(User::class, 'u', Join::WITH, 'u.id = m.contact')
+            ->join(Company::class, 'c', Join::WITH, 'c.id = u.company')
+            ->where('u.company IS NOT NULL')
+            ->andWhere('m.isToContact = :status')
+            ->setParameter('status', false)
+            ->orderBy('name', 'ASC')
+            ->groupBy('m.contact')
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
+
+    public function resetNew(User $user)
+    {
+        return $this->createQueryBuilder('m')
+            ->update('App\Entity\Message', 'm')
+            ->set('m.isNew', ':status')
+            ->setParameter(':status', false)
+            ->where('m.contact = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->execute();
+    }
 }

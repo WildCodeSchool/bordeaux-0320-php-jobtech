@@ -11,12 +11,12 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class ExportCsvController
  * @package App\Controller
- * @Route ("/csv", name="csv_")
+ * @Route ("/admin/csv", name="csv_")
  */
 class ExportCsvController extends AbstractController
 {
     /**
-     * @Route("/candidates", name="candidates")
+     * @Route("/candidats", name="candidates")
      * @param UserRepository $userRepository
      * @param CsvManager $csvExport
      */
@@ -28,7 +28,7 @@ class ExportCsvController extends AbstractController
     }
 
     /**
-     * @Route("companies", name="companies")
+     * @Route("entreprises", name="companies")
      * @param UserRepository $userRepository
      * @param CsvManager $csvExport
      */

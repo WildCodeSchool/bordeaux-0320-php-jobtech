@@ -3,35 +3,32 @@
 {% block title 'Se connecter' %}
 
 {% block body %}
-    <div class="container">
-        <form method="post">
+    <div class="offer-list">
+        <section class="jumbotron d-flex flex-column align-items-center justify-content-center">
+            <h1>Connectez-vous</h1>
+            <img src="{{ vich_uploader_asset(image, 'imageFile') }}" alt="login image" class="img-offer-list">
+        </section>
+
+        <form method="post" class="">
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
-
-            <h1>Connectez-vous</h1>
-            <label for="inputEmail">Email</label>
-            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" required autofocus>
-            <label for="inputPassword">Mot de passe</label>
-            <input type="password" name="password" id="inputPassword" required>
-
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-            {#
-                Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                See https://symfony.com/doc/current/security/remember_me.html
-
-                <div class="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" name="_remember_me"> Remember me
-                    </label>
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <div class="d-flex flex-column mb-2 w-25">
+                    <label for="inputEmail" class="w-50">Email :</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" required autofocus>
                 </div>
-            #}
+                <div class="d-flex flex-column w-25">
+                    <label for="inputPassword" class="w-75">Mot de passe :</label>
+                    <input type="password" name="password" id="inputPassword" required class="mb-5">
+                </div>
 
-            <button class="btn btn-lg btn-primary" type="submit">
-                Se connecter
-            </button>
+            </div>
+            <div class="d-flex justify-content-center mb-5">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <a class="btn btn-primary ml-5 mr-5" href="{{ path('forgot_password_request') }}">Mot de passe oublié</a>
+                <button class="btn btn-primary ml-5 mr-5" type="submit">Se connecter</button>
+            </div>
         </form>
     </div>
-
 {% endblock %}

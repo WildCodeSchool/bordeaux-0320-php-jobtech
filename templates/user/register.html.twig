@@ -9,12 +9,21 @@
             <div class="col-md-9">
                 <h1>Créer mon compte</h1>
 
+                {% if action == constant('App\\Form\\User\\UserType::CREATE_CANDIDATE') %}
+                    <div>
+                        {{ form_widget(register.candidate.curriculumVitae) }}
+                        <div class="d-flex justify-content-end mb-5">
+                            <p>Vous n'avez pas encore de CV ? <a href="{{ link.content }}" target="_blank" class="">Créez-en un !</a></p>
+                        </div>
+
+                    </div>
+                {% endif %}
                 <div class="row justify-content-between">
                     {{ form_row(register.email) }}
                     {{ form_row(register.plainPassword.first) }}
                     {{ form_row(register.plainPassword.second) }}
                 </div>
-                {% if action == 'create_candidate' %}
+                {% if action == constant('App\\Form\\User\\UserType::CREATE_CANDIDATE') %}
                     <div class="row justify-content-between">
                         <p>J'autorise à me contacter</p>
                         {{ form_row(register.candidate.isContactableEmail) }}
@@ -36,9 +45,10 @@
                         {{ form_row(register.candidate.phoneNumber) }}
                         {{ form_row(register.candidate.otherNumber) }}
                     </div>
-        {{ form_row(register.candidate.isHandicapped) }}
-                {% elseif action == 'create_company' %}
+                    {{ form_row(register.candidate.isHandicapped) }}
+                {% elseif action == constant('App\\Form\\User\\UserType::CREATE_COMPANY') %}
                     {{ form_row(register.company.name) }}
+                    {{ form_row(register.company.siret) }}
                     <h2>Information de l'entreprise</h2>
                     {{ form_row(register.company.address) }}
                     <div class="row justify-content-between">
@@ -47,42 +57,39 @@
                         {{ form_row(register.company.city) }}
                     </div>
                     <h2>Contact</h2>
-                    {% for contact in register.company.contacts %}
                         <div class="row justify-content-between">
-                            {{ form_row(contact.gender) }}
-                            {{ form_row(contact.surname) }}
-                            {{ form_row(contact.firstName) }}
+                            {{ form_row(register.company.contact.gender) }}
+                            {{ form_row(register.company.contact.surname) }}
+                            {{ form_row(register.company.contact.firstName) }}
                         </div>
                         <div class="row justify-content-between">
-                            {{ form_row(contact.email) }}
-                            {{ form_row(contact.job) }}
-                            {{ form_row(contact.phoneNumber) }}
+                            {{ form_row(register.company.contact.email) }}
+                            {{ form_row(register.company.contact.job) }}
+                            {{ form_row(register.company.contact.phoneNumber) }}
                         </div>
-                    {% endfor %}
                 {% endif %}
             </div>
             <div class="col-2 offset-1 d-none d-md-block">
-                {% if action == 'create_candidate' %}
-                    <img src="{{ asset('build/images/unDraw/register_candidate.svg') }}">
-                {% elseif action == 'create_company' %}
-                    <img src="{{ asset('build/images/unDraw/register_company.svg') }}">
-                {% endif %}
+                <img src="{{ vich_uploader_asset(image, 'imageFile') }}" class="mt-5" alt="Image de l'inscription">
             </div>
         </div>
 
-        {% if action == 'create_candidate' %}
-        {{ form_row(register.candidate.isHandicapped) }}
+        {% if action == constant('App\\Form\\User\\UserType::CREATE_CANDIDATE') %}
+            {{ form_row(register.candidate.isHandicapped) }}
         {% endif %}
-        {{ form_row(register.agreeTerms) }}
-        <p class="rgdp w-75">
+        <div class="pl-3 pr-3">
+            {{ form_label(register.agreeTerms) }}
+            {{ form_widget(register.agreeTerms) }}
+        </div>
+        <p class="rgdp w-75 ml-3">
             Conformément à la loi "informatique & libertés" de 1978 modifiée, Vous bénéficiez notamment d'un droit
             d'accès, de rectification et de suppression des données vous concernant que vous pouvez exercer via la
             rubrique Droits d'accès.
         </p>
-        <div class="row">
-            {% if action == 'create_candidate' %}
+        <div class="row justify-content-end">
+            {% if action == constant('App\\Form\\User\\UserType::CREATE_CANDIDATE') %}
                 <button type="submit" class="btn btn-primary align-self-end">Créer mon compte Candidat</button>
-            {% elseif action == 'create_company' %}
+            {% elseif action == constant('App\\Form\\User\\UserType::CREATE_COMPANY') %}
                 <button type="submit" class="btn btn-primary align-self-end">Créer mon compte Entreprise</button>
             {% endif %}
         </div>

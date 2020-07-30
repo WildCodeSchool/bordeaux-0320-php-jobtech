@@ -256,9 +256,9 @@ class User implements UserInterface
     }
 
     /**
-     * @return Company
+     * @return Company|null
      */
-    public function getCompany(): Company
+    public function getCompany(): ?Company
     {
         return $this->company;
     }
