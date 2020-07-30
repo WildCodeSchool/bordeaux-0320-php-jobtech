@@ -1,6 +1,12 @@
-# Project 3 - Starter Kit - Symfony 4.4.*
+# JobTech
 
-## Getting Started for Projects
+## Project developed by Wilders
+### Authors
+
+- [Adadain Quentin](https://www.linkedin.com/in/quentinadadain/)
+- [Ardilouze Thimothée](https://www.linkedin.com/in/timothee-ardilouze/)
+- [Dureau Ludovic](https://www.linkedin.com/in/ludovicdureau/)
+- [Erpeldinger Guillaume](https://www.linkedin.com/in/guillaumeerpeldinger/)
 
 ### Prerequisites
 
@@ -52,13 +58,6 @@ Add additional notes about how to deploy this on a live system
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
-## Versioning
-
-
-## Authors
-
-Wild Code School trainers team
-
 ## License
 
 MIT License
@@ -85,3 +84,4 @@ SOFTWARE.
 
 ## Acknowledgments
 
+[Wild Code School](http://wildcodeschool.com)
