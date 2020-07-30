@@ -31,9 +31,9 @@ class MessageType extends AbstractType
                     'choice_label' => static function (User $user) {
                         if ($user->getCandidate() !== null) {
                             return $user->getCandidate()->getFullName();
-                        } else {
-                            return $user->getCompany()->getName();
                         }
+
+                        return $user->getCompany()->getName();
                     }
                 ]);
         }

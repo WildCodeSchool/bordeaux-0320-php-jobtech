@@ -2,7 +2,7 @@
 
 {% block body %}
     <div class="index">
-        <img src="{{ vich_uploader_asset(image, 'imageFile') }}" class="img-top-index" alt="Image de new york">
+        <img src="{{ vich_uploader_asset(index, 'imageFile') }}" class="img-top-index" alt="Image de new york">
         <section class="w-100 pt-5 pb-5 jumbotron">
             <div class="d-flex align-items-center justify-content-center container">
                 <p class="col-12 col-lg-8 font-weight-bolder">
@@ -16,7 +16,7 @@
                     Nos services vous informent et conseillent également sur les
                     conditions de travail.
                 </p>
-                <img src="{{ asset('build/images/unDraw/index_1.svg') }}" alt="" class="img-index col-lg-4 d-none d-lg-block">
+                <img src="{{ vich_uploader_asset(index_desc, 'imageFile') }}" alt="" class="img-index col-lg-4 d-none d-lg-block">
             </div>
         </section>
 
@@ -26,7 +26,7 @@
 
         <section class="container mt-3">
             <div class="d-flex align-items-center">
-                <img src="{{ asset('build/images/unDraw/index_2.svg') }}" alt="" class="img-index col-lg-3 d-none d-lg-block">
+                <img src="{{ vich_uploader_asset(index_sector, 'imageFile') }}" alt="" class="img-index col-lg-3 d-none d-lg-block">
                 <div class="text-center col-12 col-lg-9">
                     <h1 class="ml-5 pt-3">Nos secteurs qui recrutent</h1>
                     <div class="row justify-content-center row-cols-2 row-cols-md-4 row-cols-lg-5">
