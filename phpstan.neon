@@ -23,4 +23,5 @@ parameters:
         - '#Parameter \#1 \$user of method Symfony\\Component\\Security\\Core\\Encoder\\UserPasswordEncoderInterface::encodePassword\(\) expects Symfony\\Component\\Security\\Core\\User\\UserInterface, object given\.#'
         - '#Call to an undefined method object::setPassword\(\)\.#'
         - '#Call to an undefined method object::getEmail\(\)\.#'
+        - '#Variable \$image might not be defined\.#'
     reportUnmatchedIgnoredErrors: false

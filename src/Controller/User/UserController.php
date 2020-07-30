@@ -2,10 +2,9 @@
 
 namespace App\Controller\User;
 
-use App\Entity\Company;
-use App\Entity\Contact;
 use App\Entity\CurriculumVitae;
 use App\Entity\Image;
+use App\Entity\Link;
 use App\Entity\User;
 use App\Form\User\CandidateType;
 use App\Form\User\CurriculumVitaeType;
@@ -103,7 +102,11 @@ class UserController extends AbstractController
         }
 
         $user = new User();
-        $image = Image::REGISTER_CANDIDATE['identifier'];
+        if ($action === UserType::CREATE_CANDIDATE) {
+            $image = Image::REGISTER_CANDIDATE['identifier'];
+            $linkRepository = $this->getDoctrine()->getRepository(Link::class);
+            $link = $linkRepository->findOneBy(['identifier' => Link::CREATE_CV['identifier']]);
+        }
         if ($action === UserType::CREATE_COMPANY) {
             $image = Image::REGISTER_COMPANY['identifier'];
         }
@@ -138,7 +141,8 @@ class UserController extends AbstractController
         return $this->render('user/register.html.twig', [
             'register' => $form->createView(),
             'action' => $action,
-            'image' => $imageRepository->findOneBy(['identifier' => $image])
+            'image' => $imageRepository->findOneBy(['identifier' => $image]),
+            'link' => $link ?? null
         ]);
     }
 

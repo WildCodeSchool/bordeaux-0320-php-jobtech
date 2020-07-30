@@ -23,7 +23,7 @@ class CompanyType extends AbstractType
         $this->restCountries = $restCountries;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         if ($options['action'] === UserType::CREATE_COMPANY) {
             $this->companyInformations($builder);
@@ -35,7 +35,7 @@ class CompanyType extends AbstractType
         }
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Company::class,

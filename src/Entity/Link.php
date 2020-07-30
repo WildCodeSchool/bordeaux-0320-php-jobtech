@@ -10,6 +10,19 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Link
 {
+    public const LINKEDIN = [
+        'identifier' => 'linkedin',
+        'content' => 'https://www.linkedin.com/company/job-tech-fr/about/'
+    ];
+    public const CONTACT = [
+        'identifier' => 'contact',
+        'content' => 'contact@jobtech.com'
+    ];
+    public const CREATE_CV = [
+        'identifier' => 'create_cv',
+        'content' => 'https://cvdesignr.com/fr'
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

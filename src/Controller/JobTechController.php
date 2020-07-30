@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Content;
 use App\Entity\Image;
+use App\Entity\Link;
 use App\Form\ContentType;
 use App\Repository\ImageRepository;
 use App\Repository\JobCategoryRepository;
@@ -94,8 +95,8 @@ class JobTechController extends AbstractController
      */
     public function footer(LinkRepository $linkRepository): Response
     {
-        $contact = $linkRepository->findOneBy(['identifier' => 'contact']);
-        $linkedIn = $linkRepository->findOneBy(['identifier' => 'linkedin']);
+        $contact = $linkRepository->findOneBy(['identifier' => Link::CONTACT['identifier']]);
+        $linkedIn = $linkRepository->findOneBy(['identifier' => Link::LINKEDIN['identifier']]);
 
         return $this->render('components/_footer.html.twig', [
             'contact' => $contact->getContent(),
