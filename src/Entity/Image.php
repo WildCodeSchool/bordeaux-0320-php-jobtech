@@ -17,8 +17,57 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class Image
 {
     public const INDEX = [
+        'title' => 'Index',
         'identifier' => 'index',
         'image' => 'index.jpg'
+    ];
+
+    public const INDEX_DESC = [
+        'title' => 'Index description',
+        'identifier' => 'index_desc',
+        'image' => 'index_desc.png'
+    ];
+
+    public const INDEX_SECTOR = [
+        'title' => 'Index secteur',
+        'identifier' => 'index_sector',
+        'image' => 'index_sector.png'
+    ];
+
+    public const LOGIN = [
+        'title' => 'Connexion',
+        'identifier' => 'login',
+        'image' => 'login.png'
+    ];
+
+    public const MESSAGING = [
+        'title' => 'Messagerie',
+        'identifier' => 'messaging',
+        'image' => 'messaging.png'
+    ];
+
+    public const OFFER_LIST = [
+        'title' => 'Liste des offres',
+        'identifier' => 'offer_list',
+        'image' => 'offer_list.png'
+    ];
+
+    public const OFFER_NEW = [
+        'title' => 'Nouvelle offre',
+        'identifier' => 'offer_new',
+        'image' => 'offer_new.png'
+    ];
+
+    public const REGISTER_CANDIDATE = [
+        'title' => 'Enregistrement Candidat',
+        'identifier' => 'register_candidate',
+        'image' => 'register_candidate.png'
+    ];
+
+    public const REGISTER_COMPANY = [
+        'title' => 'Enregistrement Entreprise',
+        'identifier' => 'register_company',
+        'image' => 'register_company.png'
     ];
 
     /**
@@ -27,6 +76,11 @@ class Image
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=45)
+     */
+    private $title;
 
     /**
      * @ORM\Column(type="string", length=45)
@@ -53,6 +107,18 @@ class Image
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
     }
 
     public function getIdentifier(): ?string

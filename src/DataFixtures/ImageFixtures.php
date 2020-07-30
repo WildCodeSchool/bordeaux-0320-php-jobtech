@@ -8,13 +8,22 @@ use Doctrine\Persistence\ObjectManager;
 
 class ImageFixtures extends Fixture
 {
+    private const IMAGES = [
+        Image::INDEX, Image::INDEX_DESC, Image::INDEX_SECTOR, Image::LOGIN, Image::MESSAGING, Image::OFFER_LIST,
+        Image::OFFER_NEW, Image::REGISTER_CANDIDATE, Image::REGISTER_COMPANY
+    ];
+
     public function load(ObjectManager $manager): void
     {
-        $image = new Image();
-        $image
-            ->setIdentifier(Image::INDEX['identifier'])
-            ->setImage(Image::INDEX['image']);
-        $manager->persist($image);
+        foreach (self::IMAGES as $image) {
+            $newImage = new Image();
+            $newImage
+                ->setTitle($image['title'])
+                ->setIdentifier($image['identifier'])
+                ->setImage($image['image']);
+            $manager->persist($newImage);
+        }
+
         $manager->flush();
     }
 }

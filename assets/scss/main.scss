@@ -112,6 +112,10 @@ main {
     &-grey {
         background-color: $grey;
     }
+
+    &-light-grey {
+        background-color: $greyLight;
+    }
 }
 
 .hover {

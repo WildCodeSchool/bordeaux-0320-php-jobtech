@@ -51,11 +51,13 @@
              {% if messages is defined %}
             <div class="scroll">
                 <div class="d-flex flex-column">
-                 {% include 'components/_messagerie.html.twig' %}
+                 {% include 'messages/components/_messagerie.html.twig' %}
                 </div>
             </div>
             {% else %}
-                 <p>Messagerie Accueil</p>
+                <div class="d-flex justify-content-center align-items-center h-100">
+                    <img src="{{ vich_uploader_asset(image, 'imageFile') }}" width="auto" height="auto" />
+                </div>
             {% endif %}
         </div>
     </div>

@@ -1,0 +1,24 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block page_title 'Édition des images' %}
+
+{% block page_content %}
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <figure class="mt-4">
+                <img src="{{ vich_uploader_asset(image, 'imageFile') }}" alt="Image en haut de l'index" width="100%" height="auto">
+                <figcaption class="bg-dark text-center text-white">Taille recommandée : 1500px de largeur par 350px de hauteur.</figcaption>
+            </figure>
+        </div>
+
+        {{ form_start(form) }}
+        {{ form_widget(form.imageFile) }}
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-primary mt-3 ml-3">Modifier</button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+
+    {{ encore_entry_script_tags('uploader') }}
+{% endblock %}
+

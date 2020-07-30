@@ -5,20 +5,6 @@
 {% block page_content %}
     <div class="container">
         <div>
-            <h1>Image de la page d'accueil</h1>
-            <figure class="mt-4">
-                <img src="{{ vich_uploader_asset(imageIndex, 'imageFile') }}" alt="Image en haut de l'index" width="100%" height="auto">
-                <figcaption class="bg-dark text-center text-white">Taille recommandée : 1500px de largeur par 350px de hauteur.</figcaption>
-            </figure>
-            {{ form_start(form) }}
-            {{ form_widget(form.imageFile) }}
-            <div class="d-flex justify-content-end">
-                <button class="btn btn-primary mt-3">Modifier</button>
-            </div>
-            {{ form_end(form) }}
-        </div>
-
-        <div>
             <h1>Exporter les utilisateurs</h1>
             <div class="d-flex flex-column ml-5">
                 <a href="{{ path('csv_candidates') }}" download="candidats_{{ "now"|date("d_m_Y") }}.csv">- <i class="fas fa-file-download"></i> Exporter les candidats</a>
@@ -26,6 +12,4 @@
             </div>
         </div>
     </div>
-
-    {{ encore_entry_script_tags('uploader') }}
 {% endblock %}

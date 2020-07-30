@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\Message;
 use App\Entity\User;
 use App\Form\MessageType;
+use App\Repository\ImageRepository;
 use App\Repository\MessageRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -64,15 +66,17 @@ class MessageController extends AbstractController
     /**
      * @Route("/admin/", name="admin_inbox")
      * @param MessageRepository $messageRepository
+     * @param ImageRepository $imageRepository
      * @return Response
      */
-    public function adminInbox(MessageRepository $messageRepository): Response
+    public function adminInbox(MessageRepository $messageRepository, ImageRepository $imageRepository): Response
     {
         $candidates = $messageRepository->getAllContactCandidate();
         $companies  = $messageRepository->getAllContactCompanies();
         return $this->render('messages/admin_inbox.html.twig', [
             'candidates' => $candidates,
             'companies'  => $companies,
+            'image' => $imageRepository->findOneBy(['identifier' => Image::MESSAGING['identifier']])
         ]);
     }
     /**

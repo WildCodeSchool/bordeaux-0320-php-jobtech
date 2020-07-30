@@ -5,10 +5,12 @@ namespace App\Controller\User;
 use App\Entity\Company;
 use App\Entity\Contact;
 use App\Entity\CurriculumVitae;
+use App\Entity\Image;
 use App\Entity\User;
 use App\Form\User\CandidateType;
 use App\Form\User\CurriculumVitaeType;
 use App\Form\User\UserType;
+use App\Repository\ImageRepository;
 use App\Security\UserAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -83,6 +85,7 @@ class UserController extends AbstractController
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param GuardAuthenticatorHandler $guardHandler
      * @param UserAuthenticator $authenticator
+     * @param ImageRepository $imageRepository
      * @param string $action
      * Action is a parameter to select the type of user to be created.
      * @return Response
@@ -92,6 +95,7 @@ class UserController extends AbstractController
         UserPasswordEncoderInterface $passwordEncoder,
         GuardAuthenticatorHandler $guardHandler,
         UserAuthenticator $authenticator,
+        ImageRepository $imageRepository,
         string $action
     ): ?Response {
         if ($this->getUser()) {
@@ -99,6 +103,11 @@ class UserController extends AbstractController
         }
 
         $user = new User();
+        $image = Image::REGISTER_CANDIDATE['identifier'];
+        if ($action === UserType::CREATE_COMPANY) {
+            $image = Image::REGISTER_COMPANY['identifier'];
+        }
+
         $form = $this->createForm(UserType::class, $user, ['action' => $action]);
         $form->handleRequest($request);
 
@@ -129,15 +138,17 @@ class UserController extends AbstractController
         return $this->render('user/register.html.twig', [
             'register' => $form->createView(),
             'action' => $action,
+            'image' => $imageRepository->findOneBy(['identifier' => $image])
         ]);
     }
 
     /**
      * @Route("/connexion", name="login")
      * @param AuthenticationUtils $authenticationUtils
+     * @param ImageRepository $imageRepository
      * @return Response
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils, ImageRepository $imageRepository): Response
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('index');
@@ -148,6 +159,10 @@ class UserController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('user/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('user/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error,
+            'image' => $imageRepository->findOneBy(['identifier' => Image::LOGIN['identifier']])
+        ]);
     }
 }

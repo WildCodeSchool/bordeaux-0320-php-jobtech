@@ -4,10 +4,12 @@
 namespace App\Controller;
 
 use App\Entity\Apply;
+use App\Entity\Image;
 use App\Entity\Offer;
 use App\Entity\Search\OfferSearch;
 use App\Form\OfferType;
 use App\Form\SearchOfferType;
+use App\Repository\ImageRepository;
 use App\Repository\OfferRepository;
 use App\Service\Paginator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,10 +30,15 @@ class OfferController extends AbstractController
      * @param OfferRepository $offerRepository
      * @param Request $request
      * @param Paginator $paginator
+     * @param ImageRepository $imageRepository
      * @return Response
      */
-    public function list(OfferRepository $offerRepository, Request $request, Paginator $paginator): Response
-    {
+    public function list(
+        OfferRepository $offerRepository,
+        Request $request,
+        Paginator $paginator,
+        ImageRepository $imageRepository
+    ): Response {
         $offers = $offerRepository->findAllOffersAndAddInterval(['postedAt'=>'DESC']);
 
         if (!$offers) {
@@ -54,6 +61,7 @@ class OfferController extends AbstractController
             'offers' => $offers,
             'nb_offers' => $offerRepository->getTotalOfOffers(),
             'form'   => $form->createView(),
+            'image' => $imageRepository->findOneBy(['identifier' => Image::OFFER_LIST['identifier']])
         ]);
     }
 
@@ -61,10 +69,14 @@ class OfferController extends AbstractController
      * @Route("/entreprise/offres/nouvelle", name="new")
      * @param Request $request
      * @param EntityManagerInterface $entityManager
+     * @param ImageRepository $imageRepository
      * @return Response
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
+    public function new(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        ImageRepository $imageRepository
+    ): Response {
         if ($this->getUser()->getIsActive() === false) {
             return $this->redirectToRoute('index');
         }
@@ -84,6 +96,7 @@ class OfferController extends AbstractController
 
         return $this->render('offer/form.html.twig', [
             'offer' => $form->createView(),
+            'image' => $imageRepository->findOneBy(['identifier' => Image::OFFER_NEW['identifier']])
         ]);
     }
 

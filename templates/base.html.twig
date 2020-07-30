@@ -27,9 +27,11 @@
 </main>
 
 {% block footer %}
-    {{ render(controller(
-        'App\\Controller\\JobTechController::footer'
-    )) }}
+    <div class="bg-light-grey">
+        {{ render(controller(
+            'App\\Controller\\JobTechController::footer'
+        )) }}
+    </div>
 {% endblock %}
 
 {% block javascript %}

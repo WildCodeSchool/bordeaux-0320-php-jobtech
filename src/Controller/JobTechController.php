@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Content;
+use App\Entity\Image;
 use App\Form\ContentType;
 use App\Repository\ImageRepository;
 use App\Repository\JobCategoryRepository;
@@ -40,7 +41,9 @@ class JobTechController extends AbstractController
             'job_categories' => $jobCategoryRepo->getJobCategoryWithOffersNb(self::MAX_JOB_CATEGORY_IN_INDEX),
             'actualities' => $newsRepository->findBy([], ['postedAt' => 'DESC'], self::MAX_NEWS_IN_CAROUSEL),
             'offers' => $offerRepository->findAllOffersAndAddInterval(['postedAt' => 'DESC'], self::MAX_OFFER_IN_INDEX),
-            'image' => $imageRepository->findOneBy(['identifier' => 'index'])
+            'index' => $imageRepository->findOneBy(['identifier' => 'index']),
+            'index_desc' => $imageRepository->findOneBy(['identifier' => Image::INDEX_DESC['identifier']]),
+            'index_sector' => $imageRepository->findOneBy(['identifier' => Image::INDEX_SECTOR['identifier']])
         ]);
     }
 
